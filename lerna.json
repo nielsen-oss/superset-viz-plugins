@@ -1,0 +1,24 @@
+{
+  "npmClient": "yarn",
+  "packages": [
+    "packages/*",
+    "plugins/*"
+  ],
+  "useWorkspaces": true,
+  "version": "independent",
+  "ignoreChanges": [
+    "**/*.md",
+    "**/*.spec.tsx?",
+    "**/*.spec.jsx?",
+    "**/__mocks__/**"
+  ],
+  "command": {
+    "publish": {
+      "conventionalCommits": true
+    },
+    "version": {
+      "message": "chore: publish %s",
+      "exact": true
+    }
+  }
+}

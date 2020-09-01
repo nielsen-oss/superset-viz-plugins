@@ -1,0 +1,39 @@
+{
+  "name": "@superset-maf-ui/test-chart",
+  "version": "0.0.0",
+  "description": "MAF Superset Test Chart",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "src/index.tsx",
+  "scripts": {
+    "build": "BABEL_ENV=production babel src -d dist --verbose --extensions \".ts,.tsx,.js,.jsx \" --ignore \"src/**/*.test.tsx\",\"src/*.test.js\",\"src/**/*.mock.js\",\"src/**/*.stories.tsx\",\"src/**/__stories__/*\",\"src/**/__mocks__/*\",\"src/**/__tests__/*\"",
+    "build:types": "tsc -d --declarationDir ./dist/typings --emitDeclarationOnly",
+    "dist": "yarn build && yarn build:types"
+  },
+  "files": [
+    "esm",
+    "lib",
+    "types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui.git"
+  },
+  "keywords": [
+    "superset"
+  ],
+  "author": "maf",
+  "bugs": {
+    "url": "https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/issues"
+  },
+  "homepage": "https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "^16.2",
+    "react-dom": "^16.2"
+  }
+}
