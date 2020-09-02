@@ -15,6 +15,9 @@
       // "noEmit": true,
       "jsx": "react"
     },
-    "include": ["src"]
+    "include": [
+      "./packages/**/src",
+      "./plugins/**/src",
+    ]
   }
   
