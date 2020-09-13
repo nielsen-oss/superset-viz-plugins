@@ -61,4 +61,6 @@ typings/
 
 # Packages build
 packages/*/dist
+packages/*/esm
 plugins/*/dist
+plugins/*/esm

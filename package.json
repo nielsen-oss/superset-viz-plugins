@@ -3,9 +3,10 @@
   "description": "Superset MAF UI",
   "private": true,
   "scripts": {
-    "build": "lerna run build:prod",
+    "build": "lerna run build:prod && lerna run build:esm",
+    "build:assets": "node ./scripts/copyAssets.js",
     "sb": "yarn storybook",
-    "clean": "rm -rf ./{packages,plugins}/**/{lib,esm,tsconfig.tsbuildinfo} build/",
+    "clean": "rm -rf ./{packages,plugins}/**/{dist,esm,tsconfig.tsbuildinfo} build/",
     "format": "lerna exec prettier --write",
     "lint": "lerna exec eslint",
     "lint:fix": "lerna exec eslint --fix",
@@ -13,7 +14,7 @@
     "test": "lerna exec jest --coverage --verbose",
     "test:watch": "yarn lint:fix && yarn jest --watch",
     "prepare-release": "git checkout master && git pull --rebase origin master && yarn install && yarn test",
-    "prerelease": "yarn build",
+    "prerelease": "yarn build && yarn build:assets",
     "pretest": "yarn lint",
     "release": "yarn prepare-release && lerna publish && yarn postrelease",
     "commit": "npx git-cz"
