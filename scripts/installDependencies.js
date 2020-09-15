@@ -1,11 +1,13 @@
 #!/bin/env node
 /* eslint-disable no-console */
 const fg = require('fast-glob');
+const fs = require('fs-extra');
 var child_process = require('child_process');
 
-async function installPackages(packages) {
+async function installPlugins(packages) {
   for (const pkg of packages) {
-    child_process.execSync(`npm install ${pkg.replace('plugins/', '@superset-maf-ui/')}`, { stdio: [0, 1, 2] });
+    const packageJson = fs.readJsonSync(`${pkg}/package.json`)
+    child_process.execSync(`npm install ${packageJson.name}`, { stdio: [0, 1, 2] });
   }
 }
 
@@ -15,4 +17,4 @@ const packages = fg.sync([`plugins/${pkgGlob}`], {
   onlyDirectories: true,
 });
 
-installPackages(packages);
+installPlugins(packages);

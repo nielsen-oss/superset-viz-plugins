@@ -1,7 +1,8 @@
 {
   "name": "@superset-maf-ui/plugin-chart-bar",
   "version": "0.0.0",
-  "description": "Superset Chart - Bar",
+  "description": "MAF Chart - Bar",
+  "pluginName": "BarChartPlugin",
   "main": "dist/index.js",
   "module": "esm/index.js",
   "files": [

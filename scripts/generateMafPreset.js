@@ -7,10 +7,9 @@ const buildStringFromPackage = async packages => {
   let importStringToWrite = '',
     pluginsStringToWrite = '';
   for (const pkg of packages) {
-    const data = await fs.readFile(`./${pkg}/src/index.ts`, 'utf8');
-    const pluginName = data.split('export { default as ')[1].split(' ')[0];
-    importStringToWrite += `import {${pluginName}} from '${pkg.replace('plugins/', '@superset-maf-ui/')}';`;
-    pluginsStringToWrite += `new ${pluginName}().configure({ key: '${pkg.replace('plugins/', '')}' }),`;
+    const packageJson = fs.readJsonSync(`${pkg}/package.json`);
+    importStringToWrite += `import { ${packageJson.pluginName} } from '${packageJson.name}';`;
+    pluginsStringToWrite += `new ${packageJson.pluginName}().configure({ key: '${packageJson.pluginName}' }),`;
   }
 
   return { importStringToWrite, pluginsStringToWrite };
@@ -45,6 +44,8 @@ export default class MafPreset extends Preset {
 
   // With a callback:
   fs.outputFile(file, stringToWrite, err => {
-    console.log(err); // => null
+    if (err) {
+      console.log(err);
+    }
   });
 });
