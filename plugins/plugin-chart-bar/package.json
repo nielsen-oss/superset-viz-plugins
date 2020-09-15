@@ -10,7 +10,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage --verbose",
     "tdd": "NODE_ENV=test jest --watch",
     "build": "NODE_ENV=development webpack --mode=development --colors",
     "build:watch": "NODE_ENV=development webpack --mode=development --colors --watch",
