@@ -11,7 +11,7 @@
     "lint": "lerna exec eslint",
     "lint:fix": "lerna exec eslint --fix",
     "prettier": "lerna exec prettier",
-    "test": "lerna exec jest --coverage --verbose",
+    "test": "lerna run test --since master",
     "test:watch": "yarn lint:fix && yarn jest --watch",
     "prepare-release": "git checkout master && git pull --rebase origin master && yarn install && yarn test",
     "prerelease": "yarn build && yarn build:assets",

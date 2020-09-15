@@ -1,3 +1,9 @@
+image: node:12.16.2
+cache:
+  paths:
+    - node_modules/
+    - .yarn
+
 variables:
   KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: ci-pipeline-maf
 
@@ -10,20 +16,18 @@ stages:
 
 testpr:
   stage: testpr
-  image: node:12.14.0
   tags:
     - cicd-runner-maf
   script:
-    - echo "this is merge requests test"
+    - yarn test
   only:
     - merge_requests
 
 deploy_prod:
   stage: deploy
-  image: node:12.14.0
   tags:
     - cicd-runner-maf
   script:
-    # - lerna publish from-package --yes
+    # - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes
   only:
     - master
