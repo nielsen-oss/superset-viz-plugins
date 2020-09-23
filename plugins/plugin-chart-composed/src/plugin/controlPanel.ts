@@ -23,6 +23,14 @@ import {
   formatSelectOptions,
   D3_FORMAT_OPTIONS,
 } from '@superset-ui/chart-controls';
+import {
+  CHART_TYPES,
+  CHART_TYPE_NAMES,
+  CHART_TYPES,
+  CHART_SUB_TYPES,
+  CHART_SUB_TYPE_NAMES,
+} from '../components/utils';
+import { sharedControls } from '@superset-ui/chart-controls/lib';
 
 export const stackedBars = {
   name: 'stacked_bars',
@@ -71,6 +79,90 @@ export const xAxisTickLabelAngle = {
   },
 };
 
+export const chartType = {
+  name: 'chart_type',
+  config: {
+    label: t('Chart type'),
+    clearable: false,
+    renderTrigger: true,
+    type: 'SelectControl',
+    options: Object.keys(CHART_TYPES).map(key => ({
+      value: key,
+      label: CHART_TYPE_NAMES[key],
+    })),
+    default: CHART_TYPES.BAR_CHART,
+    description: t('Set type of chart'),
+  },
+};
+
+export const barChartSubType = {
+  name: 'bar_chart_sub_type',
+  config: {
+    label: t('Chart subtype'),
+    clearable: false,
+    renderTrigger: true,
+    type: 'SelectControl',
+    options: Object.keys(CHART_SUB_TYPE_NAMES[CHART_TYPES.BAR_CHART]).map(key => ({
+      value: key,
+      label: CHART_SUB_TYPE_NAMES[key],
+    })),
+    visibility: ({ form_data }) => form_data.chart_type === CHART_TYPES.BAR_CHART,
+    default: CHART_SUB_TYPES.DEFAULT,
+    description: t('Set subtype of chart'),
+  },
+};
+
+export const lineChartSubType = {
+  name: 'line_chart_sub_type',
+  config: {
+    label: t('Chart subtype'),
+    renderTrigger: true,
+    clearable: false,
+    type: 'SelectControl',
+    options: Object.keys(CHART_SUB_TYPE_NAMES[CHART_TYPES.LINE_CHART]).map(key => ({
+      value: key,
+      label: CHART_SUB_TYPE_NAMES[key],
+    })),
+    visibility: ({ form_data }) => form_data.chart_type === CHART_TYPES.LINE_CHART,
+    default: CHART_SUB_TYPES.BASIS,
+    description: t('Set subtype of chart'),
+  },
+};
+
+export const areaChartSubType = {
+  name: 'area_chart_sub_type',
+  config: {
+    label: t('Chart subtype'),
+    clearable: false,
+    renderTrigger: true,
+    type: 'SelectControl',
+    options: Object.keys(CHART_SUB_TYPE_NAMES[CHART_TYPES.AREA_CHART]).map(key => ({
+      value: key,
+      label: CHART_SUB_TYPE_NAMES[key],
+    })),
+    visibility: ({ form_data }) => form_data.chart_type === CHART_TYPES.AREA_CHART,
+    default: CHART_SUB_TYPES.BASIS,
+    description: t('Set subtype of chart'),
+  },
+};
+
+export const scatterChartSubType = {
+  name: 'scatter_chart_sub_type',
+  config: {
+    label: t('Chart subtype'),
+    clearable: false,
+    renderTrigger: true,
+    type: 'SelectControl',
+    options: Object.keys(CHART_SUB_TYPE_NAMES[CHART_TYPES.SCATTER_CHART]).map(key => ({
+      value: key,
+      label: CHART_SUB_TYPE_NAMES[key],
+    })),
+    visibility: ({ form_data }) => form_data.chart_type === CHART_TYPES.SCATTER_CHART,
+    default: CHART_SUB_TYPES.CIRCLE,
+    description: t('Set subtype of chart'),
+  },
+};
+
 export const yAxisTickLabelAngle = {
   name: 'y_axis_tick_label_angle',
   config: {
@@ -82,6 +174,33 @@ export const yAxisTickLabelAngle = {
     choices: formatSelectOptions(['0', '45', '90']),
     default: '0',
     description: t('Set Y axis tick label angle in the chart'),
+  },
+};
+
+const metrics = {
+  name: 'metrics',
+  config: {
+    type: 'MetricsControl',
+    label: t('Metrics'),
+    description: t('One or many metrics to display'),
+    multi: true,
+    mapStateToProps: ({ datasource, controls }) => {
+      return {
+        columns: datasource?.columns || [],
+        savedMetrics: datasource?.metrics || [],
+        datasourceType: datasource?.type,
+        fields: [
+          {
+            type: 'SelectControl',
+            label: t('Chart type'),
+            options: Object.keys(CHART_TYPES).map(key => ({
+              value: key,
+              label: CHART_TYPE_NAMES[key],
+            })),
+          },
+        ],
+      };
+    },
   },
 };
 
@@ -131,14 +250,15 @@ const config: ControlPanelConfig = {
     {
       label: t('Query'),
       expanded: true,
-      controlSetRows: [['groupby'], ['metrics'], ['adhoc_filters'], ['row_limit', null]],
+      controlSetRows: [['groupby'], [metrics], ['adhoc_filters'], ['row_limit', null]],
     },
     {
       label: t('Chart Options'),
       expanded: true,
       controlSetRows: [
         ['color_scheme', layout],
-        [numbersFormat, labelsColor, stackedBars],
+        [numbersFormat, labelsColor],
+        [chartType, barChartSubType, lineChartSubType, areaChartSubType, scatterChartSubType],
       ],
     },
     {

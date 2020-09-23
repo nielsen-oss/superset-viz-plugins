@@ -4,7 +4,7 @@ import { Text } from 'recharts';
 import { NumberFormatter } from '@superset-ui/number-format';
 import { MAX_SYMBOLS_IN_TICK_LABEL } from './utils';
 
-export type TBarChartTickProps = {
+export type ComposedChartTickProps = {
   x: number;
   y: number;
   angle?: number;
@@ -18,7 +18,7 @@ export type TBarChartTickProps = {
   dx?: number;
 };
 
-const BarChartTick: FC<TBarChartTickProps> = ({
+const ComposedChartTick: FC<ComposedChartTickProps> = ({
   x,
   y,
   angle,
@@ -54,4 +54,4 @@ const BarChartTick: FC<TBarChartTickProps> = ({
   );
 };
 
-export default BarChartTick;
+export default ComposedChartTick;

@@ -1,3 +1,4 @@
+Object.defineProperty(exports, '__esModule', { value: true });
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -17,7 +18,14 @@
  * under the License.
  */
 // eslint-disable-next-line import/prefer-default-export
-export { default as BarChartPlugin } from './plugin';
+const plugin_1 = require('./plugin');
+
+Object.defineProperty(exports, 'BarChartPlugin', {
+  enumerable: true,
+  get() {
+    return plugin_1.default;
+  },
+});
 /**
  * Note: this file exports the default export from Bar.tsx.
  * If you want to export multiple visualization modules, you will need to

@@ -24,12 +24,12 @@ import transformProps from './transformProps';
 import thumbnail from '../images/thumbnail.png';
 
 const metadata = new ChartMetadata({
-  description: 'Bar Chart',
-  name: t('Bar Chart'),
+  description: 'Waterfall',
+  name: t('Waterfall'),
   thumbnail,
 });
 
-export default class BarChartPlugin extends ChartPlugin {
+export default class WaterfallChartPlugin extends ChartPlugin {
   /**
    * The constructor is used to pass relevant metadata and callbacks that get
    * registered in respective registries that are used throughout the library
@@ -44,7 +44,7 @@ export default class BarChartPlugin extends ChartPlugin {
     super({
       buildQuery,
       controlPanel,
-      loadChart: () => import('../components/BarChart'),
+      loadChart: () => import('../components/WaterfallChart'),
       metadata,
       transformProps,
     });

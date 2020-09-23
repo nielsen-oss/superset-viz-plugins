@@ -16,18 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { BarChartPlugin } from '../src';
-
+// eslint-disable-next-line import/prefer-default-export
+export { default as WaterfallChartPlugin } from './plugin';
 /**
- * The example tests in this file act as a starting point, and
- * we encourage you to build more. These tests check that the
- * plugin loads properly, and focus on `transformProps`
- * to ake sure that data, controls, and props are all
- * treated correctly (e.g. formData from plugin controls
- * properly transform the data and/or any resulting props).
+ * Note: this file exports the default export from Waterfall.tsx.
+ * If you want to export multiple visualization modules, you will need to
+ * either add additional plugin folders (similar in structure to ./plugin)
+ * OR export multiple instances of `ChartPlugin` extensions in ./plugin/index.ts
+ * which in turn load exports from Waterfall.tsx
  */
-describe('@superset-ui/plugin-chart-bar', () => {
-  it('exists', () => {
-    expect(BarChartPlugin).toBeDefined();
-  });
-});

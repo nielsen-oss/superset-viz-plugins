@@ -19,21 +19,21 @@
 import React, { createRef, useEffect, useState } from 'react';
 import styled from '@superset-ui/style';
 import {
-  Bar,
   CartesianGrid,
   Legend,
   Tooltip,
   XAxis,
   YAxis,
-  BarChart as RechartsBarChart,
+  ComposedChart as RechartsComposedChart,
   LabelFormatter,
 } from 'recharts';
-import { CategoricalColorNamespace } from '@superset-ui/color';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { getNumberFormatter } from '@superset-ui/number-format';
 import BarChartTooltip from './BarChartTooltip';
-import { TLabelColors, TResultData } from '../plugin/transformProps';
+import { TLabelColors, ResultData } from '../plugin/transformProps';
 import {
-  ELayout,
+  CHART_TYPES,
+  Layout,
   getCartesianGridProps,
   getMaxLengthOfDataKey,
   getMaxLengthOfMetric,
@@ -41,34 +41,37 @@ import {
   getYAxisProps,
   MIN_SYMBOL_WIDTH_FOR_TICK_LABEL,
   renderLabel,
+  getChartElement,
+  CHART_SUB_TYPES,
 } from './utils';
 
-type TBarChartStylesProps = {
+type ComposedChartStylesProps = {
   height: number;
   width: number;
 };
 
-type TAxis = {
+type Axis = {
   label: string;
   tickLabelAngle: number;
 };
 
-export type TBarChartProps = {
+export type ComposedChartProps = {
   height: number;
   width: number;
-  data: TResultData[];
-  layout: ELayout;
+  data: ResultData[];
+  layout: Layout;
   metrics: string[];
   colorScheme: string;
+  chartSubType: keyof typeof CHART_SUB_TYPES;
   isAnimationActive?: boolean;
-  stackedBars: boolean;
-  xAxis: TAxis;
-  yAxis: TAxis;
+  chartType: keyof typeof CHART_TYPES;
+  xAxis: Axis;
+  yAxis: Axis;
   labelsColor: TLabelColors;
   numbersFormat: string;
 };
 
-const Styles = styled.div<TBarChartStylesProps>`
+const Styles = styled.div<ComposedChartStylesProps>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -85,7 +88,7 @@ const Styles = styled.div<TBarChartStylesProps>`
   }
 `;
 
-export default function BarChart(props: TBarChartProps) {
+export default function ComposedChart(props: ComposedChartProps) {
   const {
     data,
     height,
@@ -93,8 +96,9 @@ export default function BarChart(props: TBarChartProps) {
     layout,
     metrics,
     colorScheme,
-    stackedBars,
+    chartType,
     xAxis,
+    chartSubType,
     yAxis,
     isAnimationActive,
     labelsColor,
@@ -103,7 +107,6 @@ export default function BarChart(props: TBarChartProps) {
 
   const rootElem = createRef<HTMLDivElement>();
   const [exploreCounter, setExploreCounter] = useState<number>(0);
-  const { getColor } = CategoricalColorNamespace;
   const dataKeyLength = getMaxLengthOfDataKey(data) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
   const metricLength =
     getMaxLengthOfMetric(data, metrics, getNumberFormatter(numbersFormat)) *
@@ -113,16 +116,39 @@ export default function BarChart(props: TBarChartProps) {
     // In explore need rerender chart when change `renderTrigger` props
     setExploreCounter(exploreCounter + 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [xAxis, yAxis, labelsColor, numbersFormat, stackedBars, colorScheme, layout]);
+  }, [xAxis, yAxis, labelsColor, numbersFormat, chartType, colorScheme, layout, chartSubType]);
+
+  const renderChartElement = (metric: string) => {
+    const { Element, ...elementProps } = getChartElement(
+      chartType,
+      chartSubType,
+      metric,
+      colorScheme,
+    );
+    return (
+      <Element
+        key={`${metric}_${exploreCounter}`}
+        isAnimationActive={isAnimationActive}
+        label={{
+          fill: labelsColor,
+          position: 'center',
+          formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
+          content: renderLabel,
+        }}
+        dataKey={metric}
+        {...elementProps}
+      />
+    );
+  };
 
   return (
     <Styles ref={rootElem} height={height} width={width}>
-      <RechartsBarChart
+      <RechartsComposedChart
         margin={{
-          bottom: 30,
+          bottom: 60,
           top: 0,
           right: 0,
-          left: 30,
+          left: 60,
         }}
         layout={layout}
         height={height - 40}
@@ -152,22 +178,8 @@ export default function BarChart(props: TBarChartProps) {
           })}
         />
         <Tooltip content={<BarChartTooltip />} />
-        {metrics.map(metric => (
-          <Bar
-            key={`${metric}_${exploreCounter}`}
-            isAnimationActive={isAnimationActive}
-            label={{
-              fill: labelsColor,
-              position: 'center',
-              formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
-              content: renderLabel,
-            }}
-            dataKey={metric}
-            stackId={stackedBars ? 'metric' : undefined}
-            fill={getColor(metric, colorScheme)}
-          />
-        ))}
-      </RechartsBarChart>
+        {metrics.map(renderChartElement)}
+      </RechartsComposedChart>
     </Styles>
   );
 }
