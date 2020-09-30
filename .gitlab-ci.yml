@@ -49,15 +49,15 @@ lint:
     - master
     - merge_requests
 
-test:
-  stage: test
-  tags:
-    - cicd-runner-maf
-  script:
-    - git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
-    - yarn test
-  only:
-    - merge_requests
+# test:
+#   stage: test
+#   tags:
+#     - cicd-runner-maf
+#   script:
+#     - git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
+#     - yarn test
+#   only:
+#     - merge_requests
 
 deploy_prod:
   stage: deploy
