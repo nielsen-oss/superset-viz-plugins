@@ -10,8 +10,8 @@
     "esm",
     "lib"
   ],
-  "scripts":{
-    "test": "jest --coverage --verbose",
+  "scripts": {
+    "test": "jest --coverage --verbose --passWithNoTests",
     "tdd": "NODE_ENV=test jest --watch",
     "build": "NODE_ENV=development webpack --mode=development --colors",
     "build:watch": "NODE_ENV=development webpack --mode=development --colors --watch",
@@ -35,8 +35,13 @@
     "access": "public"
   },
   "dependencies": {
+    "@superset-ui/chart-controls": "^0.15.2",
     "@superset-ui/core": "^0.15.2",
-    "@superset-ui/chart-controls": "^0.15.2"
+    "@superset-ui/number-format": "^0.14.23",
+    "@superset-ui/style": "^0.14.23",
+    "@superset-ui/translation": "^0.14.23",
+    "@superset-ui/validator": "^0.14.23",
+    "recharts": "^1.8.5"
   },
   "peerDependencies": {
     "react": "^16.13.1"
@@ -44,5 +49,10 @@
   "devDependencies": {
     "@types/jest": "^26.0.0",
     "jest": "^26.0.1"
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
   }
 }
