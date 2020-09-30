@@ -71,6 +71,7 @@ deploy_prod:
     - git config --global user.email "nmcci@nielsen.com"
     - git checkout -B "$CI_COMMIT_REF_NAME" "$CI_COMMIT_SHA"
     - yarn prerelease
+    - git remote -v
     - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes
   only:
     - master
