@@ -10,13 +10,10 @@ variables:
 before_script:
   - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
   - eval `ssh-agent -s`
-  - echo $SSH_PRIVATE_KEY
   - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null # add ssh ke
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
   - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
-  - echo "$SSH_PUBLIC_KEY"
-  - cat ~/.ssh/id_rsa.pub
   - apt-get update -qq && apt-get install
   - apt-get install git
   - npm install -g npm-cli-login
@@ -68,8 +65,6 @@ deploy_prod:
     - cicd-runner-maf
   script:
     - npm install -g lerna
-    - echo “git@gitlab.com:$CI_PROJECT_PATH.git”
-    - cat ~/.ssh/id_rsa.pub
     - git remote set-url origin "git@gitlab.com:$CI_PROJECT_PATH.git"
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - git config --global user.name "MAF CI"
@@ -78,6 +73,6 @@ deploy_prod:
     - echo git checkout -B “$CI_COMMIT_REF_NAME” “$CI_COMMIT_SHA”
     - git fetch
     - yarn prerelease
-    - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes
+    - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes 
   only:
     - master
