@@ -11,6 +11,7 @@ before_script:
   - cat ~/.ssh/config
   - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
   - eval `ssh-agent -s`
+  - echo $SSH_PRIVATE_KEY
   - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null # add ssh ke
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
