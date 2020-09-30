@@ -16,6 +16,7 @@ before_script:
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
   - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
+  - echo "$SSH_PUBLIC_KEY"
   - apt-get update -qq && apt-get install
   - apt-get install git
   - npm install -g npm-cli-login
