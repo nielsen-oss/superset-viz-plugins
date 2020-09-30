@@ -8,7 +8,6 @@ variables:
   KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: ci-pipeline-maf
 
 before_script:
-  - cat ~/.ssh/config
   - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
   - eval `ssh-agent -s`
   - echo $SSH_PRIVATE_KEY
@@ -17,6 +16,7 @@ before_script:
   - chmod 700 ~/.ssh
   - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
   - echo "$SSH_PUBLIC_KEY"
+  - cat ~/.ssh/id_rsa.pub
   - apt-get update -qq && apt-get install
   - apt-get install git
   - npm install -g npm-cli-login
