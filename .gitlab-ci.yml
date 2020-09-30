@@ -14,8 +14,8 @@ before_script:
   - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null # add ssh ke
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
-  - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
-  - echo "$SSH_PUBLIC_KEY"
+  - echo "${SSH_PUBLIC_KEY}" >> ~/.ssh/id_rsa.pub
+  - echo "${SSH_PUBLIC_KEY}"
   - cat ~/.ssh/id_rsa.pub
   - apt-get update -qq && apt-get install
   - apt-get install git
@@ -69,7 +69,7 @@ deploy_prod:
   script:
     - npm install -g lerna
     - echo “git@gitlab.com:$CI_PROJECT_PATH.git”
-    - cat ~/.ssh/config
+    - cat ~/.ssh/id_rsa.pub
     - git remote set-url origin "git@gitlab.com:$CI_PROJECT_PATH.git"
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - git config --global user.name "MAF CI"
