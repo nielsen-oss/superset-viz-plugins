@@ -16,7 +16,7 @@ async function getDependenciesList(packages) {
 
 const pkgGlob = process.argv[2] || '*';
 
-const packages = fg.sync([`plugins/${pkgGlob}`], {
+const packages = fg.sync([`./superset-maf-ui/plugins/${pkgGlob}`], {
   onlyDirectories: true,
 });
 
