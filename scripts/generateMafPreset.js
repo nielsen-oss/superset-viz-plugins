@@ -8,15 +8,15 @@ const buildStringFromPackage = async packages => {
     pluginsStringToWrite = '';
   for (const pkg of packages) {
     const packageJson = fs.readJsonSync(`${pkg}/package.json`);
-    importStringToWrite += `import { ${packageJson.pluginName} } from '${packageJson.name}';`;
-    pluginsStringToWrite += `new ${packageJson.pluginName}().configure({ key: '${packageJson.pluginName}' }),`;
+    importStringToWrite += `import { ${packageJson.pluginName} } from '${packageJson.name}';\n`;
+    pluginsStringToWrite += `new ${packageJson.pluginName}().configure({ key: '${packageJson.pluginName}' }),\n`;
   }
 
   return { importStringToWrite, pluginsStringToWrite };
 };
 const pkgGlob = process.argv[2] || '*';
 
-const packages = fg.sync([`plugins/${pkgGlob}`], {
+const packages = fg.sync([`./superset-maf-ui/plugins/${pkgGlob}`], {
   onlyDirectories: true,
 });
 
