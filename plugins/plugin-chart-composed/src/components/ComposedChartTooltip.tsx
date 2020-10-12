@@ -18,7 +18,7 @@ type TPayload = {
   rechartsTotal?: number | undefined;
 };
 
-const BarChartTooltip: FC<TooltipProps> = ({ active, payload = [], label, ...otherProps }) => {
+const ComposedChartTooltip: FC<TooltipProps> = ({ active, payload = [], label, ...otherProps }) => {
   if (active) {
     const firstPayload = payload[0]?.payload as TPayload;
     const total = firstPayload?.rechartsTotal;
@@ -36,4 +36,4 @@ const BarChartTooltip: FC<TooltipProps> = ({ active, payload = [], label, ...oth
   return null;
 };
 
-export default BarChartTooltip;
+export default ComposedChartTooltip;

@@ -29,7 +29,7 @@ import {
 } from 'recharts';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getNumberFormatter } from '@superset-ui/number-format';
-import BarChartTooltip from './BarChartTooltip';
+import ComposedChartTooltip from './BarChartTooltip';
 import { TLabelColors, ResultData } from '../plugin/transformProps';
 import {
   CHART_TYPES,
@@ -177,7 +177,7 @@ export default function ComposedChart(props: ComposedChartProps) {
             label: yAxis.label,
           })}
         />
-        <Tooltip content={<BarChartTooltip />} />
+        <Tooltip content={<ComposedChartTooltip />} />
         {metrics.map(renderChartElement)}
       </RechartsComposedChart>
     </Styles>
