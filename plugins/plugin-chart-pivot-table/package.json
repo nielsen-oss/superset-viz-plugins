@@ -1,7 +1,8 @@
 {
   "name": "@superset-maf-ui/plugin-chart-pivot-table",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Superset Chart - Pivot Table",
+  "pluginName": "PivotTableChartPlugin",
   "sideEffects": false,
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -9,25 +10,33 @@
     "esm",
     "lib"
   ],
+  "scripts": {
+    "test": "jest --coverage --verbose --passWithNoTests",
+    "tdd": "NODE_ENV=test jest --watch",
+    "build": "NODE_ENV=development webpack --mode=development --colors",
+    "build:watch": "NODE_ENV=development webpack --mode=development --colors --watch",
+    "build:prod": "BABEL_ENV=production babel src -d dist --verbose --extensions \".ts,.tsx,.js,.jsx \" --ignore \"src/**/*.test.tsx\",\"src/*.test.js\",\"src/**/*.mock.js\",\"src/**/*.stories.tsx\",\"src/**/__stories__/*\",\"src/**/__mocks__/*\",\"src/**/__tests__/*\"",
+    "build:esm": "ESM=true BABEL_ENV=production babel src -d esm --verbose --extensions \".ts,.tsx,.js,.jsx \" --ignore \"src/**/*.test.tsx\",\"src/*.test.js\",\"src/**/*.mock.js\",\"src/**/*.stories.tsx\",\"src/**/__stories__/*\",\"src/**/__mocks__/*\",\"src/**/__tests__/*\""
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/apache-superset/superset-ui.git"
+    "url": "git+https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui.git"
   },
   "keywords": [
     "superset"
   ],
-  "author": "Superset",
+  "author": "MAF",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/apache-superset/superset-ui/issues"
+    "url": "https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/issues"
   },
-  "homepage": "https://github.com/apache-superset/superset-ui#readme",
+  "homepage": "https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui#readme",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@superset-ui/core": "^0.15.2",
-    "@superset-ui/chart-controls": "^0.15.2"
+    "@superset-ui/chart-controls": "^0.15.2",
+    "@superset-ui/core": "^0.15.2"
   },
   "peerDependencies": {
     "react": "^16.13.1"
@@ -35,5 +44,10 @@
   "devDependencies": {
     "@types/jest": "^26.0.0",
     "jest": "^26.0.1"
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
   }
 }

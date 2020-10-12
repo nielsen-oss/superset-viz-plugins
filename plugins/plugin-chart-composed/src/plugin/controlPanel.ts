@@ -26,7 +26,6 @@ import {
 import {
   CHART_TYPES,
   CHART_TYPE_NAMES,
-  CHART_TYPES,
   CHART_SUB_TYPES,
   CHART_SUB_TYPE_NAMES,
 } from '../components/utils';

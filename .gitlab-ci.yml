@@ -8,26 +8,71 @@ variables:
   KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: ci-pipeline-maf
 
 before_script:
-  - npm install -g lerna
+  - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval `ssh-agent -s`
+  - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null # add ssh ke
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
+  - apt-get update -qq && apt-get install
+  - apt-get install git
+  - npm install -g npm-cli-login
+  - npm-cli-login -u $CI_CLI_USER -p $CI_CLI_PASSWORD -e $CI_CLI_EMAIL -r https://nexus.exelator.net/repository/npm-all
+  - npm-cli-login -u $CI_CLI_USER -p $CI_CLI_PASSWORD -e $CI_CLI_EMAIL -r https://nexus.exelator.net/repository/npm-internal
+  - npm set registry https://nexus.exelator.net/repository/npm-all/
+  - npm config set always-auth=true
+  - cp ~/.npmrc .
 
 stages:
-  - testpr
+  - install
+  # - test
   - deploy
 
-testpr:
-  stage: testpr
+install:
+  stage: install
   tags:
     - cicd-runner-maf
   script:
-    - yarn test
+    - yarn --frozen-lockfile
   only:
+    - master
     - merge_requests
+
+# lint:
+#   stage: test
+#   tags:
+#     - cicd-runner-maf
+#   script:
+#     - git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
+#     - yarn lint
+#   only:
+#     - master
+#     - merge_requests
+
+# test:
+#   stage: test
+#   tags:
+#     - cicd-runner-maf
+#   script:
+#     - git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
+#     - yarn test
+#   only:
+#     - merge_requests
 
 deploy_prod:
   stage: deploy
   tags:
     - cicd-runner-maf
   script:
-    # - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes
+    - npm install -g lerna
+    - git remote set-url origin "git@gitlab.com:$CI_PROJECT_PATH.git"
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - git config --global user.name "MAF CI"
+    - git config --global user.email "nmcci@nielsen.com"
+    - git checkout -B "$CI_COMMIT_REF_NAME" "$CI_COMMIT_SHA"
+    - echo git checkout -B “$CI_COMMIT_REF_NAME” “$CI_COMMIT_SHA”
+    - git fetch
+    - yarn prerelease
+    - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes 
   only:
     - master
