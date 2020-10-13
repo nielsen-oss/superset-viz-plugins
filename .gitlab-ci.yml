@@ -27,6 +27,7 @@ stages:
   - install
   # - test
   - deploy
+  - buildFork
 
 install:
   stage: install
@@ -76,3 +77,28 @@ deploy_prod:
     - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes 
   only:
     - master
+
+buildSuperSetFork:
+  stage: buildFork
+  tags:
+    - cicd-runner-maf
+  script:
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset-fork.git
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-maf-extensions.git
+    - cd superset-fork/superset-frontend
+    - node ../../scripts/addDependencies.js
+    - node ../../scripts/generateMafPreset.js
+    - mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
+    - cp ../../templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
+    - cd ../../superset-maf-extensions
+    - VERSION=$(sed '1!d' setup.py | cut -d '=' -f 2  | tr -d '""')
+    - FORK_BRANCH_NAME= $NEW_FORK_VERSION || $(sed '2!d' setup.py | cut -d '=' -f 2  | tr -d '""')
+    - echo $FORK_BRANCH_NAME
+    - echo $VERSION
+    # - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io
+    # - docker build -t exelate/superset-fork:latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-${CI_JOB_ID} .
+    # - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-latest 
+    # - docker push exelate/superset-fork:latest
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $DEPLOY_NEW_FORK == "true"
