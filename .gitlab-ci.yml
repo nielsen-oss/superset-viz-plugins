@@ -83,19 +83,24 @@ buildSuperSetFork:
   tags:
     - cicd-runner-maf
   script:
+    # Clone the repos
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-fork.git
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-maf-extensions.git
+    # Add dependencies from superset-maf-ui to supserset-frontend and generate the preset
     - cd superset-fork/superset-frontend
     - node ../../scripts/addDependencies.js
     - node ../../scripts/generateMafPreset.js
     - mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
     - cp ../../templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
+    # Get current version and fork branch name
     - cd ../../superset-maf-extensions
     - VERSION=$(sed '1!d' setup.py | cut -d '=' -f 2  | tr -d '""')
     - echo $NEW_FORK_VERSION
     - FORK_BRANCH_NAME=${NEW_FORK_VERSION:=$(sed '2!d' setup.py | cut -d '=' -f 2  | tr -d '""')}
     - echo $FORK_BRANCH_NAME
     - echo $VERSION
+    # Build docker and push it
+    - cd ../superset-fork
     # - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io
     # - docker build -t exelate/superset-fork:latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-${CI_JOB_ID} .
     # - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-latest 
