@@ -83,7 +83,7 @@ buildSuperSetFork:
   tags:
     - cicd-runner-maf
   script:
-    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset-fork.git
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-fork.git
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-maf-extensions.git
     - cd superset-fork/superset-frontend
     - node ../../scripts/addDependencies.js
