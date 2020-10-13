@@ -18,17 +18,8 @@
  */
 import { t } from '@superset-ui/translation';
 import { validateNonEmpty } from '@superset-ui/validator';
-import {
-  ControlPanelConfig,
-  formatSelectOptions,
-  D3_FORMAT_OPTIONS,
-} from '@superset-ui/chart-controls';
-import {
-  CHART_TYPES,
-  CHART_TYPE_NAMES,
-  CHART_SUB_TYPES,
-  CHART_SUB_TYPE_NAMES,
-} from '../components/utils';
+import { ControlPanelConfig, formatSelectOptions, D3_FORMAT_OPTIONS } from '@superset-ui/chart-controls';
+import { CHART_TYPES, CHART_TYPE_NAMES, CHART_SUB_TYPES, CHART_SUB_TYPE_NAMES, Layout } from '../components/utils'
 import { sharedControls } from '@superset-ui/chart-controls/lib';
 
 export const stackedBars = {
@@ -39,6 +30,18 @@ export const stackedBars = {
     renderTrigger: true,
     default: false,
     description: null,
+  },
+};
+
+export const useSecondYAxis = {
+  name: 'use_y2_axis',
+  config: {
+    type: 'CheckboxControl',
+    label: t('Use second Y axis'),
+    renderTrigger: true,
+    default: false,
+    description: t('Refers to the last chosen metric'),
+    visibility: ({ form_data }) => form_data.metrics?.length > 1 && form_data.layout === Layout.horizontal,
   },
 };
 
@@ -61,6 +64,18 @@ export const yAxisLabel = {
     renderTrigger: true,
     default: '',
     description: t('Show Y Axis Label in the chart'),
+  },
+};
+
+export const y2AxisLabel = {
+  name: 'y2_axis_label',
+  config: {
+    type: 'TextControl',
+    label: t('Second Y Axis label'),
+    renderTrigger: true,
+    default: '',
+    description: t('Show second Y Axis Label in the chart'),
+    visibility: ({ form_data }) => form_data.use_y2_axis && form_data.metrics?.length > 1 && form_data.layout === Layout.horizontal,
   },
 };
 
@@ -93,6 +108,129 @@ export const chartType = {
     description: t('Set type of chart'),
   },
 };
+
+let chartTypeMetrics = [];
+for (let i = 0; i < 50; i++) {
+  chartTypeMetrics.push(i + 1);
+}
+
+chartTypeMetrics = chartTypeMetrics.map((el, index) => {
+  const barChartSubTypeMetric = {
+    name: `bar_chart_sub_type_metric_${index}`,
+    config: {
+      label: t(`Chart subtype for metric ${el}`),
+      clearable: false,
+      renderTrigger: true,
+      type: 'SelectControl',
+      options: Object.keys(CHART_SUB_TYPE_NAMES[CHART_TYPES.BAR_CHART]).map(key => ({
+        value: key,
+        label: CHART_SUB_TYPE_NAMES[key],
+      })),
+      visibility: ({ form_data }) =>
+        form_data[`use_custom_type_metric_${index}`] &&
+        form_data.metrics &&
+        form_data.metrics[index] &&
+        form_data[`chart_type_metric_${index}`] === CHART_TYPES.BAR_CHART,
+      default: CHART_SUB_TYPES.DEFAULT,
+      description: t(`Set subtype of chart for metric ${el}`),
+    },
+  };
+
+  const lineChartSubTypeMetric = {
+    name: `line_chart_sub_type_metric_${index}`,
+    config: {
+      label: t(`Chart subtype for metric ${el}`),
+      renderTrigger: true,
+      clearable: false,
+      type: 'SelectControl',
+      options: Object.keys(CHART_SUB_TYPE_NAMES[CHART_TYPES.LINE_CHART]).map(key => ({
+        value: key,
+        label: CHART_SUB_TYPE_NAMES[key],
+      })),
+      visibility: ({ form_data }) =>
+        form_data[`use_custom_type_metric_${index}`] &&
+        form_data.metrics &&
+        form_data.metrics[index] &&
+        form_data[`chart_type_metric_${index}`] === CHART_TYPES.LINE_CHART,
+      default: CHART_SUB_TYPES.BASIS,
+      description: t(`Set subtype of chart for metric ${el}`),
+    },
+  };
+
+  const areaChartSubTypeMetric = {
+    name: `area_chart_sub_type_metric_${index}`,
+    config: {
+      label: t(`Chart subtype for metric ${el}`),
+      clearable: false,
+      renderTrigger: true,
+      type: 'SelectControl',
+      options: Object.keys(CHART_SUB_TYPE_NAMES[CHART_TYPES.AREA_CHART]).map(key => ({
+        value: key,
+        label: CHART_SUB_TYPE_NAMES[key],
+      })),
+      visibility: ({ form_data }) =>
+        form_data[`use_custom_type_metric_${index}`] &&
+        form_data[`chart_type_metric_${index}`] === CHART_TYPES.AREA_CHART,
+      default: CHART_SUB_TYPES.BASIS,
+      description: t(`Set subtype of chart for metric ${el}`),
+    },
+  };
+
+  const scatterChartSubTypeMetric = {
+    name: `scatter_chart_sub_type_metric_${index}`,
+    config: {
+      label: t(`Chart subtype for metric ${el}`),
+      clearable: false,
+      renderTrigger: true,
+      type: 'SelectControl',
+      options: Object.keys(CHART_SUB_TYPE_NAMES[CHART_TYPES.SCATTER_CHART]).map(key => ({
+        value: key,
+        label: CHART_SUB_TYPE_NAMES[key],
+      })),
+      visibility: ({ form_data }) =>
+        form_data[`use_custom_type_metric_${index}`] &&
+        form_data.metrics &&
+        form_data.metrics[index] &&
+        form_data[`chart_type_metric_${index}`] === CHART_TYPES.SCATTER_CHART,
+      default: CHART_SUB_TYPES.CIRCLE,
+      description: t(`Set subtype of chart for metric ${el}`),
+    },
+  };
+  return [
+    {
+      name: `use_custom_type_metric_${index}`,
+      config: {
+        type: 'CheckboxControl',
+        label: t(`Use custom chart type for metric ${el}`),
+        renderTrigger: true,
+        default: false,
+        description: null,
+        visibility: ({ form_data }) => form_data.metrics && form_data.metrics[index],
+      },
+    },
+    {
+      name: `chart_type_metric_${index}`,
+      config: {
+        label: t(`Chart type for metric ${el}`),
+        clearable: false,
+        renderTrigger: true,
+        type: 'SelectControl',
+        options: Object.keys(CHART_TYPES).map(key => ({
+          value: key,
+          label: CHART_TYPE_NAMES[key],
+        })),
+        default: CHART_TYPES.BAR_CHART,
+        description: t(`Set type of chart for metric ${el}`),
+        visibility: ({ form_data }) =>
+          form_data[`use_custom_type_metric_${index}`] && form_data.metrics && form_data.metrics[index],
+      },
+    },
+    barChartSubTypeMetric,
+    lineChartSubTypeMetric,
+    areaChartSubTypeMetric,
+    scatterChartSubTypeMetric,
+  ];
+});
 
 export const barChartSubType = {
   name: 'bar_chart_sub_type',
@@ -173,6 +311,21 @@ export const yAxisTickLabelAngle = {
     choices: formatSelectOptions(['0', '45', '90']),
     default: '0',
     description: t('Set Y axis tick label angle in the chart'),
+  },
+};
+
+export const y2AxisTickLabelAngle = {
+  name: 'y2_axis_tick_label_angle',
+  config: {
+    freeForm: true,
+    type: 'SelectControl',
+    clearable: false,
+    label: t('Second Y axis tick label angle'),
+    renderTrigger: true,
+    choices: formatSelectOptions(['0', '45', '90']),
+    default: '0',
+    description: t('Set second Y axis tick label angle in the chart'),
+    visibility: ({ form_data }) => form_data.use_y2_axis && form_data.metrics?.length > 1 && form_data.layout === Layout.horizontal,
   },
 };
 
@@ -268,7 +421,15 @@ const config: ControlPanelConfig = {
     {
       label: t('Y Axis'),
       expanded: true,
-      controlSetRows: [[yAxisLabel, yAxisTickLabelAngle]],
+      controlSetRows: [
+        [yAxisLabel, yAxisTickLabelAngle],
+        [useSecondYAxis, y2AxisLabel, y2AxisTickLabelAngle],
+      ],
+    },
+    {
+      label: t('Chart settings per metric'),
+      expanded: false,
+      controlSetRows: [...chartTypeMetrics],
     },
   ],
 
