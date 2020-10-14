@@ -35,9 +35,9 @@ install:
     - cicd-runner-maf
   script:
     - yarn --frozen-lockfile
-  only:
-    - master
-    - merge_requests
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 # lint:
 #   stage: test
@@ -57,8 +57,8 @@ install:
 #   script:
 #     - git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
 #     - yarn test
-#   only:
-#     - merge_requests
+#   rules:
+#     - if: $CI_MERGE_REQUEST_IID
 
 deploy_prod:
   stage: deploy
@@ -75,8 +75,8 @@ deploy_prod:
     - git fetch
     - yarn prerelease
     - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes 
-  only:
-    - master
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 buildSuperSetFork:
   stage: buildFork
@@ -92,19 +92,24 @@ buildSuperSetFork:
     - node ../../scripts/generateMafPreset.js
     - mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
     - cp ../../templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
+    - cat ./src/setup/setupPluginsExtra.js
+    - echo '=============================================='
+    - cat './package.json'
+    - echo '=============================================='
+    - cat ./src/visualizations/presets/MafPreset.js
     # Get current version and fork branch name
     - cd ../../superset-maf-extensions
     - VERSION=$(sed '1!d' setup.py | cut -d '=' -f 2  | tr -d '""')
     - echo $NEW_FORK_VERSION
     - FORK_BRANCH_NAME=${NEW_FORK_VERSION:=$(sed '2!d' setup.py | cut -d '=' -f 2  | tr -d '""')}
-    - echo $FORK_BRANCH_NAME
-    - echo $VERSION
     # Build docker and push it
-    - cd ../superset-fork
+    # - cd ../superset-fork
     # - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io
-    # - docker build -t exelate/superset-fork:latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-${CI_JOB_ID} .
+    # - docker build -t exelate/superset-fork:latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-latest -t exelate/superset-fork:${FORK_BRANCH_NAME}.${CI_PIPELINE_IID} .
     # - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-latest 
     # - docker push exelate/superset-fork:latest
+    # - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-${CI_PIPELINE_IID}
   rules:
     - if: $CI_MERGE_REQUEST_IID
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $DEPLOY_NEW_FORK == "true"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $DEPLOY_NEW_FORK == "true"
