@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getNumberFormatter } from '@superset-ui/number-format';
-import { Area, Bar, LabelProps, Line, Scatter } from 'recharts';
+import { Area, Bar, LabelProps, Legend, Line, Scatter } from 'recharts';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { NumberFormatFunction } from '@superset-ui/number-format/lib/types';
 import { ResultData } from '../plugin/transformProps';
@@ -20,6 +20,13 @@ export const MIN_BAR_SIZE_FOR_LABEL = 18;
 export const MIN_SYMBOL_WIDTH_FOR_LABEL = 14;
 export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 8;
 export const MIN_LABEL_MARGIN = 20;
+
+export enum LegendPosition {
+  top = 'top',
+  right = 'right',
+  bottom = 'bottom',
+  left = 'left',
+}
 
 export const CHART_TYPES = {
   BAR_CHART: 'BAR_CHART',
@@ -76,6 +83,57 @@ export const CHART_SUB_TYPE_NAMES = {
     [CHART_SUB_TYPES.MONOTONE]: 'Monotone Area Chart',
     [CHART_SUB_TYPES.STEP]: 'Step Area Chart',
   },
+};
+
+type LegendAlign = 'left' | 'center' | 'right';
+type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
+type GetLegendPropsParams = { height: number; width: number; align: LegendAlign; verticalAlign: LegendVerticalAlign, wrapperStyle: object }
+
+export const getLegendProps = (
+  legendPosition: LegendPosition,
+  height: number,
+  width: number,
+): GetLegendPropsParams => {
+  let result = {
+    wrapperStyle: { overflow: 'auto' },
+    align: 'center' as LegendAlign,
+    verticalAlign: 'middle' as LegendVerticalAlign,
+    height: 40,
+    width,
+  };
+  if (legendPosition === LegendPosition.left || legendPosition === LegendPosition.right) {
+    result = {
+      ...result,
+      height,
+      width: width * 0.2,
+      align: legendPosition as LegendAlign,
+    }
+  }
+  switch (legendPosition) {
+    case LegendPosition.left:
+      return {
+        ...result,
+        wrapperStyle: {
+          ...result.wrapperStyle,
+          marginLeft: -width * 0.2
+        },
+      };
+    case LegendPosition.right:
+      return {
+        ...result,
+        wrapperStyle: {
+          ...result.wrapperStyle,
+          marginRight: -width * 0.2
+        },
+      };
+    case LegendPosition.bottom:
+    case LegendPosition.top:
+    default:
+      return {
+        ...result,
+        verticalAlign: legendPosition as LegendVerticalAlign,
+      };
+  }
 };
 
 export type ChartsUIItem = ChartLineItem | ChartBarItem | ChartScatterItem;
@@ -220,7 +278,7 @@ export const getYAxisProps = ({
   };
   const params = {
     tickMargin: isSecondAxis ? 25 : 0,
-    dx: -5,
+    dx: isSecondAxis ? 10 : -10,
     angle,
     orientation: isSecondAxis ? ('right' as const) : ('left' as const),
     yAxisId: isSecondAxis ? 'right' : 'left',

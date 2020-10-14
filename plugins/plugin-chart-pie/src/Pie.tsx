@@ -70,7 +70,6 @@ const Pie: FC<PieProps> = memo(props => {
   const [exploreCounter, setExploreCounter] = useState<number>(0);
 
   useEffect(() => {
-    console.log(isAnimationEnded, props);
     if (isAnimationEnded) {
       setExploreCounter(exploreCounter + 1);
     }

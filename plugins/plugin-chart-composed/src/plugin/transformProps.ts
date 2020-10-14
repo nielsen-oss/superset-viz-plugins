@@ -17,8 +17,9 @@
  * under the License.
  */
 import { ChartProps } from '@superset-ui/chart';
-import { CHART_SUB_TYPES, CHART_TYPES, Layout } from '../components/utils';
+import { CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/utils'
 import { ComposedChartProps } from '../components/ComposedChart';
+import { showLegend } from './controlPanel'
 
 type TMetric = {
   label: string;
@@ -39,6 +40,8 @@ type FormData = {
   labelsColor: TLabelColors;
   xAxisLabel: string;
   yAxisLabel: string;
+  showLegend: boolean;
+  legendPosition: LegendPosition;
   y2AxisLabel: string;
   xAxisTickLabelAngle: string;
   yAxisTickLabelAngle: string;
@@ -132,6 +135,8 @@ export default function transformProps(chartProps: ChartProps) {
     layout: formData.layout,
     colorScheme: formData.colorScheme,
     chartType: formData.chartType,
+    showLegend: formData.showLegend,
+    legendPosition: formData.legendPosition,
     chartSubType,
     numbersFormat: formData.numbersFormat,
     labelsColor: formData.labelsColor,
