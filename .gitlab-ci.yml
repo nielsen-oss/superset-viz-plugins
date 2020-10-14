@@ -97,6 +97,7 @@ prepareSupersetBuild:
     - node ../../scripts/generateMafPreset.js
     - mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
     - cp ../../templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
+    - npm install
   artifacts:
     paths:
       - ./superset-fork
