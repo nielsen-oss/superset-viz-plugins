@@ -96,6 +96,9 @@ prepareSupersetBuild:
     - node ../../scripts/generateMafPreset.js
     - mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
     - cp ../../templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
+  artifacts:
+    paths:
+      - ./superset-fork
   rules:
     - if: $CI_MERGE_REQUEST_IID
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
@@ -134,6 +137,8 @@ buildDocker:
     # - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-latest 
     # - docker push exelate/superset-fork:latest
     # - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-${CI_PIPELINE_IID}
+  dependencies:
+    - prepareSupersetBuild
   rules:
     - if: $CI_MERGE_REQUEST_IID
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
