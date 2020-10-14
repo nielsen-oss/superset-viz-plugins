@@ -87,21 +87,26 @@ buildSuperSetFork:
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-fork.git
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-maf-extensions.git
     # Add dependencies from superset-maf-ui to supserset-frontend and generate the preset
+    - ls -ltr
     - cd superset-fork/superset-frontend
+    - ls -ltr
+    - cd ../..
+    - ls -ltr
     - node ../../scripts/addDependencies.js
     - node ../../scripts/generateMafPreset.js
-    - mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
-    - cp ../../templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
-    - cat ./src/setup/setupPluginsExtra.js
-    - echo '=============================================='
-    - cat './package.json'
-    - echo '=============================================='
-    - cat ./src/visualizations/presets/MafPreset.js
-    # Get current version and fork branch name
-    - cd ../../superset-maf-extensions
-    - VERSION=$(sed '1!d' setup.py | cut -d '=' -f 2  | tr -d '""')
-    - echo $NEW_FORK_VERSION
-    - FORK_BRANCH_NAME=${NEW_FORK_VERSION:=$(sed '2!d' setup.py | cut -d '=' -f 2  | tr -d '""')}
+    - ls -ltr
+    # - mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
+    # - cp ../../templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
+    # - cat ./src/setup/setupPluginsExtra.js
+    # - echo '=============================================='
+    # - cat './package.json'
+    # - echo '=============================================='
+    # - cat ./src/visualizations/presets/MafPreset.js
+    # # Get current version and fork branch name
+    # - cd ../../superset-maf-extensions
+    # - VERSION=$(sed '1!d' setup.py | cut -d '=' -f 2  | tr -d '""')
+    # - echo $NEW_FORK_VERSION
+    # - FORK_BRANCH_NAME=${NEW_FORK_VERSION:=$(sed '2!d' setup.py | cut -d '=' -f 2  | tr -d '""')}
     # Build docker and push it
     # - cd ../superset-fork
     # - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io
