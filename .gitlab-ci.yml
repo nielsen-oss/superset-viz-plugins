@@ -10,7 +10,7 @@ variables:
 stages:
   - install
   # - test
-  - deploy
+  - deployPlugins
   - prepareBuild
   - buildFork
 
@@ -63,8 +63,8 @@ install:
 #   rules:
 #     - if: $CI_MERGE_REQUEST_IID
 
-deploy_prod:
-  stage: deploy
+deployPlugins:
+  stage: deployPlugins
   extends: .baseJob
   tags:
     - cicd-runner-maf
