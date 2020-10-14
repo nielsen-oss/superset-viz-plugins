@@ -7,22 +7,6 @@ cache:
 variables:
   KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: ci-pipeline-maf
 
-before_script:
-  - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
-  - eval `ssh-agent -s`
-  - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null # add ssh ke
-  - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
-  - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
-  - apt-get update -qq && apt-get install
-  - apt-get install git
-  - npm install -g npm-cli-login
-  - npm-cli-login -u $CI_CLI_USER -p $CI_CLI_PASSWORD -e $CI_CLI_EMAIL -r https://nexus.exelator.net/repository/npm-all
-  - npm-cli-login -u $CI_CLI_USER -p $CI_CLI_PASSWORD -e $CI_CLI_EMAIL -r https://nexus.exelator.net/repository/npm-internal
-  - npm set registry https://nexus.exelator.net/repository/npm-all/
-  - npm config set always-auth=true
-  - cp ~/.npmrc .
-
 stages:
   - install
   # - test
@@ -30,7 +14,25 @@ stages:
   - prepareBuild
   - buildFork
 
+baseJob:
+   before_script:
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval `ssh-agent -s`
+    - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null # add ssh ke
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
+    - apt-get update -qq && apt-get install
+    - apt-get install git
+    - npm install -g npm-cli-login
+    - npm-cli-login -u $CI_CLI_USER -p $CI_CLI_PASSWORD -e $CI_CLI_EMAIL -r https://nexus.exelator.net/repository/npm-all
+    - npm-cli-login -u $CI_CLI_USER -p $CI_CLI_PASSWORD -e $CI_CLI_EMAIL -r https://nexus.exelator.net/repository/npm-internal
+    - npm set registry https://nexus.exelator.net/repository/npm-all/
+    - npm config set always-auth=true
+    - cp ~/.npmrc .
+
 install:
+  extends: baseJob
   stage: install
   tags:
     - cicd-runner-maf
@@ -63,6 +65,7 @@ install:
 
 deploy_prod:
   stage: deploy
+  extends: baseJob
   tags:
     - cicd-runner-maf
   script:
@@ -81,6 +84,7 @@ deploy_prod:
 
 prepareSupersetBuild:
   stage: prepareBuild
+  extends: baseJob
   tags:
     - cicd-runner-maf
   script:
