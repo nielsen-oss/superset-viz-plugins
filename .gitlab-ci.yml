@@ -14,7 +14,7 @@ stages:
   - prepareBuild
   - buildFork
 
-baseJob:
+.baseJob:
    before_script:
     - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval `ssh-agent -s`
@@ -32,7 +32,7 @@ baseJob:
     - cp ~/.npmrc .
 
 install:
-  extends: baseJob
+  extends: .baseJob
   stage: install
   tags:
     - cicd-runner-maf
@@ -65,7 +65,7 @@ install:
 
 deploy_prod:
   stage: deploy
-  extends: baseJob
+  extends: .baseJob
   tags:
     - cicd-runner-maf
   script:
@@ -84,7 +84,7 @@ deploy_prod:
 
 prepareSupersetBuild:
   stage: prepareBuild
-  extends: baseJob
+  extends: .baseJob
   tags:
     - cicd-runner-maf
   script:
