@@ -128,12 +128,12 @@ buildDocker:
     - FORK_BRANCH_NAME=${NEW_FORK_VERSION:=$(sed '2!d' setup.py | cut -d '=' -f 2  | tr -d '""')}
     - echo $FORK_BRANCH_NAME
     # Build docker and push it
-    # - cd ../superset-fork
-    # - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io
-    # - docker build -t exelate/superset-fork:latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-latest -t exelate/superset-fork:${FORK_BRANCH_NAME}.${CI_PIPELINE_IID} .
-    # - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-latest 
-    # - docker push exelate/superset-fork:latest
-    # - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-${CI_PIPELINE_IID}
+    - cd ../superset-fork
+    - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io
+    - docker build -t exelate/superset-fork:latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-latest -t exelate/superset-fork:${FORK_BRANCH_NAME}.${CI_PIPELINE_IID} .
+    - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-latest 
+    - docker push exelate/superset-fork:latest
+    - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-${CI_PIPELINE_IID}
   dependencies:
     - prepareSupersetBuild
   rules:
