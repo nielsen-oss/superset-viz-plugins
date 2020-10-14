@@ -27,7 +27,6 @@ import {
   Layout,
   LegendPosition
 } from '../components/utils'
-import { sharedControls } from '@superset-ui/chart-controls/lib';
 
 export const stackedBars = {
   name: 'stacked_bars',

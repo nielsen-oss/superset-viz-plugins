@@ -1,12 +1,6 @@
 import { t } from '@superset-ui/translation';
-import {
-  sharedControls,
-  ControlConfig,
-  ControlPanelConfig,
-  D3_FORMAT_OPTIONS,
-  D3_FORMAT_DOCS,
-} from '@superset-ui/chart-controls';
-import { CHART_TYPES } from '@superset-maf-ui/plugin-chart-composed/src/components/utils';
+import { sharedControls, ControlConfig, formatSelectOptions } from '@superset-ui/chart-controls';
+import { LegendPosition } from '@superset-maf-ui/plugin-chart-composed/src/components/utils';
 
 const groupBy: { name: string; config: ControlConfig<'SelectControl'> } = {
   name: 'group_by',
@@ -46,16 +40,6 @@ export default {
         ],
         [
           {
-            name: 'is_donut',
-            config: {
-              type: 'CheckboxControl',
-              label: t('Donut'),
-              default: false,
-              renderTrigger: true,
-              description: t('Do you want a donut or a pie?'),
-            },
-          },
-          {
             name: 'show_legend',
             config: {
               type: 'CheckboxControl',
@@ -65,8 +49,32 @@ export default {
               description: t('Whether to display the legend (toggles)'),
             },
           },
+          {
+            name: 'legend_position',
+            config: {
+              freeForm: true,
+              type: 'SelectControl',
+              clearable: false,
+              label: t('Legend position'),
+              renderTrigger: true,
+              choices: formatSelectOptions(Object.keys(LegendPosition)),
+              default: 'top',
+              description: t('Set legend position'),
+              visibility: ({ form_data }) => form_data.show_legend,
+            },
+          },
         ],
         [
+          {
+            name: 'is_donut',
+            config: {
+              type: 'CheckboxControl',
+              label: t('Donut'),
+              default: false,
+              renderTrigger: true,
+              description: t('Do you want a donut or a pie?'),
+            },
+          },
           {
             name: 'show_labels',
             config: {

@@ -7,12 +7,13 @@ type TQueryData = {
 
 export default function transformProps(chartProps: ChartProps): PieProps {
   const { width, height, formData, queryData } = chartProps;
-  const { colorScheme, isDonut, groupBy, metric, colorPicker, showLegend, pieLabelType, showLabels } = formData;
+  const { colorScheme, isDonut, groupBy, metric, colorPicker, showLegend, pieLabelType, showLabels, legendPosition } = formData;
   let data = queryData.data as TQueryData[];
 
   return {
     dataKey: metric.label,
     width,
+    legendPosition,
     height,
     data: data.filter(item => item[metric.label] !== null).filter(item => item[groupBy] !== null),
     isDonut,

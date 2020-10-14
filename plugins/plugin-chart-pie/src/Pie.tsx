@@ -11,7 +11,8 @@ import {
   PieProps as RechartsPieProps,
 } from 'recharts';
 import { CategoricalColorNamespace } from '@superset-ui/color';
-import { renderActiveShape } from './utils';
+import { LegendPosition, renderActiveShape } from './utils';
+import { getLegendProps } from '@superset-maf-ui/plugin-chart-composed/src/components/utils';
 
 type PieStylesProps = {
   height: number;
@@ -31,6 +32,7 @@ export type PieProps = {
   onClick?: RechartsFunction;
   colorScheme: string;
   baseColor: string;
+  legendPosition: LegendPosition;
   showLegend: boolean;
   showLabels: boolean;
   groupBy: string;
@@ -63,7 +65,19 @@ const Styles = styled.div<PieStylesProps>`
 `;
 
 const Pie: FC<PieProps> = memo(props => {
-  const { dataKey, data, height, width, isDonut, colorScheme, showLegend, showLabels, groupBy, pieLabelType } = props;
+  const {
+    dataKey,
+    data,
+    height,
+    width,
+    isDonut,
+    colorScheme,
+    showLegend,
+    showLabels,
+    groupBy,
+    pieLabelType,
+    legendPosition,
+  } = props;
   const [notification, setNotification] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isAnimationEnded, setIsAnimationEnded] = useState<boolean>(false);
@@ -74,7 +88,7 @@ const Pie: FC<PieProps> = memo(props => {
       setExploreCounter(exploreCounter + 1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showLabels, showLegend, isDonut]);
+  }, [showLabels, showLegend, isDonut, legendPosition]);
 
   const onPieEnter = (data: object, index: number) => setActiveIndex(index);
 
@@ -92,7 +106,7 @@ const Pie: FC<PieProps> = memo(props => {
     key: exploreCounter,
     data: data,
     cx: width / 2,
-    cy: chartHeight / 2 + (showLegend ? 0 : -20),
+    cy: chartHeight / 2 - 20,
     dataKey: dataKey,
     outerRadius,
     // @ts-ignore
@@ -114,10 +128,21 @@ const Pie: FC<PieProps> = memo(props => {
     <Styles height={height} width={width}>
       {notification && <Notification onClick={closeNotification}>{notification}</Notification>}
       {
-        <PieChart width={width - 40} height={height - 40} key={exploreCounter}>
+        <PieChart
+          margin={{
+            right: showLegend && legendPosition === LegendPosition.right ? width * 0.2 : 0,
+            left: showLegend && legendPosition === LegendPosition.left ? width * 0.2 : 0,
+          }}
+          width={width - 40}
+          height={height - 40}
+          key={exploreCounter}
+        >
           {showLegend && (
-            // @ts-ignore
-            <Legend verticalAlign="top" iconType="circle" formatter={(value, entry) => entry?.payload[groupBy]} />
+            <Legend
+              {...getLegendProps(legendPosition, height - 20, width)}
+              iconType="circle"
+              formatter={(value, entry) => entry?.payload[groupBy]}
+            />
           )}
           <RechartsPie onAnimationEnd={() => setIsAnimationEnded(true)} {...pieProps}>
             {data && data.map((entry, index) => <Cell fill={colorFn(index)} />)}

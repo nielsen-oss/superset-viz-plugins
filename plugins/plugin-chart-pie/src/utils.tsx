@@ -104,3 +104,61 @@ export const renderActiveShape = (props: ActiveShapeProps) => {
     </g>
   );
 };
+
+export enum LegendPosition {
+  top = 'top',
+  right = 'right',
+  bottom = 'bottom',
+  left = 'left',
+}
+
+type LegendAlign = 'left' | 'center' | 'right';
+type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
+type GetLegendPropsParams = { height: number; width: number; align: LegendAlign; verticalAlign: LegendVerticalAlign, wrapperStyle: object }
+
+export const getLegendProps = (
+  legendPosition: LegendPosition,
+  height: number,
+  width: number,
+): GetLegendPropsParams => {
+  let result = {
+    wrapperStyle: { overflow: 'auto' },
+    align: 'center' as LegendAlign,
+    verticalAlign: 'middle' as LegendVerticalAlign,
+    height: 40,
+    width,
+  };
+  if (legendPosition === LegendPosition.left || legendPosition === LegendPosition.right) {
+    result = {
+      ...result,
+      height,
+      width: width * 0.2,
+      align: legendPosition as LegendAlign,
+    }
+  }
+  switch (legendPosition) {
+    case LegendPosition.left:
+      return {
+        ...result,
+        wrapperStyle: {
+          ...result.wrapperStyle,
+          marginLeft: -width * 0.2
+        },
+      };
+    case LegendPosition.right:
+      return {
+        ...result,
+        wrapperStyle: {
+          ...result.wrapperStyle,
+          marginRight: -width * 0.2
+        },
+      };
+    case LegendPosition.bottom:
+    case LegendPosition.top:
+    default:
+      return {
+        ...result,
+        verticalAlign: legendPosition as LegendVerticalAlign,
+      };
+  }
+};
