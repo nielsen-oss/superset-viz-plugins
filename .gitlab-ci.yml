@@ -98,6 +98,7 @@ prepareSupersetBuild:
     - mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
     - cp ../../templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
     - npm install
+    - cat package-lock.json
   artifacts:
     paths:
       - ./superset-fork
@@ -109,6 +110,13 @@ prepareSupersetBuild:
 
 buildDocker:
   stage: buildFork
+  before_script:
+    - npm install -g npm-cli-login
+    - npm-cli-login -u $CI_CLI_USER -p $CI_CLI_PASSWORD -e $CI_CLI_EMAIL -r https://nexus.exelator.net/repository/npm-all
+    - npm-cli-login -u $CI_CLI_USER -p $CI_CLI_PASSWORD -e $CI_CLI_EMAIL -r https://nexus.exelator.net/repository/npm-internal
+    - npm set registry https://nexus.exelator.net/repository/npm-all/
+    - npm config set always-auth=true
+    - cp ~/.npmrc .
   image:
     name: docker:19.03
     entrypoint: [""]
