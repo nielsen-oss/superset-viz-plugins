@@ -15,23 +15,6 @@ stages:
   - prepareBuild
   - buildFork
 
-# .baseJob:
-#    before_script:
-#     - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
-#     - eval `ssh-agent -s`
-#     - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null # add ssh ke
-#     - mkdir -p ~/.ssh
-#     - chmod 700 ~/.ssh
-#     - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
-#     - apt-get update -qq && apt-get install
-#     - apt-get install git
-#     - npm install -g npm-cli-login
-#     - npm-cli-login -u $CI_CLI_USER -p $CI_CLI_PASSWORD -e $CI_CLI_EMAIL -r https://nexus.exelator.net/repository/npm-all
-#     - npm-cli-login -u $CI_CLI_USER -p $CI_CLI_PASSWORD -e $CI_CLI_EMAIL -r https://nexus.exelator.net/repository/npm-internal
-#     - npm set registry https://nexus.exelator.net/repository/npm-all/
-#     - npm config set always-auth=true
-#     - cp ~/.npmrc .
-
 install:
   extends: .base
   stage: install
@@ -128,8 +111,8 @@ buildDocker:
     - cicd-runner-maf
   script:
     - ls -ltr
-    - cp .npmrc superset-fork/superset-frontend/.npmrc
-    - cp .npmrc superset-fork/.npmrc
+    - cp .npmrc ./superset-fork/superset-frontend/.npmrc
+    - cp .npmrc ./superset-fork/.npmrc
     - cd superset-fork/superset-frontend/
     - ls -ltr
     - cd ../../
