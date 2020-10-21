@@ -137,7 +137,7 @@ buildDocker:
     # Build docker and push it
     - cd ../superset-fork
     - ls -ltr
-    - cd ./supserset-frontend
+    - cd ./superset-frontend
     - ls -ltr
     - cd ../
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io
