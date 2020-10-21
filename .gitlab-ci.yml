@@ -141,6 +141,8 @@ buildDocker:
     - docker push exelate/superset-fork:latest
     - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-${CI_PIPELINE_IID}
   dependencies:
+    - initMasterPipeline
+    - initMergeRequestPipeline
     - prepareSupersetBuild
   rules:
     - if: $CI_MERGE_REQUEST_IID
