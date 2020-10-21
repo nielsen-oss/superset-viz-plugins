@@ -127,9 +127,13 @@ buildDocker:
   tags:
     - cicd-runner-maf
   script:
-    - cp .npmrc ./superset-fork/superset-frontend/.npmrc
+    - ls -ltr
+    - cp .npmrc superset-fork/superset-frontend/.npmrc
+    - cd superset-fork/superset-frontend/
+    - ls -ltr
+    cd ../../
     # Get current version and fork branch name
-    - cd ./superset-maf-extensions
+    - cd superset-maf-extensions
     - VERSION=$(sed '1!d' setup.py | cut -d '=' -f 2  | tr -d '""')
     - echo $VERSION
     - FORK_BRANCH_NAME=${NEW_FORK_VERSION:=$(sed '2!d' setup.py | cut -d '=' -f 2  | tr -d '""')}
@@ -137,7 +141,7 @@ buildDocker:
     # Build docker and push it
     - cd ../superset-fork
     - ls -ltr
-    - cd ./superset-frontend
+    - cd superset-frontend
     - ls -ltr
     - cd ../
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io
