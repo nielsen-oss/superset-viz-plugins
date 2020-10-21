@@ -6,7 +6,6 @@ image: node:12.16.2
 cache:
   paths:
     - node_modules/
-    - yarn.lock
 
 stages:
   - mafInit
@@ -95,6 +94,8 @@ prepareSupersetBuild:
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-fork.git
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-maf-extensions.git
     # Add dependencies from superset-maf-ui to supserset-frontend and generate the preset
+    - cp .npmrc ./superset-fork/superset-frontend/.npmrc
+    - cp .npmrc ./superset-maf-extensions/.npmrc
     - cd superset-fork/superset-frontend
     - node ../../scripts/addDependencies.js
     - node ../../scripts/generateMafPreset.js
