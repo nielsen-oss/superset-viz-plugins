@@ -3,10 +3,6 @@ cache:
   paths:
     - node_modules/
     - .yarn
-include:
-  - project: 'nielsen-media/identity/cloudops/continuous-integration'
-    ref: master
-    file: '/Jobs/maf/initPipeline.yml'    
 
 variables:
   KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: ci-pipeline-maf
@@ -112,6 +108,10 @@ prepareSupersetBuild:
     - if: $DEPLOY_NEW_FORK == "true"
 
 buildDocker:
+  include:
+    - project: 'nielsen-media/identity/cloudops/continuous-integration'
+      ref: master
+      file: '/Jobs/maf/initPipeline.yml'    
   stage: buildFork
   extends: .initPipeline
   image:
