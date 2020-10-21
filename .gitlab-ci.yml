@@ -1,3 +1,7 @@
+include:
+  - project: 'nielsen-media/identity/cloudops/continuous-integration'
+    ref: master
+    file: '/Jobs/maf/initPipeline.yml'    
 image: node:12.16.2
 cache:
   paths:
@@ -108,10 +112,6 @@ prepareSupersetBuild:
     - if: $DEPLOY_NEW_FORK == "true"
 
 buildDocker:
-  include:
-    - project: 'nielsen-media/identity/cloudops/continuous-integration'
-      ref: master
-      file: '/Jobs/maf/initPipeline.yml'    
   stage: buildFork
   extends: .initPipeline
   image:
