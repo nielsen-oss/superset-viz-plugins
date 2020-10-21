@@ -6,7 +6,6 @@ image: node:12.16.2
 cache:
   paths:
     - node_modules/
-    - .yarn
 
 stages:
   - mafInit
@@ -90,6 +89,7 @@ prepareSupersetBuild:
   tags:
     - cicd-runner-maf
   script:
+    - yarn
     # Clone the repos
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-fork.git
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-maf-extensions.git
