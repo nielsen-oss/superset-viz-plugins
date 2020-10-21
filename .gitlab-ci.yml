@@ -127,6 +127,7 @@ buildDocker:
   tags:
     - cicd-runner-maf
   script:
+    - cp .npmrc ./superset-fork/superset-frontend/.npmrc
     # Get current version and fork branch name
     - cd ./superset-maf-extensions
     - VERSION=$(sed '1!d' setup.py | cut -d '=' -f 2  | tr -d '""')
