@@ -6,6 +6,7 @@ image: node:12.16.2
 cache:
   paths:
     - node_modules/
+    - yarn.lock
 
 stages:
   - mafInit
