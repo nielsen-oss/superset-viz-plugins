@@ -136,6 +136,10 @@ buildDocker:
     - echo $FORK_BRANCH_NAME
     # Build docker and push it
     - cd ../superset-fork
+    - ls -ltr
+    - cd ./supserset-frontend
+    - ls -ltr
+    - cd ../
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io
     - docker build -t exelate/superset-fork:latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-latest -t exelate/superset-fork:${FORK_BRANCH_NAME}.${CI_PIPELINE_IID} .
     - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-latest 
