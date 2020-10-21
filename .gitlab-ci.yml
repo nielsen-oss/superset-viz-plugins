@@ -110,11 +110,11 @@ buildDocker:
   tags:
     - cicd-runner-maf
   script:
-    - ls -ltr
+    - ls -la
     - cp .npmrc ./superset-fork/superset-frontend/.npmrc
     - cp .npmrc ./superset-fork/.npmrc
     - cd superset-fork/superset-frontend/
-    - ls -ltr
+    - ls -la
     - cd ../../
     # Get current version and fork branch name
     - cd superset-maf-extensions
@@ -124,9 +124,9 @@ buildDocker:
     - echo $FORK_BRANCH_NAME
     # Build docker and push it
     - cd ../superset-fork
-    - ls -ltr
+    - ls -la
     - cd superset-frontend
-    - ls -ltr
+    - ls -la
     - cd ../
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io
     - docker build -t exelate/superset-fork:latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-latest -t exelate/superset-fork:${FORK_BRANCH_NAME}.${CI_PIPELINE_IID} .
