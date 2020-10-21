@@ -113,7 +113,7 @@ prepareSupersetBuild:
 
 buildDocker:
   stage: buildFork
-  extends: .initPipeline
+  extends: .base
   image:
     name: docker:19.03
     entrypoint: [""]
