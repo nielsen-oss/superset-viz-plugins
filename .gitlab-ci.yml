@@ -129,9 +129,10 @@ buildDocker:
   script:
     - ls -ltr
     - cp .npmrc superset-fork/superset-frontend/.npmrc
+    - cp .npmrc superset-fork/.npmrc
     - cd superset-fork/superset-frontend/
     - ls -ltr
-    cd ../../
+    - cd ../../
     # Get current version and fork branch name
     - cd superset-maf-extensions
     - VERSION=$(sed '1!d' setup.py | cut -d '=' -f 2  | tr -d '""')
