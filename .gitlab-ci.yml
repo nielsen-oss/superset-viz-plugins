@@ -80,6 +80,7 @@ prepareSupersetBuild:
     - cp .npmrc ./superset-fork/superset-frontend/.npmrc
     - cp .npmrc ./superset-maf-extensions/.npmrc
     - cd superset-fork/superset-frontend
+    - ls -ltr
     - node ../../scripts/addDependencies.js
     - node ../../scripts/generateMafPreset.js
     - mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
@@ -99,7 +100,6 @@ buildDocker:
   extends: .base
   image:
     name: docker:19.03
-    entrypoint: [""]
   services:
     - name: docker:19.03-dind
       entrypoint: ["env", "-u", "DOCKER_HOST"]
