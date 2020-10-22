@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { DonutPieChartPlugin } from '../src';
+import PieChartPlugin from '../src';
 
 /**
  * The example tests in this file act as a starting point, and
@@ -26,8 +26,8 @@ import { DonutPieChartPlugin } from '../src';
  * treated correctly (e.g. formData from plugin controls
  * properly transform the data and/or any resulting props).
  */
-describe('@superset-ui/plugin-chart-donut-pie', () => {
+describe('@superset-ui/plugin-chart-pie', () => {
   it('exists', () => {
-    expect(DonutPieChartPlugin).toBeDefined();
+    expect(PieChartPlugin).toBeDefined();
   });
 });
