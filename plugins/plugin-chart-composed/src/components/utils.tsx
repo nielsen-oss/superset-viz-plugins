@@ -1,12 +1,12 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getNumberFormatter } from '@superset-ui/number-format';
-import { Area, Bar, LabelProps, Line, Scatter } from 'recharts';
+import { Area, Bar, LabelProps, Legend, Line, Scatter } from 'recharts';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { NumberFormatFunction } from '@superset-ui/number-format/lib/types';
 import { ResultData } from '../plugin/transformProps';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import ComposedChartTick, { BarChartTickProps } from './ComposedChartTick';
+import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { CategoricalColorNamespace } from '@superset-ui/color';
 
@@ -20,6 +20,13 @@ export const MIN_BAR_SIZE_FOR_LABEL = 18;
 export const MIN_SYMBOL_WIDTH_FOR_LABEL = 14;
 export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 8;
 export const MIN_LABEL_MARGIN = 20;
+
+export enum LegendPosition {
+  top = 'top',
+  right = 'right',
+  bottom = 'bottom',
+  left = 'left',
+}
 
 export const CHART_TYPES = {
   BAR_CHART: 'BAR_CHART',
@@ -78,16 +85,69 @@ export const CHART_SUB_TYPE_NAMES = {
   },
 };
 
+type LegendAlign = 'left' | 'center' | 'right';
+type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
+type GetLegendPropsParams = { height: number; width: number; align: LegendAlign; verticalAlign: LegendVerticalAlign, wrapperStyle: object }
+
+export const getLegendProps = (
+  legendPosition: LegendPosition,
+  height: number,
+  width: number,
+): GetLegendPropsParams => {
+  let result = {
+    wrapperStyle: { overflow: 'auto' },
+    align: 'center' as LegendAlign,
+    verticalAlign: 'middle' as LegendVerticalAlign,
+    height: 40,
+    width,
+  };
+  if (legendPosition === LegendPosition.left || legendPosition === LegendPosition.right) {
+    result = {
+      ...result,
+      height,
+      width: width * 0.2,
+      align: legendPosition as LegendAlign,
+    }
+  }
+  switch (legendPosition) {
+    case LegendPosition.left:
+      return {
+        ...result,
+        wrapperStyle: {
+          ...result.wrapperStyle,
+          marginLeft: -width * 0.2
+        },
+      };
+    case LegendPosition.right:
+      return {
+        ...result,
+        wrapperStyle: {
+          ...result.wrapperStyle,
+          marginRight: -width * 0.2
+        },
+      };
+    case LegendPosition.bottom:
+    case LegendPosition.top:
+    default:
+      return {
+        ...result,
+        verticalAlign: legendPosition as LegendVerticalAlign,
+      };
+  }
+};
+
 export type ChartsUIItem = ChartLineItem | ChartBarItem | ChartScatterItem;
 
 export type ChartScatterItem = {
   Element: React.ElementType;
+  opacity?: number;
   shape?: string;
 };
 
 export type ChartLineItem = {
   Element: React.ElementType;
   type?: string;
+  strokeOpacity?: string;
   stroke?: string;
   strokeWidth?: number;
 };
@@ -95,7 +155,8 @@ export type ChartLineItem = {
 export type ChartBarItem = {
   Element: React.ElementType;
   fill?: string;
-  stackId?: string;
+  opacity?: number;
+  stackId?: string | boolean;
 };
 
 export const getChartElement = (
@@ -103,6 +164,7 @@ export const getChartElement = (
   chartSubType: keyof typeof CHART_SUB_TYPES,
   metric: string,
   colorScheme: string,
+  hasDifferentTypes: boolean,
 ): ChartsUIItem => {
   const { getColor } = CategoricalColorNamespace;
 
@@ -118,6 +180,7 @@ export const getChartElement = (
         Element: Line,
         strokeWidth: 2,
         stroke: color,
+        opacity: 0.8,
         type: chartSubType,
       };
       break;
@@ -126,6 +189,7 @@ export const getChartElement = (
         Element: Area,
         strokeWidth: 2,
         stroke: color,
+        opacity: 0.8,
         type: chartSubType,
       };
       break;
@@ -133,6 +197,7 @@ export const getChartElement = (
       commonProps = {
         Element: Scatter,
         fill: color,
+        opacity: 0.8,
         shape: chartSubType,
       };
       break;
@@ -140,6 +205,7 @@ export const getChartElement = (
     default:
       commonProps = {
         Element: Bar,
+        opacity: hasDifferentTypes ? 0.6 : 1,
         fill: color,
         stackId: chartSubType === CHART_SUB_TYPES.STACKED && 'metric',
       };
@@ -148,23 +214,18 @@ export const getChartElement = (
   return { ...commonProps };
 };
 
-type TAxisProps = {
+type AxisProps = {
   layout: Layout;
-  angle: number;
-  label: string;
+  angle?: number;
+  label?: string;
+  isSecondAxis?: boolean;
+  dataKey?: string;
   dataKeyLength: number;
   metricLength: number;
   numbersFormat: string;
 };
 
-export const getXAxisProps = ({
-  layout,
-  angle,
-  label,
-  dataKeyLength,
-  metricLength,
-  numbersFormat,
-}: TAxisProps) => {
+export const getXAxisProps = ({ layout, angle, label, dataKeyLength, metricLength, numbersFormat }: AxisProps) => {
   const textAnchor = angle === 0 ? 'middle' : 'end';
   const labelProps: LabelProps = {
     offset: 30,
@@ -180,12 +241,8 @@ export const getXAxisProps = ({
     case Layout.vertical:
       return {
         ...params,
-        tick: (props: BarChartTickProps) => (
-          <ComposedChartTick
-            {...props}
-            textAnchor={textAnchor}
-            tickFormatter={getNumberFormatter(numbersFormat)}
-          />
+        tick: (props: ComposedChartTickProps) => (
+          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
         ),
         height: angle === 0 ? MIN_LABEL_MARGIN : metricLength,
         type: 'number' as const,
@@ -194,9 +251,7 @@ export const getXAxisProps = ({
     default:
       return {
         ...params,
-        tick: (props: BarChartTickProps) => (
-          <ComposedChartTick {...props} textAnchor={textAnchor} />
-        ),
+        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
         height: angle === 0 ? MIN_LABEL_MARGIN : dataKeyLength,
         interval: 0,
         dataKey: 'rechartsDataKey',
@@ -208,31 +263,34 @@ export const getYAxisProps = ({
   layout,
   angle,
   label,
+  dataKey,
+  isSecondAxis,
   dataKeyLength,
   metricLength,
   numbersFormat,
-}: TAxisProps) => {
+}: AxisProps) => {
   const textAnchor = angle === -90 ? 'middle' : 'end';
   const labelProps: LabelProps = {
     offset: 30,
     value: label,
     angle: 90,
-    position: 'left',
+    position: isSecondAxis ? 'right' : 'left',
   };
   const params = {
-    dx: -5,
+    tickMargin: isSecondAxis ? 25 : 0,
+    dx: isSecondAxis ? 10 : -10,
     angle,
+    orientation: isSecondAxis ? ('right' as const) : ('left' as const),
+    yAxisId: isSecondAxis ? 'right' : 'left',
     label: labelProps,
   };
   switch (layout) {
     case Layout.vertical:
       return {
         ...params,
-        tick: (props: BarChartTickProps) => (
-          <ComposedChartTick {...props} textAnchor={textAnchor} />
-        ),
+        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
         width: angle === -90 ? MIN_LABEL_MARGIN : dataKeyLength,
-        dataKey: 'rechartsDataKey',
+        dataKey: isSecondAxis ? dataKey : 'rechartsDataKey',
         type: 'category' as const,
       };
     case Layout.horizontal:
@@ -240,12 +298,8 @@ export const getYAxisProps = ({
       return {
         ...params,
         width: angle === -90 ? MIN_LABEL_MARGIN : metricLength,
-        tick: (props: BarChartTickProps) => (
-          <ComposedChartTick
-            {...props}
-            textAnchor={textAnchor}
-            tickFormatter={getNumberFormatter(numbersFormat)}
-          />
+        tick: (props: ComposedChartTickProps) => (
+          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
         ),
       };
   }
@@ -276,9 +330,7 @@ export const getMaxLengthOfMetric = (
   Math.max(
     ...data.map(
       item =>
-        (formatter(
-          Math.abs(metrics.reduce((total, metric) => total + (item[metric] as number), 0)),
-        ) as string).length,
+        (formatter(Math.abs(metrics.reduce((total, metric) => total + (item[metric] as number), 0))) as string).length,
     ),
   );
 

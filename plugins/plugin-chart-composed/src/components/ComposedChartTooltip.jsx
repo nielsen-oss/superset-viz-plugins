@@ -40,7 +40,7 @@ const Line = lib_1.default.p(
     return color;
   },
 );
-const BarChartTooltip = function (_a) {
+const ComposedChartTooltip = function (_a) {
   let _b;
   const { active } = _a;
   const _c = _a.payload;
@@ -67,6 +67,6 @@ const BarChartTooltip = function (_a) {
   }
   return null;
 };
-exports.default = BarChartTooltip;
+exports.default = ComposedChartTooltip;
 let templateObject_1;
 let templateObject_2;

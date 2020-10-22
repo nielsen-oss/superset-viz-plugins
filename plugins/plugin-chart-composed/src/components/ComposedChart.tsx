@@ -16,34 +16,36 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { createRef, useEffect, useState } from 'react';
-import styled from '@superset-ui/style';
+import React, { useEffect, useState } from 'react'
+import styled from '@superset-ui/style'
 import {
   CartesianGrid,
+  ComposedChart as RechartsComposedChart,
+  LabelFormatter,
   Legend,
   Tooltip,
   XAxis,
   YAxis,
-  ComposedChart as RechartsComposedChart,
-  LabelFormatter,
-} from 'recharts';
+} from 'recharts'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { getNumberFormatter } from '@superset-ui/number-format';
-import BarChartTooltip from './BarChartTooltip';
-import { TLabelColors, ResultData } from '../plugin/transformProps';
+import { getNumberFormatter } from '@superset-ui/number-format'
+import ComposedChartTooltip from './ComposedChartTooltip'
+import { ResultData, TLabelColors } from '../plugin/transformProps'
 import {
+  CHART_SUB_TYPES,
   CHART_TYPES,
-  Layout,
   getCartesianGridProps,
+  getChartElement,
+  getLegendProps,
   getMaxLengthOfDataKey,
   getMaxLengthOfMetric,
   getXAxisProps,
   getYAxisProps,
+  Layout,
+  LegendPosition,
   MIN_SYMBOL_WIDTH_FOR_TICK_LABEL,
   renderLabel,
-  getChartElement,
-  CHART_SUB_TYPES,
-} from './utils';
+} from './utils'
 
 type ComposedChartStylesProps = {
   height: number;
@@ -53,15 +55,20 @@ type ComposedChartStylesProps = {
 type Axis = {
   label: string;
   tickLabelAngle: number;
+  label2?: string;
+  tickLabelAngle2?: number;
 };
 
 export type ComposedChartProps = {
   height: number;
   width: number;
+  showLegend: boolean;
+  legendPosition: LegendPosition;
   data: ResultData[];
   layout: Layout;
   metrics: string[];
   colorScheme: string;
+  useY2Axis?: boolean;
   chartSubType: keyof typeof CHART_SUB_TYPES;
   isAnimationActive?: boolean;
   chartType: keyof typeof CHART_TYPES;
@@ -69,6 +76,9 @@ export type ComposedChartProps = {
   yAxis: Axis;
   labelsColor: TLabelColors;
   numbersFormat: string;
+  chartTypeMetrics: (keyof typeof CHART_TYPES)[];
+  chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[];
+  useCustomTypeMetrics: boolean[];
 };
 
 const Styles = styled.div<ComposedChartStylesProps>`
@@ -76,16 +86,9 @@ const Styles = styled.div<ComposedChartStylesProps>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: ${({ theme }) => theme.gridUnit * 4}px;
-  border-radius: ${({ theme }) => theme.gridUnit * 2}px;
   height: ${({ height }) => height};
   width: ${({ width }) => width};
   overflow-y: scroll;
-  h3 {
-    /* You can use your props to control CSS! */
-    font-size: ${({ theme }) => theme?.typography?.sizes?.xxl};
-    font-weight: bold;
-  }
 `;
 
 export default function ComposedChart(props: ComposedChartProps) {
@@ -102,28 +105,39 @@ export default function ComposedChart(props: ComposedChartProps) {
     yAxis,
     isAnimationActive,
     labelsColor,
+    useY2Axis,
     numbersFormat,
+    chartTypeMetrics,
+    chartSubTypeMetrics,
+    showLegend,
+    legendPosition,
+    useCustomTypeMetrics,
   } = props;
 
-  const rootElem = createRef<HTMLDivElement>();
   const [exploreCounter, setExploreCounter] = useState<number>(0);
   const dataKeyLength = getMaxLengthOfDataKey(data) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
   const metricLength =
-    getMaxLengthOfMetric(data, metrics, getNumberFormatter(numbersFormat)) *
-    MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
+    getMaxLengthOfMetric(data, metrics, getNumberFormatter(numbersFormat)) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
 
   useEffect(() => {
     // In explore need rerender chart when change `renderTrigger` props
     setExploreCounter(exploreCounter + 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [xAxis, yAxis, labelsColor, numbersFormat, chartType, colorScheme, layout, chartSubType]);
+  }, [xAxis, yAxis, labelsColor, numbersFormat, chartType, colorScheme, layout, chartSubType, legendPosition, showLegend]);
 
-  const renderChartElement = (metric: string) => {
+  const renderChartElement = (metric: string, index: number) => {
+    let customChartType = chartType;
+    let customChartSubType = chartSubType;
+    if (useCustomTypeMetrics[index]) {
+      customChartType = chartTypeMetrics[index];
+      customChartSubType = chartSubTypeMetrics[index];
+    }
     const { Element, ...elementProps } = getChartElement(
-      chartType,
-      chartSubType,
+      customChartType,
+      customChartSubType,
       metric,
       colorScheme,
+      customChartType === CHART_TYPES.BAR_CHART && useCustomTypeMetrics.some(el => el),
     );
     return (
       <Element
@@ -135,6 +149,7 @@ export default function ComposedChart(props: ComposedChartProps) {
           formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
           content: renderLabel,
         }}
+        yAxisId={useY2Axis && index === metrics.length - 1 ? 'right' : 'left'}
         dataKey={metric}
         {...elementProps}
       />
@@ -142,20 +157,20 @@ export default function ComposedChart(props: ComposedChartProps) {
   };
 
   return (
-    <Styles ref={rootElem} height={height} width={width}>
+    <Styles height={height} width={width}>
       <RechartsComposedChart
         margin={{
-          bottom: 60,
+          bottom: 40,
           top: 0,
-          right: 0,
-          left: 60,
+          right: (showLegend && legendPosition === LegendPosition.right ? width * 0.2 : 20) + (useY2Axis ? 40 : 20),
+          left: showLegend && legendPosition === LegendPosition.left ? width * 0.2 : 20,
         }}
         layout={layout}
         height={height - 40}
         width={width}
         data={data}
       >
-        <Legend verticalAlign="top" height={40} iconType="circle" iconSize={10} />
+        {showLegend && <Legend {...getLegendProps(legendPosition, height - 20, width)} iconType="circle" iconSize={10} />}
         <CartesianGrid {...getCartesianGridProps({ layout })} />
         <XAxis
           {...getXAxisProps({
@@ -177,7 +192,21 @@ export default function ComposedChart(props: ComposedChartProps) {
             label: yAxis.label,
           })}
         />
-        <Tooltip content={<BarChartTooltip />} />
+        {useY2Axis && (
+          <YAxis
+            {...getYAxisProps({
+              dataKeyLength,
+              metricLength,
+              numbersFormat,
+              layout,
+              isSecondAxis: true,
+              dataKey: metrics[metrics.length - 1],
+              angle: yAxis.tickLabelAngle2,
+              label: yAxis.label2,
+            })}
+          />
+        )}
+        <Tooltip content={<ComposedChartTooltip />} />
         {metrics.map(renderChartElement)}
       </RechartsComposedChart>
     </Styles>
