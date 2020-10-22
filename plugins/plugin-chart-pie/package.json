@@ -1,6 +1,6 @@
 {
   "name": "@superset-maf-ui/plugin-chart-pie",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Superset Chart - Pie",
   "pluginName": "PieChartPlugin",
   "sideEffects": false,
@@ -45,11 +45,11 @@
   "dependencies": {
     "@superset-ui/chart": "^0.14.1",
     "@superset-ui/chart-controls": "^0.14.0",
+    "@superset-ui/color": "^0.14.0",
     "@superset-ui/dimension": "^0.14.23",
+    "@superset-ui/number-format": "^0.14.9",
     "@superset-ui/query": "^0.14.1",
     "@superset-ui/style": "^0.14.0",
-    "@superset-ui/color": "^0.14.0",
-    "@superset-ui/number-format": "^0.14.9",
     "@superset-ui/translation": "^0.14.0",
     "@superset-ui/validator": "^0.14.1",
     "recharts": "^1.8.5"
