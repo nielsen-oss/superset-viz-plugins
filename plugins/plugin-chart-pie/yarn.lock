@@ -622,6 +622,19 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@superset-maf-ui/plugin-chart-composed@^0.2.1":
+  version "0.2.1"
+  resolved "https://nexus.exelator.net/repository/npm-all/@superset-maf-ui/plugin-chart-composed/-/plugin-chart-composed-0.2.1.tgz#f0010684514c3babd8b70a731ba40d4e7a849fd7"
+  integrity sha512-nJGO9kW4zF03eCJxV+QUE31CO9wLVtgRrySFn8926qcGeuwNDa7L3Wr7VXrheZg89+33xGEOT6KsYaVX1MkXZg==
+  dependencies:
+    "@superset-ui/chart-controls" "^0.15.2"
+    "@superset-ui/core" "^0.15.2"
+    "@superset-ui/number-format" "^0.14.23"
+    "@superset-ui/style" "^0.14.23"
+    "@superset-ui/translation" "^0.14.23"
+    "@superset-ui/validator" "^0.14.23"
+    recharts "^1.8.5"
+
 "@superset-ui/chart-controls@^0.14.0":
   version "0.14.23"
   resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/chart-controls/-/chart-controls-0.14.23.tgz#eb6c530bc25dc6cc8252d1101e63875dd7260b19"
@@ -631,6 +644,15 @@
     lodash "^4.17.15"
     prop-types "^15.7.2"
     react-bootstrap "^0.33.1"
+
+"@superset-ui/chart-controls@^0.15.2":
+  version "0.15.9"
+  resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/chart-controls/-/chart-controls-0.15.9.tgz#50a68dad65a24745902fc1b39ab8cb4a806362a5"
+  integrity sha512-g7TSCSWTbZfKDUSUDoTwnwJ8QEwsBH5tZXTrPLDoOwt137Riqt9XDpEQhHD3/Mg+ppinuakb7lGXMEtTdblZ0A==
+  dependencies:
+    "@superset-ui/core" "0.15.9"
+    lodash "^4.17.15"
+    prop-types "^15.7.2"
 
 "@superset-ui/chart@^0.14.1":
   version "0.14.23"
@@ -655,12 +677,42 @@
     d3-interpolate "^1.4.0"
     d3-scale "^3.0.0"
 
+"@superset-ui/core@0.15.9", "@superset-ui/core@^0.15.2":
+  version "0.15.9"
+  resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/core/-/core-0.15.9.tgz#ad1d9aeb95694e8393ed5da602a5b5b1a9e05191"
+  integrity sha512-YbaIFcA2llYRh/6cxrFJb4expTHxoJXAhUo9lJwYG3czhhp8c2RQk0dJpgD39UAlJvAKwNngIvZvwRcqCPTNpw==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+    "@emotion/core" "^10.0.28"
+    "@emotion/styled" "^10.0.27"
+    "@types/d3-format" "^1.3.0"
+    "@types/d3-interpolate" "^1.3.1"
+    "@types/d3-scale" "^2.1.1"
+    "@types/d3-time" "^1.0.9"
+    "@types/d3-time-format" "^2.1.0"
+    "@types/lodash" "^4.14.149"
+    "@vx/responsive" "^0.0.197"
+    csstype "^2.6.4"
+    d3-format "^1.3.2"
+    d3-interpolate "^1.4.0"
+    d3-scale "^3.0.0"
+    d3-time "^1.0.10"
+    d3-time-format "^2.2.0"
+    emotion-theming "^10.0.27"
+    fetch-retry "^4.0.1"
+    jed "^1.1.1"
+    lodash "^4.17.11"
+    pretty-ms "^7.0.0"
+    react-error-boundary "^1.2.5"
+    reselect "^4.0.0"
+    whatwg-fetch "^3.0.0"
+
 "@superset-ui/dimension@^0.14.23":
   version "0.14.23"
   resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/dimension/-/dimension-0.14.23.tgz#680a2be4445664fabb292aba22ce4a8a6efd99d2"
   integrity sha512-uqGtj4YT9prJD8eG79IWkELMuZfwNtSP8hbd4aywnzlyJwnEWC5qYKhKJgDCnWTh6OwrH2RieXwVRu2ZwytuBA==
 
-"@superset-ui/number-format@^0.14.9":
+"@superset-ui/number-format@^0.14.23", "@superset-ui/number-format@^0.14.9":
   version "0.14.23"
   resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/number-format/-/number-format-0.14.23.tgz#61758837c73a8ff9a0f7b684b6a94b1497c38f64"
   integrity sha512-mLY/b2lRUsazZFOxF9eBJOkan0029YrZep+KvIACagYgyVxGP/Kli0h3mhuNeXN3zQqZvDXfqsc7nZHLzX1cZw==
@@ -674,7 +726,7 @@
   resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/query/-/query-0.14.23.tgz#a1aa374e7a234542601c8fbefdd155e0091d0398"
   integrity sha512-AlUsxJhO0tKifHprf1L7PJ74L5gbdL6z0vy2q/XXYMpttY63FzUKN3IfmFk1zw+6oH8YBe13S6hiORk8CeoXxA==
 
-"@superset-ui/style@^0.14.0":
+"@superset-ui/style@^0.14.0", "@superset-ui/style@^0.14.23":
   version "0.14.23"
   resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/style/-/style-0.14.23.tgz#f50a2b35ac75e0c08e39347905b25b5f9a4cd5cc"
   integrity sha512-/ac0au8jKyvqo5GO/buKy+WYZ2Q3u0z3stcUDW+RmZ//DB47FAqkXSoKhkTIsKsZU0sERMww03Fj2FP+d6BBUw==
@@ -683,14 +735,14 @@
     "@emotion/styled" "^10.0.27"
     emotion-theming "^10.0.27"
 
-"@superset-ui/translation@^0.14.0":
+"@superset-ui/translation@^0.14.0", "@superset-ui/translation@^0.14.23":
   version "0.14.23"
   resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/translation/-/translation-0.14.23.tgz#204681affc6a8d629bf5321603a5dce5f857c438"
   integrity sha512-jTLTbmEJDrpL1IrnPKDqtXgwGO87R24+ZIdhCNWpNry8/chayr8hb6eMTJhuKZRhBkrn7I/qmpKZ5IiNwoiq4A==
   dependencies:
     jed "^1.1.1"
 
-"@superset-ui/validator@^0.14.1":
+"@superset-ui/validator@^0.14.1", "@superset-ui/validator@^0.14.23":
   version "0.14.23"
   resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/validator/-/validator-0.14.23.tgz#476a40d326e3ed42132c813b2c884200db9de488"
   integrity sha512-pHHubcKg6Xmpaqkq94J+UFEKyqI6d9B7F8uyYukLuGkQSlx33ccNWDixfAJhUbfxh1MBGh9A77F52ceCLQE+bw==
@@ -774,7 +826,12 @@
   dependencies:
     "@types/d3-path" "*"
 
-"@types/d3-time@^1":
+"@types/d3-time-format@^2.1.0":
+  version "2.3.1"
+  resolved "https://nexus.exelator.net/repository/npm-all/@types/d3-time-format/-/d3-time-format-2.3.1.tgz#87a30e4513b9d1d53b920327a361f87255bf3372"
+  integrity sha512-fck0Z9RGfIQn3GJIEKVrp15h9m6Vlg0d5XXeiE/6+CQiBmMDZxfR21XtjEPuDeg7gC3bBM0SdieA5XF3GW1wKA==
+
+"@types/d3-time@^1", "@types/d3-time@^1.0.9":
   version "1.1.1"
   resolved "https://nexus.exelator.net/repository/npm-all/@types/d3-time/-/d3-time-1.1.1.tgz#6cf3a4242c3bbac00440dfb8ba7884f16bedfcbf"
   integrity sha512-ULX7LoqXTCYtM+tLYOaeAJK7IwCT+4Gxlm2MaH0ErKLi07R5lh8NHCAyWcDkCCmx1AfRcBEV6H9QE9R25uP7jw==
@@ -821,7 +878,7 @@
     jest-diff "^25.2.1"
     pretty-format "^25.2.1"
 
-"@types/lodash@^4.14.146":
+"@types/lodash@^4.14.146", "@types/lodash@^4.14.149":
   version "4.14.162"
   resolved "https://nexus.exelator.net/repository/npm-all/@types/lodash/-/lodash-4.14.162.tgz#65d78c397e0d883f44afbf1f7ba9867022411470"
   integrity sha512-alvcho1kRUnnD1Gcl4J+hK0eencvzq9rmzvFPRmP5rPHx9VVsJj6bKLTATPVf9ktgv4ujzh7T+XWKp+jhuODig==
@@ -1494,7 +1551,7 @@ cssstyle@^2.2.0:
   dependencies:
     cssom "~0.3.6"
 
-csstype@^2.5.7:
+csstype@^2.5.7, csstype@^2.6.4:
   version "2.6.13"
   resolved "https://nexus.exelator.net/repository/npm-all/csstype/-/csstype-2.6.13.tgz#a6893015b90e84dd6e85d0e3b442a1e84f2dbe0f"
   integrity sha512-ul26pfSQTZW8dcOnD2iiJssfXw0gdNVX9IJDH/X3K5DGPfj+fUYe3kB+swUY6BF3oZDxaID3AJt+9/ojSAE05A==
@@ -1588,7 +1645,7 @@ d3-shape@^1.2.0:
   dependencies:
     d3-path "1"
 
-d3-time-format@2:
+d3-time-format@2, d3-time-format@^2.2.0:
   version "2.3.0"
   resolved "https://nexus.exelator.net/repository/npm-all/d3-time-format/-/d3-time-format-2.3.0.tgz#107bdc028667788a8924ba040faf1fbccd5a7850"
   integrity sha512-guv6b2H37s2Uq/GefleCDtbe0XZAuy7Wa49VGkPVPMfLL9qObgBST3lEHJBMUp8S7NdLQAGIvr2KXk8Hc98iKQ==
@@ -1602,7 +1659,7 @@ d3-time-format@2:
   dependencies:
     d3-time "1 - 2"
 
-d3-time@1:
+d3-time@1, d3-time@^1.0.10:
   version "1.1.0"
   resolved "https://nexus.exelator.net/repository/npm-all/d3-time/-/d3-time-1.1.0.tgz#b1e19d307dae9c900b7e5b25ffc5dcc249a8a0f1"
   integrity sha512-Xh0isrZ5rPYYdqhAVk8VLnMEidhz5aP7htAADH6MfzgmmicPkTo8LhkLxci61/lCB7n7UmE3bN0leRt+qvkLxA==
@@ -1934,6 +1991,11 @@ fb-watchman@^2.0.0:
   integrity sha512-DkPJKQeY6kKwmuMretBhr7G6Vodr7bFwDYTXIkfG1gjvNpaxBTQV3PbXg6bR1c1UP4jPOX0jHUbbHANL9vRjVg==
   dependencies:
     bser "2.1.1"
+
+fetch-retry@^4.0.1:
+  version "4.0.1"
+  resolved "https://nexus.exelator.net/repository/npm-all/fetch-retry/-/fetch-retry-4.0.1.tgz#ca746666399aaf0547aa3851ccb543cfb112b8da"
+  integrity sha512-EhIeVBkq9T2z1ANDr2kmLujoHOTdLvR9t/nzLSdX4PMIFinLyyZFYX9T6Fb3LrbiHQEhujq1O7ElsqjuqYIsEA==
 
 fill-range@^4.0.0:
   version "4.0.0"
@@ -2998,7 +3060,7 @@ lodash.throttle@^4.1.1:
   resolved "https://nexus.exelator.net/repository/npm-all/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
   integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
-lodash@^4.17.10, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.5, lodash@~4.17.4:
+lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.5, lodash@~4.17.4:
   version "4.17.20"
   resolved "https://nexus.exelator.net/repository/npm-all/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
@@ -4360,6 +4422,11 @@ whatwg-encoding@^1.0.5:
   integrity sha512-b5lim54JOPN9HtzvK9HFXvBma/rnfFeqsic0hSpjtDbVxR3dJKLc+KB4V6GgiGOvl7CY/KNh8rxSo9DKQrnUEw==
   dependencies:
     iconv-lite "0.4.24"
+
+whatwg-fetch@^3.0.0:
+  version "3.4.1"
+  resolved "https://nexus.exelator.net/repository/npm-all/whatwg-fetch/-/whatwg-fetch-3.4.1.tgz#e5f871572d6879663fa5674c8f833f15a8425ab3"
+  integrity sha512-sofZVzE1wKwO+EYPbWfiwzaKovWiZXf4coEzjGP9b2GBVgQRLQUZ2QcuPpQExGDAW5GItpEm6Tl4OU5mywnAoQ==
 
 whatwg-mimetype@^2.3.0:
   version "2.3.0"
