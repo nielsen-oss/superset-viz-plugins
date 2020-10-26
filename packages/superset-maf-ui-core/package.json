@@ -1,6 +1,6 @@
 {
   "name": "@superset-maf-ui/core",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Supertset MAF UI core package",
   "main": "lib/index.js",
   "module": "esm/index.js",
