@@ -1,6 +1,6 @@
 {
   "name": "@superset-maf-ui/plugin-chart-pie",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Superset Chart - Pie",
   "pluginName": "PieChartPlugin",
   "sideEffects": false,
@@ -43,7 +43,7 @@
     "jest": "^26.0.1"
   },
   "dependencies": {
-    "@superset-maf-ui/plugin-chart-composed": "^0.2.1",
+    "@superset-maf-ui/plugin-chart-composed": "0.2.2",
     "@superset-ui/chart": "^0.14.1",
     "@superset-ui/chart-controls": "^0.14.0",
     "@superset-ui/color": "^0.14.0",

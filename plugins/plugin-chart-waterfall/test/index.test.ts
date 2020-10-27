@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { WaterfallChartPlugin } from '../src';
+import WaterfallChartPlugin from '../src';
 
 /**
  * The example tests in this file act as a starting point, and
