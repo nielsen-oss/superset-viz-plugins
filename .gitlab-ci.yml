@@ -34,9 +34,10 @@ install:
     - cicd-runner-maf
   script:
     - yarn --frozen-lockfile
-  only:
-    - master
-    - merge_requests
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
 
 # lint:
 #   stage: test
@@ -74,5 +75,5 @@ deploy_prod:
     - git fetch
     - yarn prerelease
     - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes 
-  only:
-    - master
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
