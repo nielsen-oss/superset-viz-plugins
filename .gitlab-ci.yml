@@ -25,7 +25,7 @@ before_script:
 
 stages:
   - install
-  # - test
+  - test
   - deploy
 
 install:
@@ -50,15 +50,15 @@ install:
 #     - master
 #     - merge_requests
 
-# test:
-#   stage: test
-#   tags:
-#     - cicd-runner-maf
-#   script:
-#     - git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
-#     - yarn test
-#   only:
-#     - merge_requests
+test:
+  stage: test
+  tags:
+    - cicd-runner-maf
+  script:
+    - git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
+    - yarn test
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
 
 deploy_prod:
   stage: deploy
