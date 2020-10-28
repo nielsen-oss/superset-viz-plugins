@@ -10,7 +10,7 @@ cache:
 stages:
   - mafInit
   - install
-  # - test
+  - test
   - deployPlugins
   - prepareBuild
   - buildFork
@@ -37,15 +37,15 @@ install:
 #     - master
 #     - merge_requests
 
-# test:
-#   stage: test
-#   tags:
-#     - cicd-runner-maf
-#   script:
-#     - git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
-#     - yarn test
-#   rules:
-#     - if: $CI_MERGE_REQUEST_IID
+test:
+  stage: test
+  tags:
+    - cicd-runner-maf
+  script:
+    - git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
+    - yarn test
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
 
 deployPlugins:
   stage: deployPlugins
@@ -110,11 +110,9 @@ buildDocker:
   tags:
     - cicd-runner-maf
   script:
-    - ls -la
     - cp .npmrc ./superset-fork/superset-frontend/.npmrc
     - cp .npmrc ./superset-fork/.npmrc
     - cd superset-fork/superset-frontend/
-    - ls -la
     - cd ../../
     # Get current version and fork branch name
     - cd superset-maf-extensions
@@ -124,9 +122,7 @@ buildDocker:
     - echo $FORK_BRANCH_NAME
     # Build docker and push it
     - cd ../superset-fork
-    - ls -la
     - cd superset-frontend
-    - ls -la
     - cd ../
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io
     - docker build -t exelate/superset-fork:latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-${CI_PIPELINE_IID}-gitlab-test .
