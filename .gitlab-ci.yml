@@ -1,7 +1,7 @@
 include:
   - project: 'nielsen-media/identity/cloudops/continuous-integration'
     ref: master
-    file: '/Jobs/maf/initPipeline.yml'    
+    file: '/Jobs/maf/initPipeline.yml'
 image: node:12.16.2
 cache:
   paths:
@@ -62,7 +62,7 @@ deployPlugins:
     - echo git checkout -B “$CI_COMMIT_REF_NAME” “$CI_COMMIT_SHA”
     - git fetch
     - yarn prerelease
-    - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes 
+    - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
@@ -126,7 +126,7 @@ buildDocker:
     - cd ../
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io
     - docker build -t exelate/superset-fork:latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-${CI_PIPELINE_IID}-gitlab-test .
-    - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-latest 
+    - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-latest
     - docker push exelate/superset-fork:latest
     - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-${CI_PIPELINE_IID}-gitlab-test
   dependencies:
