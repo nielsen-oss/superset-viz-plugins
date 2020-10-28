@@ -1,6 +1,6 @@
 import { t } from '@superset-ui/translation';
 import { sharedControls, ControlConfig, formatSelectOptions } from '@superset-ui/chart-controls';
-import { LegendPosition } from '@superset-maf-ui/plugin-chart-composed/src/components/utils';
+import { LegendPosition } from '../utils';
 
 const groupBy: { name: string; config: ControlConfig<'SelectControl'> } = {
   name: 'group_by',

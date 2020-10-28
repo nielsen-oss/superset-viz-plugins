@@ -622,10 +622,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@superset-maf-ui/plugin-chart-composed@^0.2.1":
-  version "0.2.1"
-  resolved "https://nexus.exelator.net/repository/npm-all/@superset-maf-ui/plugin-chart-composed/-/plugin-chart-composed-0.2.1.tgz#f0010684514c3babd8b70a731ba40d4e7a849fd7"
-  integrity sha512-nJGO9kW4zF03eCJxV+QUE31CO9wLVtgRrySFn8926qcGeuwNDa7L3Wr7VXrheZg89+33xGEOT6KsYaVX1MkXZg==
+"@superset-maf-ui/plugin-chart-composed@^0.2.2":
+  version "0.2.2"
+  resolved "https://nexus.exelator.net/repository/npm-all/@superset-maf-ui/plugin-chart-composed/-/plugin-chart-composed-0.2.2.tgz#9b11b328cb2793623de4489ef2edef76bb1e6bdc"
+  integrity sha512-mfc9sXDPuB9U65zGiY5/gcDKXOMb5fM6VuG5SUc9azWn0/7OhaJAA3VQlI3ZC4Ofj2cf/c6l7X2glBXnwhyvZg==
   dependencies:
     "@superset-ui/chart-controls" "^0.15.2"
     "@superset-ui/core" "^0.15.2"

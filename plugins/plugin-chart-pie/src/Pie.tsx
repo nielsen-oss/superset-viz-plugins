@@ -11,8 +11,7 @@ import {
   PieProps as RechartsPieProps,
 } from 'recharts';
 import { CategoricalColorNamespace } from '@superset-ui/color';
-import { LegendPosition, renderActiveShape } from './utils';
-import { getLegendProps } from '@superset-maf-ui/plugin-chart-composed/src/components/utils';
+import { LegendPosition, renderActiveShape, getLegendProps } from './utils';
 
 type PieStylesProps = {
   height: number;
