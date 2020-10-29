@@ -16,7 +16,7 @@ const buildStringFromPackage = async packages => {
 };
 const pkgGlob = process.argv[2] || '*';
 
-const packages = fg.sync([`./superset-maf-ui/plugins/${pkgGlob}`], {
+const packages = fg.sync([`../../plugins/${pkgGlob}`], {
   onlyDirectories: true,
 });
 

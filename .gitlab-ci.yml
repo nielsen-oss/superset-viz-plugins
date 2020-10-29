@@ -1,34 +1,22 @@
+include:
+  - project: 'nielsen-media/identity/cloudops/continuous-integration'
+    ref: master
+    file: '/Jobs/maf/initPipeline.yml'
 image: node:12.16.2
 cache:
   paths:
     - node_modules/
-    - .yarn
-
-variables:
-  KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: ci-pipeline-maf
-
-before_script:
-  - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
-  - eval `ssh-agent -s`
-  - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null # add ssh ke
-  - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
-  - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
-  - apt-get update -qq && apt-get install
-  - apt-get install git
-  - npm install -g npm-cli-login
-  - npm-cli-login -u $CI_CLI_USER -p $CI_CLI_PASSWORD -e $CI_CLI_EMAIL -r https://nexus.exelator.net/repository/npm-all
-  - npm-cli-login -u $CI_CLI_USER -p $CI_CLI_PASSWORD -e $CI_CLI_EMAIL -r https://nexus.exelator.net/repository/npm-internal
-  - npm set registry https://nexus.exelator.net/repository/npm-all/
-  - npm config set always-auth=true
-  - cp ~/.npmrc .
 
 stages:
+  - mafInit
   - install
   # - test
-  - deploy
+  - deployPlugins
+  - prepareBuild
+  - buildFork
 
 install:
+  extends: .base
   stage: install
   tags:
     - cicd-runner-maf
@@ -37,7 +25,6 @@ install:
   rules:
     - if: $CI_MERGE_REQUEST_IID
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-
 
 # lint:
 #   stage: test
@@ -60,8 +47,9 @@ install:
 #   rules:
 #     - if: $CI_MERGE_REQUEST_IID
 
-deploy_prod:
-  stage: deploy
+deployPlugins:
+  stage: deployPlugins
+  extends: .base
   tags:
     - cicd-runner-maf
   script:
@@ -74,6 +62,74 @@ deploy_prod:
     - echo git checkout -B “$CI_COMMIT_REF_NAME” “$CI_COMMIT_SHA”
     - git fetch
     - yarn prerelease
-    - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes 
+    - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+prepareSupersetBuild:
+  stage: prepareBuild
+  extends: .base
+  tags:
+    - cicd-runner-maf
+  script:
+    - yarn
+    # Clone the repos
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-fork.git
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-maf-extensions.git
+    # Add dependencies from superset-maf-ui to supserset-frontend and generate the preset
+    - cp .npmrc ./superset-fork/superset-frontend/.npmrc
+    - cp .npmrc ./superset-maf-extensions/.npmrc
+    - cd superset-fork
+    # Temp until we deploy to public npm registry, add npmrc copy command to the dockerfile
+    - sed -i -e '/^RUN mkdir -p \/app\/superset-frontend.*/a COPY ./superset-frontend/.npmrc /app/superset-frontend/.npmrc' "./Dockerfile"
+    - cd superset-frontend
+    - node ../../scripts/addDependencies.js
+    - node ../../scripts/generateMafPreset.js
+    - mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
+    - cp ../../templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
+    - npm install
+  artifacts:
+    paths:
+      - ./superset-fork
+      - ./superset-maf-extensions
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $DEPLOY_NEW_FORK == "true"
+
+buildDocker:
+  stage: buildFork
+  extends: .base
+  image:
+    name: docker:19.03
+  services:
+    - name: docker:19.03-dind
+      entrypoint: ['env', '-u', 'DOCKER_HOST']
+      command: ['dockerd-entrypoint.sh']
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ''
+  tags:
+    - cicd-runner-maf
+  script:
+    - cp .npmrc ./superset-fork/superset-frontend/.npmrc
+    - cp .npmrc ./superset-fork/.npmrc
+    # Get current version and fork branch name
+    - cd superset-maf-extensions
+    - VERSION=$(sed '1!d' setup.py | cut -d '=' -f 2  | tr -d '""')
+    - echo $VERSION
+    - FORK_BRANCH_NAME=${NEW_FORK_VERSION:=$(sed '2!d' setup.py | cut -d '=' -f 2  | tr -d '""')}
+    - echo $FORK_BRANCH_NAME
+    # Build docker and push it
+    - cd ../superset-fork
+    - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io
+    - docker build -t exelate/superset-fork:latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-latest -t exelate/superset-fork:${FORK_BRANCH_NAME}-${CI_PIPELINE_IID}-gitlab-test .
+    - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-latest
+    - docker push exelate/superset-fork:latest
+    - docker push exelate/superset-fork:${FORK_BRANCH_NAME}-${CI_PIPELINE_IID}-gitlab-test
+  dependencies:
+    - initMasterPipeline
+    - initMergeRequestPipeline
+    - prepareSupersetBuild
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $DEPLOY_NEW_FORK == "true"
