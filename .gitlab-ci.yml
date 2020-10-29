@@ -54,13 +54,7 @@ deployPlugins:
     - cicd-runner-maf
   script:
     - npm install -g lerna
-    - git remote set-url origin "git@gitlab.com:$CI_PROJECT_PATH.git"
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - git config --global user.name "MAF CI"
-    - git config --global user.email "nmcci@nielsen.com"
-    - git checkout -B "$CI_COMMIT_REF_NAME" "$CI_COMMIT_SHA"
-    - echo git checkout -B “$CI_COMMIT_REF_NAME” “$CI_COMMIT_SHA”
-    - git fetch
+    - setGitConfig
     - yarn prerelease
     - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes
   rules:
