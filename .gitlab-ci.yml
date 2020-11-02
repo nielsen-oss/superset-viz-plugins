@@ -54,7 +54,9 @@ deployPlugins:
     - cicd-runner-maf
   script:
     - npm install -g lerna
+    - configureSSHKey
     - setGitConfig
+    - git fetch
     - yarn prerelease
     - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes
   rules:
