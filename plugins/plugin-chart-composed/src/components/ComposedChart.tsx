@@ -16,8 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useEffect, useState } from 'react'
-import styled from '@superset-ui/style'
+import React, { useEffect, useState } from 'react';
+import styled from '@superset-ui/style';
 import {
   CartesianGrid,
   ComposedChart as RechartsComposedChart,
@@ -26,11 +26,11 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from 'recharts'
+} from 'recharts';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { getNumberFormatter } from '@superset-ui/number-format'
-import ComposedChartTooltip from './ComposedChartTooltip'
-import { ResultData, TLabelColors } from '../plugin/transformProps'
+import { getNumberFormatter } from '@superset-ui/number-format';
+import ComposedChartTooltip from './ComposedChartTooltip';
+import { ResultData, TLabelColors } from '../plugin/transformProps';
 import {
   CHART_SUB_TYPES,
   CHART_TYPES,
@@ -45,11 +45,12 @@ import {
   LegendPosition,
   MIN_SYMBOL_WIDTH_FOR_TICK_LABEL,
   renderLabel,
-} from './utils'
+} from './utils';
 
 type ComposedChartStylesProps = {
   height: number;
   width: number;
+  legendPosition: LegendPosition;
 };
 
 type Axis = {
@@ -89,6 +90,12 @@ const Styles = styled.div<ComposedChartStylesProps>`
   height: ${({ height }) => height};
   width: ${({ width }) => width};
   overflow-y: scroll;
+
+  & .recharts-legend-item {
+    white-space: nowrap;
+      ${({ legendPosition }) =>
+        legendPosition === LegendPosition.left || legendPosition === LegendPosition.right ? 'display: block !important;' : ''}
+  }
 `;
 
 export default function ComposedChart(props: ComposedChartProps) {
@@ -116,6 +123,7 @@ export default function ComposedChart(props: ComposedChartProps) {
 
   const [exploreCounter, setExploreCounter] = useState<number>(0);
   const dataKeyLength = getMaxLengthOfDataKey(data) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
+  
   const metricLength =
     getMaxLengthOfMetric(data, metrics, getNumberFormatter(numbersFormat)) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
 
@@ -123,7 +131,18 @@ export default function ComposedChart(props: ComposedChartProps) {
     // In explore need rerender chart when change `renderTrigger` props
     setExploreCounter(exploreCounter + 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [xAxis, yAxis, labelsColor, numbersFormat, chartType, colorScheme, layout, chartSubType, legendPosition, showLegend]);
+  }, [
+    xAxis,
+    yAxis,
+    labelsColor,
+    numbersFormat,
+    chartType,
+    colorScheme,
+    layout,
+    chartSubType,
+    legendPosition,
+    showLegend,
+  ]);
 
   const renderChartElement = (metric: string, index: number) => {
     let customChartType = chartType;
@@ -157,20 +176,22 @@ export default function ComposedChart(props: ComposedChartProps) {
   };
 
   return (
-    <Styles height={height} width={width}>
+    <Styles height={height} width={width} legendPosition={legendPosition}>
       <RechartsComposedChart
         margin={{
-          bottom: 40,
+          bottom: 0,
           top: 0,
           right: (showLegend && legendPosition === LegendPosition.right ? width * 0.2 : 20) + (useY2Axis ? 40 : 20),
-          left: showLegend && legendPosition === LegendPosition.left ? width * 0.2 : 20,
+          left: showLegend && legendPosition === LegendPosition.left ? width * 0.2 : 40,
         }}
         layout={layout}
         height={height - 40}
         width={width}
         data={data}
       >
-        {showLegend && <Legend {...getLegendProps(legendPosition, height - 20, width)} iconType="circle" iconSize={10} />}
+        {showLegend && (
+          <Legend {...getLegendProps(legendPosition, height - 20, width)} iconType="circle" iconSize={10} />
+        )}
         <CartesianGrid {...getCartesianGridProps({ layout })} />
         <XAxis
           {...getXAxisProps({
