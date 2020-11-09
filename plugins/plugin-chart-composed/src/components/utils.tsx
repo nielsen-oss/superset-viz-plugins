@@ -18,7 +18,7 @@ export enum Layout {
 export const MAX_SYMBOLS_IN_TICK_LABEL = 20;
 export const MIN_BAR_SIZE_FOR_LABEL = 18;
 export const MIN_SYMBOL_WIDTH_FOR_LABEL = 14;
-export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 8;
+export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 6;
 export const MIN_LABEL_MARGIN = 20;
 
 export enum LegendPosition {
@@ -87,27 +87,26 @@ export const CHART_SUB_TYPE_NAMES = {
 
 type LegendAlign = 'left' | 'center' | 'right';
 type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
-type GetLegendPropsParams = { height: number; width: number; align: LegendAlign; verticalAlign: LegendVerticalAlign, wrapperStyle: object }
+type GetLegendPropsParams = {
+  width: number;
+  align: LegendAlign;
+  verticalAlign: LegendVerticalAlign;
+  wrapperStyle: object;
+};
 
-export const getLegendProps = (
-  legendPosition: LegendPosition,
-  height: number,
-  width: number,
-): GetLegendPropsParams => {
+export const getLegendProps = (legendPosition: LegendPosition, height: number, width: number): GetLegendPropsParams => {
   let result = {
     wrapperStyle: { overflow: 'auto' },
     align: 'center' as LegendAlign,
     verticalAlign: 'middle' as LegendVerticalAlign,
-    height: 40,
+    margin: { top: 0, left: 0, right: 0, bottom: 0 },
     width,
   };
   if (legendPosition === LegendPosition.left || legendPosition === LegendPosition.right) {
     result = {
       ...result,
-      height,
-      width: width * 0.2,
       align: legendPosition as LegendAlign,
-    }
+    };
   }
   switch (legendPosition) {
     case LegendPosition.left:
@@ -115,7 +114,8 @@ export const getLegendProps = (
         ...result,
         wrapperStyle: {
           ...result.wrapperStyle,
-          marginLeft: -width * 0.2
+          width: width * 0.2 - 20,
+          marginLeft: -width * 0.2,
         },
       };
     case LegendPosition.right:
@@ -123,15 +123,29 @@ export const getLegendProps = (
         ...result,
         wrapperStyle: {
           ...result.wrapperStyle,
-          marginRight: -width * 0.2
+          width: width * 0.2 - 20,
+          marginRight: -width * 0.2,
         },
       };
     case LegendPosition.bottom:
-    case LegendPosition.top:
-    default:
       return {
         ...result,
         verticalAlign: legendPosition as LegendVerticalAlign,
+        wrapperStyle: {
+          ...result.wrapperStyle,
+          width: width - 40,
+          marginLeft: 0,
+        },
+      };
+    case LegendPosition.top:
+      return {
+        ...result,
+        verticalAlign: legendPosition as LegendVerticalAlign,
+        wrapperStyle: {
+          ...result.wrapperStyle,
+          width: width - 40,
+          marginLeft: 0,
+        },
       };
   }
 };
@@ -228,7 +242,6 @@ type AxisProps = {
 export const getXAxisProps = ({ layout, angle, label, dataKeyLength, metricLength, numbersFormat }: AxisProps) => {
   const textAnchor = angle === 0 ? 'middle' : 'end';
   const labelProps: LabelProps = {
-    offset: 30,
     value: label,
     position: 'bottom',
   };
