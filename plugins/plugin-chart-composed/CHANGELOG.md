@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/compare/@superset-maf-ui/plugin-chart-composed@0.2.2...@superset-maf-ui/plugin-chart-composed@0.2.3) (2020-11-09)
+
+
+### Bug Fixes
+
+* fix composed chart ([c7adaaf](https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/commit/c7adaafada43133b01fdc0bcf861c29a6b5562bf))
+
+
+
+
+
 ## [0.2.2](https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/compare/@superset-maf-ui/plugin-chart-composed@0.2.1...@superset-maf-ui/plugin-chart-composed@0.2.2) (2020-10-27)
 
 **Note:** Version bump only for package @superset-maf-ui/plugin-chart-composed

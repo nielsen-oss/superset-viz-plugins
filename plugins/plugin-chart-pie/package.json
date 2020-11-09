@@ -1,6 +1,6 @@
 {
   "name": "@superset-maf-ui/plugin-chart-pie",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Superset Chart - Pie",
   "pluginName": "PieChartPlugin",
   "sideEffects": false,
