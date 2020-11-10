@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.7](https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/compare/@superset-maf-ui/plugin-chart-pie@0.1.6...@superset-maf-ui/plugin-chart-pie@0.1.7) (2020-11-10)
+
+**Note:** Version bump only for package @superset-maf-ui/plugin-chart-pie
+
+
+
+
+
 ## [0.1.6](https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/compare/@superset-maf-ui/plugin-chart-pie@0.1.5...@superset-maf-ui/plugin-chart-pie@0.1.6) (2020-11-09)
 
 
