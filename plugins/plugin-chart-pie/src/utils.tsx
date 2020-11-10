@@ -1,4 +1,4 @@
-import { PieLabelRenderProps, Sector } from 'recharts'
+import { PieLabelRenderProps, Sector } from 'recharts';
 import React from 'react';
 import { getNumberFormatter, NumberFormats } from '@superset-ui/number-format';
 
@@ -65,10 +65,10 @@ export const renderActiveShape = (props: ActiveShapeProps) => {
   const sy = cy + (outerRadius + 10) * sin;
   const mx = cx + (outerRadius + 30) * cos;
   const my = cy + (outerRadius + 30) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+  // const ex = mx + (cos >= 0 ? 1 : -1) * 22; // For beauty label, but no place for it :(
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
-  const x = ex + (cos >= 0 ? 1 : -1) * 12;
+  const x = mx + (cos >= 0 ? 1 : -1) * 12;
   return (
     <g>
       {isDonut && (
@@ -96,8 +96,8 @@ export const renderActiveShape = (props: ActiveShapeProps) => {
           />
         </>
       )}
-      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
-      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+      <path d={`M${sx},${sy}L${mx},${my}`} stroke={fill} fill="none" />
+      <circle cx={mx} cy={my} r={2} fill={fill} stroke="none" />
       <text x={x} y={ey} textAnchor={textAnchor} fill={fill}>
         {renderCustomizedLabel({ ...props, x, groupBy, pieLabelType })}
       </text>
@@ -114,27 +114,29 @@ export enum LegendPosition {
 
 type LegendAlign = 'left' | 'center' | 'right';
 type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
-type GetLegendPropsParams = { height: number; width: number; align: LegendAlign; verticalAlign: LegendVerticalAlign, wrapperStyle: object }
+type GetLegendPropsParams = {
+  width: number;
+  align: LegendAlign;
+  verticalAlign: LegendVerticalAlign;
+  wrapperStyle: object;
+};
 
-export const getLegendProps = (
-  legendPosition: LegendPosition,
-  height: number,
-  width: number,
-): GetLegendPropsParams => {
+export const getLegendProps = (legendPosition: LegendPosition, height: number, width: number): GetLegendPropsParams => {
   let result = {
-    wrapperStyle: { overflow: 'auto' },
+    wrapperStyle: {
+      maxHeight: height,
+      overflow: 'auto',
+    },
     align: 'center' as LegendAlign,
     verticalAlign: 'middle' as LegendVerticalAlign,
-    height: 40,
     width,
   };
   if (legendPosition === LegendPosition.left || legendPosition === LegendPosition.right) {
     result = {
       ...result,
-      height,
       width: width * 0.2,
       align: legendPosition as LegendAlign,
-    }
+    };
   }
   switch (legendPosition) {
     case LegendPosition.left:
@@ -142,7 +144,7 @@ export const getLegendProps = (
         ...result,
         wrapperStyle: {
           ...result.wrapperStyle,
-          marginLeft: -width * 0.2
+          marginLeft: -width * 0.2,
         },
       };
     case LegendPosition.right:
@@ -150,7 +152,7 @@ export const getLegendProps = (
         ...result,
         wrapperStyle: {
           ...result.wrapperStyle,
-          marginRight: -width * 0.2
+          marginRight: -width * 0.2,
         },
       };
     case LegendPosition.bottom:

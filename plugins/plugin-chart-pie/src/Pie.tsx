@@ -1,8 +1,9 @@
-import React, { useState, Fragment, FC, useEffect, memo } from 'react';
-import styled from '@superset-ui/style';
+import React, { useState, FC, useEffect, memo } from 'react';
+import { styled } from '@superset-ui/style';
 import { t } from '@superset-ui/translation';
 import {
   PieChart,
+  ResponsiveContainer,
   Pie as RechartsPie,
   Cell,
   RechartsFunction,
@@ -16,6 +17,7 @@ import { LegendPosition, renderActiveShape, getLegendProps } from './utils';
 type PieStylesProps = {
   height: number;
   width: number;
+  legendPosition: LegendPosition;
 };
 
 export type PieChartData = {
@@ -61,6 +63,14 @@ const Styles = styled.div<PieStylesProps>`
   height: ${({ height }) => height};
   width: ${({ width }) => width};
   overflow-y: scroll;
+
+  & .recharts-legend-item {
+    white-space: nowrap;
+    ${({ legendPosition }) =>
+      legendPosition === LegendPosition.left || legendPosition === LegendPosition.right
+        ? 'display: block !important;'
+        : ''}
+  }
 `;
 
 const Pie: FC<PieProps> = memo(props => {
@@ -95,17 +105,22 @@ const Pie: FC<PieProps> = memo(props => {
   const colorFn = CategoricalColorNamespace.getScale(colorScheme);
 
   const onClick = (e, index) => {
-    setNotification(t('Sector was clicked, filter will be emitted on a dashboard'));
+    // eslint-disable-next-line no-restricted-globals
+    if (location.pathname.includes('/explore')) {
+      setNotification(t('Sector was clicked, filter will be emitted on a dashboard'));
+    }
   };
 
-  const chartHeight = showLegend ? height - 40 : height;
-  const outerRadius = (width < chartHeight ? width : chartHeight) / 2 - (showLabels ? 80 : 40);
+  const chartWidth =
+    showLegend && (legendPosition === LegendPosition.right || legendPosition === LegendPosition.left)
+      ? 0.8 * width
+      : width;
+  const chartHeight = height;
+  const outerRadius = (chartWidth < chartHeight ? chartWidth : chartHeight) / 2 - (showLabels ? 80 : 40);
   const pieProps: RechartsPieProps & { key?: string | number } = {
     activeIndex: activeIndex,
     key: exploreCounter,
     data: data,
-    cx: width / 2,
-    cy: chartHeight / 2 - 20,
     dataKey: dataKey,
     outerRadius,
     // @ts-ignore
@@ -113,7 +128,7 @@ const Pie: FC<PieProps> = memo(props => {
       ? // @ts-ignore
         (labelProps: PieLabelRenderProps) => renderActiveShape({ ...labelProps, groupBy, pieLabelType })
       : false,
-    onClick: onClick,
+    onClick,
   };
   if (isDonut) {
     pieProps.activeShape = activeShapeProps =>
@@ -124,21 +139,19 @@ const Pie: FC<PieProps> = memo(props => {
   }
 
   return (
-    <Styles height={height} width={width}>
+    <Styles height={height} width={width} legendPosition={legendPosition}>
       {notification && <Notification onClick={closeNotification}>{notification}</Notification>}
-      {
+      <ResponsiveContainer>
         <PieChart
           margin={{
             right: showLegend && legendPosition === LegendPosition.right ? width * 0.2 : 0,
             left: showLegend && legendPosition === LegendPosition.left ? width * 0.2 : 0,
           }}
-          width={width - 40}
-          height={height - 40}
           key={exploreCounter}
         >
           {showLegend && (
             <Legend
-              {...getLegendProps(legendPosition, height - 20, width)}
+              {...getLegendProps(legendPosition, height, width)}
               iconType="circle"
               formatter={(value, entry) => entry?.payload[groupBy]}
             />
@@ -147,7 +160,7 @@ const Pie: FC<PieProps> = memo(props => {
             {data && data.map((entry, index) => <Cell fill={colorFn(index)} />)}
           </RechartsPie>
         </PieChart>
-      }
+      </ResponsiveContainer>
     </Styles>
   );
 });

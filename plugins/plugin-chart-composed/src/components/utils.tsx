@@ -96,10 +96,12 @@ type GetLegendPropsParams = {
 
 export const getLegendProps = (legendPosition: LegendPosition, height: number, width: number): GetLegendPropsParams => {
   let result = {
-    wrapperStyle: { overflow: 'auto' },
+    wrapperStyle: {
+      maxHeight: height,
+      overflow: 'auto',
+    },
     align: 'center' as LegendAlign,
     verticalAlign: 'middle' as LegendVerticalAlign,
-    margin: { top: 0, left: 0, right: 0, bottom: 0 },
     width,
   };
   if (legendPosition === LegendPosition.left || legendPosition === LegendPosition.right) {
@@ -265,7 +267,7 @@ export const getXAxisProps = ({ layout, angle, label, dataKeyLength, metricLengt
       return {
         ...params,
         tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
-        height: angle === 0 ? MIN_LABEL_MARGIN : dataKeyLength,
+        height: angle === 0 ? MIN_LABEL_MARGIN : dataKeyLength + (angle === -90 ? MIN_SYMBOL_WIDTH_FOR_TICK_LABEL * 6 : 0),
         interval: 0,
         dataKey: 'rechartsDataKey',
       };

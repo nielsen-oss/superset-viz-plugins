@@ -16,19 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { createRef, FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { t } from '@superset-ui/translation';
-import styled from '@superset-ui/style';
-import {
-  BarChart,
-  Bar,
-  LabelList,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  LabelProps,
-} from 'recharts';
+import { styled } from '@superset-ui/style';
+import { BarChart, Bar, LabelList, XAxis, YAxis, CartesianGrid, Tooltip, LabelProps } from 'recharts';
 import WaterfallTick from './WaterfallTick';
 import { valueFormatter } from './utils';
 import WaterfallBar from './WaterfallBar';
@@ -106,12 +97,14 @@ const WaterfallChart: FC<TWaterfallChartProps> = ({
   width,
   error,
 }) => {
-  const rootElem = createRef<HTMLDivElement>();
   const [notification, setNotification] = useState<string | null>(null);
 
   const handleBarClick = (barData: TWaterfallChartData) => {
-    onBarClick(barData);
-    setNotification(t('Bar was clicked, filter will be emitted on a dashboard'));
+    // eslint-disable-next-line no-restricted-globals
+    if (location.pathname.includes('/explore')) {
+      onBarClick(barData);
+      setNotification(t('Bar was clicked, filter will be emitted on a dashboard'));
+    }
   };
   const closeNotification = () => setNotification(null);
 
@@ -119,7 +112,7 @@ const WaterfallChart: FC<TWaterfallChartProps> = ({
     valueFormatter(((value as unknown) as TBarValue)[1] - ((value as unknown) as TBarValue)[0]);
 
   return (
-    <Styles ref={rootElem} height={height} width={width}>
+    <Styles height={height} width={width}>
       {notification && <Notification onClick={closeNotification}>{notification}</Notification>}
       {error ? (
         <Error>{error}</Error>
