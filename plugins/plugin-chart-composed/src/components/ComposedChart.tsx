@@ -23,6 +23,7 @@ import {
   ComposedChart as RechartsComposedChart,
   LabelFormatter,
   Legend,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -93,8 +94,10 @@ const Styles = styled.div<ComposedChartStylesProps>`
 
   & .recharts-legend-item {
     white-space: nowrap;
-      ${({ legendPosition }) =>
-        legendPosition === LegendPosition.left || legendPosition === LegendPosition.right ? 'display: block !important;' : ''}
+    ${({ legendPosition }) =>
+      legendPosition === LegendPosition.left || legendPosition === LegendPosition.right
+        ? 'display: block !important;'
+        : ''}
   }
 `;
 
@@ -123,7 +126,7 @@ export default function ComposedChart(props: ComposedChartProps) {
 
   const [exploreCounter, setExploreCounter] = useState<number>(0);
   const dataKeyLength = getMaxLengthOfDataKey(data) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
-  
+
   const metricLength =
     getMaxLengthOfMetric(data, metrics, getNumberFormatter(numbersFormat)) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
 
@@ -177,59 +180,57 @@ export default function ComposedChart(props: ComposedChartProps) {
 
   return (
     <Styles height={height} width={width} legendPosition={legendPosition}>
-      <RechartsComposedChart
-        margin={{
-          bottom: 0,
-          top: 0,
-          right: (showLegend && legendPosition === LegendPosition.right ? width * 0.2 : 20) + (useY2Axis ? 40 : 20),
-          left: showLegend && legendPosition === LegendPosition.left ? width * 0.2 : 40,
-        }}
-        layout={layout}
-        height={height - 40}
-        width={width}
-        data={data}
-      >
-        {showLegend && (
-          <Legend {...getLegendProps(legendPosition, height - 20, width)} iconType="circle" iconSize={10} />
-        )}
-        <CartesianGrid {...getCartesianGridProps({ layout })} />
-        <XAxis
-          {...getXAxisProps({
-            dataKeyLength,
-            metricLength,
-            numbersFormat,
-            layout,
-            angle: xAxis.tickLabelAngle,
-            label: xAxis.label,
-          })}
-        />
-        <YAxis
-          {...getYAxisProps({
-            dataKeyLength,
-            metricLength,
-            numbersFormat,
-            layout,
-            angle: yAxis.tickLabelAngle,
-            label: yAxis.label,
-          })}
-        />
-        {useY2Axis && (
+      <ResponsiveContainer>
+        <RechartsComposedChart
+          margin={{
+            bottom: 0,
+            top: 0,
+            right: (showLegend && legendPosition === LegendPosition.right ? width * 0.2 : 20) + (useY2Axis ? 40 : 20),
+            left: showLegend && legendPosition === LegendPosition.left ? width * 0.2 : 40,
+          }}
+          layout={layout}
+          data={data}
+        >
+          {showLegend && <Legend {...getLegendProps(legendPosition, height, width)} iconType="circle" iconSize={10} />}
+          <CartesianGrid {...getCartesianGridProps({ layout })} />
+          <XAxis
+            {...getXAxisProps({
+              dataKeyLength,
+              metricLength,
+              numbersFormat,
+              layout,
+              angle: xAxis.tickLabelAngle,
+              label: xAxis.label,
+            })}
+          />
           <YAxis
             {...getYAxisProps({
               dataKeyLength,
               metricLength,
               numbersFormat,
               layout,
-              isSecondAxis: true,
-              dataKey: metrics[metrics.length - 1],
-              angle: yAxis.tickLabelAngle2,
-              label: yAxis.label2,
+              angle: yAxis.tickLabelAngle,
+              label: yAxis.label,
             })}
           />
-        )}
-        <Tooltip content={<ComposedChartTooltip />} />
-        {metrics.map(renderChartElement)}
-      </RechartsComposedChart>
+          {useY2Axis && (
+            <YAxis
+              {...getYAxisProps({
+                dataKeyLength,
+                metricLength,
+                numbersFormat,
+                layout,
+                isSecondAxis: true,
+                dataKey: metrics[metrics.length - 1],
+                angle: yAxis.tickLabelAngle2,
+                label: yAxis.label2,
+              })}
+            />
+          )}
+          <Tooltip content={<ComposedChartTooltip />} />
+          {metrics.map(renderChartElement)}
+        </RechartsComposedChart>
+      </ResponsiveContainer>
     </Styles>
   );
 }
