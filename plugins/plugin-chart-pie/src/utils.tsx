@@ -1,6 +1,8 @@
-import { PieLabelRenderProps, Sector } from 'recharts';
+import { LegendProps, PieLabelRenderProps, Sector } from 'recharts';
 import React from 'react';
 import { getNumberFormatter, NumberFormats } from '@superset-ui/number-format';
+
+export const LABELS_MARGIN = 90
 
 export const renderCustomizedLabel = (
   labelProps: Partial<PieLabelRenderProps> & { x: number; groupBy: string; numberFormat: string; pieLabelType: string },
@@ -99,8 +101,10 @@ export const renderActiveShape = (props: ActiveShapeProps) => {
       <path d={`M${sx},${sy}L${mx},${my}`} stroke={fill} fill="none" />
       <circle cx={mx} cy={my} r={2} fill={fill} stroke="none" />
       <text x={x} y={ey} textAnchor={textAnchor} fill={fill}>
-        {/* @ts-ignore */}
-        {renderCustomizedLabel({ ...props, x, groupBy, pieLabelType })}
+        {
+          // @ts-ignore
+          renderCustomizedLabel({ ...props, x, groupBy, pieLabelType })
+        }
       </text>
     </g>
   );
@@ -115,52 +119,29 @@ export enum LegendPosition {
 
 type LegendAlign = 'left' | 'center' | 'right';
 type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
-type GetLegendPropsParams = {
-  width: number;
-  align: LegendAlign;
-  verticalAlign: LegendVerticalAlign;
-  wrapperStyle: object;
-};
 
-export const getLegendProps = (legendPosition: LegendPosition, height: number, width: number): GetLegendPropsParams => {
+export const getLegendProps = (legendPosition: LegendPosition, height: number): LegendProps => {
   let result = {
     wrapperStyle: {
       maxHeight: height,
-      overflow: 'auto',
     },
     align: 'center' as LegendAlign,
     verticalAlign: 'middle' as LegendVerticalAlign,
-    width,
   };
-  if (legendPosition === LegendPosition.left || legendPosition === LegendPosition.right) {
-    result = {
-      ...result,
-      width: width * 0.2,
-      align: legendPosition as LegendAlign,
-    };
-  }
   switch (legendPosition) {
     case LegendPosition.left:
-      return {
-        ...result,
-        wrapperStyle: {
-          ...result.wrapperStyle,
-          marginLeft: -width * 0.2,
-        },
-      };
     case LegendPosition.right:
       return {
         ...result,
-        wrapperStyle: {
-          ...result.wrapperStyle,
-          marginRight: -width * 0.2,
-        },
+        align: legendPosition as LegendAlign,
+        layout: 'vertical',
       };
     case LegendPosition.bottom:
     case LegendPosition.top:
     default:
       return {
         ...result,
+        layout: 'horizontal',
         verticalAlign: legendPosition as LegendVerticalAlign,
       };
   }
