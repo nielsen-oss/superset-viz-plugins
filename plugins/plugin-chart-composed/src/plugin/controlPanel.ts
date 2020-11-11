@@ -18,15 +18,23 @@
  */
 import { t } from '@superset-ui/translation';
 import { validateNonEmpty } from '@superset-ui/validator';
-import { ControlPanelConfig, formatSelectOptions, D3_FORMAT_OPTIONS } from '@superset-ui/chart-controls';
+import {
+  ControlPanelConfig,
+  formatSelectOptions,
+  D3_FORMAT_OPTIONS,
+  CustomControlItem,
+  DatasourceMeta,
+  ControlSetItem
+} from '@superset-ui/chart-controls';
 import {
   CHART_TYPES,
   CHART_TYPE_NAMES,
   CHART_SUB_TYPES,
   CHART_SUB_TYPE_NAMES,
   Layout,
-  LegendPosition
-} from '../components/utils'
+  LegendPosition,
+} from '../components/utils';
+import { QueryFormData  } from '@superset-ui/core';
 
 export const stackedBars = {
   name: 'stacked_bars',
@@ -47,7 +55,8 @@ export const useSecondYAxis = {
     renderTrigger: true,
     default: false,
     description: t('Refers to the last chosen metric'),
-    visibility: ({ form_data }) => form_data.metrics?.length > 1 && form_data.layout === Layout.horizontal,
+    visibility: ({ form_data }: { form_data: QueryFormData }) =>
+      form_data.metrics?.length > 1 && form_data.layout === Layout.horizontal,
   },
 };
 
@@ -81,7 +90,7 @@ export const y2AxisLabel = {
     renderTrigger: true,
     default: '',
     description: t('Show second Y Axis Label in the chart'),
-    visibility: ({ form_data }) =>
+    visibility: ({ form_data }: { form_data: QueryFormData }) =>
       form_data.use_y2_axis && form_data.metrics?.length > 1 && form_data.layout === Layout.horizontal,
   },
 };
@@ -133,7 +142,7 @@ chartTypeMetrics = chartTypeMetrics.map((el, index) => {
         value: key,
         label: CHART_SUB_TYPE_NAMES[key],
       })),
-      visibility: ({ form_data }) =>
+      visibility: ({ form_data }: { form_data: QueryFormData }) =>
         form_data[`use_custom_type_metric_${index}`] &&
         form_data.metrics &&
         form_data.metrics[index] &&
@@ -154,7 +163,7 @@ chartTypeMetrics = chartTypeMetrics.map((el, index) => {
         value: key,
         label: CHART_SUB_TYPE_NAMES[key],
       })),
-      visibility: ({ form_data }) =>
+      visibility: ({ form_data }: { form_data: QueryFormData }) =>
         form_data[`use_custom_type_metric_${index}`] &&
         form_data.metrics &&
         form_data.metrics[index] &&
@@ -175,7 +184,7 @@ chartTypeMetrics = chartTypeMetrics.map((el, index) => {
         value: key,
         label: CHART_SUB_TYPE_NAMES[key],
       })),
-      visibility: ({ form_data }) =>
+      visibility: ({ form_data }: { form_data: QueryFormData }) =>
         form_data[`use_custom_type_metric_${index}`] &&
         form_data[`chart_type_metric_${index}`] === CHART_TYPES.AREA_CHART,
       default: CHART_SUB_TYPES.BASIS,
@@ -194,7 +203,7 @@ chartTypeMetrics = chartTypeMetrics.map((el, index) => {
         value: key,
         label: CHART_SUB_TYPE_NAMES[key],
       })),
-      visibility: ({ form_data }) =>
+      visibility: ({ form_data }: { form_data: QueryFormData }) =>
         form_data[`use_custom_type_metric_${index}`] &&
         form_data.metrics &&
         form_data.metrics[index] &&
@@ -212,7 +221,7 @@ chartTypeMetrics = chartTypeMetrics.map((el, index) => {
         renderTrigger: true,
         default: false,
         description: null,
-        visibility: ({ form_data }) => form_data.metrics && form_data.metrics[index],
+        visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.metrics && form_data.metrics[index],
       },
     },
     {
@@ -228,7 +237,7 @@ chartTypeMetrics = chartTypeMetrics.map((el, index) => {
         })),
         default: CHART_TYPES.BAR_CHART,
         description: t(`Set type of chart for metric ${el}`),
-        visibility: ({ form_data }) =>
+        visibility: ({ form_data }: { form_data: QueryFormData }) =>
           form_data[`use_custom_type_metric_${index}`] && form_data.metrics && form_data.metrics[index],
       },
     },
@@ -250,7 +259,7 @@ export const barChartSubType = {
       value: key,
       label: CHART_SUB_TYPE_NAMES[key],
     })),
-    visibility: ({ form_data }) => form_data.chart_type === CHART_TYPES.BAR_CHART,
+    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.chart_type === CHART_TYPES.BAR_CHART,
     default: CHART_SUB_TYPES.DEFAULT,
     description: t('Set subtype of chart'),
   },
@@ -267,7 +276,7 @@ export const lineChartSubType = {
       value: key,
       label: CHART_SUB_TYPE_NAMES[key],
     })),
-    visibility: ({ form_data }) => form_data.chart_type === CHART_TYPES.LINE_CHART,
+    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.chart_type === CHART_TYPES.LINE_CHART,
     default: CHART_SUB_TYPES.BASIS,
     description: t('Set subtype of chart'),
   },
@@ -284,7 +293,7 @@ export const areaChartSubType = {
       value: key,
       label: CHART_SUB_TYPE_NAMES[key],
     })),
-    visibility: ({ form_data }) => form_data.chart_type === CHART_TYPES.AREA_CHART,
+    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.chart_type === CHART_TYPES.AREA_CHART,
     default: CHART_SUB_TYPES.BASIS,
     description: t('Set subtype of chart'),
   },
@@ -301,7 +310,7 @@ export const scatterChartSubType = {
       value: key,
       label: CHART_SUB_TYPE_NAMES[key],
     })),
-    visibility: ({ form_data }) => form_data.chart_type === CHART_TYPES.SCATTER_CHART,
+    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.chart_type === CHART_TYPES.SCATTER_CHART,
     default: CHART_SUB_TYPES.CIRCLE,
     description: t('Set subtype of chart'),
   },
@@ -332,7 +341,7 @@ export const y2AxisTickLabelAngle = {
     choices: formatSelectOptions(['0', '45', '90']),
     default: '0',
     description: t('Set second Y axis tick label angle in the chart'),
-    visibility: ({ form_data }) =>
+    visibility: ({ form_data }: { form_data: QueryFormData }) =>
       form_data.use_y2_axis && form_data.metrics?.length > 1 && form_data.layout === Layout.horizontal,
   },
 };
@@ -359,18 +368,19 @@ export const legendPosition = {
     choices: formatSelectOptions(Object.keys(LegendPosition)),
     default: 'top',
     description: t('Set legend position'),
-    visibility: ({ form_data }) => form_data.show_legend
+    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.show_legend,
   },
 };
 
-const metrics = {
+const metrics: ControlSetItem = {
   name: 'metrics',
   config: {
     type: 'MetricsControl',
     label: t('Metrics'),
     description: t('One or many metrics to display'),
     multi: true,
-    mapStateToProps: ({ datasource, controls }) => {
+    // @ts-ignore
+    mapStateToProps: ({ datasource, controls }: { datasource: DatasourceMeta; controls: CustomControlItem }) => {
       return {
         columns: datasource?.columns || [],
         savedMetrics: datasource?.metrics || [],

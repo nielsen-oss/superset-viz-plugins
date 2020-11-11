@@ -135,12 +135,12 @@ export default function transformProps(chartProps: ChartProps): TWaterfallChartP
 
   const resultData = createReChartsBarValues(rechartsData, valueColumn, periodColumn);
 
-  // eslint-disable-next-line unicorn/consistent-function-scoping
+  // eslint-disable-next-line
   const onBarClick = () => {
     // TODO: Uncomment when dashboard will support ChartsFilter
     // hooks.onAddFilter({ [filterConfigs[0].column]: [data[filterConfigs[0].column]] }, false);
   };
-  // eslint-disable-next-line unicorn/consistent-function-scoping
+  // eslint-disable-next-line
   const resetFilters = () => {
     // TODO: Uncomment when dashboard will support ChartsFilter
     // hooks.onAddFilter({ [filterConfigs[0].column]: null }, false);

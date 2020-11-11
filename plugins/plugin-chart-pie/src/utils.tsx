@@ -99,6 +99,7 @@ export const renderActiveShape = (props: ActiveShapeProps) => {
       <path d={`M${sx},${sy}L${mx},${my}`} stroke={fill} fill="none" />
       <circle cx={mx} cy={my} r={2} fill={fill} stroke="none" />
       <text x={x} y={ey} textAnchor={textAnchor} fill={fill}>
+        {/* @ts-ignore */}
         {renderCustomizedLabel({ ...props, x, groupBy, pieLabelType })}
       </text>
     </g>

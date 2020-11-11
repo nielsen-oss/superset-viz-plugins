@@ -1,3 +1,12 @@
+packages/**/node_modules/
+packages/**/build/
+packages/**/coverage/
+node_modules/
+packages/**/storybook-static/
+plugins/**/node_modules/
+plugins/**/build/
+plugins/**/coverage/
+plugins/**/storybook-static/
 **/node_modules/**
 **/dist/**
 **/storybook-static/**

@@ -17,6 +17,7 @@
  * under the License.
  */
 import WaterfallChartPlugin from '../src';
+import { configure as configureTranslation } from '@superset-ui/core'
 
 /**
  * The example tests in this file act as a starting point, and
@@ -27,6 +28,9 @@ import WaterfallChartPlugin from '../src';
  * properly transform the data and/or any resulting props).
  */
 describe('@superset-ui/plugin-chart-waterfall', () => {
+  beforeAll(() => {
+    configureTranslation()
+  })
   it('exists', () => {
     expect(WaterfallChartPlugin).toBeDefined();
   });

@@ -1,9 +1,11 @@
 import { t } from '@superset-ui/translation';
 import { sharedControls, ControlConfig, formatSelectOptions } from '@superset-ui/chart-controls';
 import { LegendPosition } from '../utils';
+import { QueryFormData } from '@superset-ui/core';
 
-const groupBy: { name: string; config: ControlConfig<'SelectControl'> } = {
+const groupBy: { name: string, config: ControlConfig<'SelectControl'> } = {
   name: 'group_by',
+  //@ts-ignore
   config: {
     ...sharedControls.groupby,
     multi: false,
@@ -60,7 +62,7 @@ export default {
               choices: formatSelectOptions(Object.keys(LegendPosition)),
               default: 'top',
               description: t('Set legend position'),
-              visibility: ({ form_data }) => form_data.show_legend,
+              visibility: ({ form_data } : { form_data: QueryFormData }) => form_data.show_legend,
             },
           },
         ],
@@ -81,10 +83,10 @@ export default {
               type: 'CheckboxControl',
               label: t('Show Labels'),
               renderTrigger: true,
-              visibility: ({ form_data }) => form_data.is_donut === false,
+              visibility: ({ form_data } : { form_data: QueryFormData }) => form_data.is_donut === false,
               default: true,
               description: t(
-                'Whether to display the labels. Note that the label only displays when the the 5% ' + 'threshold.',
+                'Whether to display the labels. Note that the label only displays when the the 5% threshold.',
               ),
             },
           },

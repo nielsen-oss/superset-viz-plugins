@@ -28,6 +28,7 @@ import {
 
 const rows: { name: string; config: ControlConfig<'SelectControl'> } = {
   name: 'rows',
+  // @ts-ignore
   config: {
     ...sharedControls.groupby,
     label: t('Rows'),

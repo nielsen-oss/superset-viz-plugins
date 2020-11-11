@@ -6,11 +6,13 @@ image: node:12.16.2
 cache:
   paths:
     - node_modules/
+    - plugins/*/node_modules/
+    - packages/*/node_modules/
 
 stages:
   - mafInit
   - install
-  # - test
+  - test
   - deployPlugins
   - prepareBuild
   - buildFork
@@ -21,7 +23,9 @@ install:
   tags:
     - cicd-runner-maf
   script:
+    - npm install -g lerna
     - yarn --frozen-lockfile
+    - lerna bootstrap
   rules:
     - if: $CI_MERGE_REQUEST_IID
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
@@ -33,19 +37,19 @@ install:
 #   script:
 #     - git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
 #     - yarn lint
-#   only:
-#     - master
-#     - merge_requests
-
-# test:
-#   stage: test
-#   tags:
-#     - cicd-runner-maf
-#   script:
-#     - git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
-#     - yarn test
 #   rules:
 #     - if: $CI_MERGE_REQUEST_IID
+
+test:
+  extends: .base
+  stage: test
+  tags:
+    - cicd-runner-maf
+  script:
+    - git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
+    - yarn test
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
 
 deployPlugins:
   stage: deployPlugins

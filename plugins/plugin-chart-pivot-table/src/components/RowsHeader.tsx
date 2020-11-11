@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, { FC, Fragment } from 'react';
+import React, { FC } from 'react';
 import { styled, t } from '@superset-ui/core/lib';
 import { Grid, GridItem } from './Layout';
 import { ROW_HEIGHT, Unit } from '../plugin/utils';

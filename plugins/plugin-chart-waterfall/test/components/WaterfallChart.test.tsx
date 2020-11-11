@@ -1,4 +1,5 @@
 import React from 'react';
+import '@testing-library/jest-dom/extend-expect';
 import { render, screen, configure } from '@testing-library/react';
 import { supersetTheme, ThemeProvider } from '@superset-ui/style';
 import WaterfallChart from '../../src/components/WaterfallChart';
@@ -41,11 +42,10 @@ describe('Waterfall chart', () => {
 
   it('Render Bars', () => {
     getWrapper();
-    const bars = screen.queryAllByTestId('bar');
+    const bars: Array<any> = screen.queryAllByTestId('bar');
     expect(bars).toHaveLength(20);
     expect(bars[0].attributes.fill.value).toBe('#66BCFE');
     expect(bars[0].attributes.y.value).toBe('578');
-
     expect(bars[1].attributes.fill.value).toBe('#5AC189');
     expect(bars[1].attributes.y.value).toBe('420.35384');
   });
