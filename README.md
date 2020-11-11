@@ -1,4 +1,4 @@
-# superset-maf-ui
+# superset-viz-plugins
 
 ## Project Overview
 
