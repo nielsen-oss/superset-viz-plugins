@@ -16,13 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from '@superset-ui/style';
 import {
   CartesianGrid,
   ComposedChart as RechartsComposedChart,
+  IconType,
   LabelFormatter,
   Legend,
+  LegendType,
+  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -31,6 +34,7 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getNumberFormatter } from '@superset-ui/number-format';
 import ComposedChartTooltip from './ComposedChartTooltip';
+import { CategoricalColorNamespace } from '@superset-ui/color';
 import { ResultData, TLabelColors } from '../plugin/transformProps';
 import {
   CHART_SUB_TYPES,
@@ -48,6 +52,12 @@ import {
   renderLabel,
 } from './utils';
 
+type EventData = {
+  color: string;
+  id: string;
+  type: LegendType;
+  value: string;
+};
 type ComposedChartStylesProps = {
   height: number;
   width: number;
@@ -84,20 +94,13 @@ export type ComposedChartProps = {
 };
 
 const Styles = styled.div<ComposedChartStylesProps>`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: ${({ height }) => height};
   width: ${({ width }) => width};
-  overflow-y: scroll;
-
+  overflow: auto;
+  
   & .recharts-legend-item {
+    cursor: pointer;
     white-space: nowrap;
-    ${({ legendPosition }) =>
-      legendPosition === LegendPosition.left || legendPosition === LegendPosition.right
-        ? 'display: block !important;'
-        : ''}
   }
 `;
 
@@ -124,11 +127,31 @@ export default function ComposedChart(props: ComposedChartProps) {
     useCustomTypeMetrics,
   } = props;
 
+  const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
+  const [legendWidth, setLegendWidth] = useState<number | null>(0);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const isSideLegend =
+    showLegend && (legendPosition === LegendPosition.right || legendPosition === LegendPosition.left);
+
+  useEffect(() => {
+    if (isSideLegend && rootRef.current) {
+      const legend = rootRef.current.querySelector('.recharts-legend-wrapper');
+      setLegendWidth(legend?.getBoundingClientRect()?.width || null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rootRef.current]);
+
+  const currentData = data.map(item => {
+    const newItem = { ...item };
+    disabledDataKeys.forEach(dataKey => delete newItem[dataKey]);
+    return newItem;
+  });
+
   const [exploreCounter, setExploreCounter] = useState<number>(0);
-  const dataKeyLength = getMaxLengthOfDataKey(data) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
+  const dataKeyLength = getMaxLengthOfDataKey(currentData) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
 
   const metricLength =
-    getMaxLengthOfMetric(data, metrics, getNumberFormatter(numbersFormat)) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
+    getMaxLengthOfMetric(currentData, metrics, getNumberFormatter(numbersFormat)) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
 
   useEffect(() => {
     // In explore need rerender chart when change `renderTrigger` props
@@ -146,6 +169,17 @@ export default function ComposedChart(props: ComposedChartProps) {
     legendPosition,
     showLegend,
   ]);
+
+  const handleLegendClick = ({ id }: EventData) => {
+    let resultKeys = [];
+    if (disabledDataKeys.includes(id)) {
+      resultKeys = disabledDataKeys.filter(item => item !== id);
+    } else {
+      resultKeys = [...disabledDataKeys];
+      resultKeys.push(id);
+    }
+    setDisabledDataKeys(resultKeys);
+  };
 
   const renderChartElement = (metric: string, index: number) => {
     let customChartType = chartType;
@@ -177,21 +211,28 @@ export default function ComposedChart(props: ComposedChartProps) {
       />
     );
   };
+  const chartWidth = isSideLegend && legendWidth ? width + legendWidth : width;
 
   return (
-    <Styles height={height} width={width} legendPosition={legendPosition}>
-      <ResponsiveContainer>
+    <Styles height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
+      <ResponsiveContainer width={chartWidth}>
         <RechartsComposedChart
-          margin={{
-            bottom: 0,
-            top: 0,
-            right: (showLegend && legendPosition === LegendPosition.right ? width * 0.2 : 20) + (useY2Axis ? 40 : 20),
-            left: showLegend && legendPosition === LegendPosition.left ? width * 0.2 : 40,
-          }}
-          layout={layout}
-          data={data}
-        >
-          {showLegend && <Legend {...getLegendProps(legendPosition, height, width)} iconType="circle" iconSize={10} />}
+          margin={{ left: 20 }}
+          key={exploreCounter + chartWidth} width={chartWidth} layout={layout} data={currentData}>
+          {showLegend && (
+            <Legend
+              onClick={handleLegendClick}
+              {...getLegendProps(legendPosition, height, width)}
+              iconType="circle"
+              iconSize={10}
+              payload={metrics.map(metric => ({
+                value: metric,
+                id: metric,
+                type: disabledDataKeys.includes(metric) ? 'line' : 'circle',
+                color: CategoricalColorNamespace.getColor(metric, colorScheme),
+              }))}
+            />
+          )}
           <CartesianGrid {...getCartesianGridProps({ layout })} />
           <XAxis
             {...getXAxisProps({

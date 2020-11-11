@@ -1,4 +1,4 @@
-import React, { useState, FC, useEffect, memo } from 'react';
+import React, { useState, FC, useEffect, memo, useRef } from 'react';
 import { styled } from '@superset-ui/style';
 import { t } from '@superset-ui/translation';
 import {
@@ -10,9 +10,17 @@ import {
   PieLabelRenderProps,
   Legend,
   PieProps as RechartsPieProps,
+  LegendType,
 } from 'recharts';
 import { CategoricalColorNamespace } from '@superset-ui/color';
-import { LegendPosition, renderActiveShape, getLegendProps } from './utils';
+import { LegendPosition, renderActiveShape, getLegendProps, LABELS_MARGIN } from './utils';
+
+type EventData = {
+  color: string;
+  id: string;
+  type: LegendType;
+  value: string;
+};
 
 type PieStylesProps = {
   height: number;
@@ -20,15 +28,15 @@ type PieStylesProps = {
   legendPosition: LegendPosition;
 };
 
-export type PieChartData = {
-  [key: string]: string | number;
-};
+type GroupBy<G extends string> = Record<G, string>;
 
-export type PieProps = {
+export type PieChartData<G extends string, DK extends string> = GroupBy<G> & Record<DK, number>;
+
+export type PieProps<G extends string, DK extends string> = {
   height: number;
   width: number;
-  data?: PieChartData[];
-  dataKey: string;
+  data: PieChartData<G, DK>[];
+  dataKey: DK;
   isDonut?: boolean;
   onClick?: RechartsFunction;
   colorScheme: string;
@@ -36,15 +44,10 @@ export type PieProps = {
   legendPosition: LegendPosition;
   showLegend: boolean;
   showLabels: boolean;
-  groupBy: string;
+  groupBy: G;
   pieLabelType: string;
 };
 
-export type LegendProps = {
-  data?: PieChartData[];
-  colorFn: Function;
-  groupBy: string;
-};
 const Notification = styled.div`
   cursor: pointer;
   width: 100%;
@@ -58,22 +61,18 @@ const Notification = styled.div`
 `;
 
 const Styles = styled.div<PieStylesProps>`
-  padding: ${({ theme }) => theme.gridUnit * 4}px;
   border-radius: ${({ theme }) => theme.gridUnit * 2}px;
   height: ${({ height }) => height};
   width: ${({ width }) => width};
-  overflow-y: scroll;
+  overflow: auto;
 
   & .recharts-legend-item {
+    cursor: pointer;
     white-space: nowrap;
-    ${({ legendPosition }) =>
-      legendPosition === LegendPosition.left || legendPosition === LegendPosition.right
-        ? 'display: block !important;'
-        : ''}
   }
 `;
 
-const Pie: FC<PieProps> = memo(props => {
+const Pie: FC<PieProps<string, string>> = memo(props => {
   const {
     dataKey,
     data,
@@ -91,6 +90,13 @@ const Pie: FC<PieProps> = memo(props => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isAnimationEnded, setIsAnimationEnded] = useState<boolean>(false);
   const [exploreCounter, setExploreCounter] = useState<number>(0);
+  const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
+  const [legendWidth, setLegendWidth] = useState<number | null>(0);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const isSideLegend =
+    showLegend && (legendPosition === LegendPosition.right || legendPosition === LegendPosition.left);
+
+  const currentData = data.filter(item => !disabledDataKeys.includes(item[groupBy]));
 
   useEffect(() => {
     if (isAnimationEnded) {
@@ -99,29 +105,50 @@ const Pie: FC<PieProps> = memo(props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showLabels, showLegend, isDonut, legendPosition]);
 
+  useEffect(() => {
+    if (isSideLegend && rootRef.current) {
+      const legend = rootRef.current.querySelector('.recharts-legend-wrapper');
+      setLegendWidth(legend?.getBoundingClientRect()?.width || null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rootRef.current]);
+
   const onPieEnter = (data: object, index: number) => setActiveIndex(index);
 
   const closeNotification = () => setNotification(null);
-  const colorFn = CategoricalColorNamespace.getScale(colorScheme);
+  const { getColor } = CategoricalColorNamespace;
 
-  const onClick = (e, index) => {
+  const onClick = () => {
     // eslint-disable-next-line no-restricted-globals
     if (location.pathname.includes('/explore')) {
       setNotification(t('Sector was clicked, filter will be emitted on a dashboard'));
     }
   };
 
-  const chartWidth =
-    showLegend && (legendPosition === LegendPosition.right || legendPosition === LegendPosition.left)
-      ? 0.8 * width
-      : width;
+  const handleLegendClick = ({ id }: EventData) => {
+    let resultKeys = [];
+    if (disabledDataKeys.includes(id)) {
+      resultKeys = disabledDataKeys.filter(item => item !== id);
+    } else {
+      resultKeys = [...disabledDataKeys];
+      resultKeys.push(id);
+    }
+    setDisabledDataKeys(resultKeys);
+  };
+
   const chartHeight = height;
-  const outerRadius = (chartWidth < chartHeight ? chartWidth : chartHeight) / 2 - (showLabels ? 80 : 40);
+  const outerRadius = (width < chartHeight ? width : chartHeight) / 2 - (showLabels ? LABELS_MARGIN : 20);
+  const chartWidth =
+    isSideLegend && legendWidth
+      ? Math.max((outerRadius + (showLabels ? LABELS_MARGIN : 20)) * 2 + legendWidth, width)
+      : width;
+
   const pieProps: RechartsPieProps & { key?: string | number } = {
     activeIndex: activeIndex,
     key: exploreCounter,
-    data: data,
+    data: currentData,
     dataKey: dataKey,
+    cx: isSideLegend ? outerRadius + (showLabels ? LABELS_MARGIN : 20) : '50%',
     outerRadius,
     // @ts-ignore
     label: showLabels
@@ -139,26 +166,32 @@ const Pie: FC<PieProps> = memo(props => {
   }
 
   return (
-    <Styles height={height} width={width} legendPosition={legendPosition}>
+    <Styles height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
       {notification && <Notification onClick={closeNotification}>{notification}</Notification>}
-      <ResponsiveContainer>
-        <PieChart
-          margin={{
-            right: showLegend && legendPosition === LegendPosition.right ? width * 0.2 : 0,
-            left: showLegend && legendPosition === LegendPosition.left ? width * 0.2 : 0,
-          }}
-          key={exploreCounter}
-        >
+      <ResponsiveContainer width={chartWidth}>
+        <PieChart key={exploreCounter + chartWidth} width={chartWidth}>
           {showLegend && (
             <Legend
-              {...getLegendProps(legendPosition, height, width)}
+              onClick={handleLegendClick}
+              {...getLegendProps(legendPosition, height)}
               iconType="circle"
-              formatter={(value, entry) => entry?.payload[groupBy]}
+              iconSize={10}
+              payload={data.map(item => ({
+                value: item[groupBy],
+                id: item[groupBy],
+                payload: item,
+                type: disabledDataKeys.includes(item[groupBy]) ? 'line' : 'circle',
+                color: CategoricalColorNamespace.getColor(item[groupBy], colorScheme),
+              }))}
             />
           )}
-          <RechartsPie onAnimationEnd={() => setIsAnimationEnded(true)} {...pieProps}>
-            {data && data.map((entry, index) => <Cell fill={colorFn(index)} />)}
-          </RechartsPie>
+          {((isSideLegend && legendWidth) || !isSideLegend) && (
+            <RechartsPie onAnimationEnd={() => setIsAnimationEnded(true)} {...pieProps}>
+              {currentData?.map((entry, index) => (
+                <Cell fill={getColor(entry[groupBy], colorScheme)} />
+              ))}
+            </RechartsPie>
+          )}
         </PieChart>
       </ResponsiveContainer>
     </Styles>

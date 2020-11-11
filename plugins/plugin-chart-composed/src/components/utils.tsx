@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getNumberFormatter } from '@superset-ui/number-format';
-import { Area, Bar, LabelProps, Line, Scatter } from 'recharts';
+import { Area, Bar, LabelProps, Legend, LegendProps, Line, Scatter } from 'recharts';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { NumberFormatFunction } from '@superset-ui/number-format/lib/types';
 import { ResultData } from '../plugin/transformProps';
@@ -16,9 +16,9 @@ export enum Layout {
 }
 
 export const MAX_SYMBOLS_IN_TICK_LABEL = 20;
+export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 6;
 export const MIN_BAR_SIZE_FOR_LABEL = 18;
 export const MIN_SYMBOL_WIDTH_FOR_LABEL = 14;
-export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 6;
 export const MIN_LABEL_MARGIN = 20;
 
 export enum LegendPosition {
@@ -87,22 +87,14 @@ export const CHART_SUB_TYPE_NAMES = {
 
 type LegendAlign = 'left' | 'center' | 'right';
 type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
-type GetLegendPropsParams = {
-  width: number;
-  align: LegendAlign;
-  verticalAlign: LegendVerticalAlign;
-  wrapperStyle: object;
-};
 
-export const getLegendProps = (legendPosition: LegendPosition, height: number, width: number): GetLegendPropsParams => {
+export const getLegendProps = (legendPosition: LegendPosition, height: number, width: number): LegendProps => {
   let result = {
     wrapperStyle: {
       maxHeight: height,
-      overflow: 'auto',
     },
     align: 'center' as LegendAlign,
     verticalAlign: 'middle' as LegendVerticalAlign,
-    width,
   };
   if (legendPosition === LegendPosition.left || legendPosition === LegendPosition.right) {
     result = {
@@ -114,39 +106,39 @@ export const getLegendProps = (legendPosition: LegendPosition, height: number, w
     case LegendPosition.left:
       return {
         ...result,
+        layout: 'vertical',
         wrapperStyle: {
           ...result.wrapperStyle,
-          width: width * 0.2 - 20,
-          marginLeft: -width * 0.2,
+          marginLeft: -10,
         },
       };
     case LegendPosition.right:
       return {
         ...result,
+        layout: 'vertical',
         wrapperStyle: {
           ...result.wrapperStyle,
-          width: width * 0.2 - 20,
-          marginRight: -width * 0.2,
+          marginRight: -10,
         },
       };
     case LegendPosition.bottom:
       return {
         ...result,
+        layout: 'horizontal',
         verticalAlign: legendPosition as LegendVerticalAlign,
         wrapperStyle: {
           ...result.wrapperStyle,
           width: width - 40,
-          marginLeft: 0,
         },
       };
     case LegendPosition.top:
       return {
         ...result,
+        layout: 'horizontal',
         verticalAlign: legendPosition as LegendVerticalAlign,
         wrapperStyle: {
           ...result.wrapperStyle,
           width: width - 40,
-          marginLeft: 0,
         },
       };
   }
@@ -267,7 +259,8 @@ export const getXAxisProps = ({ layout, angle, label, dataKeyLength, metricLengt
       return {
         ...params,
         tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
-        height: angle === 0 ? MIN_LABEL_MARGIN : dataKeyLength + (angle === -90 ? MIN_SYMBOL_WIDTH_FOR_TICK_LABEL * 6 : 0),
+        height:
+          angle === 0 ? MIN_LABEL_MARGIN : dataKeyLength + (angle === -90 ? MIN_SYMBOL_WIDTH_FOR_TICK_LABEL * 6 : 0),
         interval: 0,
         dataKey: 'rechartsDataKey',
       };
@@ -304,7 +297,8 @@ export const getYAxisProps = ({
       return {
         ...params,
         tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
-        width: angle === -90 ? MIN_LABEL_MARGIN : dataKeyLength,
+        width:
+          angle === -90 ? MIN_LABEL_MARGIN : dataKeyLength + (angle === 0 ? MIN_SYMBOL_WIDTH_FOR_TICK_LABEL * 6 : 0),
         dataKey: isSecondAxis ? dataKey : 'rechartsDataKey',
         type: 'category' as const,
       };
