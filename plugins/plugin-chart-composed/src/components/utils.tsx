@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getNumberFormatter } from '@superset-ui/number-format';
-import { Area, Bar, LabelProps, Legend, Line, Scatter } from 'recharts';
+import { Area, Bar, LabelProps, Line, Scatter } from 'recharts';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { NumberFormatFunction } from '@superset-ui/number-format/lib/types';
 import { ResultData } from '../plugin/transformProps';

@@ -23,6 +23,7 @@ xdescribe('TablePivotNew tranformProps', () => {
 
   it('should tranform chart props for viz', () => {
     // TODO: This test isn't passing
+    // @ts-ignore
     expect(transformProps(chartProps)).toEqual({
       width: 800,
       height: 600,

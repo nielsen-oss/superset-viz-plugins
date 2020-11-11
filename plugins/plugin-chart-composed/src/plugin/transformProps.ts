@@ -19,7 +19,6 @@
 import { ChartProps } from '@superset-ui/chart';
 import { CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/utils'
 import { ComposedChartProps } from '../components/ComposedChart';
-import { showLegend } from './controlPanel'
 
 type TMetric = {
   label: string;

@@ -33,20 +33,24 @@ const extractUnits = <T extends string>(
 ): { units: Unit<T>; unitsSize: number; uiUnits: Unit<T> } => {
   let unitsSize = 1;
   let prevKey: string = '__NOT__EXISTED__';
-
+  // @ts-ignore
   const { units, uiUnits } = Object.entries(dimensionUnits).reduce(
+    // @ts-ignore
     (acc, [key, val]: [string, Set<string>], i) => {
       // @ts-ignore
       acc.units[key] = [...val].sort();
+      // @ts-ignore
       unitsSize *= acc.units[key].length;
-
+      // @ts-ignore
       acc.uiUnits[key] = multiplyArray<T>(
         // @ts-ignore
         [...val].sort(),
         // For rows we need to add also column name to render it's correctly in css grid
+        // @ts-ignore
         (acc.uiUnits[prevKey] || rootDimension).length - (withHeader ? 1 : 0),
       );
       if (withHeader) {
+        // @ts-ignore
         acc.uiUnits[key].unshift(key);
       }
       prevKey = key;
