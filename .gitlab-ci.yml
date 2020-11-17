@@ -29,6 +29,7 @@ install:
   rules:
     - if: $CI_MERGE_REQUEST_IID
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $FORK_BRANCH_NAME
 
 # lint:
 #   stage: test
@@ -65,6 +66,7 @@ deployPlugins:
     - lerna publish --registry https://nexus.exelator.net/repository/npm-internal/ --yes
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $FORK_BRANCH_NAME
 
 prepareSupersetBuild:
   stage: prepareBuild
@@ -74,10 +76,14 @@ prepareSupersetBuild:
   script:
     - yarn
     # get fork branch name
-    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-maf-extensions.git
-    - cd superset-maf-extensions
-    - FORK_BRANCH_NAME=${NEW_FORK_VERSION:=$(sed '2!d' setup.py | cut -d '=' -f 2  | tr -d '""')}
+    - if [ -z ${FORK_BRANCH_NAME+x} ]
+    - then
+    -   git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-maf-extensions.git
+    -   cd superset-maf-extensions
+    -   FORK_BRANCH_NAME=${NEW_FORK_VERSION:=$(sed '2!d' setup.py | cut -d '=' -f 2  | tr -d '""')}
+    - fi
     - echo $FORK_BRANCH_NAME
+
      # Clone the repos
     - cd ..
     - git clone --single-branch --branch $FORK_BRANCH_NAME https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-fork.git
@@ -99,7 +105,7 @@ prepareSupersetBuild:
       - ./superset-maf-extensions
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - if: $DEPLOY_NEW_FORK == "true"
+    - if: $FORK_BRANCH_NAME
 
 buildDocker:
   stage: buildFork
@@ -137,4 +143,4 @@ buildDocker:
     - prepareSupersetBuild
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - if: $DEPLOY_NEW_FORK == "true"
+    - if: $FORK_BRANCH_NAME
