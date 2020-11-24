@@ -1,6 +1,6 @@
 {
   "name": "@superset-maf-ui/plugin-chart-pivot-table",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Superset Chart - Pivot Table",
   "pluginName": "PivotTableChartPlugin",
   "sideEffects": false,
@@ -34,16 +34,16 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@superset-ui/chart-controls": "^0.15.2",
-    "@superset-ui/core": "^0.15.2"
-  },
   "peerDependencies": {
-    "react": "^16.13.1"
+    "@superset-ui/chart-controls": "^0.15.5",
+    "@superset-ui/core": "^0.15.10",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.4.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.0",
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "react-bootstrap": "^1.4.0"
   },
   "babel": {
     "presets": [

@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, configure } from '@testing-library/react';
-import { supersetTheme, ThemeProvider } from '@superset-ui/style';
+import { supersetTheme, ThemeProvider } from '@superset-ui/core';
 import WaterfallChart from '../../src/components/WaterfallChart';
 import transformProps from '../../src/plugin/transformProps';
 import waterfallData from '../mocks/waterfallData';

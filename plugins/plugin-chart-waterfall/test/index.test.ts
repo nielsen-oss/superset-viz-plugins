@@ -27,7 +27,7 @@ import { configure as configureTranslation } from '@superset-ui/core'
  * treated correctly (e.g. formData from plugin controls
  * properly transform the data and/or any resulting props).
  */
-describe('@superset-ui/plugin-chart-waterfall', () => {
+describe('plugin-chart-waterfall', () => {
   beforeAll(() => {
     configureTranslation()
   })

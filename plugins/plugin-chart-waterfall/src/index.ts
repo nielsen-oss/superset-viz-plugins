@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-// eslint-disable-next-line import/prefer-default-export
+
 export { default } from './plugin';
 /**
  * Note: this file exports the default export from Waterfall.tsx.

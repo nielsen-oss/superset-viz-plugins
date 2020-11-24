@@ -1,14 +1,26 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { getNumberFormatter } from '@superset-ui/number-format';
-import { Area, Bar, LabelProps, Legend, LegendProps, Line, Scatter } from 'recharts';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { NumberFormatFunction } from '@superset-ui/number-format/lib/types';
-import { ResultData } from '../plugin/transformProps';
-// eslint-disable-next-line import/no-extraneous-dependencies
+import { Area, Bar, LabelFormatter, LabelProps, LegendProps, Line, Scatter } from 'recharts';
+import { LabelColors, ResultData } from '../plugin/transformProps';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { CategoricalColorNamespace } from '@superset-ui/color';
+import { CategoricalColorNamespace, getNumberFormatter } from '@superset-ui/core';
 
 export enum Layout {
   horizontal = 'horizontal',
@@ -88,7 +100,17 @@ export const CHART_SUB_TYPE_NAMES = {
 type LegendAlign = 'left' | 'center' | 'right';
 type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
 
-export const getLegendProps = (legendPosition: LegendPosition, height: number, width: number): LegendProps => {
+const getLabelSize = (angle: number, dataKeyLength: number, angleMin: number, angleMax: number): number =>
+  angle === angleMin
+    ? MIN_LABEL_MARGIN
+    : dataKeyLength + (angle === angleMax ? MIN_SYMBOL_WIDTH_FOR_TICK_LABEL * 6 : 0);
+
+export const getLegendProps = (
+  legendPosition: LegendPosition,
+  height: number,
+  width: number,
+  legendWidth: number,
+): LegendProps => {
   let result = {
     wrapperStyle: {
       maxHeight: height,
@@ -106,19 +128,19 @@ export const getLegendProps = (legendPosition: LegendPosition, height: number, w
     case LegendPosition.left:
       return {
         ...result,
-        layout: 'vertical',
+        layout: Layout.vertical,
         wrapperStyle: {
           ...result.wrapperStyle,
-          marginLeft: -10,
+          marginLeft: -legendWidth,
         },
       };
     case LegendPosition.right:
       return {
         ...result,
-        layout: 'vertical',
+        layout: Layout.vertical,
         wrapperStyle: {
           ...result.wrapperStyle,
-          marginRight: -10,
+          marginRight: -legendWidth - 10,
         },
       };
     case LegendPosition.bottom:
@@ -173,10 +195,9 @@ export const getChartElement = (
   metric: string,
   colorScheme: string,
   hasDifferentTypes: boolean,
+  index: number,
 ): ChartsUIItem => {
-  const { getColor } = CategoricalColorNamespace;
-
-  const color = getColor(metric, colorScheme);
+  const color = CategoricalColorNamespace.getScale(colorScheme)(index);
 
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'> = {
     Element: Bar,
@@ -224,7 +245,7 @@ export const getChartElement = (
 
 type AxisProps = {
   layout: Layout;
-  angle?: number;
+  angle: number;
   label?: string;
   isSecondAxis?: boolean;
   dataKey?: string;
@@ -259,14 +280,14 @@ export const getXAxisProps = ({ layout, angle, label, dataKeyLength, metricLengt
       return {
         ...params,
         tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
-        height:
-          angle === 0 ? MIN_LABEL_MARGIN : dataKeyLength + (angle === -90 ? MIN_SYMBOL_WIDTH_FOR_TICK_LABEL * 6 : 0),
+        height: getLabelSize(angle, dataKeyLength, 0, -90),
         interval: 0,
         dataKey: 'rechartsDataKey',
       };
   }
 };
 
+const Y_AXIS_OFFSET = 30;
 export const getYAxisProps = ({
   layout,
   angle,
@@ -279,15 +300,15 @@ export const getYAxisProps = ({
 }: AxisProps) => {
   const textAnchor = angle === -90 ? 'middle' : 'end';
   const labelProps: LabelProps = {
-    offset: 30,
+    offset: Y_AXIS_OFFSET,
     value: label,
     angle: 90,
     position: isSecondAxis ? 'right' : 'left',
   };
   const params = {
     tickMargin: isSecondAxis ? 25 : 0,
-    dx: isSecondAxis ? 10 : -10,
     angle,
+    dx: isSecondAxis ? metricLength * 0.5 : 0,
     orientation: isSecondAxis ? ('right' as const) : ('left' as const),
     yAxisId: isSecondAxis ? 'right' : 'left',
     label: labelProps,
@@ -297,16 +318,14 @@ export const getYAxisProps = ({
       return {
         ...params,
         tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
-        width:
-          angle === -90 ? MIN_LABEL_MARGIN : dataKeyLength + (angle === 0 ? MIN_SYMBOL_WIDTH_FOR_TICK_LABEL * 6 : 0),
+        width: getLabelSize(angle, dataKeyLength, -90, 0),
         dataKey: isSecondAxis ? dataKey : 'rechartsDataKey',
         type: 'category' as const,
       };
-    case Layout.horizontal:
     default:
       return {
         ...params,
-        width: angle === -90 ? MIN_LABEL_MARGIN : metricLength,
+        width: angle === -90 ? MIN_LABEL_MARGIN : metricLength + Y_AXIS_OFFSET,
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
         ),
@@ -331,11 +350,7 @@ export const getCartesianGridProps = ({ layout }: { layout: Layout }) => {
 export const getMaxLengthOfDataKey = (data: ResultData[]) =>
   Math.min(Math.max(...data.map(item => item.rechartsDataKey.length)), MAX_SYMBOLS_IN_TICK_LABEL);
 
-export const getMaxLengthOfMetric = (
-  data: ResultData[],
-  metrics: string[],
-  formatter: NumberFormatFunction = value => `${value}`,
-) =>
+export const getMaxLengthOfMetric = (data: ResultData[], metrics: string[], formatter = (value: any) => `${value}`) =>
   Math.max(
     ...data.map(
       item =>
@@ -357,4 +372,69 @@ export const renderLabel = ({
     return '';
   }
   return formattedValue;
+};
+
+type ChartElementProps = {
+  colorScheme: string;
+  useY2Axis?: boolean;
+  chartSubType: keyof typeof CHART_SUB_TYPES;
+  isAnimationActive?: boolean;
+  chartType: keyof typeof CHART_TYPES;
+  metrics: string[];
+  labelsColor: LabelColors;
+  chartTypeMetrics: (keyof typeof CHART_TYPES)[];
+  chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[];
+  useCustomTypeMetrics: boolean[];
+  numbersFormat: string;
+  metric: string;
+  updater: number;
+  index: number;
+};
+
+export const renderChartElement = ({
+  chartType,
+  metrics,
+  numbersFormat,
+  useY2Axis,
+  labelsColor,
+  isAnimationActive,
+  metric,
+  updater,
+  index,
+  chartSubType,
+  useCustomTypeMetrics,
+  chartTypeMetrics,
+  chartSubTypeMetrics,
+  colorScheme,
+}: ChartElementProps) => {
+  let customChartType = chartType;
+  let customChartSubType = chartSubType;
+  if (useCustomTypeMetrics[index]) {
+    customChartType = chartTypeMetrics[index];
+    customChartSubType = chartSubTypeMetrics[index];
+  }
+  const { Element, ...elementProps } = getChartElement(
+    customChartType,
+    customChartSubType,
+    metric,
+    colorScheme,
+    customChartType === CHART_TYPES.BAR_CHART && useCustomTypeMetrics.some(el => el),
+    index,
+  );
+
+  return (
+    <Element
+      key={`${metric}${updater}`}
+      isAnimationActive={isAnimationActive}
+      label={{
+        fill: labelsColor,
+        position: 'center',
+        formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
+        content: renderLabel,
+      }}
+      yAxisId={useY2Axis && index === metrics.length - 1 ? 'right' : 'left'}
+      dataKey={metric}
+      {...elementProps}
+    />
+  );
 };

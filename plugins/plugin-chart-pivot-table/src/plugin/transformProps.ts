@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 import { getOneDimensionData, getUnits } from './utils';
 
 type MetricObject<M extends string> = {
@@ -36,7 +35,7 @@ export type QueryData<R extends string, C extends string, M extends string> = Re
   Record<C, string> &
   Record<M, number>;
 
-type ChartProps<R extends string, C extends string, M extends string> = {
+export type ChartProps<R extends string, C extends string, M extends string> = {
   width: number;
   height: number;
   formData: FormData<R, C, M>;
@@ -71,14 +70,11 @@ export default function transformProps<R extends string, C extends string, M ext
     oneDimensionColumns,
   } = getUnits<R, C, M>(data, columns, rows, metrics);
 
-  const {
-    oneDimensionData,
-    columnsFillData,
-    rowsFillData,
-    rowsTotal,
-    columnsTotal,
-    total,
-  } = getOneDimensionData<R, C, M>({
+  const { oneDimensionData, columnsFillData, rowsFillData, rowsTotal, columnsTotal, total } = getOneDimensionData<
+    R,
+    C,
+    M
+  >({
     data,
     metrics,
     columns,

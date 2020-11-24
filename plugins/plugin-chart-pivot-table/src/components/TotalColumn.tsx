@@ -16,10 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-// https://github.com/apache-superset/superset-ui/blob/master/packages/superset-ui-core/src/style/index.ts
-
-// @ts-ignore
 import React, { FC } from 'react';
 import { t } from '@superset-ui/core';
 import { Grid, GridItem } from './Layout';

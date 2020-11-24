@@ -1,6 +1,6 @@
 {
   "name": "@superset-maf-ui/core",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Supertset MAF UI core package",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -91,5 +91,11 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "react-bootstrap": "^1.4.0"
+  },
+  "peerDependencies": {
+    "react-bootstrap": "^1.4.0"
   }
 }

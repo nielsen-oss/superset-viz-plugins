@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/compare/@superset-maf-ui/core@0.2.0...@superset-maf-ui/core@0.2.1) (2020-11-17)
+
+
+### Bug Fixes
+
+* fix CR notes ([afbe4a8](https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/commit/afbe4a8fd75dcf9ddd1bdf29801f549f68766e31))
+
+
+
+
+
 # [0.2.0](https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/compare/@superset-maf-ui/core@0.1.1...@superset-maf-ui/core@0.2.0) (2020-10-26)
 
 

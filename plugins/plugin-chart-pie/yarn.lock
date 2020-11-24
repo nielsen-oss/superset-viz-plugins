@@ -607,29 +607,19 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@superset-ui/chart-controls@^0.15.2":
-  version "0.15.12"
-  resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/chart-controls/-/chart-controls-0.15.12.tgz#e6ff46786054cd4299b28ac01cccf85ad8d2e56e"
-  integrity sha512-S2JZkl+n7Wc6voOPm6mTsi9aR3SpY5NZljRYgfitY9RfPSVx9xEAQtF1QNA+nagObuRY/bXH2BdQ/v+Wr4y50Q==
+"@superset-ui/chart-controls@^0.15.5":
+  version "0.15.13"
+  resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/chart-controls/-/chart-controls-0.15.13.tgz#1eb1d5cfaf08ecc072d9f60a495924b28868c06b"
+  integrity sha512-T3wkD8Sc0JwXevUTFyMHdslBOcNPN4apgb0vWuiVmWQFR3RZrVJJZnpllJ5YA5Q8ak1Vo+xUuKmu0RlrQWdieA==
   dependencies:
-    "@superset-ui/core" "0.15.12"
+    "@superset-ui/core" "0.15.13"
     lodash "^4.17.15"
     prop-types "^15.7.2"
 
-"@superset-ui/color@^0.14.0":
-  version "0.14.23"
-  resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/color/-/color-0.14.23.tgz#b393659eb805f1cf096cc8ac4b818852b70bf313"
-  integrity sha512-JHznmtj+BRwIIVWw8bYNfIsrKrMTTDVIFvgpIxIZChbC9FFsZ+Zd44y7fH+Uemd3Gb0zqhVlRC7+FOybHcS2RA==
-  dependencies:
-    "@types/d3-interpolate" "^1.3.1"
-    "@types/d3-scale" "^2.1.1"
-    d3-interpolate "^1.4.0"
-    d3-scale "^3.0.0"
-
-"@superset-ui/core@0.15.12", "@superset-ui/core@^0.15.2":
-  version "0.15.12"
-  resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/core/-/core-0.15.12.tgz#dda5478087df07b6bb4a7ec9c99e83171a0efaee"
-  integrity sha512-0v9/JcKawcsz8AiWe6BB+6zCJvcVPGkGn9fBhBPDiLEq4djMk/MyHKXSQpyvAZegppSuGDVS3sOIBHG7J2umiA==
+"@superset-ui/core@0.15.13", "@superset-ui/core@^0.15.10":
+  version "0.15.13"
+  resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/core/-/core-0.15.13.tgz#955955fcd2886cdba82185c1eeab9c1c6ab0ca8b"
+  integrity sha512-2mCOGO5OdNJwcokmuoWhZVzjEdWCqVT1DqUCBzmyOjvbvX5J+ZWKJFMZ+GUMoLHzxGzYI3xPhdzJWnYdLrBXmg==
   dependencies:
     "@babel/runtime" "^7.1.2"
     "@emotion/core" "^10.0.28"
@@ -655,37 +645,6 @@
     react-error-boundary "^1.2.5"
     reselect "^4.0.0"
     whatwg-fetch "^3.0.0"
-
-"@superset-ui/dimension@^0.14.23":
-  version "0.14.23"
-  resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/dimension/-/dimension-0.14.23.tgz#680a2be4445664fabb292aba22ce4a8a6efd99d2"
-  integrity sha512-uqGtj4YT9prJD8eG79IWkELMuZfwNtSP8hbd4aywnzlyJwnEWC5qYKhKJgDCnWTh6OwrH2RieXwVRu2ZwytuBA==
-
-"@superset-ui/number-format@^0.14.9":
-  version "0.14.23"
-  resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/number-format/-/number-format-0.14.23.tgz#61758837c73a8ff9a0f7b684b6a94b1497c38f64"
-  integrity sha512-mLY/b2lRUsazZFOxF9eBJOkan0029YrZep+KvIACagYgyVxGP/Kli0h3mhuNeXN3zQqZvDXfqsc7nZHLzX1cZw==
-  dependencies:
-    "@types/d3-format" "^1.3.0"
-    d3-format "^1.3.2"
-    pretty-ms "^7.0.0"
-
-"@superset-ui/query@^0.14.1":
-  version "0.14.23"
-  resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/query/-/query-0.14.23.tgz#a1aa374e7a234542601c8fbefdd155e0091d0398"
-  integrity sha512-AlUsxJhO0tKifHprf1L7PJ74L5gbdL6z0vy2q/XXYMpttY63FzUKN3IfmFk1zw+6oH8YBe13S6hiORk8CeoXxA==
-
-"@superset-ui/translation@^0.14.0":
-  version "0.14.23"
-  resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/translation/-/translation-0.14.23.tgz#204681affc6a8d629bf5321603a5dce5f857c438"
-  integrity sha512-jTLTbmEJDrpL1IrnPKDqtXgwGO87R24+ZIdhCNWpNry8/chayr8hb6eMTJhuKZRhBkrn7I/qmpKZ5IiNwoiq4A==
-  dependencies:
-    jed "^1.1.1"
-
-"@superset-ui/validator@^0.14.1":
-  version "0.14.23"
-  resolved "https://nexus.exelator.net/repository/npm-all/@superset-ui/validator/-/validator-0.14.23.tgz#476a40d326e3ed42132c813b2c884200db9de488"
-  integrity sha512-pHHubcKg6Xmpaqkq94J+UFEKyqI6d9B7F8uyYukLuGkQSlx33ccNWDixfAJhUbfxh1MBGh9A77F52ceCLQE+bw==
 
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.7":
   version "7.1.9"
@@ -2186,7 +2145,7 @@ is-ci@^2.0.0:
   dependencies:
     ci-info "^2.0.0"
 
-is-core-module@^2.0.0:
+is-core-module@^2.1.0:
   version "2.1.0"
   resolved "https://nexus.exelator.net/repository/npm-all/is-core-module/-/is-core-module-2.1.0.tgz#a4cc031d9b1aca63eecbd18a650e13cb4eeab946"
   integrity sha512-YcV7BgVMRFRua2FqQzKtTDMz8iCuLEyGKjr70q8Zm1yy2qKcurbFEd79PAdHV77oL3NrAaOVQIbMmiHQCHB7ZA==
@@ -3616,11 +3575,11 @@ resolve@^1.10.0, resolve@^1.17.0, resolve@^1.3.2:
     path-parse "^1.0.6"
 
 resolve@^1.12.0:
-  version "1.18.1"
-  resolved "https://nexus.exelator.net/repository/npm-all/resolve/-/resolve-1.18.1.tgz#018fcb2c5b207d2a6424aee361c5a266da8f4130"
-  integrity sha512-lDfCPaMKfOJXjy0dPayzPdF1phampNWr3qFCjAu+rw/qbQmr5jWH5xN2hwh9QKfw9E5v4hwV7A+jrCmL8yjjqA==
+  version "1.19.0"
+  resolved "https://nexus.exelator.net/repository/npm-all/resolve/-/resolve-1.19.0.tgz#1af5bf630409734a067cae29318aac7fa29a267c"
+  integrity sha512-rArEXAgsBG4UgRGcynxWIWKFvh/XZCcS8UJdHhwy91zwAvCZIbcs+vAbflgBnNjYMs/i/i+/Ux6IZhML1yPvxg==
   dependencies:
-    is-core-module "^2.0.0"
+    is-core-module "^2.1.0"
     path-parse "^1.0.6"
 
 ret@~0.1.10:

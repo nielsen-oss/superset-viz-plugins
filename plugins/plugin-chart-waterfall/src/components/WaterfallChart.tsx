@@ -17,23 +17,22 @@
  * under the License.
  */
 import React, { FC, useState } from 'react';
-import { t } from '@superset-ui/translation';
-import { styled } from '@superset-ui/style';
+import { t, styled } from '@superset-ui/core';
 import { BarChart, Bar, LabelList, XAxis, YAxis, CartesianGrid, Tooltip, LabelProps } from 'recharts';
 import WaterfallTick from './WaterfallTick';
 import { valueFormatter } from './utils';
 import WaterfallBar from './WaterfallBar';
 import WaterfallLegend from './WaterfallLegend';
 
-type TWaterfallStylesProps = {
+type WaterfallStylesProps = {
   height: number;
   width: number;
 };
 
-export type TBarValue = [number, number];
+export type BarValue = [number, number];
 
-export type TWaterfallChartData = {
-  [key: string]: string | boolean | number | TBarValue;
+export type WaterfallChartData = {
+  [key: string]: string | boolean | number | BarValue;
 };
 
 export type TWaterfallChartProps = {
@@ -44,10 +43,10 @@ export type TWaterfallChartProps = {
   resetFilters?: Function;
   onBarClick?: Function;
   width: number;
-  data?: TWaterfallChartData[];
+  data?: WaterfallChartData[];
 };
 
-const Styles = styled.div<TWaterfallStylesProps>`
+const Styles = styled.div<WaterfallStylesProps>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -99,9 +98,8 @@ const WaterfallChart: FC<TWaterfallChartProps> = ({
 }) => {
   const [notification, setNotification] = useState<string | null>(null);
 
-  const handleBarClick = (barData: TWaterfallChartData) => {
-    // eslint-disable-next-line no-restricted-globals
-    if (location.pathname.includes('/explore')) {
+  const handleBarClick = (barData: WaterfallChartData) => {
+    if (window.location.pathname.includes('/explore')) {
       onBarClick(barData);
       setNotification(t('Bar was clicked, filter will be emitted on a dashboard'));
     }
@@ -109,7 +107,7 @@ const WaterfallChart: FC<TWaterfallChartProps> = ({
   const closeNotification = () => setNotification(null);
 
   const renderLabel: (barValue: LabelProps) => string = ({ value }) =>
-    valueFormatter(((value as unknown) as TBarValue)[1] - ((value as unknown) as TBarValue)[0]);
+    valueFormatter(((value as unknown) as BarValue)[1] - ((value as unknown) as BarValue)[0]);
 
   return (
     <Styles height={height} width={width}>
