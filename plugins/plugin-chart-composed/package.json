@@ -1,6 +1,6 @@
 {
   "name": "@superset-maf-ui/plugin-chart-composed",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Superset Chart - Chart Composed",
   "pluginName": "ComposedChartPlugin",
   "sideEffects": false,
