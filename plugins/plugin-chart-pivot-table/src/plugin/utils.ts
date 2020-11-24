@@ -1,3 +1,21 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 import { formatNumber } from '@superset-ui/core';
 import { QueryData } from './transformProps';
 
@@ -18,7 +36,7 @@ const buildUnits = <R extends string, C extends string, M extends string, T exte
   return units;
 };
 
-const multiplyArray = <T>(arr: T[], times: number) => {
+const multiplyArray = (arr: string[], times: number): string[] => {
   let newArray = [...arr];
   for (let i = 0; i < times - 1; i++) {
     newArray = newArray.concat(arr);
@@ -26,31 +44,26 @@ const multiplyArray = <T>(arr: T[], times: number) => {
   return newArray;
 };
 
+export type Unit<T extends string> = Record<T, string[]>;
+type BaseUnit<T extends string> = Record<T, Set<string>>;
+
 const extractUnits = <T extends string>(
   dimensionUnits: BaseUnit<T>,
   rootDimension: string[],
   withHeader: boolean = false,
 ): { units: Unit<T>; unitsSize: number; uiUnits: Unit<T> } => {
   let unitsSize = 1;
-  let prevKey: string = '__NOT__EXISTED__';
-  // @ts-ignore
-  const { units, uiUnits } = Object.entries(dimensionUnits).reduce(
-    // @ts-ignore
-    (acc, [key, val]: [string, Set<string>], i) => {
-      // @ts-ignore
+  let prevKey: T;
+  const { units, uiUnits } = (Object.entries(dimensionUnits) as [T, Set<string>][]).reduce(
+    (acc, [key, val]) => {
       acc.units[key] = [...val].sort();
-      // @ts-ignore
       unitsSize *= acc.units[key].length;
-      // @ts-ignore
-      acc.uiUnits[key] = multiplyArray<T>(
-        // @ts-ignore
+      acc.uiUnits[key] = multiplyArray(
         [...val].sort(),
         // For rows we need to add also column name to render it's correctly in css grid
-        // @ts-ignore
         (acc.uiUnits[prevKey] || rootDimension).length - (withHeader ? 1 : 0),
       );
       if (withHeader) {
-        // @ts-ignore
         acc.uiUnits[key].unshift(key);
       }
       prevKey = key;
@@ -58,23 +71,18 @@ const extractUnits = <T extends string>(
       return acc;
     },
     {
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      units: {} as Partial<Unit<T>>,
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      uiUnits: {} as Partial<Unit<T>>,
+      units: {} as Unit<T>,
+      uiUnits: {} as Unit<T>,
     },
   );
   return {
     unitsSize,
-    units: units as Unit<T>,
-    uiUnits: uiUnits as Unit<T>,
+    units,
+    uiUnits,
   };
 };
 
-const buildOneDimensionUnits = <T extends string>(
-  dimension: T[],
-  dimensionUnits: Unit<T>,
-): string[] => {
+const buildOneDimensionUnits = <T extends string>(dimension: T[], dimensionUnits: Unit<T>): string[] => {
   let oneDimensionUnits: string[] = [];
   const diveInDimension = (dimensionIndex: number) => {
     if (dimensionIndex === dimension.length - 1) {
@@ -89,9 +97,6 @@ const buildOneDimensionUnits = <T extends string>(
   diveInDimension(0);
   return oneDimensionUnits;
 };
-
-export type Unit<T extends string> = Record<T, string[]>;
-type BaseUnit<T extends string> = Record<T, Set<string>>;
 
 export const getUnits = <R extends string, C extends string, M extends string>(
   data: QueryData<R, C, M>[],
@@ -108,9 +113,7 @@ export const getUnits = <R extends string, C extends string, M extends string>(
   oneDimensionRows: string[];
   oneDimensionColumns: string[];
 } => {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   let baseColumnUnits: BaseUnit<C> = {} as BaseUnit<C>;
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   let baseRowUnits: BaseUnit<R> = {} as BaseUnit<R>;
 
   data.forEach(item => {
@@ -118,11 +121,10 @@ export const getUnits = <R extends string, C extends string, M extends string>(
     baseRowUnits = buildUnits<R, C, M, R>(item, rows, baseRowUnits);
   });
 
-  const {
-    units: columnUnits,
-    unitsSize: numberOfColumnsPerMetric,
-    uiUnits: uiColumnUnits,
-  } = extractUnits<C>(baseColumnUnits as BaseUnit<C>, metrics);
+  const { units: columnUnits, unitsSize: numberOfColumnsPerMetric, uiUnits: uiColumnUnits } = extractUnits<C>(
+    baseColumnUnits as BaseUnit<C>,
+    metrics,
+  );
 
   const { units: rowUnits, unitsSize: numberOfRows, uiUnits: uiRowUnits } = extractUnits<R>(
     baseRowUnits as BaseUnit<R>,
@@ -225,24 +227,16 @@ export const getOneDimensionData = <R extends string, C extends string, M extend
 
   data.forEach(item => {
     metrics.forEach((metric, metricIndex) => {
-      const columnIndex = findUnitsIndex<R, C, M, C>(
-        columns,
-        columnUnits,
-        oneDimensionColumns,
-        item,
-      );
+      const columnIndex = findUnitsIndex<R, C, M, C>(columns, columnUnits, oneDimensionColumns, item);
       const rowIndex = findUnitsIndex<R, C, M, R>(rows, rowUnits, oneDimensionRows, item);
 
       columnsFillData[columnIndex + metricIndex * numberOfColumnsPerMetric] =
-        columnsFillData[columnIndex + metricIndex * numberOfColumnsPerMetric] ||
-        item[metric] !== null;
+        columnsFillData[columnIndex + metricIndex * numberOfColumnsPerMetric] || item[metric] !== null;
 
       rowsFillData[rowIndex] = rowsFillData[rowIndex] || item[metric] !== null;
 
       oneDimensionData[
-        columnIndex +
-          metricIndex * numberOfColumnsPerMetric +
-          rowIndex * (numberOfColumnsPerMetric * metrics.length)
+        columnIndex + metricIndex * numberOfColumnsPerMetric + rowIndex * (numberOfColumnsPerMetric * metrics.length)
       ] = formatNumber(numberFormat, item[metric]);
 
       // Set totals
@@ -259,7 +253,6 @@ export const getOneDimensionData = <R extends string, C extends string, M extend
     total: formatNumber(numberFormat, total),
     columnsFillData,
     rowsFillData,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     rowsTotal: rowsTotal.map(row => formatNumber(numberFormat, row)),
     columnsTotal: columnsTotal.map(column => formatNumber(numberFormat, column)),
   };

@@ -23,6 +23,7 @@ install:
   tags:
     - cicd-runner-maf
   script:
+    - echo "${BASH_VERSION}"
     - npm install -g lerna
     - yarn --frozen-lockfile
     - lerna bootstrap
@@ -76,13 +77,13 @@ prepareSupersetBuild:
   script:
     - yarn
     # get fork branch name
-    - if [ -z ${FORK_BRANCH_NAME+x} ]
-    - then
-    -   git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-maf-extensions.git
-    -   cd superset-maf-extensions
+    - echo 'fork branch name is ' $FORK_BRANCH_NAME
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/nielsen-media/maf/superset/superset-maf-extensions.git
+    - cd superset-maf-extensions
+    - if [[ -z ${FORK_BRANCH_NAME} ]]; then
     -   FORK_BRANCH_NAME=${NEW_FORK_VERSION:=$(sed '2!d' setup.py | cut -d '=' -f 2  | tr -d '""')}
     - fi
-    - echo $FORK_BRANCH_NAME
+    - echo 'fork branch name is ' $FORK_BRANCH_NAME
 
      # Clone the repos
     - cd ..
@@ -128,8 +129,11 @@ buildDocker:
     - cd superset-maf-extensions
     - VERSION=$(sed '1!d' setup.py | cut -d '=' -f 2  | tr -d '""')
     - echo $VERSION
-    - FORK_BRANCH_NAME=${NEW_FORK_VERSION:=$(sed '2!d' setup.py | cut -d '=' -f 2  | tr -d '""')}
-    - echo $FORK_BRANCH_NAME
+    - echo 'fork branch name is ' $FORK_BRANCH_NAME
+    - if [[ -z ${FORK_BRANCH_NAME} ]]; then
+    -   FORK_BRANCH_NAME=${NEW_FORK_VERSION:=$(sed '2!d' setup.py | cut -d '=' -f 2  | tr -d '""')}
+    - fi
+    - echo 'fork branch name is ' $FORK_BRANCH_NAME
     # Build docker and push it
     - cd ../superset-fork
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS} docker.io

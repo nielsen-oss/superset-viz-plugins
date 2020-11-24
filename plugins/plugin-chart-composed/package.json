@@ -1,6 +1,6 @@
 {
   "name": "@superset-maf-ui/plugin-chart-composed",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "Superset Chart - Chart Composed",
   "pluginName": "ComposedChartPlugin",
   "sideEffects": false,
@@ -35,20 +35,18 @@
     "access": "public"
   },
   "dependencies": {
-    "@superset-ui/chart-controls": "^0.15.2",
-    "@superset-ui/core": "^0.15.2",
-    "@superset-ui/number-format": "^0.14.23",
-    "@superset-ui/style": "^0.14.23",
-    "@superset-ui/translation": "^0.14.23",
-    "@superset-ui/validator": "^0.14.23",
     "recharts": "^1.8.5"
   },
   "peerDependencies": {
-    "react": "^16.13.1"
+    "@superset-ui/chart-controls": "^0.15.5",
+    "@superset-ui/core": "^0.15.10",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.4.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.0",
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "react-bootstrap": "^1.4.0"
   },
   "babel": {
     "presets": [

@@ -1,7 +1,7 @@
-import { ChartProps } from '@superset-ui/chart';
+import { ChartProps } from '@superset-ui/core';
 import transformProps from '../../src/plugin/transformProps';
 
-xdescribe('Composed tranformProps', () => {
+xdescribe('Composed transformProps', () => {
   const formData = {
     colorScheme: 'bnbColors',
     datasource: '3__table',
@@ -21,8 +21,8 @@ xdescribe('Composed tranformProps', () => {
     },
   });
 
-  it('should tranform chart props for viz', () => {
-    // TODO: This test isn't passing
+  // TODO: This test isn't passing
+  it('should transform chart props for viz', () => {
     expect(transformProps(chartProps)).toEqual({
       width: 800,
       height: 600,

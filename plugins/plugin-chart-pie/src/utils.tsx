@@ -1,11 +1,27 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 import { LegendProps, PieLabelRenderProps, Sector } from 'recharts';
 import React from 'react';
-import { getNumberFormatter, NumberFormats } from '@superset-ui/number-format';
-
-export const LABELS_MARGIN = 90
+import { getNumberFormatter, NumberFormats } from '@superset-ui/core';
 
 export const renderCustomizedLabel = (
-  labelProps: Partial<PieLabelRenderProps> & { x: number; groupBy: string; numberFormat: string; pieLabelType: string },
+  labelProps: Partial<PieLabelRenderProps> & { x: number; groupBy: string; pieLabelType: string },
 ) => {
   let percent = labelProps.percent ? +labelProps.percent : 100;
 
@@ -26,32 +42,32 @@ export const renderCustomizedLabel = (
   }
 };
 
-type ActiveShapeProps = {
-  cx: number;
-  cy: number;
-  midAngle: number;
-  innerRadius: number;
-  outerRadius: number;
+export type ActiveShapeProps = {
+  cx?: number;
+  cy?: number;
+  midAngle?: number;
+  innerRadius?: number;
+  outerRadius?: number;
   startAngle: number;
   endAngle: number;
   pieLabelType: string;
   fill: string;
   groupBy: string;
-  payload: {
+  payload?: {
     [key: string]: string;
   };
   percent: number;
-  value: number;
+  value?: number;
   isDonut?: boolean;
 };
 
-export const renderActiveShape = (props: ActiveShapeProps) => {
+export const renderActiveShape = (props: Partial<ActiveShapeProps>) => {
   const RADIAN = Math.PI / 180;
   const {
     cx = 0,
     cy = 0,
     midAngle = 0,
-    innerRadius,
+    innerRadius = 0,
     outerRadius = 0,
     startAngle,
     endAngle,
@@ -61,13 +77,13 @@ export const renderActiveShape = (props: ActiveShapeProps) => {
     pieLabelType,
     isDonut,
   } = props;
+
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
   const sx = cx + (outerRadius + 10) * cos;
   const sy = cy + (outerRadius + 10) * sin;
   const mx = cx + (outerRadius + 30) * cos;
   const my = cy + (outerRadius + 30) * sin;
-  // const ex = mx + (cos >= 0 ? 1 : -1) * 22; // For beauty label, but no place for it :(
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
   const x = mx + (cos >= 0 ? 1 : -1) * 12;
@@ -76,7 +92,7 @@ export const renderActiveShape = (props: ActiveShapeProps) => {
       {isDonut && (
         <>
           <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
-            {payload[groupBy]}
+            {payload && payload[groupBy!]}
           </text>
           <Sector
             cx={cx}
@@ -101,10 +117,7 @@ export const renderActiveShape = (props: ActiveShapeProps) => {
       <path d={`M${sx},${sy}L${mx},${my}`} stroke={fill} fill="none" />
       <circle cx={mx} cy={my} r={2} fill={fill} stroke="none" />
       <text x={x} y={ey} textAnchor={textAnchor} fill={fill}>
-        {
-          // @ts-ignore
-          renderCustomizedLabel({ ...props, x, groupBy, pieLabelType })
-        }
+        {renderCustomizedLabel({ ...props, x, groupBy: groupBy!, pieLabelType: pieLabelType! })}
       </text>
     </g>
   );

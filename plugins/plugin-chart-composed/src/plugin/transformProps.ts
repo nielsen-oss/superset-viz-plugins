@@ -16,18 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { ChartProps } from '@superset-ui/chart';
-import { CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/utils'
+import { ChartProps } from '@superset-ui/core';
+import { CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/utils';
 import { ComposedChartProps } from '../components/ComposedChart';
 
-type TMetric = {
+type Metric = {
   label: string;
 };
 
-export type TLabelColors = 'black' | 'white';
+export type LabelColors = 'black' | 'white';
 
 type FormData = {
-  [key: string]: string | string[] | TMetric[] | boolean;
+  [key: string]: string | string[] | Metric[] | boolean;
   layout: Layout;
   colorScheme: string;
   chartType: keyof typeof CHART_TYPES;
@@ -36,7 +36,7 @@ type FormData = {
   barChartSubType: keyof typeof CHART_SUB_TYPES;
   scatterChartSubType: keyof typeof CHART_SUB_TYPES;
   numbersFormat: string;
-  labelsColor: TLabelColors;
+  labelsColor: LabelColors;
   xAxisLabel: string;
   yAxisLabel: string;
   showLegend: boolean;
@@ -46,8 +46,8 @@ type FormData = {
   yAxisTickLabelAngle: string;
   y2AxisTickLabelAngle: string;
   useY2Axis: boolean;
-  metrics: TMetric[];
-  groupby: string[];
+  metrics: Metric[];
+  groupBy: string[];
 };
 
 export type ResultData = Data & {
@@ -85,7 +85,7 @@ export default function transformProps(chartProps: ChartProps) {
 
   let resultData: ResultData[] = data.map(item => ({
     ...item,
-    rechartsDataKey: formData.groupby.map(field => item[field]).join(', '),
+    rechartsDataKey: formData.groupBy.map(field => item[field]).join(', '),
   }));
 
   const chartSubType = getChartSubType(

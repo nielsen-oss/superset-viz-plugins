@@ -16,10 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-// https://github.com/apache-superset/superset-ui/blob/master/packages/superset-ui-core/src/style/index.ts
-
-// @ts-ignore
 import React, { FC } from 'react';
 import { styled, t } from '@superset-ui/core';
 import { Grid, GridItem } from './Layout';
@@ -79,21 +75,12 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
   rowsTotal,
 }) => {
   return (
-    <StyledGrid
-      gridTemplateColumns="max-content"
-      gridTemplateRows="auto"
-      width={width}
-      height={height}
-    >
+    <StyledGrid gridTemplateColumns="max-content" gridTemplateRows="auto" width={width} height={height}>
       {rows.length === 0 && columns.length === 0 ? (
         <NoData>{t('No data to show')}</NoData>
       ) : (
         <Grid gridTemplateColumns="auto" gridTemplateRows="min-content">
-          <Grid
-            bordered
-            gridTemplateColumns={`auto auto ${showTotal ? 'auto' : ''}`}
-            gridTemplateRows="auto"
-          >
+          <Grid bordered gridTemplateColumns={`auto auto ${showTotal ? 'auto' : ''}`} gridTemplateRows="auto">
             <RowsHeader
               showTotal={showTotal}
               rowsFillData={rowsFillData}
@@ -104,9 +91,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
             />
             <Grid
               withoutOverflow
-              gridTemplateColumns={columnsFillData
-                .map(fillData => `${fillData ? 'max-content' : 0}`)
-                .join(' ')}
+              gridTemplateColumns={columnsFillData.map(fillData => `${fillData ? 'max-content' : 0}`).join(' ')}
               gridTemplateRows={`repeat(${columns.length + 2}, ${ROW_HEIGHT}) ${rowsFillData
                 .map(fillData => `${fillData ? ROW_HEIGHT : 0}`)
                 .join(' ')}`}
@@ -122,10 +107,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
                 <GridItem
                   bordered
                   hidden={
-                    !(
-                      columnsFillData[index % numberOfColumns] &&
-                      rowsFillData[Math.floor(index / numberOfColumns)]
-                    )
+                    !(columnsFillData[index % numberOfColumns] && rowsFillData[Math.floor(index / numberOfColumns)])
                   }
                 >
                   {item}
@@ -140,12 +122,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
                 ))}
             </Grid>
             {showTotal && (
-              <TotalColumn
-                columns={columns}
-                rowsFillData={rowsFillData}
-                rowsTotal={rowsTotal}
-                total={total}
-              />
+              <TotalColumn columns={columns} rowsFillData={rowsFillData} rowsTotal={rowsTotal} total={total} />
             )}
           </Grid>
         </Grid>

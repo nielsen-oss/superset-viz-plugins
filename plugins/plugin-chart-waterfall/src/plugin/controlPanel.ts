@@ -16,16 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { t } from '@superset-ui/translation';
-import { validateNonEmpty } from '@superset-ui/validator';
+import { validateNonEmpty, t } from '@superset-ui/core';
 import { ControlPanelConfig, sharedControls } from '@superset-ui/chart-controls';
 
 const xAxisColumn: typeof sharedControls.groupby = {
   type: 'SelectControl',
   label: t('XAxis column'),
-  description: t(
-    'Choose table column that will be displayed on XAxis in chart, should be chosen also in "Group by"',
-  ),
+  description: t('Choose table column that will be displayed on XAxis in chart, should be chosen also in "Group by"'),
   multi: false,
   valueKey: 'column_name',
   mapStateToProps: ({ datasource, controls }) => ({
@@ -37,9 +34,7 @@ const xAxisColumn: typeof sharedControls.groupby = {
 const periodColumn: typeof sharedControls.groupby = {
   type: 'SelectControl',
   label: t('Period column'),
-  description: t(
-    'Choose table column that will split data to periods, should be chosen also in "Group by"',
-  ),
+  description: t('Choose table column that will split data to periods, should be chosen also in "Group by"'),
   multi: false,
   valueKey: 'column_name',
   mapStateToProps: ({ datasource, controls }) => ({

@@ -16,8 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { buildQueryContext, QueryFormData } from '@superset-ui/query';
-import { BinaryOperator, SetOperator } from '@superset-ui/query/lib/types/Operator';
+import { buildQueryContext, QueryFormData } from '@superset-ui/core';
+import { BinaryOperator, SetOperator } from '@superset-ui/core/lib/query/types/Operator';
 
 // Not correctly imported form node_modules, so add it here
 export type QueryFormExtraFilter = {
@@ -40,9 +40,7 @@ export default function buildQuery(formData: QueryFormData) {
       filters: [
         ...(baseQueryObject.filters || []),
         // Add extra filters from dashboard
-        ...(formData.extra_filters || []).filter(
-          (filter: QueryFormExtraFilter) => filter.val !== null,
-        ),
+        ...(formData.extra_filters || []).filter((filter: QueryFormExtraFilter) => filter.val !== null),
       ],
     },
   ]);

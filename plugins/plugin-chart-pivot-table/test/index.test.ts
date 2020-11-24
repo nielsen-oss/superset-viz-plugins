@@ -26,7 +26,7 @@ import TablePivotNewChartPlugin from '../src';
  * treated correctly (e.g. formData from plugin controls
  * properly transform the data and/or any resulting props).
  */
-describe('@superset-ui/plugin-chart-table-pivot-new', () => {
+describe('plugin-chart-table-pivot-new', () => {
   it('exists', () => {
     expect(TablePivotNewChartPlugin).toBeDefined();
   });

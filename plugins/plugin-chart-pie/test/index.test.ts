@@ -26,7 +26,7 @@ import PieChartPlugin from '../src';
  * treated correctly (e.g. formData from plugin controls
  * properly transform the data and/or any resulting props).
  */
-describe('@superset-ui/plugin-chart-pie', () => {
+describe('plugin-chart-pie', () => {
   it('exists', () => {
     expect(PieChartPlugin).toBeDefined();
   });

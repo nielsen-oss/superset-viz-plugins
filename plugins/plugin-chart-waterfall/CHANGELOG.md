@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/compare/@superset-maf-ui/plugin-chart-waterfall@0.2.4...@superset-maf-ui/plugin-chart-waterfall@0.3.0) (2020-11-17)
+
+
+### Bug Fixes
+
+* fix CR notes ([afbe4a8](https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/commit/afbe4a8fd75dcf9ddd1bdf29801f549f68766e31))
+
+
+### Features
+
+* migration waterfall ([c3a4730](https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/commit/c3a473092f854c09895f58b3e164df9235c31f6a))
+
+
+
+
+
 ## [0.2.4](https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/compare/@superset-maf-ui/plugin-chart-waterfall@0.2.3...@superset-maf-ui/plugin-chart-waterfall@0.2.4) (2020-11-11)
 
 **Note:** Version bump only for package @superset-maf-ui/plugin-chart-waterfall

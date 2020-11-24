@@ -16,8 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { t } from '@superset-ui/translation';
-import { ChartMetadata, ChartPlugin } from '@superset-ui/chart';
+import { ChartMetadata, ChartPlugin, t, TransformProps } from '@superset-ui/core';
 
 import buildQuery from './buildQuery';
 import controlPanel from './controlPanel';
@@ -31,24 +30,13 @@ const metadata = new ChartMetadata({
 });
 
 export default class PivotTableChartPlugin extends ChartPlugin {
-  /**
-   * The constructor is used to pass relevant metadata and callbacks that get
-   * registered in respective registries that are used throughout the library
-   * and application. A more thorough description of each property is given in
-   * the respective imported file.
-   *
-   * It is worth noting that `buildQuery` and is optional, and only needed for
-   * advanced visualizations that require either post processing operations
-   * (pivoting, rolling aggregations, sorting etc) or submitting multiple queries.
-   */
   constructor() {
     super({
       buildQuery,
       controlPanel,
       loadChart: () => import('../components/PivotTable'),
       metadata,
-      // @ts-ignore
-      transformProps,
+      transformProps: (transformProps as unknown) as TransformProps,
     });
   }
 }

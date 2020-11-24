@@ -16,31 +16,23 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useEffect, useRef, useState } from 'react';
-import styled from '@superset-ui/style';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   CartesianGrid,
   ComposedChart as RechartsComposedChart,
-  IconType,
-  LabelFormatter,
   Legend,
   LegendType,
-  PieChart,
-  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { getNumberFormatter } from '@superset-ui/number-format';
 import ComposedChartTooltip from './ComposedChartTooltip';
-import { CategoricalColorNamespace } from '@superset-ui/color';
-import { ResultData, TLabelColors } from '../plugin/transformProps';
+import { CategoricalColorNamespace, getNumberFormatter, styled } from '@superset-ui/core';
+import { LabelColors, ResultData } from '../plugin/transformProps';
 import {
   CHART_SUB_TYPES,
   CHART_TYPES,
   getCartesianGridProps,
-  getChartElement,
   getLegendProps,
   getMaxLengthOfDataKey,
   getMaxLengthOfMetric,
@@ -49,7 +41,7 @@ import {
   Layout,
   LegendPosition,
   MIN_SYMBOL_WIDTH_FOR_TICK_LABEL,
-  renderLabel,
+  renderChartElement,
 } from './utils';
 
 type EventData = {
@@ -64,11 +56,14 @@ type ComposedChartStylesProps = {
   legendPosition: LegendPosition;
 };
 
-type Axis = {
+type XAxisProps = {
   label: string;
   tickLabelAngle: number;
   label2?: string;
-  tickLabelAngle2?: number;
+};
+
+type YAxisProps = XAxisProps & {
+  tickLabelAngle2: number;
 };
 
 export type ComposedChartProps = {
@@ -84,9 +79,9 @@ export type ComposedChartProps = {
   chartSubType: keyof typeof CHART_SUB_TYPES;
   isAnimationActive?: boolean;
   chartType: keyof typeof CHART_TYPES;
-  xAxis: Axis;
-  yAxis: Axis;
-  labelsColor: TLabelColors;
+  xAxis: XAxisProps;
+  yAxis: YAxisProps;
+  labelsColor: LabelColors;
   numbersFormat: string;
   chartTypeMetrics: (keyof typeof CHART_TYPES)[];
   chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[];
@@ -97,7 +92,7 @@ const Styles = styled.div<ComposedChartStylesProps>`
   height: ${({ height }) => height};
   width: ${({ width }) => width};
   overflow: auto;
-  
+
   & .recharts-legend-item {
     cursor: pointer;
     white-space: nowrap;
@@ -128,18 +123,33 @@ export default function ComposedChart(props: ComposedChartProps) {
   } = props;
 
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
-  const [legendWidth, setLegendWidth] = useState<number | null>(0);
+  const [legendWidth, setLegendWidth] = useState<number>(0);
+  const [updater, setUpdater] = useState<number>(0);
   const rootRef = useRef<HTMLDivElement>(null);
   const isSideLegend =
     showLegend && (legendPosition === LegendPosition.right || legendPosition === LegendPosition.left);
 
   useEffect(() => {
-    if (isSideLegend && rootRef.current) {
+    if (rootRef.current && !legendWidth) {
       const legend = rootRef.current.querySelector('.recharts-legend-wrapper');
-      setLegendWidth(legend?.getBoundingClientRect()?.width || null);
+      const currentWidth = legend?.getBoundingClientRect()?.width || 0;
+      if (currentWidth !== legendWidth) {
+        setLegendWidth(currentWidth ? currentWidth + 20 : currentWidth);
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rootRef.current]);
+  }, [legendWidth, updater]);
+
+  useEffect(() => {
+    if (isSideLegend) {
+      setLegendWidth(0);
+    }
+  }, [isSideLegend, props]);
+
+  const forceUpdate = useCallback(() => setUpdater(Math.random()), []);
+
+  useEffect(() => {
+    forceUpdate();
+  }, [forceUpdate, props]);
 
   const currentData = data.map(item => {
     const newItem = { ...item };
@@ -147,28 +157,10 @@ export default function ComposedChart(props: ComposedChartProps) {
     return newItem;
   });
 
-  const [exploreCounter, setExploreCounter] = useState<number>(0);
   const dataKeyLength = getMaxLengthOfDataKey(currentData) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
 
   const metricLength =
     getMaxLengthOfMetric(currentData, metrics, getNumberFormatter(numbersFormat)) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
-
-  useEffect(() => {
-    // In explore need rerender chart when change `renderTrigger` props
-    setExploreCounter(exploreCounter + 1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    xAxis,
-    yAxis,
-    labelsColor,
-    numbersFormat,
-    chartType,
-    colorScheme,
-    layout,
-    chartSubType,
-    legendPosition,
-    showLegend,
-  ]);
 
   const handleLegendClick = ({ id }: EventData) => {
     let resultKeys = [];
@@ -181,97 +173,91 @@ export default function ComposedChart(props: ComposedChartProps) {
     setDisabledDataKeys(resultKeys);
   };
 
-  const renderChartElement = (metric: string, index: number) => {
-    let customChartType = chartType;
-    let customChartSubType = chartSubType;
-    if (useCustomTypeMetrics[index]) {
-      customChartType = chartTypeMetrics[index];
-      customChartSubType = chartSubTypeMetrics[index];
-    }
-    const { Element, ...elementProps } = getChartElement(
-      customChartType,
-      customChartSubType,
-      metric,
-      colorScheme,
-      customChartType === CHART_TYPES.BAR_CHART && useCustomTypeMetrics.some(el => el),
-    );
-    return (
-      <Element
-        key={`${metric}_${exploreCounter}`}
-        isAnimationActive={isAnimationActive}
-        label={{
-          fill: labelsColor,
-          position: 'center',
-          formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
-          content: renderLabel,
-        }}
-        yAxisId={useY2Axis && index === metrics.length - 1 ? 'right' : 'left'}
-        dataKey={metric}
-        {...elementProps}
-      />
-    );
-  };
   const chartWidth = isSideLegend && legendWidth ? width + legendWidth : width;
+  const chartMargin = { left: legendPosition === LegendPosition.left ? legendWidth : 0 };
+  const chartWidthWithLegend =
+    (legendPosition === LegendPosition.left ? chartWidth : width) - (isSideLegend ? legendWidth : 0) - 10;
 
   return (
-    <Styles height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
-      <ResponsiveContainer width={chartWidth}>
-        <RechartsComposedChart
-          margin={{ left: 20 }}
-          key={exploreCounter + chartWidth} width={chartWidth} layout={layout} data={currentData}>
-          {showLegend && (
-            <Legend
-              onClick={handleLegendClick}
-              {...getLegendProps(legendPosition, height, width)}
-              iconType="circle"
-              iconSize={10}
-              payload={metrics.map(metric => ({
-                value: metric,
-                id: metric,
-                type: disabledDataKeys.includes(metric) ? 'line' : 'circle',
-                color: CategoricalColorNamespace.getColor(metric, colorScheme),
-              }))}
-            />
-          )}
-          <CartesianGrid {...getCartesianGridProps({ layout })} />
-          <XAxis
-            {...getXAxisProps({
-              dataKeyLength,
-              metricLength,
-              numbersFormat,
-              layout,
-              angle: xAxis.tickLabelAngle,
-              label: xAxis.label,
-            })}
+    <Styles key={updater} height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
+      <RechartsComposedChart
+        key={updater}
+        width={chartWidthWithLegend}
+        height={height}
+        layout={layout}
+        margin={chartMargin}
+        data={currentData}
+      >
+        {showLegend && (
+          <Legend
+            onClick={handleLegendClick}
+            {...getLegendProps(legendPosition, height, width, legendWidth)}
+            iconType="circle"
+            iconSize={10}
+            payload={metrics.map((metric, index) => ({
+              value: metric,
+              id: metric,
+              type: disabledDataKeys.includes(metric) ? 'line' : 'circle',
+              color: CategoricalColorNamespace.getScale(colorScheme)(index),
+            }))}
           />
+        )}
+        <CartesianGrid {...getCartesianGridProps({ layout })} />
+        <XAxis
+          {...getXAxisProps({
+            dataKeyLength,
+            metricLength,
+            numbersFormat,
+            layout,
+            angle: xAxis.tickLabelAngle,
+            label: xAxis.label,
+          })}
+        />
+        <YAxis
+          {...getYAxisProps({
+            dataKeyLength,
+            metricLength,
+            numbersFormat,
+            layout,
+            angle: yAxis.tickLabelAngle,
+            label: yAxis.label,
+          })}
+        />
+        {useY2Axis && (
           <YAxis
             {...getYAxisProps({
               dataKeyLength,
               metricLength,
               numbersFormat,
               layout,
-              angle: yAxis.tickLabelAngle,
-              label: yAxis.label,
+              isSecondAxis: true,
+              dataKey: metrics[metrics.length - 1],
+              angle: yAxis.tickLabelAngle2,
+              label: yAxis.label2,
             })}
           />
-          {useY2Axis && (
-            <YAxis
-              {...getYAxisProps({
-                dataKeyLength,
-                metricLength,
-                numbersFormat,
-                layout,
-                isSecondAxis: true,
-                dataKey: metrics[metrics.length - 1],
-                angle: yAxis.tickLabelAngle2,
-                label: yAxis.label2,
-              })}
-            />
+        )}
+        <Tooltip content={<ComposedChartTooltip />} />
+        {((isSideLegend && legendWidth) || !isSideLegend) &&
+          metrics.map((metric, index) =>
+            renderChartElement({
+              chartType,
+              metrics,
+              numbersFormat,
+              useY2Axis,
+              labelsColor,
+              isAnimationActive,
+              metric,
+              updater,
+              index,
+              chartSubType,
+              useCustomTypeMetrics,
+              chartTypeMetrics,
+              chartSubTypeMetrics,
+              colorScheme,
+            }),
           )}
-          <Tooltip content={<ComposedChartTooltip />} />
-          {metrics.map(renderChartElement)}
-        </RechartsComposedChart>
-      </ResponsiveContainer>
+      </RechartsComposedChart>
     </Styles>
   );
 }

@@ -16,9 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { ChartProps } from '@superset-ui/chart';
-import { t } from '@superset-ui/translation';
-import { TWaterfallChartData, TWaterfallChartProps } from '../components/WaterfallChart';
+import { ChartProps, t } from '@superset-ui/core';
+import { WaterfallChartData, TWaterfallChartProps } from '../components/WaterfallChart';
 
 type TMetric = {
   label: string;
@@ -35,12 +34,7 @@ type TFormData = {
   metrics: TMetric[];
 };
 
-const convertDataForRecharts = (
-  periodColumn: string,
-  xAxisColumn: string,
-  valueColumn: string,
-  data: TQueryData[],
-) => {
+const convertDataForRecharts = (periodColumn: string, xAxisColumn: string, valueColumn: string, data: TQueryData[]) => {
   // Group by period (temporary map)
   const groupedData = data.reduce((acc, cur) => {
     const period = cur[periodColumn] as string;
@@ -53,22 +47,22 @@ const convertDataForRecharts = (
   let resultData: TQueryData[] = [];
   let counter = 0;
   groupedData.forEach((val, key) => {
+    let newVal = val
     // Sort for waterfall Desc
-    val.sort((a, b) => (a[periodColumn] as number) - (b[periodColumn] as number));
+    newVal.sort((a, b) => (a[periodColumn] as number) - (b[periodColumn] as number));
     // Calc total per period
-    const sum = val.reduce((acc, cur) => acc + (cur[valueColumn] as number), 0);
+    const sum = newVal.reduce((acc, cur) => acc + (cur[valueColumn] as number), 0);
     // Push total per period to the end of period values array
-    val.push({
+    newVal.push({
       [xAxisColumn]: key,
       [periodColumn]: '__TOTAL__',
       [valueColumn]: sum,
     });
     // Remove first period and leave only last one
     if (counter++ === 0) {
-      // eslint-disable-next-line no-param-reassign
-      val = [val[val.length - 1]];
+      newVal = [newVal[newVal.length - 1]];
     }
-    resultData = resultData.concat(val);
+    resultData = resultData.concat(newVal);
   });
   return resultData;
 };
@@ -77,7 +71,7 @@ const createReChartsBarValues = (
   rechartsData: TQueryData[],
   valueColumn: keyof TQueryData,
   periodColumn: keyof TQueryData,
-): TWaterfallChartData[] =>
+): WaterfallChartData[] =>
   // Create ReCharts values array of deltas for bars
   rechartsData.map((cur: TQueryData, index: number) => {
     let totalSumUpToCur = 0;
@@ -89,19 +83,17 @@ const createReChartsBarValues = (
     }
 
     if (cur[periodColumn] === '__TOTAL__') {
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       return {
         ...cur,
         __TOTAL__: true,
         [valueColumn]: [0, totalSumUpToCur || cur[valueColumn]],
-      } as TWaterfallChartData;
+      } as WaterfallChartData;
     }
 
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     return {
       ...cur,
       [valueColumn]: [totalSumUpToCur, totalSumUpToCur + (cur[valueColumn] as number)],
-    } as TWaterfallChartData;
+    } as WaterfallChartData;
   });
 
 export default function transformProps(chartProps: ChartProps): TWaterfallChartProps {
@@ -125,26 +117,11 @@ export default function transformProps(chartProps: ChartProps): TWaterfallChartP
   data = data.filter(item => item[valueColumn] !== 0);
 
   // Sort by period (ascending)
-  data.sort(
-    (a, b) =>
-      Number.parseInt(a[periodColumn] as string, 10) -
-      Number.parseInt(b[periodColumn] as string, 10),
-  );
+  data.sort((a, b) => Number.parseInt(a[periodColumn] as string, 10) - Number.parseInt(b[periodColumn] as string, 10));
 
   const rechartsData = convertDataForRecharts(periodColumn, xAxisColumn, valueColumn, data);
 
   const resultData = createReChartsBarValues(rechartsData, valueColumn, periodColumn);
-
-  // eslint-disable-next-line
-  const onBarClick = () => {
-    // TODO: Uncomment when dashboard will support ChartsFilter
-    // hooks.onAddFilter({ [filterConfigs[0].column]: [data[filterConfigs[0].column]] }, false);
-  };
-  // eslint-disable-next-line
-  const resetFilters = () => {
-    // TODO: Uncomment when dashboard will support ChartsFilter
-    // hooks.onAddFilter({ [filterConfigs[0].column]: null }, false);
-  };
 
   return {
     dataKey: valueColumn,
@@ -152,7 +129,7 @@ export default function transformProps(chartProps: ChartProps): TWaterfallChartP
     width,
     height,
     data: resultData,
-    onBarClick,
-    resetFilters,
+    onBarClick: () => null,
+    resetFilters: () => null,
   };
 }

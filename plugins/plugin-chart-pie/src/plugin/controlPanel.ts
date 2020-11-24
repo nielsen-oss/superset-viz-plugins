@@ -1,13 +1,40 @@
-import { t } from '@superset-ui/translation';
-import { sharedControls, ControlConfig, formatSelectOptions } from '@superset-ui/chart-controls';
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+import { sharedControls, formatSelectOptions } from '@superset-ui/chart-controls';
 import { LegendPosition } from '../utils';
-import { QueryFormData } from '@superset-ui/core';
+import { QueryFormData, t, validateNonEmpty } from '@superset-ui/core';
+import { ColumnMeta, SelectControlConfig } from '@superset-ui/chart-controls/lib/types';
 
-const groupBy: { name: string, config: ControlConfig<'SelectControl'> } = {
+const groupBy: { name: string; config: SelectControlConfig<ColumnMeta, 'SelectControl'> } = {
   name: 'group_by',
-  //@ts-ignore
   config: {
     ...sharedControls.groupby,
+    validators: [validateNonEmpty],
+    multi: false,
+  },
+};
+
+const metric: { name: string; config: SelectControlConfig<string | Record<string, any>, "MetricsControl"> } = {
+  name: 'metric',
+  config: {
+    ...sharedControls.metrics,
+    validators: [validateNonEmpty],
     multi: false,
   },
 };
@@ -17,7 +44,7 @@ export default {
     {
       label: t('Query'),
       expanded: true,
-      controlSetRows: [['metric'], ['adhoc_filters'], [groupBy], ['row_limit']],
+      controlSetRows: [[groupBy], [metric], ['adhoc_filters'], ['row_limit']],
     },
     {
       label: t('Chart Options'),
@@ -62,7 +89,7 @@ export default {
               choices: formatSelectOptions(Object.keys(LegendPosition)),
               default: 'top',
               description: t('Set legend position'),
-              visibility: ({ form_data } : { form_data: QueryFormData }) => form_data.show_legend,
+              visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.show_legend,
             },
           },
         ],
@@ -83,7 +110,7 @@ export default {
               type: 'CheckboxControl',
               label: t('Show Labels'),
               renderTrigger: true,
-              visibility: ({ form_data } : { form_data: QueryFormData }) => form_data.is_donut === false,
+              visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.is_donut === false,
               default: true,
               description: t(
                 'Whether to display the labels. Note that the label only displays when the the 5% threshold.',
