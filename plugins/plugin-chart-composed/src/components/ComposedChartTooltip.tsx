@@ -17,8 +17,9 @@
  * under the License.
  */
 import React, { FC } from 'react';
-import { styled, t } from '@superset-ui/core';
+import { getNumberFormatter, styled, t } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
+import { BREAKDOWN_SEPARATOR } from '../plugin/transformProps';
 
 const Container = styled.div`
   border: 1px solid #cccccc;
@@ -30,22 +31,31 @@ const Line = styled.p`
   color: ${({ color }) => color};
 `;
 
-type TPayload = {
-  [key: string]: number | undefined;
+type Payload = {
+  [key: string]: number | undefined | string;
   rechartsTotal?: number | undefined;
+  numbersFormat: string;
 };
 
-const ComposedChartTooltip: FC<TooltipProps> = ({ active, payload = [], label, ...otherProps }) => {
+const ComposedChartTooltip: FC<TooltipProps & { numbersFormat: string }> = ({
+  active,
+  numbersFormat,
+  payload = [],
+  label,
+  ...otherProps
+}) => {
   if (active) {
-    const firstPayload = payload[0]?.payload as TPayload;
+    const firstPayload: Payload = payload[0]?.payload;
     const total = firstPayload?.rechartsTotal;
+    const formatter = getNumberFormatter(numbersFormat);
     return (
       <Container>
         <p>{label}</p>
-        {payload.map(item => (
-          <Line key={item.name} color={item.color}>{`${item.name} : ${item.value}`}</Line>
-        ))}
-        {total && <Line color="black">{`${t('Total')} : ${total}`}</Line>}
+        {payload.map(item => {
+          const name = item.name.split(BREAKDOWN_SEPARATOR).join(', ');
+          return <Line key={name} color={item.color}>{`${name} : ${formatter(item.value as number)}`}</Line>;
+        })}
+        {total && <Line color="black">{`${t('Total')} : ${formatter(total)}`}</Line>}
       </Container>
     );
   }

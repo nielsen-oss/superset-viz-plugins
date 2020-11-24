@@ -166,7 +166,7 @@ const config: ControlPanelConfig = {
     {
       label: t('Query'),
       expanded: true,
-      controlSetRows: [[groupBy], [metrics], ['adhoc_filters'], ['row_limit', null]],
+      controlSetRows: [[groupBy], [metrics], ['columns'], ['adhoc_filters'], ['row_limit', null]],
     },
     {
       label: t('Chart Options'),
@@ -199,6 +199,10 @@ const config: ControlPanelConfig = {
   ],
 
   controlOverrides: {
+    columns: {
+      label: t('Breakdowns'),
+      description: t('Defines how each series is broken down'),
+    },
     series: {
       validators: [validateNonEmpty],
       clearable: false,

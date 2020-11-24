@@ -20,7 +20,7 @@ import React, { FC } from 'react';
 import { supersetTheme, styled } from '@superset-ui/core';
 import { BarProps } from 'recharts';
 
-interface IWaterfallBarProps extends Partial<BarProps> {
+interface WaterfallBarProps extends Partial<BarProps> {
   __TOTAL__?: boolean;
   numberOfBars?: number;
   index?: number;
@@ -30,7 +30,7 @@ const ClickableRect = styled.rect`
   cursor: pointer;
 `;
 
-const WaterfallBar: FC<IWaterfallBarProps> = ({
+const WaterfallBar: FC<WaterfallBarProps> = ({
   x = 0,
   y = 0,
   width = 0,
