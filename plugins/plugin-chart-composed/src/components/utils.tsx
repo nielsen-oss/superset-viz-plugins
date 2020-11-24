@@ -18,7 +18,7 @@
  */
 import React from 'react';
 import { Area, Bar, LabelFormatter, LabelProps, LegendProps, Line, Scatter } from 'recharts';
-import { LabelColors, ResultData } from '../plugin/transformProps';
+import { BREAKDOWN_SEPARATOR, LabelColors, ResultData } from '../plugin/transformProps';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 import { CategoricalColorNamespace, getNumberFormatter } from '@superset-ui/core';
 
@@ -99,6 +99,19 @@ export const CHART_SUB_TYPE_NAMES = {
 
 type LegendAlign = 'left' | 'center' | 'right';
 type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
+
+export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[] {
+  const result: ResultData[] = [];
+  arrayOfObjects.forEach(item => {
+    let foundItem = result.find(resultItem => resultItem[key] === item[key]);
+    if (foundItem) {
+      Object.assign(foundItem, item);
+      return;
+    }
+    result.push(item);
+  });
+  return result;
+}
 
 const getLabelSize = (angle: number, dataKeyLength: number, angleMin: number, angleMax: number): number =>
   angle === angleMin
@@ -190,18 +203,16 @@ export type ChartBarItem = {
 };
 
 export const getChartElement = (
+  breakdown: string,
   chartType: keyof typeof CHART_TYPES,
   chartSubType: keyof typeof CHART_SUB_TYPES,
-  metric: string,
   colorScheme: string,
   hasDifferentTypes: boolean,
   index: number,
 ): ChartsUIItem => {
   const color = CategoricalColorNamespace.getScale(colorScheme)(index);
 
-  let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'> = {
-    Element: Bar,
-  };
+  let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
 
   switch (chartType) {
     case CHART_TYPES.LINE_CHART:
@@ -236,7 +247,7 @@ export const getChartElement = (
         Element: Bar,
         opacity: hasDifferentTypes ? 0.6 : 1,
         fill: color,
-        stackId: chartSubType === CHART_SUB_TYPES.STACKED && 'metric',
+        stackId: chartSubType === CHART_SUB_TYPES.STACKED ? 'metric' : breakdown,
       };
   }
 
@@ -375,6 +386,7 @@ export const renderLabel = ({
 };
 
 type ChartElementProps = {
+  breakdown: string;
   colorScheme: string;
   useY2Axis?: boolean;
   chartSubType: keyof typeof CHART_SUB_TYPES;
@@ -386,19 +398,18 @@ type ChartElementProps = {
   chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[];
   useCustomTypeMetrics: boolean[];
   numbersFormat: string;
-  metric: string;
   updater: number;
   index: number;
 };
 
 export const renderChartElement = ({
+  breakdown,
   chartType,
   metrics,
   numbersFormat,
   useY2Axis,
   labelsColor,
   isAnimationActive,
-  metric,
   updater,
   index,
   chartSubType,
@@ -414,9 +425,9 @@ export const renderChartElement = ({
     customChartSubType = chartSubTypeMetrics[index];
   }
   const { Element, ...elementProps } = getChartElement(
+    breakdown,
     customChartType,
     customChartSubType,
-    metric,
     colorScheme,
     customChartType === CHART_TYPES.BAR_CHART && useCustomTypeMetrics.some(el => el),
     index,
@@ -424,7 +435,7 @@ export const renderChartElement = ({
 
   return (
     <Element
-      key={`${metric}${updater}`}
+      key={`${breakdown}${updater}`}
       isAnimationActive={isAnimationActive}
       label={{
         fill: labelsColor,
@@ -432,8 +443,8 @@ export const renderChartElement = ({
         formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
         content: renderLabel,
       }}
-      yAxisId={useY2Axis && index === metrics.length - 1 ? 'right' : 'left'}
-      dataKey={metric}
+      yAxisId={useY2Axis && breakdown.split(BREAKDOWN_SEPARATOR)[0] === metrics[metrics.length - 1] ? 'right' : 'left'}
+      dataKey={breakdown}
       {...elementProps}
     />
   );

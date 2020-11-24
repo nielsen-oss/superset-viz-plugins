@@ -17,7 +17,7 @@
  * under the License.
  */
 import { ChartProps } from '@superset-ui/core';
-import { CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/utils';
+import { CHART_SUB_TYPES, CHART_TYPES, mergeBy, Layout, LegendPosition } from '../components/utils';
 import { ComposedChartProps } from '../components/ComposedChart';
 
 type Metric = {
@@ -25,6 +25,8 @@ type Metric = {
 };
 
 export type LabelColors = 'black' | 'white';
+
+export const BREAKDOWN_SEPARATOR = '_$_';
 
 type FormData = {
   [key: string]: string | string[] | Metric[] | boolean;
@@ -36,6 +38,7 @@ type FormData = {
   barChartSubType: keyof typeof CHART_SUB_TYPES;
   scatterChartSubType: keyof typeof CHART_SUB_TYPES;
   numbersFormat: string;
+  columns: string[];
   labelsColor: LabelColors;
   xAxisLabel: string;
   yAxisLabel: string;
@@ -77,16 +80,62 @@ const getChartSubType = (
   }
 };
 
+const getGroupByValues = (field: string, item: Record<string, string | number>, groupByValues: string[]) => {
+  if (!groupByValues.includes(field)) {
+    groupByValues.push(field); // Small mutation in map, but better then one more iteration
+  }
+  return item[field];
+};
+
+const addRechartsKeyAndGetGroupByValues = (
+  formData: FormData,
+  data: Record<string, string | number>[],
+  groupByValues: string[],
+) =>
+  data.map(item => ({
+    ...item,
+    rechartsDataKey: formData.groupBy.map(field => getGroupByValues(field, item, groupByValues)).join(', '),
+  }));
+
+const addBreakdownMetricsAndGetBreakdownValues = (
+  resultData: ResultData[],
+  metrics: string[],
+  formData: FormData,
+  breakdowns: string[],
+) =>
+  resultData.map(item => {
+    metrics.forEach(metric => {
+      const breakdown = (formData.columns || []).reduce(
+        (acc, column) => `${acc}${BREAKDOWN_SEPARATOR}${item[column]}`,
+        '',
+      );
+      // Build metric name by breakdown
+      const resultBreakdown = `${metric}${breakdown}`;
+      item[resultBreakdown] = item[metric];
+      // build breakdown values array
+      if (!breakdowns.includes(resultBreakdown)) {
+        breakdowns.push(resultBreakdown);
+      }
+    });
+    return {
+      ...item,
+    };
+  });
+
 export default function transformProps(chartProps: ChartProps) {
   const { width, height, queryData } = chartProps;
   const data = queryData.data as Data[];
   const formData = chartProps.formData as FormData;
   const metrics = formData.metrics.map(metric => metric.label);
 
-  let resultData: ResultData[] = data.map(item => ({
-    ...item,
-    rechartsDataKey: formData.groupBy.map(field => item[field]).join(', '),
-  }));
+  let groupByValues: string[] = [];
+  let resultData: ResultData[] = addRechartsKeyAndGetGroupByValues(formData, data, groupByValues);
+
+  const breakdowns: string[] = [];
+  resultData = addBreakdownMetricsAndGetBreakdownValues(resultData, metrics, formData, breakdowns);
+
+  // Unit data elements by groupBy values
+  resultData = mergeBy(resultData, 'rechartsDataKey');
 
   const chartSubType = getChartSubType(
     formData.chartType,
@@ -126,6 +175,7 @@ export default function transformProps(chartProps: ChartProps) {
   }
 
   const result: ComposedChartProps = {
+    breakdowns,
     width,
     height,
     chartTypeMetrics,

@@ -21,6 +21,7 @@ import {
   CartesianGrid,
   ComposedChart as RechartsComposedChart,
   Legend,
+  LegendPayload,
   LegendType,
   Tooltip,
   XAxis,
@@ -28,7 +29,7 @@ import {
 } from 'recharts';
 import ComposedChartTooltip from './ComposedChartTooltip';
 import { CategoricalColorNamespace, getNumberFormatter, styled } from '@superset-ui/core';
-import { LabelColors, ResultData } from '../plugin/transformProps';
+import { BREAKDOWN_SEPARATOR, LabelColors, ResultData } from '../plugin/transformProps';
 import {
   CHART_SUB_TYPES,
   CHART_TYPES,
@@ -74,6 +75,7 @@ export type ComposedChartProps = {
   data: ResultData[];
   layout: Layout;
   metrics: string[];
+  breakdowns: string[];
   colorScheme: string;
   useY2Axis?: boolean;
   chartSubType: keyof typeof CHART_SUB_TYPES;
@@ -111,6 +113,7 @@ export default function ComposedChart(props: ComposedChartProps) {
     xAxis,
     chartSubType,
     yAxis,
+    breakdowns,
     isAnimationActive,
     labelsColor,
     useY2Axis,
@@ -178,6 +181,13 @@ export default function ComposedChart(props: ComposedChartProps) {
   const chartWidthWithLegend =
     (legendPosition === LegendPosition.left ? chartWidth : width) - (isSideLegend ? legendWidth : 0) - 10;
 
+  const legendPayload: LegendPayload[] = breakdowns.map((breakdown, index) => ({
+    value: breakdown.split(BREAKDOWN_SEPARATOR).join(', '),
+    id: breakdown,
+    type: disabledDataKeys.includes(breakdown) ? 'line' : 'circle',
+    color: CategoricalColorNamespace.getScale(colorScheme)(index),
+  }));
+
   return (
     <Styles key={updater} height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
       <RechartsComposedChart
@@ -194,12 +204,7 @@ export default function ComposedChart(props: ComposedChartProps) {
             {...getLegendProps(legendPosition, height, width, legendWidth)}
             iconType="circle"
             iconSize={10}
-            payload={metrics.map((metric, index) => ({
-              value: metric,
-              id: metric,
-              type: disabledDataKeys.includes(metric) ? 'line' : 'circle',
-              color: CategoricalColorNamespace.getScale(colorScheme)(index),
-            }))}
+            payload={legendPayload}
           />
         )}
         <CartesianGrid {...getCartesianGridProps({ layout })} />
@@ -237,17 +242,17 @@ export default function ComposedChart(props: ComposedChartProps) {
             })}
           />
         )}
-        <Tooltip content={<ComposedChartTooltip />} />
+        <Tooltip content={<ComposedChartTooltip numbersFormat={numbersFormat} />} />
         {((isSideLegend && legendWidth) || !isSideLegend) &&
-          metrics.map((metric, index) =>
+          breakdowns.map((breakdown, index) =>
             renderChartElement({
               chartType,
               metrics,
+              breakdown,
               numbersFormat,
               useY2Axis,
               labelsColor,
               isAnimationActive,
-              metric,
               updater,
               index,
               chartSubType,
