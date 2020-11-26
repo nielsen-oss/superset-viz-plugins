@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render, screen, configure } from '@testing-library/react';
+import { render, screen, configure, within } from '@testing-library/react';
 import { supersetTheme, ThemeProvider } from '@superset-ui/core';
 import WaterfallChart from '../../src/components/WaterfallChart';
 import transformProps from '../../src/plugin/transformProps';
@@ -21,23 +21,12 @@ describe('Waterfall chart', () => {
       </ThemeProvider>,
     );
 
-  it('Render legend', () => {
+  it('Render ticks', async () => {
     getWrapper();
-    const legend = screen.getByTestId('legend');
-    expect(legend.children).toHaveLength(4);
-    expect(legend.children[0].children[1].textContent).toEqual('Increase');
-    expect(legend.children[1].children[1].textContent).toEqual('Decrease');
-    expect(legend.children[2].children[1].textContent).toEqual('Total');
-    expect(legend.children[3].children[1].textContent).toEqual('Other');
-  });
-
-  xit('Render ticks', async () => {
-    // TODO:: This test isn't working
-    getWrapper();
-    const label2017 = await screen.findByTestId('tick-2017');
-    const labelFacebook = await screen.findByTestId('tick-Facebook');
-    expect(label2017).toBeInTheDocument();
-    expect(labelFacebook).toBeInTheDocument();
+    const label2017 = screen.getAllByText('2017');
+    const labelFacebook = screen.getAllByText('Facebook');
+    expect(label2017.length).toBe(1);
+    expect(labelFacebook.length).toBe(3);
   });
 
   it('Render Bars', () => {
@@ -45,8 +34,8 @@ describe('Waterfall chart', () => {
     const bars: Array<any> = screen.queryAllByTestId('bar');
     expect(bars).toHaveLength(20);
     expect(bars[0].attributes.fill.value).toBe('#66BCFE');
-    expect(bars[0].attributes.y.value).toBe('578');
+    expect(bars[0].attributes.y.value).toBe('728');
     expect(bars[1].attributes.fill.value).toBe('#5AC189');
-    expect(bars[1].attributes.y.value).toBe('420.35384');
+    expect(bars[1].attributes.y.value).toBe('522.32544');
   });
 });

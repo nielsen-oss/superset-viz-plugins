@@ -18,11 +18,10 @@
  */
 import React, { FC, useState } from 'react';
 import { t, styled } from '@superset-ui/core';
-import { BarChart, Bar, LabelList, XAxis, YAxis, CartesianGrid, Tooltip, LabelProps } from 'recharts';
+import { BarChart, Bar, LabelList, XAxis, YAxis, CartesianGrid, Tooltip, LabelProps, Legend } from 'recharts';
 import WaterfallTick from './WaterfallTick';
-import { valueFormatter } from './utils';
+import { LEGEND, valueFormatter } from './utils';
 import WaterfallBar from './WaterfallBar';
-import WaterfallLegend from './WaterfallLegend';
 
 type WaterfallStylesProps = {
   height: number;
@@ -116,16 +115,18 @@ const WaterfallChart: FC<TWaterfallChartProps> = ({
         <Error>{error}</Error>
       ) : (
         <div>
-          <WaterfallLegend />
-          <BarChart
-            margin={{ bottom: 100, top: 20 }}
-            width={width - 20}
-            height={height - 100}
-            data={data}
-            barCategoryGap={0}
-          >
+          <BarChart width={width} height={height} margin={{ bottom: 50 }} data={data} barCategoryGap={0}>
+            <Legend
+              wrapperStyle={{
+                paddingBottom: 10,
+              }}
+              iconType="circle"
+              iconSize={10}
+              verticalAlign="top"
+              payload={LEGEND}
+            />
             <CartesianGrid vertical={false} />
-            <XAxis dataKey={xAxisDataKey} dy={30} angle={45} tick={WaterfallTick} interval={0} />
+            <XAxis dataKey={xAxisDataKey} dy={25} angle={45} tick={WaterfallTick} interval={0} />
             <YAxis tickFormatter={valueFormatter} />
             <Tooltip />
             <Bar
