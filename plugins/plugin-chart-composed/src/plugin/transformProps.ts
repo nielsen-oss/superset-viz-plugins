@@ -170,7 +170,7 @@ export default function transformProps(chartProps: ChartProps) {
   ) {
     resultData = resultData.map(item => ({
       ...item,
-      rechartsTotal: metrics.reduce((total, metric) => total + (item[metric] as number), 0),
+      rechartsTotal: breakdowns.reduce((total, breakdown) => total + (item[breakdown] as number), 0),
     }));
   }
 

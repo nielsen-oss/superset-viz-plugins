@@ -256,6 +256,7 @@ export default function ComposedChart(props: ComposedChartProps) {
               updater,
               index,
               chartSubType,
+              currentData,
               useCustomTypeMetrics,
               chartTypeMetrics,
               chartSubTypeMetrics,

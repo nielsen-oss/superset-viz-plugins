@@ -163,6 +163,7 @@ export const getLegendProps = (
         verticalAlign: legendPosition as LegendVerticalAlign,
         wrapperStyle: {
           ...result.wrapperStyle,
+          paddingTop: 10,
           width: width - 40,
         },
       };
@@ -173,6 +174,7 @@ export const getLegendProps = (
         verticalAlign: legendPosition as LegendVerticalAlign,
         wrapperStyle: {
           ...result.wrapperStyle,
+          paddingBottom: 10,
           width: width - 40,
         },
       };
@@ -371,11 +373,13 @@ export const getMaxLengthOfMetric = (data: ResultData[], metrics: string[], form
 
 export const renderLabel = ({
   formatter = value => `${value}`,
-  value = 0,
   width: labelWidth = 0,
   height: labelHeight = 0,
-}: LabelProps) => {
-  const formattedValue = formatter(value) as string;
+  currentData,
+  breakdown,
+  index,
+}: LabelProps & { currentData: ResultData[]; breakdown: string; index: number }) => {
+  const formattedValue = `${formatter(currentData[index][breakdown])}`;
   if (
     Math.abs(labelHeight) < MIN_BAR_SIZE_FOR_LABEL ||
     Math.abs(labelWidth) < formattedValue.length * MIN_SYMBOL_WIDTH_FOR_LABEL
@@ -400,11 +404,13 @@ type ChartElementProps = {
   numbersFormat: string;
   updater: number;
   index: number;
+  currentData: ResultData[];
 };
 
 export const renderChartElement = ({
   breakdown,
   chartType,
+  currentData,
   metrics,
   numbersFormat,
   useY2Axis,
@@ -432,7 +438,6 @@ export const renderChartElement = ({
     customChartType === CHART_TYPES.BAR_CHART && useCustomTypeMetrics.some(el => el),
     index,
   );
-
   return (
     <Element
       key={`${breakdown}${updater}`}
@@ -442,6 +447,8 @@ export const renderChartElement = ({
         position: 'center',
         formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
         content: renderLabel,
+        currentData,
+        breakdown,
       }}
       yAxisId={useY2Axis && breakdown.split(BREAKDOWN_SEPARATOR)[0] === metrics[metrics.length - 1] ? 'right' : 'left'}
       dataKey={breakdown}
