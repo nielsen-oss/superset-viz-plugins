@@ -29,7 +29,7 @@ export type ComposedChartTickProps = {
   width?: number;
   tickFormatter?: NumberFormatter;
   payload: {
-    value: number | string;
+    value: number;
   };
   dy?: number;
   dx?: number;
@@ -46,8 +46,8 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
   tickFormatter = value => value,
 }) => {
   let text;
-  if (typeof payload.value === 'number') {
-    text = tickFormatter(payload.value) as string;
+  if (!isNaN(payload.value)) {
+    text = `${tickFormatter(payload.value)}`;
   } else {
     text = `${payload.value}`;
   }

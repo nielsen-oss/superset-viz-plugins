@@ -53,9 +53,11 @@ const ComposedChartTooltip: FC<TooltipProps & { numbersFormat: string }> = ({
         <p>{label}</p>
         {payload.map(item => {
           const name = item.name.split(BREAKDOWN_SEPARATOR).join(', ');
-          return <Line key={name} color={item.color}>{`${name} : ${formatter(item.value as number)}`}</Line>;
+          return (
+            <Line key={name} color={item.color}>{`${name}: ${isNaN(item.value) ? '-' : formatter(item.value)}`}</Line>
+          );
         })}
-        {total && <Line color="black">{`${t('Total')} : ${formatter(total)}`}</Line>}
+        {total && <Line color="black">{`${t('Total')}: ${isNaN(total) ? '-' : formatter(total)}`}</Line>}
       </Container>
     );
   }
