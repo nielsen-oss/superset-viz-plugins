@@ -47,7 +47,7 @@ const convertDataForRecharts = (periodColumn: string, xAxisColumn: string, value
   let resultData: TQueryData[] = [];
   let counter = 0;
   groupedData.forEach((val, key) => {
-    let newVal = val
+    let newVal = val;
     // Sort for waterfall Desc
     newVal.sort((a, b) => (a[periodColumn] as number) - (b[periodColumn] as number));
     // Calc total per period

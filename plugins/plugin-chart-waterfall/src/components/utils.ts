@@ -1,3 +1,6 @@
+import { supersetTheme, t } from '@superset-ui/core';
+import { LegendPayload } from 'recharts';
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -17,10 +20,12 @@
  * under the License.
  */
 
-export enum LEGEND_POSITION {
-  top = 'top',
-  bottom = 'bottom',
-}
+export const LEGEND: LegendPayload[] = [
+  { value: t('Increase'), color: supersetTheme.colors.success.base, id: 'increase', type: 'circle' },
+  { value: t('Decrease'), color: supersetTheme.colors.error.base, id: 'decrease', type: 'circle' },
+  { value: t('Total'), color: supersetTheme.colors.info.base, id: 'total', type: 'circle' },
+  { value: t('Other'), color: supersetTheme.colors.alert.base, id: 'other', type: 'circle' },
+];
 
 export const valueFormatter = (value: number) => {
   if (Math.abs(Math.round(value / 1000000)) >= 1) {
