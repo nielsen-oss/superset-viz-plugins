@@ -3,7 +3,7 @@ name: release-workflow
 on:
   push:
     branches:
-      - 'release_workflow'
+      - 'chore/release_workflow'
 
 jobs:
   build:
