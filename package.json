@@ -1,6 +1,6 @@
 {
-  "name": "superset-maf-ui",
-  "description": "Superset MAF UI",
+  "name": "superset-viz-plugins",
+  "description": "Superset viz plugins by Nielsen",
   "private": true,
   "scripts": {
     "build": "lerna run build:prod && lerna run build:esm",
@@ -19,7 +19,7 @@
     "release": "yarn prepare-release && lerna publish && yarn postrelease",
     "commit": "npx git-cz"
   },
-  "repository": "https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui",
+  "repository": "https://github.com/nielsen-oss/superset-viz-plugins",
   "devDependencies": {
     "@babel/cli": "^7.10.4",
     "@babel/core": "7.7.4",
