@@ -34,6 +34,7 @@ import {
   CHART_SUB_TYPES,
   CHART_TYPES,
   getCartesianGridProps,
+  getChartMargin,
   getLegendProps,
   getMaxLengthOfDataKey,
   getMaxLengthOfMetric,
@@ -60,11 +61,11 @@ type ComposedChartStylesProps = {
 type XAxisProps = {
   label: string;
   tickLabelAngle: number;
-  label2?: string;
 };
 
-type YAxisProps = XAxisProps & {
-  tickLabelAngle2: number;
+export type YAxisProps = XAxisProps & {
+  label2?: string;
+  tickLabelAngle2?: number;
 };
 
 export type ComposedChartProps = {
@@ -177,7 +178,8 @@ export default function ComposedChart(props: ComposedChartProps) {
   };
 
   const chartWidth = isSideLegend && legendWidth ? width + legendWidth : width;
-  const chartMargin = { left: legendPosition === LegendPosition.left ? legendWidth : 0 };
+  const chartMargin = getChartMargin(legendPosition, legendWidth, yAxis);
+
   const chartWidthWithLegend =
     (legendPosition === LegendPosition.left ? chartWidth : width) - (isSideLegend ? legendWidth : 0) - 10;
 

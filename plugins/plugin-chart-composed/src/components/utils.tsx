@@ -21,6 +21,7 @@ import { Area, Bar, LabelFormatter, LabelProps, LegendProps, Line, Scatter } fro
 import { BREAKDOWN_SEPARATOR, LabelColors, ResultData } from '../plugin/transformProps';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 import { CategoricalColorNamespace, getNumberFormatter } from '@superset-ui/core';
+import { YAxisProps } from './ComposedChart';
 
 export enum Layout {
   horizontal = 'horizontal',
@@ -112,6 +113,19 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   });
   return result;
 }
+
+export const getChartMargin = (legendPosition: LegendPosition, legendWidth: number, yAxis: YAxisProps) => {
+  const chartMargin = { left: legendPosition === LegendPosition.left ? legendWidth : 0, right: 5 };
+
+  if (yAxis.label) {
+    chartMargin.left += 20;
+  }
+  if (yAxis.label2) {
+    chartMargin.right += 20;
+  }
+
+  return chartMargin;
+};
 
 const getLabelSize = (angle: number, dataKeyLength: number, angleMin: number, angleMax: number): number =>
   angle === angleMin
@@ -311,17 +325,17 @@ export const getYAxisProps = ({
   metricLength,
   numbersFormat,
 }: AxisProps) => {
-  const textAnchor = angle === -90 ? 'middle' : 'end';
+  const textAnchorPerAxis = isSecondAxis ? 'start' : 'end';
+  const textAnchor = angle === -90 ? 'middle' : textAnchorPerAxis;
+  const labelOffset = isSecondAxis ? 10 : 0;
   const labelProps: LabelProps = {
-    offset: Y_AXIS_OFFSET,
+    offset: labelOffset,
     value: label,
     angle: 90,
     position: isSecondAxis ? 'right' : 'left',
   };
   const params = {
-    tickMargin: isSecondAxis ? 25 : 0,
     angle,
-    dx: isSecondAxis ? metricLength * 0.5 : 0,
     orientation: isSecondAxis ? ('right' as const) : ('left' as const),
     yAxisId: isSecondAxis ? 'right' : 'left',
     label: labelProps,
