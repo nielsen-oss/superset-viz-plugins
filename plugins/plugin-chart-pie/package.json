@@ -2,7 +2,7 @@
   "name": "@superset-viz-plugins/plugin-chart-pie",
   "version": "0.2.2",
   "description": "Superset Chart - Pie",
-  "pluginName": "PieChartPlugin",
+  "pluginName": "Pie",
   "sideEffects": false,
   "main": "lib/index.js",
   "module": "esm/index.js",

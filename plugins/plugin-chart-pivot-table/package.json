@@ -2,7 +2,7 @@
   "name": "@superset-viz-plugins/plugin-chart-pivot-table",
   "version": "0.4.0",
   "description": "Superset Chart - Pivot Table",
-  "pluginName": "PivotTableChartPlugin",
+  "pluginName": "Pivot Table",
   "sideEffects": false,
   "main": "lib/index.js",
   "module": "esm/index.js",
