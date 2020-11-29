@@ -37,7 +37,7 @@ If you are creating stories for a package that doesn't yet have any stories, fol
 3. Add an `index.js` file to that folder with a default export with the following shape:
 
 > you can use the `|` separator within the `storyPath` string to denote _nested_ stories e.g.,
-> `storyPath: '@superset-ui/package|Nested i|Nested ii'`
+> `storyPath: '@superset-viz-plugins/package|Nested i|Nested ii'`
 
 ```javascript
  default export {
