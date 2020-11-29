@@ -1,6 +1,6 @@
-## @superset-ui/plugin-chart-composed
+## @superset-viz-plugins/plugin-chart-composed
 
-[![Version](https://img.shields.io/npm/v/@superset-ui/plugin-chart-composed.svg?style=flat-square)](https://img.shields.io/npm/v/@superset-ui/plugin-chart-composed.svg?style=flat-square)
+[![Version](https://img.shields.io/npm/v/@superset-viz-plugins/plugin-chart-composed.svg?style=flat-square)](https://img.shields.io/npm/v/@superset-viz-plugins/plugin-chart-composed.svg?style=flat-square)
 [![David (path)](https://img.shields.io/david/apache-superset/superset-ui.svg?path=packages%2Fsuperset-ui-plugin-chart-composed&style=flat-square)](https://david-dm.org/apache-superset/superset-ui?path=packages/superset-ui-plugin-chart-composed)
 
 This plugin provides Composed for Superset.
@@ -10,7 +10,7 @@ This plugin provides Composed for Superset.
 Configure `key`, which can be any `string`, and register the plugin. This `key` will be used to lookup this chart throughout the app.
 
 ```js
-import ComposedChartPlugin from '@superset-ui/plugin-chart-composed';
+import ComposedChartPlugin from '@superset-viz-plugins/plugin-chart-composed';
 
 new ComposedChartPlugin()
   .configure({ key: 'composed' })
