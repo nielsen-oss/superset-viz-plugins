@@ -1,5 +1,5 @@
 {
-  "name": "@superset-maf-ui/plugin-chart-pivot-table",
+  "name": "@superset-viz-plugins/plugin-chart-pivot-table",
   "version": "0.4.0",
   "description": "Superset Chart - Pivot Table",
   "pluginName": "PivotTableChartPlugin",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/nielsen-media/maf/superset/superset-viz-plugins.git"
+    "url": "git+https://github.com:nielsen-oss/superset-viz-plugins.git"
   },
   "keywords": [
     "superset"
@@ -28,7 +28,7 @@
   "author": "MAF",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/issues"
+    "url": "https://github.com/nielsen-oss/superset-viz-plugins/iissues"
   },
   "homepage": "https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui#readme",
   "publishConfig": {
