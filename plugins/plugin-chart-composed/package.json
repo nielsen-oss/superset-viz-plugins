@@ -2,7 +2,7 @@
   "name": "@superset-viz-plugins/plugin-chart-composed",
   "version": "0.4.1",
   "description": "Superset Chart - Chart Composed",
-  "pluginName": "ComposedChartPlugin",
+  "pluginName": "Composed XY",
   "sideEffects": false,
   "main": "lib/index.js",
   "module": "esm/index.js",
