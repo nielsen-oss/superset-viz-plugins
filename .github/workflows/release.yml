@@ -58,7 +58,6 @@ jobs:
 
     - name: Configure npm and git
       run: |
-        yarn logout
         echo "@superset-ui:registry=http://registry.npmjs.org/" > .npmrc
         echo "registry=http://registry.npmjs.org/" >> .npmrc
         echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
