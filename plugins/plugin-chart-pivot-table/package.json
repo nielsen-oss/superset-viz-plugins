@@ -25,12 +25,10 @@
   "keywords": [
     "superset"
   ],
-  "author": "MAF",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/nielsen-oss/superset-viz-plugins/iissues"
   },
-  "homepage": "https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui#readme",
   "publishConfig": {
     "access": "public"
   },
