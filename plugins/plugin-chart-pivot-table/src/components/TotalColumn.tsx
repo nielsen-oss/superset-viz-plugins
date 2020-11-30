@@ -26,9 +26,10 @@ export type TotalColumnProps = {
   rowsTotal: string[];
   rowsFillData: boolean[];
   total: string;
+  showTotalAll: boolean;
 };
 
-const TotalColumn: FC<TotalColumnProps> = ({ columns, rowsFillData, rowsTotal, total }) => (
+const TotalColumn: FC<TotalColumnProps> = ({ columns, rowsFillData, rowsTotal, total, showTotalAll }) => (
   <Grid
     gridTemplateColumns="max-content"
     gridTemplateRows={`repeat(${columns.length + 2}, ${ROW_HEIGHT}) ${rowsFillData
@@ -44,9 +45,11 @@ const TotalColumn: FC<TotalColumnProps> = ({ columns, rowsFillData, rowsTotal, t
         {rowTotal}
       </GridItem>
     ))}
-    <GridItem bordered bgLevel={2}>
-      {total}
-    </GridItem>
+    {showTotalAll && (
+      <GridItem bordered bgLevel={2}>
+        {total}
+      </GridItem>
+    )}
   </Grid>
 );
 
