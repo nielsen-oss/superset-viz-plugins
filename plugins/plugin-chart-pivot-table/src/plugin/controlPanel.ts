@@ -26,6 +26,7 @@ import {
   D3_FORMAT_DOCS,
 } from '@superset-ui/chart-controls';
 import { ColumnMeta, SelectControlConfig } from '@superset-ui/chart-controls/lib/types';
+import { SHOW_TOTAL_NAMES, ShowTotal } from '../types';
 
 const rows: { name: string; config: SelectControlConfig<ColumnMeta, 'SelectControl'> } = {
   name: 'rows',
@@ -46,13 +47,19 @@ const transpose: { name: string; config: ControlConfig<'CheckboxControl'> } = {
   },
 };
 
-const showTotal: { name: string; config: ControlConfig<'CheckboxControl'> } = {
+const showTotal: { name: string; config: ControlConfig<'SelectControl'> } = {
   name: 'show_total',
   config: {
-    type: 'CheckboxControl',
+    freeForm: true,
+    type: 'SelectControl',
     label: t('Show Total'),
-    default: false,
+    clearable: false,
+    default: ShowTotal.noTotal,
     description: t('Show total for rows / columns'),
+    options: Object.keys(ShowTotal).map(value => ({
+      value: value,
+      label: SHOW_TOTAL_NAMES[value as keyof typeof SHOW_TOTAL_NAMES],
+    })),
   },
 };
 
