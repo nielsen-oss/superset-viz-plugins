@@ -67,3 +67,12 @@ packages/*/dist
 packages/*/esm
 plugins/*/dist
 plugins/*/esm
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/codeStyles/Project.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/superset-viz-plugins.iml
+/.idea/vcs.xml
+/.idea/workspace.xml
+/.idea/.gitignore
