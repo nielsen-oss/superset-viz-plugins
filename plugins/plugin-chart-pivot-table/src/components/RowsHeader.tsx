@@ -21,12 +21,13 @@ import { styled, t } from '@superset-ui/core';
 import { Grid, GridItem } from './Layout';
 import { ROW_HEIGHT, Unit } from '../plugin/utils';
 import HeadersOfHeader from './HeaderOfHeader';
+import { ShowTotal } from '../plugin/transformProps';
 
 type RowsHeaderProps<R extends string, C extends string> = {
   uiRowUnits: Unit<R>;
   rows: R[];
   columns: C[];
-  showTotal: boolean;
+  showTotal: ShowTotal;
   numberOfRows: number;
   rowsFillData: boolean[];
 };
@@ -70,7 +71,7 @@ const RowsHeader: FC<RowsHeaderProps<string, string>> = ({
           )),
         )}
       </Grid>
-      {showTotal && (
+      {(showTotal === ShowTotal.columnsRows || showTotal === ShowTotal.columns) && (
         <TotalGridItem header bordered gridColumn={`span ${rows.length || 1}`} bgLevel={3}>
           {t('Total')}
         </TotalGridItem>

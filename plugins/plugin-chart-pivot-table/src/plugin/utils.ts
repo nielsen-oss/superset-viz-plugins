@@ -18,6 +18,7 @@
  */
 import { formatNumber } from '@superset-ui/core';
 import { QueryData } from './transformProps';
+import { ShowTotal } from '../types'
 
 export const ROW_HEIGHT = '27px';
 
@@ -178,7 +179,7 @@ type GetOneDimensionDataParams<R extends string, C extends string, M extends str
   oneDimensionColumns: string[];
   oneDimensionRows: string[];
   numberFormat: string;
-  showTotal: boolean;
+  showTotal: ShowTotal;
 };
 
 export const getOneDimensionData = <R extends string, C extends string, M extends string>({
@@ -240,7 +241,7 @@ export const getOneDimensionData = <R extends string, C extends string, M extend
       ] = formatNumber(numberFormat, item[metric]);
 
       // Set totals
-      if (showTotal) {
+      if (showTotal !== ShowTotal.noTotal) {
         rowsTotal[rowIndex] += item[metric];
         columnsTotal[columnIndex + metricIndex * numberOfColumnsPerMetric] += item[metric];
         total += item[metric];
