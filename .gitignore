@@ -76,3 +76,5 @@ plugins/*/esm
 /.idea/vcs.xml
 /.idea/workspace.xml
 /.idea/.gitignore
+
+.npmrc
