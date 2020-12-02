@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { ChartProps, t } from '@superset-ui/core';
+import { ChartProps } from '@superset-ui/core';
 import { WaterfallChartData, TWaterfallChartProps } from '../components/WaterfallChart';
 
-type TMetric = {
+type Metric = {
   label: string;
 };
 
@@ -27,11 +27,11 @@ type TQueryData = {
   [key: string]: number | string;
 };
 
-type TFormData = {
+type FormData = {
   xAxisColumn: string;
   periodColumn: string;
-  queryFields: { metrics: string };
-  metrics: TMetric[];
+  queryFields: { metric: string };
+  metric: Metric;
 };
 
 const convertDataForRecharts = (periodColumn: string, xAxisColumn: string, valueColumn: string, data: TQueryData[]) => {
@@ -99,22 +99,10 @@ const createReChartsBarValues = (
 export default function transformProps(chartProps: ChartProps): TWaterfallChartProps {
   const { width, height, formData, queryData } = chartProps;
 
-  const { periodColumn, xAxisColumn, metrics } = formData as TFormData;
+  const { periodColumn, xAxisColumn, metric } = formData as FormData;
 
-  const valueColumn = metrics[0].label;
+  const valueColumn = metric.label;
   let data = queryData.data as TQueryData[];
-
-  if (metrics.length !== 1) {
-    return {
-      dataKey: valueColumn,
-      width,
-      height,
-      error: t('Please choose only one "Metric" in "Query" section'),
-    };
-  }
-
-  // Remove bars with value 0
-  data = data.filter(item => item[valueColumn] !== 0);
 
   // Sort by period (ascending)
   data.sort((a, b) => Number.parseInt(a[periodColumn] as string, 10) - Number.parseInt(b[periodColumn] as string, 10));

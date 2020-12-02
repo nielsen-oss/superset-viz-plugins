@@ -88,7 +88,7 @@ const config: ControlPanelConfig = {
     {
       label: t('Query'),
       expanded: true,
-      controlSetRows: [['metrics'], ['adhoc_filters'], ['row_limit', null]],
+      controlSetRows: [['metric'], ['adhoc_filters'], ['row_limit', null]],
     },
   ],
 
@@ -96,6 +96,9 @@ const config: ControlPanelConfig = {
     series: {
       validators: [validateNonEmpty],
       clearable: false,
+    },
+    metrics: {
+      multi: false
     },
     row_limit: {
       default: 100,
