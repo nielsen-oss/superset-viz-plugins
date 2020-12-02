@@ -32,10 +32,10 @@ describe('Waterfall chart', () => {
   it('Render Bars', () => {
     getWrapper();
     const bars: Array<any> = screen.queryAllByTestId('bar');
-    expect(bars).toHaveLength(20);
+    expect(bars).toHaveLength(35);
     expect(bars[0].attributes.fill.value).toBe('#66BCFE');
-    expect(bars[0].attributes.y.value).toBe('728');
+    expect(bars[0].attributes.y.value).toBe('718');
     expect(bars[1].attributes.fill.value).toBe('#5AC189');
-    expect(bars[1].attributes.y.value).toBe('522.32544');
+    expect(bars[1].attributes.y.value).toBe('515.15064');
   });
 });

@@ -46,21 +46,8 @@ export type TWaterfallChartProps = {
 };
 
 const Styles = styled.div<WaterfallStylesProps>`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: ${({ theme }) => theme.gridUnit * 4}px;
-  border-radius: ${({ theme }) => theme.gridUnit * 2}px;
   height: ${({ height }) => height};
   width: ${({ width }) => width};
-  overflow-y: scroll;
-
-  h3 {
-    /* You can use your props to control CSS! */
-    font-size: ${({ theme }) => theme?.typography?.sizes?.xxl};
-    font-weight: bold;
-  }
 `;
 
 const Error = styled.div`
@@ -115,7 +102,7 @@ const WaterfallChart: FC<TWaterfallChartProps> = ({
         <Error>{error}</Error>
       ) : (
         <div>
-          <BarChart width={width} height={height} margin={{ bottom: 50 }} data={data} barCategoryGap={0}>
+          <BarChart width={width} height={height} margin={{ bottom: 60 }} data={data} barCategoryGap={0}>
             <Legend
               wrapperStyle={{
                 paddingBottom: 10,
@@ -126,7 +113,7 @@ const WaterfallChart: FC<TWaterfallChartProps> = ({
               payload={LEGEND}
             />
             <CartesianGrid vertical={false} />
-            <XAxis dataKey={xAxisDataKey} dy={25} angle={45} tick={WaterfallTick} interval={0} />
+            <XAxis dataKey={xAxisDataKey} dy={10} angle={45} tick={WaterfallTick} interval={0} />
             <YAxis tickFormatter={valueFormatter} />
             <Tooltip />
             <Bar
