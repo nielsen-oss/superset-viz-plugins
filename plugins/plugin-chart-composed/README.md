@@ -1,4 +1,4 @@
-## @superset-ui/plugin-chart-composed
+## @superset-viz-plugins/plugin-chart-composed
 
 [![Version](https://img.shields.io/npm/v/@superset-ui/plugin-chart-composed.svg?style=flat-square)](https://img.shields.io/npm/v/@superset-ui/plugin-chart-composed.svg?style=flat-square)
 [![David (path)](https://img.shields.io/david/apache-superset/superset-ui.svg?path=packages%2Fsuperset-ui-plugin-chart-composed&style=flat-square)](https://david-dm.org/apache-superset/superset-ui?path=packages/superset-ui-plugin-chart-composed)

@@ -1,9 +1,9 @@
 {
-  "name": "@superset-maf-ui/plugin-chart-waterfall",
-  "version": "0.4.3",
-  "description": "Superset Chart - Waterfall",
-  "pluginName": "WaterfallChartPlugin",
+  "name": "@superset-maf-ui/plugin-chart-status",
+  "version": "0.0.0",
+  "description": "Superset Chart - Status",
   "sideEffects": false,
+  "pluginName": "StatusChartPlugin",
   "main": "lib/index.js",
   "module": "esm/index.js",
   "files": [
@@ -37,21 +37,10 @@
   "peerDependencies": {
     "@superset-ui/chart-controls": "^0.15.5",
     "@superset-ui/core": "^0.15.10",
-    "react": "^16.13.1",
-    "react-bootstrap": "^1.4.0"
+    "react": "^16.13.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.0",
-    "@types/recharts": "^1.8.14",
-    "jest": "^26.0.1",
-    "react-bootstrap": "^1.4.0"
-  },
-  "dependencies": {
-    "recharts": "^1.8.5"
-  },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
+    "jest": "^26.0.1"
   }
 }
