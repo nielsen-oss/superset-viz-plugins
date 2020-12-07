@@ -34,8 +34,8 @@ const WaterfallTick: FC<WaterfallTickProps> = ({ x, y, angle, payload, dy }) => 
     <Text
       data-test-id={`tick-${payload.value}`}
       angle={angle}
-      textAnchor="start"
-      verticalAnchor="start"
+      textAnchor="end"
+      verticalAnchor="end"
       width={100}
       dy={dy}
     >
