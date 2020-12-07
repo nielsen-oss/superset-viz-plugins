@@ -1,4 +1,4 @@
-## @superset-ui/plugin-chart-table-pivot-new
+## @superset-viz-plugins/plugin-chart-table-pivot-new
 
 [![Version](https://img.shields.io/npm/v/@superset-ui/plugin-chart-table-pivot-new.svg?style=flat-square)](https://img.shields.io/npm/v/@superset-ui/plugin-chart-table-pivot-new.svg?style=flat-square)
 [![David (path)](https://img.shields.io/david/apache-superset/superset-ui.svg?path=packages%2Fsuperset-ui-plugin-chart-table-pivot-new&style=flat-square)](https://david-dm.org/apache-superset/superset-ui?path=packages/superset-ui-plugin-chart-table-pivot-new)
