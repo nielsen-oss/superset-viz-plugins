@@ -53,7 +53,6 @@ const StatusName = styled.div<{ col: Color; theme: SupersetTheme }>`
 
 export default function Status(props: StatusProps) {
   const { data, height, width, statusColorsMap } = props;
-
   return (
     <Styles height={height} width={width}>
       <ObjectName>{data[0]}</ObjectName>
