@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.5](https://gitlab.com/nielsen-media/maf/superset/superset-viz-plugins/compare/@superset-maf-ui/plugin-chart-waterfall@0.4.4...@superset-maf-ui/plugin-chart-waterfall@0.4.5) (2020-12-08)
+
+**Note:** Version bump only for package @superset-maf-ui/plugin-chart-waterfall
+
+
+
+
+
 ## [0.4.4](https://gitlab.com/nielsen-media/maf/superset/superset-viz-plugins/compare/@superset-maf-ui/plugin-chart-waterfall@0.4.3...@superset-maf-ui/plugin-chart-waterfall@0.4.4) (2020-12-08)
 
 **Note:** Version bump only for package @superset-maf-ui/plugin-chart-waterfall
