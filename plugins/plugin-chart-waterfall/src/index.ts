@@ -18,6 +18,7 @@
  */
 
 export { default } from './plugin';
+
 /**
  * Note: this file exports the default export from Waterfall.tsx.
  * If you want to export multiple visualization modules, you will need to
