@@ -1,6 +1,6 @@
 {
   "name": "@superset-maf-ui/plugin-chart-status",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Superset Chart - Status",
   "sideEffects": false,
   "pluginName": "StatusChartPlugin",
