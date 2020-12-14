@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://gitlab.com/nielsen-media/maf/superset/superset-viz-plugins/compare/@superset-maf-ui/plugin-chart-pivot-table@0.3.4...@superset-maf-ui/plugin-chart-pivot-table@0.4.0) (2020-12-14)
+
+
+### Features
+
+* pivot empty value / composed label names ([8c383ac](https://gitlab.com/nielsen-media/maf/superset/superset-viz-plugins/commit/8c383ac4305eabf1b6c71961e55717e980a208da))
+
+
+
+
+
 ## [0.3.4](https://gitlab.com/nielsen-media/maf/superset/superset-viz-plugins/compare/@superset-maf-ui/plugin-chart-pivot-table@0.3.3...@superset-maf-ui/plugin-chart-pivot-table@0.3.4) (2020-12-08)
 
 **Note:** Version bump only for package @superset-maf-ui/plugin-chart-pivot-table
