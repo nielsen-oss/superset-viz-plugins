@@ -89,6 +89,24 @@ const config: ControlPanelConfig = {
       expanded: true,
       controlSetRows: [[transpose, showTotal], [numberFormat]],
     },
+    {
+      label: t('Table Options'),
+      expanded: true,
+      controlSetRows: [
+        [
+          {
+            name: `empty_value_placeholder`,
+            config: {
+              type: 'TextControl',
+              label: t(`Empty value placeholder`),
+              renderTrigger: true,
+              default: '',
+              description: t(`Choose placeholder that will be shown instead empty value`),
+            },
+          },
+        ],
+      ],
+    },
   ],
 
   controlOverrides: {
