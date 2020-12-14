@@ -23,13 +23,14 @@ import RowsHeader from './RowsHeader';
 import ColumnsHeader from './ColumnsHeader';
 import { ROW_HEIGHT, Unit } from '../plugin/utils';
 import TotalColumn from './TotalColumn';
-import { ShowTotal } from '../types'
+import { ShowTotal } from '../types';
 
 export type PivotTableProps<R extends string, C extends string, M extends string> = {
   data: (string | number)[];
   columns: C[];
   rows: R[];
   numberOfRows: number;
+  emptyValuePlaceholder: string;
   metrics: M[];
   width: number;
   height: number;
@@ -65,6 +66,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
   metrics,
   width,
   height,
+  emptyValuePlaceholder,
   numberOfColumns,
   uiColumnUnits,
   columnsFillData,
@@ -77,7 +79,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
 }) => {
   const mainGridTemplateColumns = `auto auto ${
     showTotal === ShowTotal.rows || showTotal === ShowTotal.columnsAndRows ? 'auto' : ''
-  }`
+  }`;
 
   return (
     <StyledGrid gridTemplateColumns="max-content" gridTemplateRows="auto" width={width} height={height}>
@@ -85,11 +87,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
         <NoData>{t('No data to show')}</NoData>
       ) : (
         <Grid gridTemplateColumns="auto" gridTemplateRows="min-content">
-          <Grid
-            bordered
-            gridTemplateColumns={mainGridTemplateColumns}
-            gridTemplateRows="auto"
-          >
+          <Grid bordered gridTemplateColumns={mainGridTemplateColumns} gridTemplateRows="auto">
             <RowsHeader
               showTotal={showTotal}
               rowsFillData={rowsFillData}
@@ -119,7 +117,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
                     !(columnsFillData[index % numberOfColumns] && rowsFillData[Math.floor(index / numberOfColumns)])
                   }
                 >
-                  {item}
+                  {item || emptyValuePlaceholder}
                 </GridItem>
               ))}
               {(showTotal === ShowTotal.columns || showTotal === ShowTotal.columnsAndRows) &&
