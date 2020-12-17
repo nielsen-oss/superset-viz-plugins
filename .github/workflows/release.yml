@@ -40,7 +40,8 @@ jobs:
     - name: Configure npm and git
       run: |
         echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
-        echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> .npmrc
+        cat $HOME/.npmrc
+        cp ./scripts/.npmrc .npmrc
        
 
         npm whoami
