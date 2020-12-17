@@ -23,6 +23,7 @@ jobs:
         fetch-depth: 0
     - name: Get tags and filter trigger tags
       run: |
+        cd superset-viz-plugins
         git fetch --depth=1 origin "+refs/tags/*:refs/tags/*"
         git fetch --prune --unshallow
         git tag -d `git tag | grep -E '^trigger-'`
