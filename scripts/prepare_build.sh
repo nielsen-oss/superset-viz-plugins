@@ -12,10 +12,10 @@ cd $GITHUB_WORKSPACE/incubator-superset/superset-frontend
 
 
 
-ROOT_DIRECTORY=$GITHUB_WORKSPACE/superset-viz-plugins node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/addDependencies.js
+node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/addDependencies.js
 cat $GITHUB_WORKSPACE/incubator-superset/superset-frontend/package.json
 
-ROOT_DIRECTORY=$GITHUB_WORKSPACE/superset-viz-plugins node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/generateMafPreset.js
+node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/generateMafPreset.js
 mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
 cat $GITHUB_WORKSPACE/incubator-superset/superset-frontend/src/visualizations/presets/MafPreset.js
 
