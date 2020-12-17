@@ -13,7 +13,12 @@ cd $GITHUB_WORKSPACE/incubator-superset/superset-frontend
 
 
 node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/addDependencies.js
+cat $GITHUB_WORKSPACE/incubator-superset/superset-frontend/package.json
+
 node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/generateMafPreset.js
 mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
+cat $GITHUB_WORKSPACE/incubator-superset/superset-frontend/src/visualizations/presets/MafPreset.js
+
 cp $GITHUB_WORKSPACE/superset-viz-plugins/templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
+cat $GITHUB_WORKSPACE/incubator-superset/superset-frontend/src/setup/setupPluginsExtra.js
 npm install
