@@ -34,8 +34,8 @@ jobs:
       run: yarn install --frozen-lockfile
     - name: Build packages
       run: yarn build
-    - name: Run unit tests
-      run: yarn test
+    #- name: Run unit tests
+    #  run: yarn test
 
     - name: Configure npm and git
       run: |
