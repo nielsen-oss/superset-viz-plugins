@@ -1,3 +1,6 @@
+#!//bin/bash
+set -e
+
 yarn
 # get branch name
 $BRANCH_NAME=0.38
@@ -11,8 +14,8 @@ cd incubator-superset/superset-frontend
 
 
 cd 
-node ../../scripts/addDependencies.js
-node ../../scripts/generateMafPreset.js
+node ./scripts/addDependencies.js
+node ./scripts/generateMafPreset.js
 mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
 cp ../../templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
 npm install
