@@ -3,6 +3,8 @@ set -e
 
 #migrated from old repo, probably not needed
 # yarn
+pwd
+
 
 # Add dependencies superset-frontend and generate the preset
 cp .npmrc ../incubator-superset/superset-frontend/.npmrc
