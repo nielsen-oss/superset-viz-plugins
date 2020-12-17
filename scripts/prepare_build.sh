@@ -1,7 +1,9 @@
 #!//bin/bash
 set -e
 
-yarn
+#migrated from old repo, probably not needed
+# yarn
+
 # get branch name
 $BRANCH_NAME=0.38
 
