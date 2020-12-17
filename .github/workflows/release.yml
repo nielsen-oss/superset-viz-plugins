@@ -76,10 +76,11 @@ jobs:
         repository: apache/incubator-superset
         path: incubator-superset
         ref: 0.38
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
           
     - name: Prepare sueprset build
       run: |
         sh ./scripts/prepare_build.sh
       working-directory: ./superset-viz-plugins
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
