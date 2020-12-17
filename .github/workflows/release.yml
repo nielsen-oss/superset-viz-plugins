@@ -66,4 +66,4 @@ jobs:
     - name: Prepare sueprset build
       run: |
         pwd
-        sh ../scripts/prepare_build.sh
+        sh ./scripts/prepare_build.sh
