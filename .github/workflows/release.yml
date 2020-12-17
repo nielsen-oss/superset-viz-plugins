@@ -42,6 +42,8 @@ jobs:
         echo "@superset-viz-plugins:registry=http://registry.npmjs.org/" > .npmrc
         echo "registry=http://registry.npmjs.org/" >> .npmrc
         echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+        echo "home npmrc" $HOME/.npmrc
+        echo "local npmrc" .npmrc
         npm whoami
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
@@ -58,4 +60,3 @@ jobs:
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GH_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
