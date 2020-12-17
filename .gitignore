@@ -67,3 +67,6 @@ packages/*/dist
 packages/*/esm
 plugins/*/dist
 plugins/*/esm
+/.idea/
+
+.npmrc

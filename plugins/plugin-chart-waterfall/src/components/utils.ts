@@ -1,6 +1,3 @@
-import { supersetTheme, t } from '@superset-ui/core';
-import { LegendPayload } from 'recharts';
-
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -20,6 +17,10 @@ import { LegendPayload } from 'recharts';
  * under the License.
  */
 
+import { supersetTheme, t } from '@superset-ui/core';
+import { LegendPayload } from 'recharts';
+import { BarValue } from './WaterfallChart';
+
 export const LEGEND: LegendPayload[] = [
   { value: t('Increase'), color: supersetTheme.colors.success.base, id: 'increase', type: 'circle' },
   { value: t('Decrease'), color: supersetTheme.colors.error.base, id: 'decrease', type: 'circle' },
@@ -27,12 +28,32 @@ export const LEGEND: LegendPayload[] = [
   { value: t('Other'), color: supersetTheme.colors.alert.base, id: 'other', type: 'circle' },
 ];
 
-export const valueFormatter = (value: number) => {
-  if (Math.abs(Math.round(value / 1000000)) >= 1) {
-    return `${(value / 1000000).toFixed(1)}M`;
+export enum LegendPosition {
+  TOP = 'top',
+  BOTTOM = 'bottom',
+}
+
+export const renderLabel = (formatter: Function) => ({ value }: { value: BarValue }) =>
+  `${formatter(value?.[1] - value?.[0])}`;
+
+export const tooltipFormatter = (formatter: Function) => (value: BarValue) =>
+  `${formatter(value?.[0])} - ${formatter(value?.[1])}`;
+
+export const BOTTOM_PADDING = 60;
+
+export const getChartStyles = (legendPosition: LegendPosition) => {
+  let legendStyle: object = {
+    paddingBottom: 20,
+  };
+  let chartMargin: object = { bottom: BOTTOM_PADDING, left: 10 };
+  if (legendPosition === LegendPosition.BOTTOM) {
+    legendStyle = {
+      paddingTop: BOTTOM_PADDING,
+    };
+    chartMargin = { left: 10, top: 20 };
   }
-  if (Math.abs(Math.round(value / 1000)) >= 1) {
-    return `${(value / 1000).toFixed(1)}K`;
-  }
-  return `${value}`;
+  return {
+    legendStyle,
+    chartMargin,
+  };
 };

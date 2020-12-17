@@ -17,6 +17,7 @@
  * under the License.
  */
 import { getOneDimensionData, getUnits } from './utils';
+import { ShowTotal } from '../types';
 
 type MetricObject<M extends string> = {
   label: M;
@@ -24,8 +25,9 @@ type MetricObject<M extends string> = {
 
 type FormData<R extends string, C extends string, M extends string> = {
   numberFormat: string;
+  emptyValuePlaceholder: string;
   transpose: boolean;
-  showTotal: boolean;
+  showTotal: ShowTotal;
   rows: R[];
   columns: C[];
   metrics: MetricObject<M>[];
@@ -50,7 +52,14 @@ export default function transformProps<R extends string, C extends string, M ext
   const { width, height, formData, queryData } = chartProps;
   const { data } = queryData;
   const metrics = formData.metrics.map(({ label }) => label).sort();
-  const { transpose, rows: tempRows, columns: tempColumns, numberFormat, showTotal } = formData;
+  const {
+    transpose,
+    rows: tempRows,
+    columns: tempColumns,
+    numberFormat,
+    showTotal = ShowTotal.noTotal,
+    emptyValuePlaceholder,
+  } = formData;
 
   let rows: R[] = tempRows || [];
   let columns: C[] = tempColumns || [];
@@ -94,6 +103,7 @@ export default function transformProps<R extends string, C extends string, M ext
     height,
     data: oneDimensionData,
     rows,
+    emptyValuePlaceholder,
     uiColumnUnits,
     uiRowUnits,
     columnUnits,

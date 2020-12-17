@@ -17,10 +17,11 @@
  * under the License.
  */
 import React from 'react';
-import { Area, Bar, LabelFormatter, LabelProps, LegendProps, Line, Scatter } from 'recharts';
+import { Area, Bar, LabelFormatter, LabelProps, LegendPayload, LegendProps, Line, Scatter } from 'recharts';
 import { BREAKDOWN_SEPARATOR, LabelColors, ResultData } from '../plugin/transformProps';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 import { CategoricalColorNamespace, getNumberFormatter } from '@superset-ui/core';
+import { YAxisProps } from './ComposedChart';
 
 export enum Layout {
   horizontal = 'horizontal',
@@ -113,18 +114,45 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   return result;
 }
 
+export const getChartMargin = (legendPosition: LegendPosition, legendWidth: number, yAxis: YAxisProps) => {
+  const chartMargin = { left: legendPosition === LegendPosition.left ? legendWidth : 0, right: 5 };
+
+  if (yAxis.label) {
+    chartMargin.left += 20;
+  }
+  if (yAxis.label2) {
+    chartMargin.right += 20;
+  }
+
+  return chartMargin;
+};
+
 const getLabelSize = (angle: number, dataKeyLength: number, angleMin: number, angleMax: number): number =>
   angle === angleMin
     ? MIN_LABEL_MARGIN
     : dataKeyLength + (angle === angleMax ? MIN_SYMBOL_WIDTH_FOR_TICK_LABEL * 6 : 0);
+
+export const getMetricName = (name: string, metrics: string[]) =>
+  metrics.length === 1 ? name.split(BREAKDOWN_SEPARATOR).pop() : name.split(BREAKDOWN_SEPARATOR).join(', ');
 
 export const getLegendProps = (
   legendPosition: LegendPosition,
   height: number,
   width: number,
   legendWidth: number,
+  breakdowns: string[],
+  disabledDataKeys: string[],
+  colorScheme: string,
+  metrics: string[],
 ): LegendProps => {
+  const payload: LegendPayload[] = breakdowns.map((breakdown, index) => ({
+    value: getMetricName(breakdown, metrics),
+    id: breakdown,
+    type: disabledDataKeys.includes(breakdown) ? 'line' : 'circle',
+    color: CategoricalColorNamespace.getScale(colorScheme)(index),
+  }));
   let result = {
+    payload,
     wrapperStyle: {
       maxHeight: height,
     },
@@ -258,7 +286,7 @@ export const getChartElement = (
 
 type AxisProps = {
   layout: Layout;
-  angle: number;
+  angle?: number;
   label?: string;
   isSecondAxis?: boolean;
   dataKey?: string;
@@ -267,7 +295,7 @@ type AxisProps = {
   numbersFormat: string;
 };
 
-export const getXAxisProps = ({ layout, angle, label, dataKeyLength, metricLength, numbersFormat }: AxisProps) => {
+export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricLength, numbersFormat }: AxisProps) => {
   const textAnchor = angle === 0 ? 'middle' : 'end';
   const labelProps: LabelProps = {
     value: label,
@@ -303,7 +331,7 @@ export const getXAxisProps = ({ layout, angle, label, dataKeyLength, metricLengt
 const Y_AXIS_OFFSET = 30;
 export const getYAxisProps = ({
   layout,
-  angle,
+  angle = 0,
   label,
   dataKey,
   isSecondAxis,
@@ -311,17 +339,17 @@ export const getYAxisProps = ({
   metricLength,
   numbersFormat,
 }: AxisProps) => {
-  const textAnchor = angle === -90 ? 'middle' : 'end';
+  const textAnchorPerAxis = isSecondAxis ? 'start' : 'end';
+  const textAnchor = angle === -90 ? 'middle' : textAnchorPerAxis;
+  const labelOffset = isSecondAxis ? 10 : 0;
   const labelProps: LabelProps = {
-    offset: Y_AXIS_OFFSET,
+    offset: labelOffset,
     value: label,
     angle: 90,
     position: isSecondAxis ? 'right' : 'left',
   };
   const params = {
-    tickMargin: isSecondAxis ? 25 : 0,
     angle,
-    dx: isSecondAxis ? metricLength * 0.5 : 0,
     orientation: isSecondAxis ? ('right' as const) : ('left' as const),
     yAxisId: isSecondAxis ? 'right' : 'left',
     label: labelProps,

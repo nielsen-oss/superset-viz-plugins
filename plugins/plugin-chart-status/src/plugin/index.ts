@@ -16,20 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import buildQuery from '../../src/plugin/buildQuery';
+import { ChartMetadata, ChartPlugin, t } from '@superset-ui/core';
+import buildQuery from './buildQuery';
+import controlPanel from './controlPanel';
+import transformProps from './transformProps';
+import thumbnail from '../images/thumbnail.png';
 
-describe('Composed buildQuery', () => {
-  const formData = {
-    datasource: '5__table',
-    granularity_sqla: 'ds',
-    series: 'foo',
-    viz_type: 'my_chart',
-    queryFields: { series: 'groupby' },
-  };
-
-  it('should build groupby with series in form data', () => {
-    const queryContext = buildQuery(formData);
-    const [query] = queryContext.queries;
-    expect(query.groupby).toEqual(['foo']);
-  });
+const metadata = new ChartMetadata({
+  description: 'Status',
+  name: t('Status'),
+  thumbnail,
 });
+
+export default class StatusChartPlugin extends ChartPlugin {
+  constructor() {
+    super({
+      buildQuery,
+      controlPanel,
+      loadChart: () => import('../Status'),
+      metadata,
+      transformProps,
+    });
+  }
+}

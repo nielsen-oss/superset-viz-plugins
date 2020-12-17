@@ -17,7 +17,13 @@
  * under the License.
  */
 import { validateNonEmpty, t } from '@superset-ui/core';
-import { ControlPanelConfig, sharedControls } from '@superset-ui/chart-controls';
+import {
+  ControlPanelConfig,
+  D3_FORMAT_OPTIONS,
+  formatSelectOptions,
+  sharedControls,
+} from '@superset-ui/chart-controls';
+import { LegendPosition } from '../components/utils';
 
 const xAxisColumn: typeof sharedControls.groupby = {
   type: 'SelectControl',
@@ -29,6 +35,19 @@ const xAxisColumn: typeof sharedControls.groupby = {
     options: datasource?.columns || [],
   }),
   validators: [validateNonEmpty],
+};
+
+export const numbersFormat = {
+  name: 'numbers_format',
+  config: {
+    label: t('Numbers Format'),
+    description: t('Choose the format for numbers in the chart'),
+    type: 'SelectControl',
+    clearable: false,
+    default: D3_FORMAT_OPTIONS[0],
+    choices: D3_FORMAT_OPTIONS,
+    renderTrigger: true,
+  },
 };
 
 const periodColumn: typeof sharedControls.groupby = {
@@ -53,8 +72,21 @@ const periodColumn: typeof sharedControls.groupby = {
 //   mapStateToProps: ({ datasource }) => ({ datasource }),
 // };
 
+export const legendPosition = {
+  name: 'legend_position',
+  config: {
+    freeForm: true,
+    type: 'SelectControl',
+    clearable: false,
+    label: t('Legend position'),
+    renderTrigger: true,
+    choices: formatSelectOptions(Object.keys(LegendPosition)),
+    default: 'top',
+    description: t('Set legend position'),
+  },
+};
+
 const config: ControlPanelConfig = {
-  // For control input types, see: superset-frontend/src/explore/components/controls/index.js
   controlPanelSections: [
     {
       label: t('Map Fields'),
@@ -72,23 +104,15 @@ const config: ControlPanelConfig = {
         ],
       ],
     },
-    // TODO: Uncomment when dashboard will support ChartsFilter
-    // {
-    //   label: t('Filters On Click'),
-    //   expanded: true,
-    //   controlSetRows: [
-    //     [
-    //       {
-    //         name: 'filter_configs',
-    //         config: filterConfigs,
-    //       },
-    //     ],
-    //   ],
-    // },
     {
       label: t('Query'),
       expanded: true,
-      controlSetRows: [['metrics'], ['adhoc_filters'], ['row_limit', null]],
+      controlSetRows: [['metric'], ['adhoc_filters'], ['row_limit', null]],
+    },
+    {
+      label: t('Chart Options'),
+      expanded: true,
+      controlSetRows: [[numbersFormat], [legendPosition]],
     },
   ],
 
@@ -96,6 +120,9 @@ const config: ControlPanelConfig = {
     series: {
       validators: [validateNonEmpty],
       clearable: false,
+    },
+    metrics: {
+      multi: false,
     },
     row_limit: {
       default: 100,

@@ -34,6 +34,7 @@ import {
   CHART_SUB_TYPES,
   CHART_TYPES,
   getCartesianGridProps,
+  getChartMargin,
   getLegendProps,
   getMaxLengthOfDataKey,
   getMaxLengthOfMetric,
@@ -60,11 +61,11 @@ type ComposedChartStylesProps = {
 type XAxisProps = {
   label: string;
   tickLabelAngle: number;
-  label2?: string;
 };
 
-type YAxisProps = XAxisProps & {
-  tickLabelAngle2: number;
+export type YAxisProps = XAxisProps & {
+  label2?: string;
+  tickLabelAngle2?: number;
 };
 
 export type ComposedChartProps = {
@@ -166,7 +167,7 @@ export default function ComposedChart(props: ComposedChartProps) {
     getMaxLengthOfMetric(currentData, metrics, getNumberFormatter(numbersFormat)) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
 
   const handleLegendClick = ({ id }: EventData) => {
-    let resultKeys = [];
+    let resultKeys;
     if (disabledDataKeys.includes(id)) {
       resultKeys = disabledDataKeys.filter(item => item !== id);
     } else {
@@ -177,16 +178,10 @@ export default function ComposedChart(props: ComposedChartProps) {
   };
 
   const chartWidth = isSideLegend && legendWidth ? width + legendWidth : width;
-  const chartMargin = { left: legendPosition === LegendPosition.left ? legendWidth : 0 };
+  const chartMargin = getChartMargin(legendPosition, legendWidth, yAxis);
+
   const chartWidthWithLegend =
     (legendPosition === LegendPosition.left ? chartWidth : width) - (isSideLegend ? legendWidth : 0) - 10;
-
-  const legendPayload: LegendPayload[] = breakdowns.map((breakdown, index) => ({
-    value: breakdown.split(BREAKDOWN_SEPARATOR).join(', '),
-    id: breakdown,
-    type: disabledDataKeys.includes(breakdown) ? 'line' : 'circle',
-    color: CategoricalColorNamespace.getScale(colorScheme)(index),
-  }));
 
   return (
     <Styles key={updater} height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
@@ -201,10 +196,18 @@ export default function ComposedChart(props: ComposedChartProps) {
         {showLegend && (
           <Legend
             onClick={handleLegendClick}
-            {...getLegendProps(legendPosition, height, width, legendWidth)}
+            {...getLegendProps(
+              legendPosition,
+              height,
+              width,
+              legendWidth,
+              breakdowns,
+              disabledDataKeys,
+              colorScheme,
+              metrics,
+            )}
             iconType="circle"
             iconSize={10}
-            payload={legendPayload}
           />
         )}
         <CartesianGrid {...getCartesianGridProps({ layout })} />
@@ -242,7 +245,7 @@ export default function ComposedChart(props: ComposedChartProps) {
             })}
           />
         )}
-        <Tooltip content={<ComposedChartTooltip numbersFormat={numbersFormat} />} />
+        <Tooltip content={<ComposedChartTooltip numbersFormat={numbersFormat} metrics={metrics} />} />
         {((isSideLegend && legendWidth) || !isSideLegend) &&
           breakdowns.map((breakdown, index) =>
             renderChartElement({

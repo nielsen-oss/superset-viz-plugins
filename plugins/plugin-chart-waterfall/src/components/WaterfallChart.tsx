@@ -16,11 +16,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { FC, useState } from 'react';
-import { t, styled } from '@superset-ui/core';
-import { BarChart, Bar, LabelList, XAxis, YAxis, CartesianGrid, Tooltip, LabelProps, Legend } from 'recharts';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { getNumberFormatter, styled, t } from '@superset-ui/core';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ContentRenderer,
+  LabelList,
+  LabelProps,
+  Legend,
+  LegendProps,
+  Tooltip,
+  TooltipFormatter,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import WaterfallTick from './WaterfallTick';
-import { LEGEND, valueFormatter } from './utils';
+import { BOTTOM_PADDING, getChartStyles, LEGEND, LegendPosition, renderLabel, tooltipFormatter } from './utils';
 import WaterfallBar from './WaterfallBar';
 
 type WaterfallStylesProps = {
@@ -34,10 +47,12 @@ export type WaterfallChartData = {
   [key: string]: string | boolean | number | BarValue;
 };
 
-export type TWaterfallChartProps = {
+export type WaterfallChartProps = {
   xAxisDataKey?: string;
   dataKey: string;
+  legendPosition: LegendPosition;
   error?: string;
+  numbersFormat?: string;
   height: number;
   resetFilters?: Function;
   onBarClick?: Function;
@@ -46,21 +61,8 @@ export type TWaterfallChartProps = {
 };
 
 const Styles = styled.div<WaterfallStylesProps>`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: ${({ theme }) => theme.gridUnit * 4}px;
-  border-radius: ${({ theme }) => theme.gridUnit * 2}px;
   height: ${({ height }) => height};
   width: ${({ width }) => width};
-  overflow-y: scroll;
-
-  h3 {
-    /* You can use your props to control CSS! */
-    font-size: ${({ theme }) => theme?.typography?.sizes?.xxl};
-    font-weight: bold;
-  }
 `;
 
 const Error = styled.div`
@@ -86,16 +88,25 @@ const Notification = styled.div`
   background-color: ${({ theme }) => theme.colors.info.light1};
 `;
 
-const WaterfallChart: FC<TWaterfallChartProps> = ({
-  onBarClick = () => {},
-  xAxisDataKey,
-  dataKey,
-  data,
-  height,
-  width,
-  error,
-}) => {
+const WaterfallChart: FC<WaterfallChartProps> = props => {
+  const {
+    onBarClick = () => {},
+    xAxisDataKey,
+    dataKey,
+    numbersFormat,
+    data,
+    height,
+    width,
+    error,
+    legendPosition,
+  } = props;
   const [notification, setNotification] = useState<string | null>(null);
+  const [updater, setUpdater] = useState<number>(0);
+
+  const forceUpdate = useCallback(() => setUpdater(Math.random()), []);
+  useEffect(() => {
+    forceUpdate();
+  }, [forceUpdate, props]);
 
   const handleBarClick = (barData: WaterfallChartData) => {
     if (window.location.pathname.includes('/explore')) {
@@ -104,9 +115,8 @@ const WaterfallChart: FC<TWaterfallChartProps> = ({
     }
   };
   const closeNotification = () => setNotification(null);
-
-  const renderLabel: (barValue: LabelProps) => string = ({ value }) =>
-    valueFormatter(((value as unknown) as BarValue)[1] - ((value as unknown) as BarValue)[0]);
+  const formatter = getNumberFormatter(numbersFormat);
+  const { chartMargin, legendStyle } = getChartStyles(legendPosition);
 
   return (
     <Styles height={height} width={width}>
@@ -115,26 +125,28 @@ const WaterfallChart: FC<TWaterfallChartProps> = ({
         <Error>{error}</Error>
       ) : (
         <div>
-          <BarChart width={width} height={height} margin={{ bottom: 50 }} data={data} barCategoryGap={0}>
+          <BarChart width={width} height={height} margin={chartMargin} data={data} barCategoryGap={0} key={updater}>
             <Legend
-              wrapperStyle={{
-                paddingBottom: 10,
-              }}
+              wrapperStyle={legendStyle}
+              verticalAlign={legendPosition as LegendProps['verticalAlign']}
               iconType="circle"
               iconSize={10}
-              verticalAlign="top"
               payload={LEGEND}
             />
             <CartesianGrid vertical={false} />
-            <XAxis dataKey={xAxisDataKey} dy={25} angle={45} tick={WaterfallTick} interval={0} />
-            <YAxis tickFormatter={valueFormatter} />
-            <Tooltip />
+            <XAxis dataKey={xAxisDataKey} dy={10} angle={-45} tick={WaterfallTick} interval={0} />
+            <YAxis tickFormatter={formatter} />
+            <Tooltip formatter={(tooltipFormatter(formatter) as unknown) as TooltipFormatter} />
             <Bar
               dataKey={dataKey}
               shape={props => <WaterfallBar {...props} numberOfBars={data?.length} />}
               onClick={handleBarClick}
             >
-              <LabelList dataKey={dataKey} position="top" content={renderLabel} />
+              <LabelList
+                dataKey={dataKey}
+                position="top"
+                content={(renderLabel(formatter) as unknown) as ContentRenderer<LabelProps>}
+              />
             </Bar>
           </BarChart>
         </div>

@@ -23,12 +23,14 @@ import RowsHeader from './RowsHeader';
 import ColumnsHeader from './ColumnsHeader';
 import { ROW_HEIGHT, Unit } from '../plugin/utils';
 import TotalColumn from './TotalColumn';
+import { ShowTotal } from '../types';
 
 export type PivotTableProps<R extends string, C extends string, M extends string> = {
   data: (string | number)[];
   columns: C[];
   rows: R[];
   numberOfRows: number;
+  emptyValuePlaceholder: string;
   metrics: M[];
   width: number;
   height: number;
@@ -37,7 +39,7 @@ export type PivotTableProps<R extends string, C extends string, M extends string
   columnsFillData: boolean[];
   rowsTotal: string[];
   total: string;
-  showTotal: boolean;
+  showTotal: ShowTotal;
   columnsTotal: string[];
   rowsFillData: boolean[];
   uiRowUnits: Unit<R>;
@@ -64,6 +66,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
   metrics,
   width,
   height,
+  emptyValuePlaceholder,
   numberOfColumns,
   uiColumnUnits,
   columnsFillData,
@@ -74,13 +77,17 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
   total,
   rowsTotal,
 }) => {
+  const mainGridTemplateColumns = `auto auto ${
+    showTotal === ShowTotal.rows || showTotal === ShowTotal.columnsAndRows ? 'auto' : ''
+  }`;
+
   return (
     <StyledGrid gridTemplateColumns="max-content" gridTemplateRows="auto" width={width} height={height}>
       {rows.length === 0 && columns.length === 0 ? (
         <NoData>{t('No data to show')}</NoData>
       ) : (
         <Grid gridTemplateColumns="auto" gridTemplateRows="min-content">
-          <Grid bordered gridTemplateColumns={`auto auto ${showTotal ? 'auto' : ''}`} gridTemplateRows="auto">
+          <Grid bordered gridTemplateColumns={mainGridTemplateColumns} gridTemplateRows="auto">
             <RowsHeader
               showTotal={showTotal}
               rowsFillData={rowsFillData}
@@ -110,10 +117,10 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
                     !(columnsFillData[index % numberOfColumns] && rowsFillData[Math.floor(index / numberOfColumns)])
                   }
                 >
-                  {item}
+                  {item || emptyValuePlaceholder}
                 </GridItem>
               ))}
-              {showTotal &&
+              {(showTotal === ShowTotal.columns || showTotal === ShowTotal.columnsAndRows) &&
                 columnsTotal.map((columnTotal, index) => (
                   // eslint-disable-next-line react/jsx-key
                   <GridItem bordered bgLevel={3} hidden={!columnsFillData[index]}>
@@ -121,8 +128,14 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
                   </GridItem>
                 ))}
             </Grid>
-            {showTotal && (
-              <TotalColumn columns={columns} rowsFillData={rowsFillData} rowsTotal={rowsTotal} total={total} />
+            {(showTotal === ShowTotal.columnsAndRows || showTotal === ShowTotal.rows) && (
+              <TotalColumn
+                columns={columns}
+                rowsFillData={rowsFillData}
+                rowsTotal={rowsTotal}
+                total={total}
+                showTotalAll={showTotal === ShowTotal.columnsAndRows}
+              />
             )}
           </Grid>
         </Grid>

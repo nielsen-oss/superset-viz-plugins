@@ -1,6 +1,6 @@
 {
-  "name": "@superset-maf-ui/plugin-chart-waterfall",
-  "version": "0.4.1",
+  "name": "@superset-viz-plugins/plugin-chart-waterfall",
+  "version": "0.4.5",
   "description": "Superset Chart - Waterfall",
   "pluginName": "WaterfallChartPlugin",
   "sideEffects": false,
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui.git"
+    "url": "git+https://github.com:nielsen-oss/superset-viz-plugins.git"
   },
   "keywords": [
     "superset"
@@ -28,9 +28,9 @@
   "author": "MAF",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui/issues"
+    "url": "https://github.com/nielsen-oss/superset-viz-plugins/issues"
   },
-  "homepage": "https://gitlab.com/nielsen-media/maf/superset/superset-maf-ui#readme",
+  "homepage": "https://github.com/nielsen-oss/superset-viz-plugins#readme",
   "publishConfig": {
     "access": "public"
   },

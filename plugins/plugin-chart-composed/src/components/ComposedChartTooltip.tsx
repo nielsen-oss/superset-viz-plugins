@@ -20,6 +20,7 @@ import React, { FC } from 'react';
 import { getNumberFormatter, styled, t } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
 import { BREAKDOWN_SEPARATOR } from '../plugin/transformProps';
+import { getMetricName } from './utils';
 
 const Container = styled.div`
   border: 1px solid #cccccc;
@@ -37,12 +38,12 @@ type Payload = {
   numbersFormat: string;
 };
 
-const ComposedChartTooltip: FC<TooltipProps & { numbersFormat: string }> = ({
+const ComposedChartTooltip: FC<TooltipProps & { numbersFormat: string; metrics: string[] }> = ({
   active,
   numbersFormat,
+  metrics,
   payload = [],
   label,
-  ...otherProps
 }) => {
   if (active) {
     const firstPayload: Payload = payload[0]?.payload;
@@ -52,9 +53,11 @@ const ComposedChartTooltip: FC<TooltipProps & { numbersFormat: string }> = ({
       <Container>
         <p>{label}</p>
         {payload.map(item => {
-          const name = item.name.split(BREAKDOWN_SEPARATOR).join(', ');
+          const name = getMetricName(item.name, metrics);
           return (
-            <Line key={name} color={item.color}>{`${name}: ${isNaN(item.value) ? '-' : formatter(item.value)}`}</Line>
+            <Line key={name} color={item.color}>{`${name}: ${
+              isNaN(item.value as number) ? '-' : formatter(item.value as number)
+            }`}</Line>
           );
         })}
         {total && <Line color="black">{`${t('Total')}: ${isNaN(total) ? '-' : formatter(total)}`}</Line>}

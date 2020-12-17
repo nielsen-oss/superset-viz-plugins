@@ -1,0 +1,52 @@
+{
+  "name": "@superset-viz-plugins/core",
+  "version": "0.0.1",
+  "description": "Superset-viz-plugins UI core package",
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "files": [
+    "esm",
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.com"
+  },
+  "scripts": {
+    "test": "jest --coverage --verbose --passWithNoTests",
+    "tdd": "NODE_ENV=test jest --watch",
+    "build": "NODE_ENV=development webpack --mode=development --colors",
+    "build:watch": "NODE_ENV=development webpack --mode=development --colors --watch",
+    "build:prod": "BABEL_ENV=production babel src -d dist --verbose --extensions \".ts,.tsx,.js,.jsx \" --ignore \"src/**/*.test.tsx\",\"src/*.test.js\",\"src/**/*.mock.js\",\"src/**/*.stories.tsx\",\"src/**/__stories__/*\",\"src/**/__mocks__/*\",\"src/**/__tests__/*\"",
+    "build:esm": "ESM=true BABEL_ENV=production babel src -d esm --verbose --extensions \".ts,.tsx,.js,.jsx \" --ignore \"src/**/*.test.tsx\",\"src/*.test.js\",\"src/**/*.mock.js\",\"src/**/*.stories.tsx\",\"src/**/__stories__/*\",\"src/**/__mocks__/*\",\"src/**/__tests__/*\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com:nielsen-oss/superset-viz-plugins.git"
+  },
+  "keywords": [
+    "superset",
+    "visualization",
+    "analysis",
+    "data"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/nielsen-oss/superset-viz-plugins/issues"
+  },
+  "homepage": "https://github.com/nielsen-oss/superset-viz-plugins/issues#readme",
+  "dependencies": {
+    "react": "^16.13.1"
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
+  "devDependencies": {
+    "react-bootstrap": "^1.4.0"
+  },
+  "peerDependencies": {
+    "react-bootstrap": "^1.4.0"
+  }
+}
