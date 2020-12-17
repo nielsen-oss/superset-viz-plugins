@@ -39,16 +39,9 @@ jobs:
 
     - name: Configure npm and git
       run: |
-        echo ${NPM_TOKEN} 
-        echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> .npmrc
-        echo "@superset-viz-plugins:registry=http://registry.npmjs.org/" >> .npmrc
-        echo "registry=http://registry.npmjs.org/" >> .npmrc
-        
         echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
         cat $HOME/.npmrc
 
-        echo "local .npmrc:
-        cat .npmrc
         npm whoami
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
