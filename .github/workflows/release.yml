@@ -52,6 +52,7 @@ jobs:
 
     - name: Bump version and publish package(s)
       run: |
+        npm whoami
         git tag -d `git tag | grep -E '^trigger-'`
         yarn prerelease
         yarn ci:release-from-tag
