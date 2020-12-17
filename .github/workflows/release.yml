@@ -23,10 +23,10 @@ jobs:
         fetch-depth: 0
     - name: Get tags and filter trigger tags
       run: |
-        cd superset-viz-plugins
         git fetch --depth=1 origin "+refs/tags/*:refs/tags/*"
         git fetch --prune --unshallow
         git tag -d `git tag | grep -E '^trigger-'`
+      working-directory: ./superset-viz-plugins
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -34,8 +34,10 @@ jobs:
 
     - name: Install dependencies
       run: yarn install --frozen-lockfile
+      working-directory: ./superset-viz-plugins
     - name: Build packages
       run: yarn build
+      working-directory: ./superset-viz-plugins
     #- name: Run unit tests
     #  run: yarn test
 
@@ -50,6 +52,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git remote set-url origin "https://${GITHUB_TOKEN}@github.com/nielsen-oss/superset-viz-plugins.git" > /dev/null 2>&1
+      working-directory: ./superset-viz-plugins  
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -60,6 +63,7 @@ jobs:
         git tag -d `git tag | grep -E '^trigger-'`
         yarn prerelease
         yarn ci:release-from-tag
+      working-directory: ./superset-viz-plugins
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -76,3 +80,4 @@ jobs:
     - name: Prepare sueprset build
       run: |
         sh ./scripts/prepare_build.sh
+      working-directory: ./superset-viz-plugins
