@@ -8,6 +8,10 @@
     "esm",
     "lib"
   ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.com"
+  },
   "scripts": {
     "test": "jest --coverage --verbose --passWithNoTests",
     "tdd": "NODE_ENV=test jest --watch",
