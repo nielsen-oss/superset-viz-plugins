@@ -3,7 +3,7 @@ name: release-workflow
 on:
   push:
     branches:
-      - 'chore/release_workflow'
+      - 'feat/docker_release'
 
 jobs:
   build:
@@ -62,3 +62,7 @@ jobs:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Prepare sueprset build
+      run: |
+        sh ../scripts/prepare_build.sh
