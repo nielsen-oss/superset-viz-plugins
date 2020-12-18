@@ -6,8 +6,8 @@ on:
       - 'feat/release_docker'
 
 jobs:
-  build:
-    name: Bump version and publish package(s)
+  main:
+    name: Inject plugins into superset and deploy docker image
 
     runs-on: ubuntu-latest
 
@@ -103,7 +103,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        context: ./superset-viz-plugins/
+        context: ./incubator-superset/
         tags: nielsenoss/apache-superset:0.38
       
     - name: Image digest
