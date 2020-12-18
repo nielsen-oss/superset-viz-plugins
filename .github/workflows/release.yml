@@ -103,7 +103,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        context: superset-viz-plugins
+        context: ./superset-viz-plugins
         tags: nielsenoss/apache-superset:0.38
       
     - name: Image digest
