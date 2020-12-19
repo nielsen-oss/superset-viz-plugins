@@ -104,7 +104,8 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        context: ./incubator-superset/
+        context: .
+        file: ./incubator-superset/DockerFile 
         tags: nielsenoss/apache-superset:0.38
       
     - name: Image digest
