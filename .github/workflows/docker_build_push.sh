@@ -15,7 +15,6 @@ cd $1
 #
 docker build \
   -t "${TAG_NAME}:0.38" \
-#   --label "sha=${SHA}" \
   --label "built_at=$(date)" \
   --label "build_actor=${GITHUB_ACTOR}" \
   .
