@@ -93,7 +93,7 @@ jobs:
         DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       run: |
         chmod +x .github/workflows/docker_build_push.sh
-        .github/workflows/docker_build_push.sh
+        .github/workflows/docker_build_push.sh ../incubator-superset/DockerFile
       working-directory: ./superset-viz-plugins
 
 #     - name: Set up QEMU
