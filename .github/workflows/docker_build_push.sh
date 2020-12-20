@@ -3,6 +3,8 @@
 set -eo pipefail
 
 
+
+
 SHA=$(git rev-parse HEAD)
 TAG_NAME="nielsenoss/apache-superset"
 
