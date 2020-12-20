@@ -2,7 +2,17 @@
 
 ## Project Overview
 
+### Monorepo
 This repository is using a monorepo strategy which lets us have one source of truth for ***many projects***. All the projects hosted here rely on the same tools.
+
+### template repository
+This repository is a [template repository](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) that enables you to create a custom set of plugins that by Github workflow process generate a ready to load docker image bundled with the plugins
+
+### Artifacts Deployment
+
+  Npm pacakges are deployed [here](https://www.npmjs.com/search?q=%40superset-viz-plugins)
+
+  Docker Image is deployed [here](https://hub.docker.com/r/nielsenoss/apache-superset)
 
 ## Project Stack
 
