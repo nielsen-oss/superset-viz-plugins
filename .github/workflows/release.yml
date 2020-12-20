@@ -92,8 +92,8 @@ jobs:
         DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       run: |
-        chmod +x $GITHUB_WORKSPACE/superset-viz-plugins/.github/workflows/docker_build_push.sh
-        $GITHUB_WORKSPACE/superset-viz-plugins/.github/workflows/docker_build_push.sh $GITHUB_WORKSPACE/incubator-superset/DockerFile
+        chmod +x $GITHUB_WORKSPACE/superset-viz-plugins/superset-viz-plugins/.github/workflows/docker_build_push.sh
+        $GITHUB_WORKSPACE/superset-viz-plugins/superset-viz-plugins/.github/workflows/docker_build_push.sh $GITHUB_WORKSPACE/superset-viz-plugins/incubator-superset/DockerFile
       working-directory: .
 
 #     - name: Set up QEMU
