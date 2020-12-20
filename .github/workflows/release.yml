@@ -89,7 +89,7 @@ jobs:
       
     - shell: bash
       env:
-        DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
+        DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       run: |
         ./superset-viz-plugins/.github/workflows/docker_build_push.sh
