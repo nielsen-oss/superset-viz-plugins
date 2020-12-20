@@ -5,7 +5,7 @@ set -eo pipefail
 
 
 
-SHA=$(git rev-parse HEAD)
+# SHA=$(git rev-parse HEAD)
 TAG_NAME="nielsenoss/apache-superset"
 
 #
@@ -13,7 +13,7 @@ TAG_NAME="nielsenoss/apache-superset"
 #
 docker build -f $1\
   -t "${TAG_NAME}:0.38" \
-  --label "sha=${SHA}" \
+#   --label "sha=${SHA}" \
   --label "built_at=$(date)" \
   --label "build_actor=${GITHUB_ACTOR}" \
   .
