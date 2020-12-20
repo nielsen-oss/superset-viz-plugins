@@ -8,7 +8,7 @@ set -eo pipefail
 # SHA=$(git rev-parse HEAD)
 TAG_NAME="nielsenoss/apache-superset"
 
-echo "docker file path is ${$1}"
+echo "docker file path is ${1}"
 
 #
 # Build the  image
