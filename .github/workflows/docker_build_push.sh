@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-find $1 -type d
+# find $1 -type d
 ls $1
 
 # SHA=$(git rev-parse HEAD)
