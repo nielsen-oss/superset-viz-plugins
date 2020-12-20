@@ -87,7 +87,8 @@ jobs:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         
       
-    - shell: bash
+    - name: build & push docker
+      shell: bash
       env:
         DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
