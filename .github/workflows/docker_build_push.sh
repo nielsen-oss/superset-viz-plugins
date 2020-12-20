@@ -11,7 +11,7 @@ TAG_NAME="nielsenoss/apache-superset"
 #
 # Build the  image
 #
-docker build \
+docker build -f $1\
   -t "${TAG_NAME}:0.38" \
   --label "sha=${SHA}" \
   --label "built_at=$(date)" \
