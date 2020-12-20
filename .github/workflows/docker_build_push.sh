@@ -13,12 +13,12 @@ echo "docker file path is ${1}"
 #
 # Build the  image
 #
-docker build -f $1\
+docker build \
   -t "${TAG_NAME}:0.38" \
 #   --label "sha=${SHA}" \
   --label "built_at=$(date)" \
   --label "build_actor=${GITHUB_ACTOR}" \
-  .
+  $1
 
 if [ -z "${DOCKERHUB_TOKEN}" ]; then
   # Skip if secrets aren't populated -- they're only visible for actions running in the repo (not on forks)
