@@ -3,13 +3,13 @@
 set -eo pipefail
 
 
-
+ls $1
 
 # SHA=$(git rev-parse HEAD)
 TAG_NAME="nielsenoss/apache-superset"
 
 echo "docker file path is ${1}"
-
+cd $1
 #
 # Build the  image
 #
@@ -18,7 +18,7 @@ docker build \
 #   --label "sha=${SHA}" \
   --label "built_at=$(date)" \
   --label "build_actor=${GITHUB_ACTOR}" \
-  $1
+  .
 
 if [ -z "${DOCKERHUB_TOKEN}" ]; then
   # Skip if secrets aren't populated -- they're only visible for actions running in the repo (not on forks)
