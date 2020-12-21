@@ -10,7 +10,7 @@ cd $GITHUB_WORKSPACE/incubator-superset/superset-frontend
 # add dependecies to pacakge.json
 node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/addDependencies.js
 
-set PRESET_NAME='Nielsen'
+PRESET_NAME='Nielsen'
 
 # generate preset file and locate in incubator source code
 node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/generatePreset.js
