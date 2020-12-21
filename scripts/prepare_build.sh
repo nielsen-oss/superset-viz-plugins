@@ -13,7 +13,7 @@ node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/addDependencies.js
 
 # generate preset file and locate in incubator source code
 node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/generatePreset.js
-mv ./NielsenPreset.ts ./src/visualizations/presets/NielsenPreset.js
+mv "./${PRESET_NAME}Preset.ts" "./src/visualizations/presets/${PRESET_NAME}Preset.js"
 
 # generate setupPluginsExtra override in incubator source code
 node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/generateSetupPluginsExtra.js
