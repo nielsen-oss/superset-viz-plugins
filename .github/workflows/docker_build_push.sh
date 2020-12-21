@@ -13,6 +13,8 @@ cd $1
 #
 # Build the  image
 #
+
+echo $SUPERSET_VERSION
 docker build \
   -t "${TAG_NAME}:0.38" \
   --label "built_at=$(date)" \

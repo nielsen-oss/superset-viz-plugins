@@ -11,7 +11,8 @@ jobs:
     name: Inject plugins into superset and deploy docker image
 
     runs-on: ubuntu-latest
-
+  env:
+    SUPERSET_VERSION: 0.38
     steps:
     - name: Use Node.js
       uses: actions/setup-node@v1
@@ -74,7 +75,7 @@ jobs:
       with:
         repository: apache/incubator-superset
         path: incubator-superset
-        ref: 0.38
+        ref: ${{ env.SUPERSET_VERSION }}
 
 
     - name: Prepare superset build
