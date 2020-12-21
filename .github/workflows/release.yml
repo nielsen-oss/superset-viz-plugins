@@ -11,11 +11,11 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
     - name: Checkout viz plugins repo
       uses: actions/checkout@v2
       with:
@@ -39,8 +39,6 @@ jobs:
     - name: Build packages
       run: yarn build
       working-directory: ./superset-viz-plugins
-    #- name: Run unit tests
-    #  run: yarn test
 
     - name: Configure npm and git
       run: |
@@ -48,7 +46,6 @@ jobs:
         echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
         cat $HOME/.npmrc
         
-
         npm whoami
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
