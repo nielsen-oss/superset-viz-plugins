@@ -85,7 +85,7 @@ jobs:
       working-directory: ./superset-viz-plugins
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        PLUGINS_EXTRA_FILENAME: setupPluginsExtra.js
+        PLUGINS_EXTRA_FILENAME: 'setupPluginsExtra.js'
 
 
     - name: build & push docker
