@@ -1,5 +1,6 @@
 #!//bin/bash
 set -e
+bash --version
 
 echo $GITHUB_WORKSPACE
 
