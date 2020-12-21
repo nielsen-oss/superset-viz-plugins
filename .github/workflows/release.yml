@@ -3,7 +3,7 @@ name: release-workflow
 on:
   push:
     branches:
-      - 'feat/release_docker'
+      - 'master'
 
 jobs:
   main:
