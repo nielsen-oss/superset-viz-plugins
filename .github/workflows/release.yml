@@ -4,13 +4,16 @@ on:
   push:
     branches:
       - 'master'
+      - 'chore/rename_preset'
 
 jobs:
   main:
     name: Inject plugins into superset and deploy docker image
 
     runs-on: ubuntu-latest
-
+    env:
+      SUPERSET_VERSION: 0.38
+      PRESET_NAME: Nielsen
     steps:
     - name: Use Node.js
       uses: actions/setup-node@v1
@@ -45,12 +48,12 @@ jobs:
         yarn logout
         echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
         cat $HOME/.npmrc
-        
+
         npm whoami
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git remote set-url origin "https://${GITHUB_TOKEN}@github.com/nielsen-oss/superset-viz-plugins.git" > /dev/null 2>&1
-      working-directory: ./superset-viz-plugins  
+      working-directory: ./superset-viz-plugins
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -66,24 +69,25 @@ jobs:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      
+
+
     - name: Checkout superset repo
       uses: actions/checkout@v2
       with:
         repository: apache/incubator-superset
         path: incubator-superset
-        ref: 0.38
+        ref: ${{ env.SUPERSET_VERSION }}
 
-          
+
     - name: Prepare superset build
       run: |
         sh ./scripts/prepare_build.sh
       working-directory: ./superset-viz-plugins
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        
-      
+        PLUGINS_EXTRA_FILENAME: 'setupPluginsExtra.js'
+
+
     - name: build & push docker
       shell: bash
       env:

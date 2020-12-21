@@ -1,5 +1,6 @@
 #!//bin/bash
 set -e
+bash --version
 
 echo $GITHUB_WORKSPACE
 
@@ -7,14 +8,15 @@ echo $GITHUB_WORKSPACE
 cp .npmrc $GITHUB_WORKSPACE/incubator-superset/superset-frontend/.npmrc
 cd $GITHUB_WORKSPACE/incubator-superset/superset-frontend
 
-# add dependecies to pacakge.json
+# add dependencies to package.json
 node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/addDependencies.js
 
 # generate preset file and locate in incubator source code
-node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/generateMafPreset.js
-mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
+node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/generatePreset.js
+mv "./${PRESET_NAME}Preset.ts" "./src/visualizations/presets/${PRESET_NAME}Preset.js"
 
-# override setupPluginsExtra.js in incubator source code
-cp $GITHUB_WORKSPACE/superset-viz-plugins/templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
+# generate setupPluginsExtra override in incubator source code
+node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/generateSetupPluginsExtra.js
+cp "./${PLUGINS_EXTRA_FILENAME}" "src/setup/${PLUGINS_EXTRA_FILENAME}"
 
 npm install

@@ -13,8 +13,9 @@ cd $1
 #
 # Build the  image
 #
+
 docker build \
-  -t "${TAG_NAME}:0.38" \
+  -t "${TAG_NAME}:${SUPERSET_VERSION}" \
   --label "built_at=$(date)" \
   --label "build_actor=${GITHUB_ACTOR}" \
   .
