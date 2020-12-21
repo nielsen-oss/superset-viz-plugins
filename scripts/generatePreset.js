@@ -20,7 +20,6 @@ const packages = fg.sync([`${process.env.GITHUB_WORKSPACE}/superset-viz-plugins/
   onlyDirectories: true,
 });
 
-console.log(`${process.env.PRESET_NAME}`);
 const file = `./${process.env.PRESET_NAME}Preset.ts`;
 let importStringToWrite = `import { Preset } from '@superset-ui/core';
 `;
