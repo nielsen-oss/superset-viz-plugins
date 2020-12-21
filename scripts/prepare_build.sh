@@ -15,9 +15,9 @@ node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/generatePreset.js
 cat ./NielsenPreset.ts
 mv ./NielsenPreset.ts ./src/visualizations/presets/NielsenPreset.js
 
-# override setupPluginsExtra.ts in incubator source code
+# override setupPluginsExtra in incubator source code
 node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/generateSetupPluginsExtra.js
-cat ./setupPluginsExtra.ts
-mv ./setupPluginsExtra.ts /src/setup/setupPluginsExtra.ts
+cat ./$PLUGINS_EXTRA_FILENAME
+cp ./$PLUGINS_EXTRA_FILENAME /src/setup/$PLUGINS_EXTRA_FILENAME
 
 npm install

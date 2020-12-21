@@ -32,7 +32,7 @@ export default function setupPluginsExtra() {
 `;
 
   // With a callback:
-  fs.outputFile('setupPluginsExtra.ts', stringToWrite, err => {
+  fs.outputFile(`${process.env.PLUGINS_EXTRA_FILENAME}`, stringToWrite, err => {
     if (err) {
       console.log(err);
     }
