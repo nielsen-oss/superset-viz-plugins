@@ -7,7 +7,7 @@ echo $GITHUB_WORKSPACE
 # Add dependencies superset-frontend and generate the preset
 cp .npmrc $GITHUB_WORKSPACE/incubator-superset/superset-frontend/.npmrc
 cd $GITHUB_WORKSPACE/incubator-superset/superset-frontend
-ls ./src/setupPluginsExtra
+ls ./src/setup
 # add dependecies to pacakge.json
 node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/addDependencies.js
 
