@@ -20,7 +20,8 @@ const packages = fg.sync([`${process.env.GITHUB_WORKSPACE}/superset-viz-plugins/
   onlyDirectories: true,
 });
 
-const file = './MafPreset.ts';
+
+const file = `./${process.env.PRESET_NAME}Preset.ts`;
 let importStringToWrite = `import { Preset } from '@superset-ui/core';
 `;
 let pluginsStringToWrite = '';
@@ -28,10 +29,10 @@ buildStringFromPackage(packages).then(result => {
   importStringToWrite += result.importStringToWrite;
   pluginsStringToWrite += result.pluginsStringToWrite;
   const stringToWrite = `${importStringToWrite} 
-export default class MafPreset extends Preset {
+export default class ${process.env.PRESET_NAME}Preset extends Preset {
   constructor() {
     super({
-      name: 'MAF charts',
+      name: '${process.env.PRESET_NAME} charts',
       plugins: [
         ${pluginsStringToWrite}
       ],
