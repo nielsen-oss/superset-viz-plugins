@@ -8,7 +8,7 @@ echo $GITHUB_WORKSPACE
 cp .npmrc $GITHUB_WORKSPACE/incubator-superset/superset-frontend/.npmrc
 cd $GITHUB_WORKSPACE/incubator-superset/superset-frontend
 
-# add dependecies to pacakge.json
+# add dependencies to package.json
 node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/addDependencies.js
 
 # generate preset file and locate in incubator source code
