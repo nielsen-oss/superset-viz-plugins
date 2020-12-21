@@ -1,18 +1,20 @@
-yarn
-# get branch name
-$BRANCH_NAME=0.38
+#!//bin/bash
+set -e
 
-# Clone the repos
-cd ..
-git clone --single-branch --branch $FORK_BRANCH_NAME git@github.com:apache/incubator-superset.git
+echo $GITHUB_WORKSPACE
+
 # Add dependencies superset-frontend and generate the preset
-cp .npmrc ./incubator-superset/superset-frontend/.npmrc
-cd incubator-superset/superset-frontend
+cp .npmrc $GITHUB_WORKSPACE/incubator-superset/superset-frontend/.npmrc
+cd $GITHUB_WORKSPACE/incubator-superset/superset-frontend
 
+# add dependecies to pacakge.json
+node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/addDependencies.js
 
-cd 
-node ../../scripts/addDependencies.js
-node ../../scripts/generateMafPreset.js
+# generate preset file and locate in incubator source code
+node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/generateMafPreset.js
 mv ./MafPreset.ts ./src/visualizations/presets/MafPreset.js
-cp ../../templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
+
+# override setupPluginsExtra.js in incubator source code
+cp $GITHUB_WORKSPACE/superset-viz-plugins/templates/setupPluginsExtra.js ./src/setup/setupPluginsExtra.js
+
 npm install

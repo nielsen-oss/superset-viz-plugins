@@ -16,13 +16,12 @@ const buildStringFromPackage = async packages => {
 };
 const pkgGlob = process.argv[2] || '*';
 
-const packages = fg.sync([`../../plugins/${pkgGlob}`], {
+const packages = fg.sync([`${process.env.GITHUB_WORKSPACE}/superset-viz-plugins/plugins/${pkgGlob}`], {
   onlyDirectories: true,
 });
 
 const file = './MafPreset.ts';
 let importStringToWrite = `import { Preset } from '@superset-ui/core';
-import { DeckGLChartPreset } from '@superset-ui/legacy-preset-chart-deckgl';
 `;
 let pluginsStringToWrite = '';
 buildStringFromPackage(packages).then(result => {
@@ -33,7 +32,6 @@ export default class MafPreset extends Preset {
   constructor() {
     super({
       name: 'MAF charts',
-      presets: [new DeckGLChartPreset()],
       plugins: [
         ${pluginsStringToWrite}
       ],

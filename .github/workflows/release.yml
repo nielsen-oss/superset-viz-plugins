@@ -3,21 +3,23 @@ name: release-workflow
 on:
   push:
     branches:
-      - 'chore/release_workflow'
+      - 'master'
 
 jobs:
-  build:
-    name: Bump version and publish package(s)
+  main:
+    name: Inject plugins into superset and deploy docker image
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
-    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
       with:
+        node-version: '12.x'
+    - name: Checkout viz plugins repo
+      uses: actions/checkout@v2
+      with:
+        path: superset-viz-plugins
         # pulls all commits (needed for lerna / semantic release to correctly version)
         fetch-depth: 0
     - name: Get tags and filter trigger tags
@@ -25,6 +27,7 @@ jobs:
         git fetch --depth=1 origin "+refs/tags/*:refs/tags/*"
         git fetch --prune --unshallow
         git tag -d `git tag | grep -E '^trigger-'`
+      working-directory: ./superset-viz-plugins
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -32,10 +35,10 @@ jobs:
 
     - name: Install dependencies
       run: yarn install --frozen-lockfile
+      working-directory: ./superset-viz-plugins
     - name: Build packages
       run: yarn build
-    #- name: Run unit tests
-    #  run: yarn test
+      working-directory: ./superset-viz-plugins
 
     - name: Configure npm and git
       run: |
@@ -43,11 +46,11 @@ jobs:
         echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
         cat $HOME/.npmrc
         
-
         npm whoami
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git remote set-url origin "https://${GITHUB_TOKEN}@github.com/nielsen-oss/superset-viz-plugins.git" > /dev/null 2>&1
+      working-directory: ./superset-viz-plugins  
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -58,7 +61,35 @@ jobs:
         git tag -d `git tag | grep -E '^trigger-'`
         yarn prerelease
         yarn ci:release-from-tag
+      working-directory: ./superset-viz-plugins
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      
+    - name: Checkout superset repo
+      uses: actions/checkout@v2
+      with:
+        repository: apache/incubator-superset
+        path: incubator-superset
+        ref: 0.38
+
+          
+    - name: Prepare superset build
+      run: |
+        sh ./scripts/prepare_build.sh
+      working-directory: ./superset-viz-plugins
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        
+      
+    - name: build & push docker
+      shell: bash
+      env:
+        DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      run: |
+        chmod +x $GITHUB_WORKSPACE/superset-viz-plugins/.github/workflows/docker_build_push.sh
+        $GITHUB_WORKSPACE/superset-viz-plugins/.github/workflows/docker_build_push.sh $GITHUB_WORKSPACE/incubator-superset
+      working-directory: .
