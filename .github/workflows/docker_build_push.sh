@@ -6,7 +6,6 @@ set -eo pipefail
 ls $1
 
 # SHA=$(git rev-parse HEAD)
-TAG_NAME="nielsenoss/apache-superset"
 
 echo "docker file path is ${1}"
 cd $1
@@ -15,7 +14,7 @@ cd $1
 #
 
 docker build \
-  -t "${TAG_NAME}:${SUPERSET_VERSION}" \
+  -t "${REPOSITORY_NAME}:${SUPERSET_VERSION}" \
   --label "built_at=$(date)" \
   --label "build_actor=${GITHUB_ACTOR}" \
   .
@@ -27,5 +26,5 @@ else
   # Login and push
   docker logout
   docker login --username "${DOCKERHUB_USER}" --password "${DOCKERHUB_TOKEN}"
-  docker push "${TAG_NAME}"
+  docker push "${REPOSITORY_NAME}"
 fi
