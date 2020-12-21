@@ -32,7 +32,7 @@ export default function setupPluginsExtra() {
 `;
 
   // With a callback:
-  fs.outputFile('setupPluginsExtra.js', stringToWrite, err => {
+  fs.outputFile('setupPluginsExtra.ts', stringToWrite, err => {
     if (err) {
       console.log(err);
     }
