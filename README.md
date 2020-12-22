@@ -3,7 +3,7 @@
 
 ## Project Overview
 
-#### template repository
+#### Template repository
 This repository is a [template repository](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) that enables you to create a custom set of plugins that by Github workflow process generate a ready to load docker image bundled with the plugins
 
 #### Monorepo
