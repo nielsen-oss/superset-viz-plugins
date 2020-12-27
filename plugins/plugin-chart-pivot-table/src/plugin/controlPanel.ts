@@ -16,17 +16,17 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { t, validateNonEmpty } from '@superset-ui/core';
+import {t, validateNonEmpty} from '@superset-ui/core';
 
 import {
-  sharedControls,
   ControlConfig,
   ControlPanelConfig,
-  D3_FORMAT_OPTIONS,
   D3_FORMAT_DOCS,
+  D3_FORMAT_OPTIONS,
+  sharedControls,
 } from '@superset-ui/chart-controls';
-import { ColumnMeta, SelectControlConfig } from '@superset-ui/chart-controls/lib/types';
-import { SHOW_TOTAL_NAMES, ShowTotal } from '../types';
+import {ColumnMeta, SelectControlConfig} from '@superset-ui/chart-controls/lib/types';
+import {SHOW_TOTAL_NAMES, ShowTotal} from '../types';
 
 const rows: { name: string; config: SelectControlConfig<ColumnMeta, 'SelectControl'> } = {
   name: 'rows',
@@ -50,11 +50,10 @@ const transpose: { name: string; config: ControlConfig<'CheckboxControl'> } = {
 const showTotal: { name: string; config: ControlConfig<'SelectControl'> } = {
   name: 'show_total',
   config: {
-    freeForm: true,
     type: 'SelectControl',
     label: t('Show Total'),
-    clearable: false,
     default: ShowTotal.noTotal,
+    renderTrigger: true,
     description: t('Show total for rows / columns'),
     options: Object.keys(ShowTotal).map(value => ({
       value: value,
@@ -67,7 +66,6 @@ const numberFormat: { name: string; config: ControlConfig<'SelectControl'> } = {
   name: 'number_format',
   config: {
     type: 'SelectControl',
-    freeForm: true,
     label: t('Number format'),
     renderTrigger: true,
     default: 'SMART_NUMBER',
@@ -77,7 +75,6 @@ const numberFormat: { name: string; config: ControlConfig<'SelectControl'> } = {
 };
 
 const config: ControlPanelConfig = {
-  // For control input types, see: superset-frontend/src/explore/components/controls/index.js
   controlPanelSections: [
     {
       label: t('Query'),
@@ -87,12 +84,17 @@ const config: ControlPanelConfig = {
     {
       label: t('Options'),
       expanded: true,
-      controlSetRows: [[transpose, showTotal], [numberFormat]],
+      controlSetRows: [
+        [transpose]
+      ],
     },
     {
       label: t('Table Options'),
       expanded: true,
       controlSetRows: [
+        [
+          numberFormat, showTotal
+        ],
         [
           {
             name: `empty_value_placeholder`,

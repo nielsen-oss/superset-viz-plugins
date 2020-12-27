@@ -41,6 +41,9 @@ export type ChartProps<R extends string, C extends string, M extends string> = {
   width: number;
   height: number;
   formData: FormData<R, C, M>;
+  queriesData: {
+    data: QueryData<R, C, M>[];
+  }[];
   queryData: {
     data: QueryData<R, C, M>[];
   };
@@ -49,8 +52,8 @@ export type ChartProps<R extends string, C extends string, M extends string> = {
 export default function transformProps<R extends string, C extends string, M extends string>(
   chartProps: ChartProps<R, C, M>,
 ) {
-  const { width, height, formData, queryData } = chartProps;
-  const { data } = queryData;
+  const { width, height, formData, queryData, queriesData } = chartProps;
+  const data = (queriesData?.[0]?.data || queryData?.data);
   const metrics = formData.metrics.map(({ label }) => label).sort();
   const {
     transpose,
