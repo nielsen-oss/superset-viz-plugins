@@ -67,8 +67,6 @@ export const legendTop = {
     cache_timeout: 86400,
     error: null,
     is_cached: true,
-    query:
-      'SELECT due_to_group AS due_to_group,\n       period AS period,\n       sum(decomp_volume) AS "SUM(decomp_volume)"\nFROM w3q\nWHERE period != \'Total Period\'\n  AND due_to_group IS NOT NULL\nGROUP BY due_to_group,\n         period\nORDER BY "SUM(decomp_volume)" DESC\nLIMIT 100',
     status: 'success',
     stacktrace: null,
     rowcount: 44,
