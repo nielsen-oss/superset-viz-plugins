@@ -28,11 +28,12 @@ import {
 } from 'recharts';
 import ComposedChartTooltip from './ComposedChartTooltip';
 import {getNumberFormatter, styled} from '@superset-ui/core';
-import {LabelColors, ResultData} from '../plugin/utils';
+import {LabelColors, ResultData} from '../plugin/transformProps';
 import {
   CHART_SUB_TYPES,
   CHART_TYPES,
   getCartesianGridProps,
+  getChartMargin,
   getLegendProps,
   getMaxLengthOfDataKey,
   getMaxLengthOfMetric,
@@ -175,6 +176,8 @@ export default function ComposedChart(props: ComposedChartProps) {
     setDisabledDataKeys(resultKeys);
   };
 
+  const chartMargin = getChartMargin(legendPosition, legendWidth, yAxis);
+
   return (
     <Styles key={updater} height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
       <RechartsComposedChart
@@ -182,7 +185,7 @@ export default function ComposedChart(props: ComposedChartProps) {
         width={width}
         height={height}
         layout={layout}
-        margin={{ left: 10, right: 10 }}
+        margin={chartMargin}
         data={currentData}
       >
         {showLegend && (

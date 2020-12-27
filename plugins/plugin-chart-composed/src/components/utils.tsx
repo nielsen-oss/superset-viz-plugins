@@ -17,10 +17,11 @@
  * under the License.
  */
 import React from 'react';
-import {Area, Bar, LabelFormatter, LabelProps, LegendPayload, LegendProps, Line, Scatter} from 'recharts';
-import {BREAKDOWN_SEPARATOR, LabelColors, ResultData} from '../plugin/utils';
-import ComposedChartTick, {ComposedChartTickProps} from './ComposedChartTick';
-import {CategoricalColorNamespace, getNumberFormatter} from '@superset-ui/core';
+import { Area, Bar, LabelFormatter, LabelProps, LegendPayload, LegendProps, Line, Scatter } from 'recharts';
+import { BREAKDOWN_SEPARATOR, LabelColors, ResultData } from '../plugin/transformProps';
+import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
+import { CategoricalColorNamespace, getNumberFormatter } from '@superset-ui/core';
+import { YAxisProps } from './ComposedChart';
 
 export enum Layout {
   horizontal = 'horizontal',
@@ -113,6 +114,19 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   return result;
 }
 
+export const getChartMargin = (legendPosition: LegendPosition, legendWidth: number, yAxis: YAxisProps) => {
+  const chartMargin = { left: 0, right: 5 };
+
+  if (yAxis.label) {
+    chartMargin.left += 20;
+  }
+  if (yAxis.label2) {
+    chartMargin.right += 20;
+  }
+
+  return chartMargin;
+};
+
 const getLabelSize = (angle: number, dataKeyLength: number, angleMin: number, angleMax: number): number =>
   angle === angleMin
     ? MIN_LABEL_MARGIN
@@ -164,7 +178,7 @@ export const getLegendProps = (
         layout: Layout.vertical,
         wrapperStyle: {
           ...result.wrapperStyle,
-          paddingLeft: 20,
+          paddingLeft: 10,
         },
       };
     case LegendPosition.bottom:
@@ -264,7 +278,7 @@ export const getChartElement = (
       };
   }
 
-  return {...commonProps};
+  return { ...commonProps };
 };
 
 type AxisProps = {
@@ -279,12 +293,11 @@ type AxisProps = {
 };
 
 const AXIS_OFFSET = 30;
-export const getXAxisProps = ({layout, angle = 0, label, dataKeyLength, metricLength, numbersFormat}: AxisProps) => {
+export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricLength, numbersFormat }: AxisProps) => {
   const textAnchor = angle === 0 ? 'middle' : 'end';
   const labelProps: LabelProps = {
     value: label,
     position: 'bottom',
-    dy: -15,
   };
   const params = {
     dy: 5,
@@ -295,8 +308,12 @@ export const getXAxisProps = ({layout, angle = 0, label, dataKeyLength, metricLe
     case Layout.vertical:
       return {
         ...params,
+        label: {
+          ...params.label,
+          dy: -15,
+        },
         tick: (props: ComposedChartTickProps) => (
-          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)}/>
+          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
         ),
         height: angle === 0 ? MIN_LABEL_MARGIN + AXIS_OFFSET : metricLength + AXIS_OFFSET,
         type: 'number' as const,
@@ -305,8 +322,8 @@ export const getXAxisProps = ({layout, angle = 0, label, dataKeyLength, metricLe
     default:
       return {
         ...params,
-        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor}/>,
-        height: getLabelSize(angle, dataKeyLength, 0, -90) + AXIS_OFFSET,
+        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
+        height: getLabelSize(angle, dataKeyLength, 0, -90),
         interval: 0,
         dataKey: 'rechartsDataKey',
       };
@@ -325,7 +342,7 @@ export const getYAxisProps = ({
 }: AxisProps) => {
   const textAnchorPerAxis = isSecondAxis ? 'start' : 'end';
   const textAnchor = angle === -90 ? 'middle' : textAnchorPerAxis;
-  const labelOffset = 0;
+  const labelOffset = isSecondAxis ? 10 : 0;
   const labelProps: LabelProps = {
     offset: labelOffset,
     value: label,
@@ -342,7 +359,7 @@ export const getYAxisProps = ({
     case Layout.vertical:
       return {
         ...params,
-        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor}/>,
+        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
         width: getLabelSize(angle, dataKeyLength, -90, 0),
         dataKey: isSecondAxis ? dataKey : 'rechartsDataKey',
         type: 'category' as const,
@@ -352,13 +369,13 @@ export const getYAxisProps = ({
         ...params,
         width: angle === -90 ? MIN_LABEL_MARGIN : metricLength + AXIS_OFFSET,
         tick: (props: ComposedChartTickProps) => (
-          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)}/>
+          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
         ),
       };
   }
 };
 
-export const getCartesianGridProps = ({layout}: { layout: Layout }) => {
+export const getCartesianGridProps = ({ layout }: { layout: Layout }) => {
   switch (layout) {
     case Layout.vertical:
       return {
@@ -442,7 +459,7 @@ export const renderChartElement = ({
     customChartType = chartTypeMetrics[index];
     customChartSubType = chartSubTypeMetrics[index];
   }
-  const {Element, ...elementProps} = getChartElement(
+  const { Element, ...elementProps } = getChartElement(
     breakdown,
     customChartType,
     customChartSubType,
