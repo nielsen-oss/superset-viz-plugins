@@ -19,7 +19,7 @@
 import React, { useState, FC, useEffect, memo, useRef, useCallback } from 'react';
 import { styled, t, CategoricalColorNamespace } from '@superset-ui/core';
 import {
-  PieChart as RechartsPieChart,
+  PieChart,
   Pie as RechartsPie,
   Cell,
   RechartsFunction,
@@ -61,7 +61,7 @@ export type PieProps<G extends string, DK extends string> = {
   showLegend: boolean;
   showLabels: boolean;
   groupBy: G;
-  labelType: string;
+  pieLabelType: string;
 };
 
 const Notification = styled.div`
@@ -88,7 +88,7 @@ const Styles = styled.div<PieStylesProps>`
   }
 `;
 
-const PieChart: FC<PieProps<string, string>> = memo(props => {
+const Pie: FC<PieProps<string, string>> = memo(props => {
   const {
     dataKey,
     data,
@@ -99,7 +99,7 @@ const PieChart: FC<PieProps<string, string>> = memo(props => {
     showLegend,
     showLabels,
     groupBy,
-    labelType,
+    pieLabelType,
     legendPosition,
   } = props;
   const [notification, setNotification] = useState<string | null>(null);
@@ -171,26 +171,23 @@ const PieChart: FC<PieProps<string, string>> = memo(props => {
     cx: isSideLegend ? outerRadius + chartMargin : '50%',
     outerRadius,
     label: showLabels
-      ? labelProps => renderActiveShape({ ...labelProps, groupBy, labelType } as ActiveShapeProps)
+      ? labelProps => renderActiveShape({ ...labelProps, groupBy, pieLabelType } as ActiveShapeProps)
       : false,
     onClick,
   };
 
   if (isDonut) {
     pieProps.activeShape = activeShapeProps =>
-      renderActiveShape({ ...activeShapeProps, groupBy, labelType, isDonut: true });
+      renderActiveShape({ ...activeShapeProps, groupBy, pieLabelType, isDonut: true });
     pieProps.onMouseEnter = onPieEnter;
     pieProps.innerRadius = outerRadius - outerRadius * 0.2;
     pieProps.label = false;
   }
-  console.log(data.map(item => console.log(groupBy, item[groupBy], colorScheme, CategoricalColorNamespace.getScale(colorScheme), {
-    color: CategoricalColorNamespace.getScale(colorScheme)(item[groupBy]),
-  })))
 
   return (
     <Styles height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
       {notification && <Notification onClick={closeNotification}>{notification}</Notification>}
-      <RechartsPieChart key={updater} width={chartWidth} height={height}>
+      <PieChart key={updater} width={chartWidth} height={height}>
         {showLegend && (
           <Legend
             onClick={handleLegendClick}
@@ -213,9 +210,9 @@ const PieChart: FC<PieProps<string, string>> = memo(props => {
             ))}
           </RechartsPie>
         )}
-      </RechartsPieChart>
+      </PieChart>
     </Styles>
   );
 });
 
-export default PieChart;
+export default Pie;

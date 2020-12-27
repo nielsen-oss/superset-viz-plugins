@@ -35,31 +35,21 @@ Object {
             ]
           }
           dataKey="AVG(efficiency)"
-          innerRadius={80}
+          innerRadius={158}
           label={false}
           onClick={[Function]}
           onMouseEnter={[Function]}
-          outerRadius={100}
+          outerRadius={197.5}
         >
-          <Cell
-            fill="#1f77b4"
-          />
-          <Cell
-            fill="#ff7f0e"
-          />
-          <Cell
-            fill="#2ca02c"
-          />
-          <Cell
-            fill="#d62728"
-          />
-          <Cell
-            fill="#9467bd"
-          />
+          <Cell />
+          <Cell />
+          <Cell />
+          <Cell />
+          <Cell />
         </mockConstructor>,
       ],
-      "height": 400,
-      "width": 800,
+      "height": 596,
+      "width": 595,
     },
     Object {},
   ],
@@ -68,21 +58,11 @@ Object {
       "activeIndex": 0,
       "activeShape": [Function],
       "children": Array [
-        <Cell
-          fill="#1f77b4"
-        />,
-        <Cell
-          fill="#ff7f0e"
-        />,
-        <Cell
-          fill="#2ca02c"
-        />,
-        <Cell
-          fill="#d62728"
-        />,
-        <Cell
-          fill="#9467bd"
-        />,
+        <Cell />,
+        <Cell />,
+        <Cell />,
+        <Cell />,
+        <Cell />,
       ],
       "cx": "50%",
       "data": Array [
@@ -108,11 +88,11 @@ Object {
         },
       ],
       "dataKey": "AVG(efficiency)",
-      "innerRadius": 80,
+      "innerRadius": 158,
       "label": false,
       "onClick": [Function],
       "onMouseEnter": [Function],
-      "outerRadius": 100,
+      "outerRadius": 197.5,
     },
     Object {},
   ],
@@ -130,7 +110,7 @@ Object {
       "onClick": [Function],
       "payload": Array [
         Object {
-          "color": "#1f77b4",
+          "color": undefined,
           "id": "2020",
           "payload": Object {
             "AVG(efficiency)": 0.0566666666666667,
@@ -140,7 +120,7 @@ Object {
           "value": "2020",
         },
         Object {
-          "color": "#ff7f0e",
+          "color": undefined,
           "id": "2018",
           "payload": Object {
             "AVG(efficiency)": 0.038,
@@ -150,7 +130,7 @@ Object {
           "value": "2018",
         },
         Object {
-          "color": "#2ca02c",
+          "color": undefined,
           "id": "2019",
           "payload": Object {
             "AVG(efficiency)": 0.0162068965517241,
@@ -160,7 +140,7 @@ Object {
           "value": "2019",
         },
         Object {
-          "color": "#d62728",
+          "color": undefined,
           "id": "Total Period",
           "payload": Object {
             "AVG(efficiency)": 0.0138888888888889,
@@ -170,7 +150,7 @@ Object {
           "value": "Total Period",
         },
         Object {
-          "color": "#9467bd",
+          "color": undefined,
           "id": "2017",
           "payload": Object {
             "AVG(efficiency)": 0.011304347826087,
@@ -182,7 +162,7 @@ Object {
       ],
       "verticalAlign": "middle",
       "wrapperStyle": Object {
-        "maxHeight": 400,
+        "maxHeight": 596,
         "width": 0,
       },
     },
@@ -200,7 +180,7 @@ Object {
           payload={
             Array [
               Object {
-                "color": "#1f77b4",
+                "color": undefined,
                 "id": "2020",
                 "payload": Object {
                   "AVG(efficiency)": 0.0566666666666667,
@@ -210,7 +190,7 @@ Object {
                 "value": "2020",
               },
               Object {
-                "color": "#ff7f0e",
+                "color": undefined,
                 "id": "2018",
                 "payload": Object {
                   "AVG(efficiency)": 0.038,
@@ -220,7 +200,7 @@ Object {
                 "value": "2018",
               },
               Object {
-                "color": "#2ca02c",
+                "color": undefined,
                 "id": "2019",
                 "payload": Object {
                   "AVG(efficiency)": 0.0162068965517241,
@@ -230,7 +210,7 @@ Object {
                 "value": "2019",
               },
               Object {
-                "color": "#d62728",
+                "color": undefined,
                 "id": "Total Period",
                 "payload": Object {
                   "AVG(efficiency)": 0.0138888888888889,
@@ -240,7 +220,7 @@ Object {
                 "value": "Total Period",
               },
               Object {
-                "color": "#9467bd",
+                "color": undefined,
                 "id": "2017",
                 "payload": Object {
                   "AVG(efficiency)": 0.011304347826087,
@@ -254,15 +234,15 @@ Object {
           verticalAlign="middle"
           wrapperStyle={
             Object {
-              "maxHeight": 400,
+              "maxHeight": 596,
               "width": 0,
             }
           }
         />,
         false,
       ],
-      "height": 400,
-      "width": 800,
+      "height": 596,
+      "width": 595,
     },
     Object {},
   ],
@@ -281,7 +261,7 @@ Object {
       "onClick": [Function],
       "payload": Array [
         Object {
-          "color": "#1f77b4",
+          "color": undefined,
           "id": "2020",
           "payload": Object {
             "AVG(efficiency)": 0.0566666666666667,
@@ -291,7 +271,7 @@ Object {
           "value": "2020",
         },
         Object {
-          "color": "#ff7f0e",
+          "color": undefined,
           "id": "2018",
           "payload": Object {
             "AVG(efficiency)": 0.038,
@@ -301,7 +281,7 @@ Object {
           "value": "2018",
         },
         Object {
-          "color": "#2ca02c",
+          "color": undefined,
           "id": "2019",
           "payload": Object {
             "AVG(efficiency)": 0.0162068965517241,
@@ -311,7 +291,7 @@ Object {
           "value": "2019",
         },
         Object {
-          "color": "#d62728",
+          "color": undefined,
           "id": "Total Period",
           "payload": Object {
             "AVG(efficiency)": 0.0138888888888889,
@@ -321,7 +301,7 @@ Object {
           "value": "Total Period",
         },
         Object {
-          "color": "#9467bd",
+          "color": undefined,
           "id": "2017",
           "payload": Object {
             "AVG(efficiency)": 0.011304347826087,
@@ -333,7 +313,7 @@ Object {
       ],
       "verticalAlign": "top",
       "wrapperStyle": Object {
-        "maxHeight": 400,
+        "maxHeight": 596,
       },
     },
     Object {},
@@ -350,7 +330,7 @@ Object {
           payload={
             Array [
               Object {
-                "color": "#1f77b4",
+                "color": undefined,
                 "id": "2020",
                 "payload": Object {
                   "AVG(efficiency)": 0.0566666666666667,
@@ -360,7 +340,7 @@ Object {
                 "value": "2020",
               },
               Object {
-                "color": "#ff7f0e",
+                "color": undefined,
                 "id": "2018",
                 "payload": Object {
                   "AVG(efficiency)": 0.038,
@@ -370,7 +350,7 @@ Object {
                 "value": "2018",
               },
               Object {
-                "color": "#2ca02c",
+                "color": undefined,
                 "id": "2019",
                 "payload": Object {
                   "AVG(efficiency)": 0.0162068965517241,
@@ -380,7 +360,7 @@ Object {
                 "value": "2019",
               },
               Object {
-                "color": "#d62728",
+                "color": undefined,
                 "id": "Total Period",
                 "payload": Object {
                   "AVG(efficiency)": 0.0138888888888889,
@@ -390,7 +370,7 @@ Object {
                 "value": "Total Period",
               },
               Object {
-                "color": "#9467bd",
+                "color": undefined,
                 "id": "2017",
                 "payload": Object {
                   "AVG(efficiency)": 0.011304347826087,
@@ -404,7 +384,7 @@ Object {
           verticalAlign="top"
           wrapperStyle={
             Object {
-              "maxHeight": 400,
+              "maxHeight": 596,
             }
           }
         />,
@@ -438,27 +418,17 @@ Object {
           dataKey="AVG(efficiency)"
           label={[Function]}
           onClick={[Function]}
-          outerRadius={100}
+          outerRadius={197.5}
         >
-          <Cell
-            fill="#1f77b4"
-          />
-          <Cell
-            fill="#ff7f0e"
-          />
-          <Cell
-            fill="#2ca02c"
-          />
-          <Cell
-            fill="#d62728"
-          />
-          <Cell
-            fill="#9467bd"
-          />
+          <Cell />
+          <Cell />
+          <Cell />
+          <Cell />
+          <Cell />
         </mockConstructor>,
       ],
-      "height": 400,
-      "width": 800,
+      "height": 596,
+      "width": 595,
     },
     Object {},
   ],
@@ -466,21 +436,11 @@ Object {
     Object {
       "activeIndex": 0,
       "children": Array [
-        <Cell
-          fill="#1f77b4"
-        />,
-        <Cell
-          fill="#ff7f0e"
-        />,
-        <Cell
-          fill="#2ca02c"
-        />,
-        <Cell
-          fill="#d62728"
-        />,
-        <Cell
-          fill="#9467bd"
-        />,
+        <Cell />,
+        <Cell />,
+        <Cell />,
+        <Cell />,
+        <Cell />,
       ],
       "cx": "50%",
       "data": Array [
@@ -508,7 +468,7 @@ Object {
       "dataKey": "AVG(efficiency)",
       "label": [Function],
       "onClick": [Function],
-      "outerRadius": 100,
+      "outerRadius": 197.5,
     },
     Object {},
   ],

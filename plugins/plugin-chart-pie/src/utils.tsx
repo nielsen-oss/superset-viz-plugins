@@ -18,37 +18,25 @@
  */
 import {LegendProps, PieLabelRenderProps, Sector} from 'recharts';
 import React from 'react';
-import {getNumberFormatter, NumberFormats, t} from '@superset-ui/core';
-
-export enum LabelTypes {
-  percent = 'percent',
-  category = 'category',
-  categoryPercent = 'category_percent'
-}
-
-export const LabelTypeNames = {
-  [LabelTypes.percent]: t('Percent'),
-  [LabelTypes.category]: t('Category Name'),
-  [LabelTypes.categoryPercent]: t('Category and Percentage'),
-}
+import {getNumberFormatter, NumberFormats} from '@superset-ui/core';
 
 export const renderCustomizedLabel = (
-  labelProps: Partial<PieLabelRenderProps> & { x: number; groupBy: string; labelType: string },
+  labelProps: Partial<PieLabelRenderProps> & { x: number; groupBy: string; pieLabelType: string },
 ) => {
   let percent = labelProps.percent ? +labelProps.percent : 100;
 
   const percentFormatter = getNumberFormatter(NumberFormats.PERCENT_2_POINT);
-  switch (labelProps.labelType) {
-    case LabelTypes.percent:
+  switch (labelProps.pieLabelType) {
+    case 'percent':
       return <tspan>{percentFormatter(percent)}</tspan>;
-    case LabelTypes.categoryPercent:
+    case 'key_percent':
       return (
         <tspan>
           <tspan>{`${labelProps[labelProps.groupBy]}: `}</tspan>
           <tspan x={labelProps.x} dy="1.2em" fontWeight="bold">{`${percentFormatter(percent)}`}</tspan>
         </tspan>
       );
-    case LabelTypes.category:
+    case 'key':
     default:
       return labelProps[labelProps.groupBy];
   }
@@ -62,7 +50,7 @@ export type ActiveShapeProps = {
   outerRadius?: number;
   startAngle: number;
   endAngle: number;
-  labelType: string;
+  pieLabelType: string;
   fill: string;
   groupBy: string;
   payload?: {
@@ -86,7 +74,7 @@ export const renderActiveShape = (props: Partial<ActiveShapeProps>) => {
     fill,
     payload,
     groupBy,
-    labelType,
+    pieLabelType,
     isDonut,
   } = props;
 
@@ -129,7 +117,7 @@ export const renderActiveShape = (props: Partial<ActiveShapeProps>) => {
       <path d={`M${sx},${sy}L${mx},${my}`} stroke={fill} fill="none"/>
       <circle cx={mx} cy={my} r={2} fill={fill} stroke="none"/>
       <text x={x} y={ey} textAnchor={textAnchor} fill={fill}>
-        {renderCustomizedLabel({...props, x, groupBy: groupBy!, labelType: labelType!})}
+        {renderCustomizedLabel({...props, x, groupBy: groupBy!, pieLabelType: pieLabelType!})}
       </text>
     </g>
   );

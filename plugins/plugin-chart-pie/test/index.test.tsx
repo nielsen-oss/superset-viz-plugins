@@ -23,7 +23,7 @@ import * as recharts from 'recharts'
 import {supersetTheme, ThemeProvider} from "@superset-ui/core";
 import transformProps from '../src/plugin/transformProps'
 import {categoryPercentageDonutNoLegend, legendLeftWithoutLabels, legendTopPercentage} from "./__mocks__/pieProps";
-import PieChart from "../src/PieChart";
+import PieChart from "../src/Pie";
 
 jest.mock('recharts')
 

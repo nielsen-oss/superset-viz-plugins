@@ -17,7 +17,7 @@
  * under the License.
  */
 import {formatSelectOptions, sharedControls} from '@superset-ui/chart-controls';
-import {LabelTypeNames, LabelTypes, LegendPosition} from '../utils';
+import {LegendPosition} from '../utils';
 import {QueryFormData, t, validateNonEmpty} from '@superset-ui/core';
 import {ColumnMeta, SelectControlConfig} from '@superset-ui/chart-controls/lib/types';
 
@@ -53,14 +53,18 @@ const showLabels = {
 }
 
 const labelType = {
-  name: 'label_type',
+  name: 'pie_label_type',
   config: {
     type: 'SelectControl',
     label: t('Label Type'),
-    default: LabelTypes.percent,
+    default: 'percent',
     renderTrigger: true,
     visibility: ({form_data}: { form_data: QueryFormData }) => form_data.is_donut === false && form_data.show_labels === true,
-    choices: Object.values(LabelTypes).map(val => ([val, LabelTypeNames[val as LabelTypes]])),
+    choices: [
+      ['key', 'Category Name'],
+      ['percent', 'Percentage'],
+      ['key_percent', 'Category and Percentage'],
+    ],
     description: t('What should be shown on the label?'),
   },
 }
