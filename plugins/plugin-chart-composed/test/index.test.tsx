@@ -44,6 +44,9 @@ describe('plugin-chart-composed', () => {
   const Bar = jest.fn(() => <div/>);
   const Line = jest.fn(() => <div/>);
   beforeEach(() => {
+    // Recharts still have some UNSAFE react functions that failing test
+    jest.spyOn(console, 'warn').mockImplementation(() => null);
+
     jest.clearAllMocks()
 
     // @ts-ignore

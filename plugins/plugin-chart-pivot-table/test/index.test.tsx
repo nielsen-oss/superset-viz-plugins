@@ -25,6 +25,10 @@ import {supersetTheme, ThemeProvider} from "@superset-ui/core";
 import {withNoTotals, withTotals} from "./__mocks__/pivotTableProps";
 
 describe('plugin-chart-table-pivot', () => {
+  beforeEach(() => {
+    // Recharts still have some UNSAFE react functions that failing test
+    jest.spyOn(console, 'warn').mockImplementation(() => null);
+  });
   const getWrapper = (props: object) => render(
     <ThemeProvider theme={supersetTheme}>
       {/*

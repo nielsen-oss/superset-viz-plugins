@@ -27,7 +27,7 @@ import WaterfallChart from "../src/components/WaterfallChart";
 
 jest.mock('recharts')
 
-describe('plugin-chart-waterfall', () => {
+describe('plugin-chart-composed', () => {
   const BarChart = jest.fn((props) => <div {...props}/>);
   const CartesianGrid = jest.fn(() => <div/>);
   const Legend = jest.fn(() => <div/>);
