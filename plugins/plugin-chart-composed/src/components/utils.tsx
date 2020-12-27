@@ -298,6 +298,7 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
   const labelProps: LabelProps = {
     value: label,
     position: 'bottom',
+    dy: -15,
   };
   const params = {
     dy: 5,
@@ -308,10 +309,6 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
     case Layout.vertical:
       return {
         ...params,
-        label: {
-          ...params.label,
-          dy: -15,
-        },
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
         ),
@@ -323,7 +320,7 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
       return {
         ...params,
         tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
-        height: getLabelSize(angle, dataKeyLength, 0, -90),
+        height: getLabelSize(angle, dataKeyLength, 0, -90) + AXIS_OFFSET,
         interval: 0,
         dataKey: 'rechartsDataKey',
       };
