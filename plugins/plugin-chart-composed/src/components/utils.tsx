@@ -114,7 +114,7 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   return result;
 }
 
-export const getChartMargin = (legendPosition: LegendPosition, legendWidth: number, yAxis: YAxisProps) => {
+export const getChartMargin = (legendPosition: LegendPosition, yAxis: YAxisProps) => {
   const chartMargin = { left: 0, right: 5 };
 
   if (yAxis.label) {
