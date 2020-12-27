@@ -1,4 +1,4 @@
-export default {
+export const legendTop = {
   width: 1229,
   height: 808,
   formData: {
@@ -6,6 +6,8 @@ export default {
     datasource: '26__table',
     vizType: 'waterfall',
     sliceId: 493,
+    legendPosition: 'top',
+    numbersFormat: '.1s',
     urlParams: {},
     timeRangeEndpoints: ['inclusive', 'exclusive'],
     timeRange: 'Last week',
@@ -33,7 +35,6 @@ export default {
       optionName: 'metric_wo8xgwuq7tq_tknvpf3ks5l',
       sqlExpression: null,
     },
-
     adhocFilters: [
       {
         clause: 'WHERE',
