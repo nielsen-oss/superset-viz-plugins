@@ -4,7 +4,7 @@ import { render, screen, configure } from '@testing-library/react';
 import { supersetTheme, ThemeProvider } from '@superset-ui/core';
 import WaterfallChart from '../../src/components/WaterfallChart';
 import transformProps from '../../src/plugin/transformProps';
-import waterfallData from '../mocks/waterfallData';
+import waterfallData from '../__mocks__/waterfallData';
 configure({ testIdAttribute: 'data-test-id' });
 describe('Waterfall chart', () => {
   beforeEach(() => {

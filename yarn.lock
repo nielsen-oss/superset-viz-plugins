@@ -2505,19 +2505,19 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@superset-ui/chart-controls@^0.15.5":
-  version "0.15.13"
-  resolved "https://registry.yarnpkg.com/@superset-ui/chart-controls/-/chart-controls-0.15.13.tgz#1eb1d5cfaf08ecc072d9f60a495924b28868c06b"
-  integrity sha512-T3wkD8Sc0JwXevUTFyMHdslBOcNPN4apgb0vWuiVmWQFR3RZrVJJZnpllJ5YA5Q8ak1Vo+xUuKmu0RlrQWdieA==
+"@superset-ui/chart-controls@^0.16.1":
+  version "0.16.1"
+  resolved "https://registry.npmjs.org/@superset-ui/chart-controls/-/chart-controls-0.16.1.tgz#81e9bcf8f26f92b4f01e255984d49d297983cf7b"
+  integrity sha512-r6HsOFeOHMstu2C70sXQphYiMZfXSTEsZrfXJ+TMaqbEovX+FWJ4KysPGY7ttGeYmYuiLG+ETfPAMuPAmQxR7g==
   dependencies:
-    "@superset-ui/core" "0.15.13"
+    "@superset-ui/core" "0.16.1"
     lodash "^4.17.15"
     prop-types "^15.7.2"
 
-"@superset-ui/core@0.15.13", "@superset-ui/core@^0.15.10":
-  version "0.15.13"
-  resolved "https://registry.yarnpkg.com/@superset-ui/core/-/core-0.15.13.tgz#955955fcd2886cdba82185c1eeab9c1c6ab0ca8b"
-  integrity sha512-2mCOGO5OdNJwcokmuoWhZVzjEdWCqVT1DqUCBzmyOjvbvX5J+ZWKJFMZ+GUMoLHzxGzYI3xPhdzJWnYdLrBXmg==
+"@superset-ui/core@0.16.1", "@superset-ui/core@^0.16.1":
+  version "0.16.1"
+  resolved "https://registry.npmjs.org/@superset-ui/core/-/core-0.16.1.tgz#2010e77726d5d82367e2f8e4612527240e4b2f09"
+  integrity sha512-5sZ7xtZrQ3tx2gXACvRNy3AhXUzrcuzq0D94W5J24LGmSULhNOCtQZyq0grXeyQNxcPiRp9UwHRhn8zyZ2Bdzw==
   dependencies:
     "@babel/runtime" "^7.1.2"
     "@emotion/core" "^10.0.28"
@@ -2528,6 +2528,8 @@
     "@types/d3-time" "^1.0.9"
     "@types/d3-time-format" "^2.1.0"
     "@types/lodash" "^4.14.149"
+    "@types/rison" "0.0.6"
+    "@types/seedrandom" "^2.4.28"
     "@vx/responsive" "^0.0.197"
     csstype "^2.6.4"
     d3-format "^1.3.2"
@@ -2542,6 +2544,8 @@
     pretty-ms "^7.0.0"
     react-error-boundary "^1.2.5"
     reselect "^4.0.0"
+    rison "^0.1.1"
+    seedrandom "^3.0.5"
     whatwg-fetch "^3.0.0"
 
 "@testing-library/dom@^7.28.1":
@@ -2822,6 +2826,16 @@
   dependencies:
     "@types/d3-shape" "^1"
     "@types/react" "*"
+
+"@types/rison@0.0.6":
+  version "0.0.6"
+  resolved "https://registry.npmjs.org/@types/rison/-/rison-0.0.6.tgz#405605f63d4fe0ec0d66b2dd7eaf51a99a51144e"
+  integrity sha512-mE3eRK0fpTN/GnNBOIg2tGq2cFhchQXF6fCbrLxus75TgnoOECbdHikr948FGO/UAml7/ZhLMa5FbGkF5PKvmw==
+
+"@types/seedrandom@^2.4.28":
+  version "2.4.28"
+  resolved "https://registry.npmjs.org/@types/seedrandom/-/seedrandom-2.4.28.tgz#9ce8fa048c1e8c85cb71d7fe4d704e000226036f"
+  integrity sha512-SMA+fUwULwK7sd/ZJicUztiPs8F1yCPwF3O23Z9uQ32ME5Ha0NmDK9+QTsYE4O2tHXChzXomSWWeIhCnoN1LqA==
 
 "@types/source-list-map@*":
   version "0.1.2"
@@ -10501,6 +10515,11 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
+rison@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/rison/-/rison-0.1.1.tgz#4dcc0557b241aff60e76178e7792135713f33120"
+  integrity sha1-TcwFV7JBr/YOdheOd5ITVxPzMSA=
+
 rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
@@ -10615,6 +10634,11 @@ schema-utils@^3.0.0:
     "@types/json-schema" "^7.0.6"
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
+
+seedrandom@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.npmjs.org/seedrandom/-/seedrandom-3.0.5.tgz#54edc85c95222525b0c7a6f6b3543d8e0b3aa0a7"
+  integrity sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==
 
 semver-compare@^1.0.0:
   version "1.0.0"

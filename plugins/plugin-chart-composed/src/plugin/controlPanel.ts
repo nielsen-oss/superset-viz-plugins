@@ -46,17 +46,6 @@ import {
 } from './configs/chartTypes';
 import { chartTypeMetrics } from './configs/chartTypeMetrics';
 
-export const stackedBars = {
-  name: 'stacked_bars',
-  config: {
-    type: 'CheckboxControl',
-    label: t('Stacked Bars'),
-    renderTrigger: true,
-    default: false,
-    description: null,
-  },
-};
-
 export const showLegend = {
   name: 'show_legend',
   config: {

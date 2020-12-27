@@ -115,7 +115,7 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
 }
 
 export const getChartMargin = (legendPosition: LegendPosition, legendWidth: number, yAxis: YAxisProps) => {
-  const chartMargin = { left: legendPosition === LegendPosition.left ? legendWidth : 0, right: 5 };
+  const chartMargin = { left: 0, right: 5 };
 
   if (yAxis.label) {
     chartMargin.left += 20;
@@ -153,6 +153,7 @@ export const getLegendProps = (
   }));
   let result = {
     payload,
+    width: legendWidth,
     wrapperStyle: {
       maxHeight: height,
     },
@@ -170,10 +171,6 @@ export const getLegendProps = (
       return {
         ...result,
         layout: Layout.vertical,
-        wrapperStyle: {
-          ...result.wrapperStyle,
-          marginLeft: -legendWidth,
-        },
       };
     case LegendPosition.right:
       return {
@@ -181,7 +178,7 @@ export const getLegendProps = (
         layout: Layout.vertical,
         wrapperStyle: {
           ...result.wrapperStyle,
-          marginRight: -legendWidth - 10,
+          paddingLeft: 10,
         },
       };
     case LegendPosition.bottom:
@@ -192,7 +189,7 @@ export const getLegendProps = (
         wrapperStyle: {
           ...result.wrapperStyle,
           paddingTop: 10,
-          width: width - 40,
+          width
         },
       };
     case LegendPosition.top:
@@ -203,7 +200,7 @@ export const getLegendProps = (
         wrapperStyle: {
           ...result.wrapperStyle,
           paddingBottom: 10,
-          width: width - 40,
+          width
         },
       };
   }
@@ -295,6 +292,7 @@ type AxisProps = {
   numbersFormat: string;
 };
 
+const AXIS_OFFSET = 30;
 export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricLength, numbersFormat }: AxisProps) => {
   const textAnchor = angle === 0 ? 'middle' : 'end';
   const labelProps: LabelProps = {
@@ -310,10 +308,14 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
     case Layout.vertical:
       return {
         ...params,
+        label: {
+          ...params.label,
+          dy: -15,
+        },
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
         ),
-        height: angle === 0 ? MIN_LABEL_MARGIN : metricLength,
+        height: angle === 0 ? MIN_LABEL_MARGIN + AXIS_OFFSET : metricLength + AXIS_OFFSET,
         type: 'number' as const,
       };
     case Layout.horizontal:
@@ -328,7 +330,6 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
   }
 };
 
-const Y_AXIS_OFFSET = 30;
 export const getYAxisProps = ({
   layout,
   angle = 0,
@@ -366,7 +367,7 @@ export const getYAxisProps = ({
     default:
       return {
         ...params,
-        width: angle === -90 ? MIN_LABEL_MARGIN : metricLength + Y_AXIS_OFFSET,
+        width: angle === -90 ? MIN_LABEL_MARGIN : metricLength + AXIS_OFFSET,
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
         ),
