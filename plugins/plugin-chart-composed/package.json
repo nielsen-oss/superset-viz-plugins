@@ -33,19 +33,15 @@
     "access": "public"
   },
   "dependencies": {
+    "@superset-ui/core": "^0.16.1",
     "recharts": "^1.8.5"
   },
   "peerDependencies": {
     "@superset-ui/chart-controls": "^0.15.5",
-    "@superset-ui/core": "^0.15.10",
-    "react": "^16.13.1",
-    "react-bootstrap": "^1.4.0"
+    "@superset-ui/core": "^0.16.11",
+    "react": "^16.13.1"
   },
-  "devDependencies": {
-    "@types/jest": "^26.0.0",
-    "jest": "^26.0.1",
-    "react-bootstrap": "^1.4.0"
-  },
+  "devDependencies": {},
   "babel": {
     "presets": [
       "react-app"

@@ -16,9 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { QueryFormData, t } from '@superset-ui/core';
+import { t } from '@superset-ui/core';
 import { Layout } from '../../components/utils';
-import { formatSelectOptions } from '@superset-ui/chart-controls';
+import {ControlPanelsContainerProps, formatSelectOptions} from '@superset-ui/chart-controls';
 
 export const xAxisLabel = {
   name: 'x_axis_label',
@@ -50,8 +50,9 @@ export const y2AxisLabel = {
     renderTrigger: true,
     default: '',
     description: t('Show second Y Axis Label in the chart'),
-    visibility: ({ form_data }: { form_data: QueryFormData }) =>
-      form_data.use_y2_axis && form_data.metrics?.length > 1 && form_data.layout === Layout.horizontal,
+    visibility: ({ form_data }: ControlPanelsContainerProps) =>
+      // @ts-ignore (update in package)
+      form_data.use_y2_axis && form_data?.metrics?.length > 1 && form_data.layout === Layout.horizontal,
   },
 };
 
@@ -94,8 +95,9 @@ export const y2AxisTickLabelAngle = {
     choices: formatSelectOptions(['0', '45', '90']),
     default: '0',
     description: t('Set second Y axis tick label angle in the chart'),
-    visibility: ({ form_data }: { form_data: QueryFormData }) =>
-      form_data.use_y2_axis && form_data.metrics?.length > 1 && form_data.layout === Layout.horizontal,
+    visibility: ({ form_data }: ControlPanelsContainerProps) =>
+      // @ts-ignore (update in package)
+      form_data.use_y2_axis && form_data?.metrics?.length > 1 && form_data.layout === Layout.horizontal,
   },
 };
 
@@ -107,7 +109,8 @@ export const useSecondYAxis = {
     renderTrigger: true,
     default: false,
     description: t('Refers to the last chosen metric'),
-    visibility: ({ form_data }: { form_data: QueryFormData }) =>
-      form_data.metrics?.length > 1 && form_data.layout === Layout.horizontal,
+    visibility: ({ form_data }: ControlPanelsContainerProps) =>
+      // @ts-ignore (update in package)
+    form_data?.metrics?.length > 1 && form_data.layout === Layout.horizontal,
   },
 };

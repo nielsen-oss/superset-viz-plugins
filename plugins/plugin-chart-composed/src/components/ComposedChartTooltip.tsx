@@ -19,7 +19,6 @@
 import React, { FC } from 'react';
 import { getNumberFormatter, styled, t } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
-import { BREAKDOWN_SEPARATOR } from '../plugin/transformProps';
 import { getMetricName } from './utils';
 
 const Container = styled.div`

@@ -123,8 +123,8 @@ const addBreakdownMetricsAndGetBreakdownValues = (
   });
 
 export default function transformProps(chartProps: ChartProps) {
-  const { width, height, queryData } = chartProps;
-  const data = queryData.data as Data[];
+  const { width, height, queryData, queriesData } = chartProps;
+  const data = (queriesData?.[0]?.data || queryData?.data) as Data[];
   const formData = chartProps.formData as FormData;
   const metrics = formData.metrics.map(metric => metric.label);
 

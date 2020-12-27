@@ -33,7 +33,7 @@ import {
   YAxis,
 } from 'recharts';
 import WaterfallTick from './WaterfallTick';
-import { BOTTOM_PADDING, getChartStyles, LEGEND, LegendPosition, renderLabel, tooltipFormatter } from './utils';
+import { getChartStyles, LEGEND, LegendPosition, renderLabel, tooltipFormatter } from './utils';
 import WaterfallBar from './WaterfallBar';
 
 type WaterfallStylesProps = {
