@@ -22,13 +22,9 @@ import PivotTable from "../src/components/PivotTable";
 import {render, screen} from "@testing-library/react";
 import transformProps from "../src/plugin/transformProps"
 import {supersetTheme, ThemeProvider} from "@superset-ui/core";
-import {singleRowCompact, singleRowCompactWithNoTotals, withNoTotals, withTotals} from "./__mocks__/pivotTableProps";
+import {withNoTotals, withTotals} from "./__mocks__/pivotTableProps";
 
 describe('plugin-chart-table-pivot', () => {
-  beforeEach(() => {
-    // Recharts still have some UNSAFE react functions that failing test
-    jest.spyOn(console, 'warn').mockImplementation(() => null);
-  });
   const getWrapper = (props: object) => render(
     <ThemeProvider theme={supersetTheme}>
       {/*
@@ -48,16 +44,6 @@ describe('plugin-chart-table-pivot', () => {
 
   it('Table with no totals', () => {
     getWrapper(withNoTotals)
-    expect(screen.getByTestId('pivot-table')).toMatchSnapshot();
-  });
-
-  it('CompactView: Table with totals', () => {
-    getWrapper(singleRowCompact)
-    expect(screen.getByTestId('pivot-table')).toMatchSnapshot();
-  });
-
-  it('CompactView: Table with no totals', () => {
-    getWrapper(singleRowCompactWithNoTotals)
     expect(screen.getByTestId('pivot-table')).toMatchSnapshot();
   });
 });

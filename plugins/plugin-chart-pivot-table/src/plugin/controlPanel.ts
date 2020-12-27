@@ -47,17 +47,6 @@ const transpose: { name: string; config: ControlConfig<'CheckboxControl'> } = {
   },
 };
 
-const compactView: { name: string; config: ControlConfig<'CheckboxControl'> } = {
-  name: 'compact_view',
-  config: {
-    type: 'CheckboxControl',
-    label: t('Compact View'),
-    renderTrigger: true,
-    default: false,
-    description: t('If have only one row, hide title of row headers'),
-  },
-};
-
 const showTotal: { name: string; config: ControlConfig<'SelectControl'> } = {
   name: 'show_total',
   config: {
@@ -73,28 +62,17 @@ const showTotal: { name: string; config: ControlConfig<'SelectControl'> } = {
   },
 };
 
-const numbersFormat: { name: string; config: ControlConfig<'SelectControl'> } = {
-  name: 'numbers_format',
+const numberFormat: { name: string; config: ControlConfig<'SelectControl'> } = {
+  name: 'number_format',
   config: {
     type: 'SelectControl',
-    label: t('Numbers format'),
+    label: t('Number format'),
     renderTrigger: true,
-    default: D3_FORMAT_OPTIONS[0][0],
+    default: 'SMART_NUMBER',
     choices: D3_FORMAT_OPTIONS,
     description: D3_FORMAT_DOCS,
   },
 };
-
-const emptyValuePlaceholder: { name: string; config: ControlConfig<'TextControl'> } = {
-  name: `empty_value_placeholder`,
-  config: {
-    type: 'TextControl',
-    label: t(`Empty value placeholder`),
-    renderTrigger: true,
-    default: '',
-    description: t(`Choose placeholder that will be shown instead empty value`),
-  },
-}
 
 const config: ControlPanelConfig = {
   controlPanelSections: [
@@ -114,8 +92,21 @@ const config: ControlPanelConfig = {
       label: t('Table Options'),
       expanded: true,
       controlSetRows: [
-        [numbersFormat, showTotal],
-        [compactView, emptyValuePlaceholder],
+        [
+          numberFormat, showTotal
+        ],
+        [
+          {
+            name: `empty_value_placeholder`,
+            config: {
+              type: 'TextControl',
+              label: t(`Empty value placeholder`),
+              renderTrigger: true,
+              default: '',
+              description: t(`Choose placeholder that will be shown instead empty value`),
+            },
+          },
+        ],
       ],
     },
   ],
