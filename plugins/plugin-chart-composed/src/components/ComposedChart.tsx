@@ -176,7 +176,7 @@ export default function ComposedChart(props: ComposedChartProps) {
     setDisabledDataKeys(resultKeys);
   };
 
-  const chartMargin = getChartMargin(legendPosition, legendWidth, yAxis);
+  const chartMargin = getChartMargin(legendPosition, yAxis);
 
   return (
     <Styles key={updater} height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
