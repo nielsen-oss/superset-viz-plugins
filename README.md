@@ -120,13 +120,3 @@ lerna changed
 ```
 
 This will print all packages changed from `master` by name.
-
-
-## Deployment
-
-
-```bash
-lerna publish from-package
-```
-
-This will publish the packages that not found at the registy with the latest version.
