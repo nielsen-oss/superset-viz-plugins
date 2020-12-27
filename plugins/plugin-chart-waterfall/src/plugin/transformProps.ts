@@ -51,12 +51,12 @@ export default function transformProps(
   legendPosition: LegendPosition;
   height: number;
 } {
-  const { width, height, formData, queryData } = chartProps;
+  const { width, height, formData, queryData, queriesData } = chartProps;
 
   const { periodColumn, xAxisColumn, metric, numbersFormat, legendPosition } = formData as FormData;
 
   const valueColumn = metric.label;
-  let data = queryData.data as QueryData[];
+  let data = (queriesData?.[0]?.data || queryData?.data) as QueryData[];
 
   // Sort by period (ascending)
   data.sort((a, b) => Number.parseInt(a[periodColumn] as string, 10) - Number.parseInt(b[periodColumn] as string, 10));

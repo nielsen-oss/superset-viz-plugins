@@ -61,7 +61,7 @@ export const legendTop = {
     ],
     rowLimit: 100,
   },
-  queryData: {
+  queriesData: [{
     cache_key: '2e319663529c87ba567cb41ebb189af3',
     cached_dttm: '2020-07-26T07:33:24',
     cache_timeout: 86400,
@@ -118,5 +118,5 @@ export const legendTop = {
       { due_to_group: 'Online Advertising', period: '2020', 'SUM(decomp_volume)': -1500000.7 },
       { due_to_group: 'Online Advertising', period: '2019', 'SUM(decomp_volume)': -1671652 },
     ],
-  },
+  }],
 };
