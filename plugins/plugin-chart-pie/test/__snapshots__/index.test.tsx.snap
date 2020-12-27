@@ -1,0 +1,476 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`plugin-chart-piw Chart Donut with category and percentage labels / without legend 1`] = `
+Object {
+  "PieChartProps": Array [
+    Object {
+      "children": Array [
+        false,
+        <mockConstructor
+          activeIndex={0}
+          activeShape={[Function]}
+          cx="50%"
+          data={
+            Array [
+              Object {
+                "AVG(efficiency)": 0.0566666666666667,
+                "period": "2020",
+              },
+              Object {
+                "AVG(efficiency)": 0.038,
+                "period": "2018",
+              },
+              Object {
+                "AVG(efficiency)": 0.0162068965517241,
+                "period": "2019",
+              },
+              Object {
+                "AVG(efficiency)": 0.0138888888888889,
+                "period": "Total Period",
+              },
+              Object {
+                "AVG(efficiency)": 0.011304347826087,
+                "period": "2017",
+              },
+            ]
+          }
+          dataKey="AVG(efficiency)"
+          innerRadius={158}
+          label={false}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          outerRadius={197.5}
+        >
+          <Cell />
+          <Cell />
+          <Cell />
+          <Cell />
+          <Cell />
+        </mockConstructor>,
+      ],
+      "height": 596,
+      "width": 595,
+    },
+    Object {},
+  ],
+  "PieProps": Array [
+    Object {
+      "activeIndex": 0,
+      "activeShape": [Function],
+      "children": Array [
+        <Cell />,
+        <Cell />,
+        <Cell />,
+        <Cell />,
+        <Cell />,
+      ],
+      "cx": "50%",
+      "data": Array [
+        Object {
+          "AVG(efficiency)": 0.0566666666666667,
+          "period": "2020",
+        },
+        Object {
+          "AVG(efficiency)": 0.038,
+          "period": "2018",
+        },
+        Object {
+          "AVG(efficiency)": 0.0162068965517241,
+          "period": "2019",
+        },
+        Object {
+          "AVG(efficiency)": 0.0138888888888889,
+          "period": "Total Period",
+        },
+        Object {
+          "AVG(efficiency)": 0.011304347826087,
+          "period": "2017",
+        },
+      ],
+      "dataKey": "AVG(efficiency)",
+      "innerRadius": 158,
+      "label": false,
+      "onClick": [Function],
+      "onMouseEnter": [Function],
+      "outerRadius": 197.5,
+    },
+    Object {},
+  ],
+}
+`;
+
+exports[`plugin-chart-piw Chart with legend left / without labels 1`] = `
+Object {
+  "LegendProps": Array [
+    Object {
+      "align": "left",
+      "iconSize": 10,
+      "iconType": "circle",
+      "layout": "vertical",
+      "onClick": [Function],
+      "payload": Array [
+        Object {
+          "color": undefined,
+          "id": "2020",
+          "payload": Object {
+            "AVG(efficiency)": 0.0566666666666667,
+            "period": "2020",
+          },
+          "type": "circle",
+          "value": "2020",
+        },
+        Object {
+          "color": undefined,
+          "id": "2018",
+          "payload": Object {
+            "AVG(efficiency)": 0.038,
+            "period": "2018",
+          },
+          "type": "circle",
+          "value": "2018",
+        },
+        Object {
+          "color": undefined,
+          "id": "2019",
+          "payload": Object {
+            "AVG(efficiency)": 0.0162068965517241,
+            "period": "2019",
+          },
+          "type": "circle",
+          "value": "2019",
+        },
+        Object {
+          "color": undefined,
+          "id": "Total Period",
+          "payload": Object {
+            "AVG(efficiency)": 0.0138888888888889,
+            "period": "Total Period",
+          },
+          "type": "circle",
+          "value": "Total Period",
+        },
+        Object {
+          "color": undefined,
+          "id": "2017",
+          "payload": Object {
+            "AVG(efficiency)": 0.011304347826087,
+            "period": "2017",
+          },
+          "type": "circle",
+          "value": "2017",
+        },
+      ],
+      "verticalAlign": "middle",
+      "wrapperStyle": Object {
+        "maxHeight": 596,
+        "width": 0,
+      },
+    },
+    Object {},
+  ],
+  "PieChartProps": Array [
+    Object {
+      "children": Array [
+        <mockConstructor
+          align="left"
+          iconSize={10}
+          iconType="circle"
+          layout="vertical"
+          onClick={[Function]}
+          payload={
+            Array [
+              Object {
+                "color": undefined,
+                "id": "2020",
+                "payload": Object {
+                  "AVG(efficiency)": 0.0566666666666667,
+                  "period": "2020",
+                },
+                "type": "circle",
+                "value": "2020",
+              },
+              Object {
+                "color": undefined,
+                "id": "2018",
+                "payload": Object {
+                  "AVG(efficiency)": 0.038,
+                  "period": "2018",
+                },
+                "type": "circle",
+                "value": "2018",
+              },
+              Object {
+                "color": undefined,
+                "id": "2019",
+                "payload": Object {
+                  "AVG(efficiency)": 0.0162068965517241,
+                  "period": "2019",
+                },
+                "type": "circle",
+                "value": "2019",
+              },
+              Object {
+                "color": undefined,
+                "id": "Total Period",
+                "payload": Object {
+                  "AVG(efficiency)": 0.0138888888888889,
+                  "period": "Total Period",
+                },
+                "type": "circle",
+                "value": "Total Period",
+              },
+              Object {
+                "color": undefined,
+                "id": "2017",
+                "payload": Object {
+                  "AVG(efficiency)": 0.011304347826087,
+                  "period": "2017",
+                },
+                "type": "circle",
+                "value": "2017",
+              },
+            ]
+          }
+          verticalAlign="middle"
+          wrapperStyle={
+            Object {
+              "maxHeight": 596,
+              "width": 0,
+            }
+          }
+        />,
+        false,
+      ],
+      "height": 596,
+      "width": 595,
+    },
+    Object {},
+  ],
+  "PieProps": undefined,
+}
+`;
+
+exports[`plugin-chart-piw Chart with legend top / percentage labels  1`] = `
+Object {
+  "LegendProps": Array [
+    Object {
+      "align": "center",
+      "iconSize": 10,
+      "iconType": "circle",
+      "layout": "horizontal",
+      "onClick": [Function],
+      "payload": Array [
+        Object {
+          "color": undefined,
+          "id": "2020",
+          "payload": Object {
+            "AVG(efficiency)": 0.0566666666666667,
+            "period": "2020",
+          },
+          "type": "circle",
+          "value": "2020",
+        },
+        Object {
+          "color": undefined,
+          "id": "2018",
+          "payload": Object {
+            "AVG(efficiency)": 0.038,
+            "period": "2018",
+          },
+          "type": "circle",
+          "value": "2018",
+        },
+        Object {
+          "color": undefined,
+          "id": "2019",
+          "payload": Object {
+            "AVG(efficiency)": 0.0162068965517241,
+            "period": "2019",
+          },
+          "type": "circle",
+          "value": "2019",
+        },
+        Object {
+          "color": undefined,
+          "id": "Total Period",
+          "payload": Object {
+            "AVG(efficiency)": 0.0138888888888889,
+            "period": "Total Period",
+          },
+          "type": "circle",
+          "value": "Total Period",
+        },
+        Object {
+          "color": undefined,
+          "id": "2017",
+          "payload": Object {
+            "AVG(efficiency)": 0.011304347826087,
+            "period": "2017",
+          },
+          "type": "circle",
+          "value": "2017",
+        },
+      ],
+      "verticalAlign": "top",
+      "wrapperStyle": Object {
+        "maxHeight": 596,
+      },
+    },
+    Object {},
+  ],
+  "PieChartProps": Array [
+    Object {
+      "children": Array [
+        <mockConstructor
+          align="center"
+          iconSize={10}
+          iconType="circle"
+          layout="horizontal"
+          onClick={[Function]}
+          payload={
+            Array [
+              Object {
+                "color": undefined,
+                "id": "2020",
+                "payload": Object {
+                  "AVG(efficiency)": 0.0566666666666667,
+                  "period": "2020",
+                },
+                "type": "circle",
+                "value": "2020",
+              },
+              Object {
+                "color": undefined,
+                "id": "2018",
+                "payload": Object {
+                  "AVG(efficiency)": 0.038,
+                  "period": "2018",
+                },
+                "type": "circle",
+                "value": "2018",
+              },
+              Object {
+                "color": undefined,
+                "id": "2019",
+                "payload": Object {
+                  "AVG(efficiency)": 0.0162068965517241,
+                  "period": "2019",
+                },
+                "type": "circle",
+                "value": "2019",
+              },
+              Object {
+                "color": undefined,
+                "id": "Total Period",
+                "payload": Object {
+                  "AVG(efficiency)": 0.0138888888888889,
+                  "period": "Total Period",
+                },
+                "type": "circle",
+                "value": "Total Period",
+              },
+              Object {
+                "color": undefined,
+                "id": "2017",
+                "payload": Object {
+                  "AVG(efficiency)": 0.011304347826087,
+                  "period": "2017",
+                },
+                "type": "circle",
+                "value": "2017",
+              },
+            ]
+          }
+          verticalAlign="top"
+          wrapperStyle={
+            Object {
+              "maxHeight": 596,
+            }
+          }
+        />,
+        <mockConstructor
+          activeIndex={0}
+          cx="50%"
+          data={
+            Array [
+              Object {
+                "AVG(efficiency)": 0.0566666666666667,
+                "period": "2020",
+              },
+              Object {
+                "AVG(efficiency)": 0.038,
+                "period": "2018",
+              },
+              Object {
+                "AVG(efficiency)": 0.0162068965517241,
+                "period": "2019",
+              },
+              Object {
+                "AVG(efficiency)": 0.0138888888888889,
+                "period": "Total Period",
+              },
+              Object {
+                "AVG(efficiency)": 0.011304347826087,
+                "period": "2017",
+              },
+            ]
+          }
+          dataKey="AVG(efficiency)"
+          label={[Function]}
+          onClick={[Function]}
+          outerRadius={197.5}
+        >
+          <Cell />
+          <Cell />
+          <Cell />
+          <Cell />
+          <Cell />
+        </mockConstructor>,
+      ],
+      "height": 596,
+      "width": 595,
+    },
+    Object {},
+  ],
+  "PieProps": Array [
+    Object {
+      "activeIndex": 0,
+      "children": Array [
+        <Cell />,
+        <Cell />,
+        <Cell />,
+        <Cell />,
+        <Cell />,
+      ],
+      "cx": "50%",
+      "data": Array [
+        Object {
+          "AVG(efficiency)": 0.0566666666666667,
+          "period": "2020",
+        },
+        Object {
+          "AVG(efficiency)": 0.038,
+          "period": "2018",
+        },
+        Object {
+          "AVG(efficiency)": 0.0162068965517241,
+          "period": "2019",
+        },
+        Object {
+          "AVG(efficiency)": 0.0138888888888889,
+          "period": "Total Period",
+        },
+        Object {
+          "AVG(efficiency)": 0.011304347826087,
+          "period": "2017",
+        },
+      ],
+      "dataKey": "AVG(efficiency)",
+      "label": [Function],
+      "onClick": [Function],
+      "outerRadius": 197.5,
+    },
+    Object {},
+  ],
+}
+`;

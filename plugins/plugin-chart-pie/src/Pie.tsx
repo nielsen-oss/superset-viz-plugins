@@ -187,11 +187,11 @@ const Pie: FC<PieProps<string, string>> = memo(props => {
   return (
     <Styles height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
       {notification && <Notification onClick={closeNotification}>{notification}</Notification>}
-      <PieChart key={`${updater}`} width={chartWidth} height={height}>
+      <PieChart key={updater} width={chartWidth} height={height}>
         {showLegend && (
           <Legend
             onClick={handleLegendClick}
-            {...getLegendProps(legendPosition, height)}
+            {...getLegendProps(legendPosition, height, legendWidth)}
             iconType="circle"
             iconSize={10}
             payload={data.map(item => ({

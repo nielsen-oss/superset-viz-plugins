@@ -16,9 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { LegendProps, PieLabelRenderProps, Sector } from 'recharts';
+import {LegendProps, PieLabelRenderProps, Sector} from 'recharts';
 import React from 'react';
-import { getNumberFormatter, NumberFormats } from '@superset-ui/core';
+import {getNumberFormatter, NumberFormats} from '@superset-ui/core';
 
 export const renderCustomizedLabel = (
   labelProps: Partial<PieLabelRenderProps> & { x: number; groupBy: string; pieLabelType: string },
@@ -114,10 +114,10 @@ export const renderActiveShape = (props: Partial<ActiveShapeProps>) => {
           />
         </>
       )}
-      <path d={`M${sx},${sy}L${mx},${my}`} stroke={fill} fill="none" />
-      <circle cx={mx} cy={my} r={2} fill={fill} stroke="none" />
+      <path d={`M${sx},${sy}L${mx},${my}`} stroke={fill} fill="none"/>
+      <circle cx={mx} cy={my} r={2} fill={fill} stroke="none"/>
       <text x={x} y={ey} textAnchor={textAnchor} fill={fill}>
-        {renderCustomizedLabel({ ...props, x, groupBy: groupBy!, pieLabelType: pieLabelType! })}
+        {renderCustomizedLabel({...props, x, groupBy: groupBy!, pieLabelType: pieLabelType!})}
       </text>
     </g>
   );
@@ -133,7 +133,7 @@ export enum LegendPosition {
 type LegendAlign = 'left' | 'center' | 'right';
 type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
 
-export const getLegendProps = (legendPosition: LegendPosition, height: number): LegendProps => {
+export const getLegendProps = (legendPosition: LegendPosition, height: number, legendWidth: number | null): LegendProps => {
   let result = {
     wrapperStyle: {
       maxHeight: height,
@@ -148,6 +148,10 @@ export const getLegendProps = (legendPosition: LegendPosition, height: number): 
         ...result,
         align: legendPosition as LegendAlign,
         layout: 'vertical',
+        wrapperStyle: {
+          ...result.wrapperStyle,
+          width: legendWidth
+        }
       };
     case LegendPosition.bottom:
     case LegendPosition.top:
