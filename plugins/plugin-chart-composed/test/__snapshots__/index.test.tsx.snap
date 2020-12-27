@@ -263,10 +263,11 @@ Object {
           angle={-0}
           dataKey="rechartsDataKey"
           dy={5}
-          height={20}
+          height={50}
           interval={0}
           label={
             Object {
+              "dy": -15,
               "position": "bottom",
               "value": "",
             }
@@ -1259,9 +1260,10 @@ Object {
       "angle": -0,
       "dataKey": "rechartsDataKey",
       "dy": 5,
-      "height": 20,
+      "height": 50,
       "interval": 0,
       "label": Object {
+        "dy": -15,
         "position": "bottom",
         "value": "",
       },
@@ -1337,10 +1339,11 @@ Object {
           angle={-45}
           dataKey="rechartsDataKey"
           dy={5}
-          height={96}
+          height={126}
           interval={0}
           label={
             Object {
+              "dy": -15,
               "position": "bottom",
               "value": undefined,
             }
@@ -1480,9 +1483,10 @@ Object {
       "angle": -45,
       "dataKey": "rechartsDataKey",
       "dy": 5,
-      "height": 96,
+      "height": 126,
       "interval": 0,
       "label": Object {
+        "dy": -15,
         "position": "bottom",
         "value": undefined,
       },
@@ -1819,10 +1823,11 @@ Object {
           angle={-45}
           dataKey="rechartsDataKey"
           dy={5}
-          height={96}
+          height={126}
           interval={0}
           label={
             Object {
+              "dy": -15,
               "position": "bottom",
               "value": undefined,
             }
@@ -2029,9 +2034,10 @@ Object {
       "angle": -45,
       "dataKey": "rechartsDataKey",
       "dy": 5,
-      "height": 96,
+      "height": 126,
       "interval": 0,
       "label": Object {
+        "dy": -15,
         "position": "bottom",
         "value": undefined,
       },
