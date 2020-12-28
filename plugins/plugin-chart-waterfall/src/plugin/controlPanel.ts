@@ -44,7 +44,7 @@ export const numbersFormat = {
     description: t('Choose the format for numbers in the chart'),
     type: 'SelectControl',
     clearable: false,
-    default: D3_FORMAT_OPTIONS[0],
+    default: D3_FORMAT_OPTIONS[0][0],
     choices: D3_FORMAT_OPTIONS,
     renderTrigger: true,
   },
