@@ -17,13 +17,18 @@
  * under the License.
  */
 import React, { FC } from 'react';
-import { t } from '@superset-ui/core';
+import { styled } from '@superset-ui/core';
 import { Grid, GridItem } from './Layout';
+import {ROW_HEIGHT} from "../plugin/utils";
 
 type HeadersOfHeaderProps<R extends string, C extends string> = {
   rows: R[];
   columns: C[];
 };
+
+const EmptyItem = styled(GridItem)`
+  height: ${ROW_HEIGHT};
+`
 
 const HeadersOfHeader: FC<HeadersOfHeaderProps<string, string>> = ({ rows, columns }) => (
   <Grid
@@ -32,9 +37,7 @@ const HeadersOfHeader: FC<HeadersOfHeaderProps<string, string>> = ({ rows, colum
     gridTemplateColumns="1fr"
     gridTemplateRows={`repeat(${columns.length || 1}, max-content)`}
   >
-    <GridItem bordered header bgLevel={2}>
-      {t('metrics')}
-    </GridItem>
+    <EmptyItem bordered header bgLevel={2} />
     {columns.map(column => (
       // eslint-disable-next-line react/jsx-key
       <GridItem bordered header bgLevel={2}>

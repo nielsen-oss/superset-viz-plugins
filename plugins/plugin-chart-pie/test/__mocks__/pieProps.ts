@@ -30,7 +30,7 @@ const formDataLegendTopPercent = {
   },
   "adhocFilters": [],
   "rowLimit": 100,
-  "pieLabelType": "percent",
+  "labelType": "percent",
   "showLegend": true,
   "legendPosition": "top",
   "showLabels": true,
@@ -77,7 +77,7 @@ export const legendLeftWithoutLabels = {
 export const categoryPercentageDonutNoLegend = {
   "formData": {
     ...formDataLegendTopPercent,
-    pieLabelType: 'keyPercent',
+    labelType: 'categoryPercent',
     showLegend: false,
     isDonut: true
   },

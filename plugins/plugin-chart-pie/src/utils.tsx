@@ -21,22 +21,22 @@ import React from 'react';
 import {getNumberFormatter, NumberFormats} from '@superset-ui/core';
 
 export const renderCustomizedLabel = (
-  labelProps: Partial<PieLabelRenderProps> & { x: number; groupBy: string; pieLabelType: string },
+  labelProps: Partial<PieLabelRenderProps> & { x: number; groupBy: string; labelType: string },
 ) => {
   let percent = labelProps.percent ? +labelProps.percent : 100;
 
   const percentFormatter = getNumberFormatter(NumberFormats.PERCENT_2_POINT);
-  switch (labelProps.pieLabelType) {
+  switch (labelProps.labelType) {
     case 'percent':
       return <tspan>{percentFormatter(percent)}</tspan>;
-    case 'key_percent':
+    case 'category_percent':
       return (
         <tspan>
           <tspan>{`${labelProps[labelProps.groupBy]}: `}</tspan>
           <tspan x={labelProps.x} dy="1.2em" fontWeight="bold">{`${percentFormatter(percent)}`}</tspan>
         </tspan>
       );
-    case 'key':
+    case 'category':
     default:
       return labelProps[labelProps.groupBy];
   }
@@ -50,7 +50,7 @@ export type ActiveShapeProps = {
   outerRadius?: number;
   startAngle: number;
   endAngle: number;
-  pieLabelType: string;
+  labelType: string;
   fill: string;
   groupBy: string;
   payload?: {
@@ -74,7 +74,7 @@ export const renderActiveShape = (props: Partial<ActiveShapeProps>) => {
     fill,
     payload,
     groupBy,
-    pieLabelType,
+    labelType,
     isDonut,
   } = props;
 
@@ -117,7 +117,7 @@ export const renderActiveShape = (props: Partial<ActiveShapeProps>) => {
       <path d={`M${sx},${sy}L${mx},${my}`} stroke={fill} fill="none"/>
       <circle cx={mx} cy={my} r={2} fill={fill} stroke="none"/>
       <text x={x} y={ey} textAnchor={textAnchor} fill={fill}>
-        {renderCustomizedLabel({...props, x, groupBy: groupBy!, pieLabelType: pieLabelType!})}
+        {renderCustomizedLabel({...props, x, groupBy: groupBy!, labelType: labelType!})}
       </text>
     </g>
   );

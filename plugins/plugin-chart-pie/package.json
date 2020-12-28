@@ -37,7 +37,6 @@
     "@superset-ui/core": "^0.16.1",
     "react": "^16.13.1"
   },
-  "devDependencies": {},
   "dependencies": {
     "recharts": "^1.8.5"
   },

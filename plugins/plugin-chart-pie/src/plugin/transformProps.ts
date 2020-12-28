@@ -29,7 +29,7 @@ type FormData<G extends string, DK extends string> = {
   };
   colorPicker: string;
   showLegend: boolean;
-  pieLabelType: string;
+  labelType: string;
   showLabels: boolean;
   legendPosition: LegendPosition;
 };
@@ -43,7 +43,7 @@ export default function transformProps<G extends string, DK extends string>(char
     metric,
     colorPicker,
     showLegend,
-    pieLabelType,
+    labelType,
     showLabels,
     legendPosition,
   } = formData as FormData<G, DK>;
@@ -61,6 +61,6 @@ export default function transformProps<G extends string, DK extends string>(char
     showLegend,
     showLabels,
     groupBy,
-    pieLabelType,
+    labelType,
   };
 }
