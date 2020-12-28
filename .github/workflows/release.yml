@@ -30,10 +30,6 @@ jobs:
         git fetch --prune --unshallow
         git tag -d `git tag | grep -E '^trigger-'`
       working-directory: ./superset-viz-plugins
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
 
     - name: Install dependencies
       run: yarn install --frozen-lockfile
