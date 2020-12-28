@@ -27,7 +27,7 @@ jobs:
     - name: Get tags and filter trigger tags
       run: |
         git fetch --depth=1 origin "+refs/tags/*:refs/tags/*"
-        git fetch --prune --unshallow
+        git fetch --prune
       working-directory: ./superset-viz-plugins
 
     - name: Install dependencies
