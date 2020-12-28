@@ -21,10 +21,8 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
             class="css-18d8vh3"
           >
             <div
-              class="css-rbdcjg"
-            >
-              metrics
-            </div>
+              class="css-1u2dlg4"
+            />
             <div
               class="css-rbdcjg"
             >
@@ -783,10 +781,8 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
             class="css-18d8vh3"
           >
             <div
-              class="css-rbdcjg"
-            >
-              metrics
-            </div>
+              class="css-1u2dlg4"
+            />
             <div
               class="css-rbdcjg"
             >

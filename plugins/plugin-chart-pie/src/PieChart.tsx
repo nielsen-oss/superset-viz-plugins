@@ -61,7 +61,7 @@ export type PieProps<G extends string, DK extends string> = {
   showLegend: boolean;
   showLabels: boolean;
   groupBy: G;
-  pieLabelType: string;
+  labelType: string;
 };
 
 const Notification = styled.div`
@@ -99,7 +99,7 @@ const Pie: FC<PieProps<string, string>> = memo(props => {
     showLegend,
     showLabels,
     groupBy,
-    pieLabelType,
+    labelType,
     legendPosition,
   } = props;
   const [notification, setNotification] = useState<string | null>(null);
@@ -171,14 +171,14 @@ const Pie: FC<PieProps<string, string>> = memo(props => {
     cx: isSideLegend ? outerRadius + chartMargin : '50%',
     outerRadius,
     label: showLabels
-      ? labelProps => renderActiveShape({ ...labelProps, groupBy, pieLabelType } as ActiveShapeProps)
+      ? labelProps => renderActiveShape({ ...labelProps, groupBy, labelType } as ActiveShapeProps)
       : false,
     onClick,
   };
 
   if (isDonut) {
     pieProps.activeShape = activeShapeProps =>
-      renderActiveShape({ ...activeShapeProps, groupBy, pieLabelType, isDonut: true });
+      renderActiveShape({ ...activeShapeProps, groupBy, labelType, isDonut: true });
     pieProps.onMouseEnter = onPieEnter;
     pieProps.innerRadius = outerRadius - outerRadius * 0.2;
     pieProps.label = false;

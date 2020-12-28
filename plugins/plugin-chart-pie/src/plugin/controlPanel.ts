@@ -53,7 +53,7 @@ const showLabels = {
 }
 
 const labelType = {
-  name: 'pie_label_type',
+  name: 'label_type',
   config: {
     type: 'SelectControl',
     label: t('Label Type'),
@@ -61,9 +61,9 @@ const labelType = {
     renderTrigger: true,
     visibility: ({form_data}: { form_data: QueryFormData }) => form_data.is_donut === false && form_data.show_labels === true,
     choices: [
-      ['key', 'Category Name'],
       ['percent', 'Percentage'],
-      ['key_percent', 'Category and Percentage'],
+      ['category', 'Category Name'],
+      ['category_percent', 'Category and Percentage'],
     ],
     description: t('What should be shown on the label?'),
   },

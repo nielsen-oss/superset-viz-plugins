@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`plugin-chart-composed Chart with legend top 1`] = `
+exports[`plugin-chart-waterfall Chart with legend top 1`] = `
 Object {
   "BarChartProps": Array [
     Object {
