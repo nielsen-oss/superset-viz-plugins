@@ -6,6 +6,11 @@
   ],
   "useWorkspaces": true,
   "version": "independent",
+  "command": {
+    "version": {
+      "message": "chore(release): publish"
+    }
+  }
   "ignoreChanges": [
     "**/*.md",
     "**/*.spec.tsx?",
