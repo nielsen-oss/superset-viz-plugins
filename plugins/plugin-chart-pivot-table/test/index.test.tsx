@@ -1,0 +1,49 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+import React from "react"
+import PivotTableChartPlugin from '../src';
+import PivotTable from "../src/components/PivotTable";
+import {render, screen} from "@testing-library/react";
+import transformProps from "../src/plugin/transformProps"
+import {supersetTheme, ThemeProvider} from "@superset-ui/core";
+import {withNoTotals, withTotals} from "./__mocks__/pivotTableProps";
+
+describe('plugin-chart-table-pivot', () => {
+  const getWrapper = (props: object) => render(
+    <ThemeProvider theme={supersetTheme}>
+      {/*
+       // @ts-ignore (no need emulate all props) */}
+      <PivotTable {...transformProps(props)} />
+    </ThemeProvider>,
+  );
+
+  it('exists', () => {
+    expect(PivotTableChartPlugin).toBeDefined();
+  });
+
+  it('Table with all totals', () => {
+    getWrapper(withTotals)
+    expect(screen.getByTestId('pivot-table')).toMatchSnapshot();
+  });
+
+  it('Table with no totals', () => {
+    getWrapper(withNoTotals)
+    expect(screen.getByTestId('pivot-table')).toMatchSnapshot();
+  });
+});

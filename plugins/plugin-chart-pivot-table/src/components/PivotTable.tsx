@@ -82,7 +82,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
   }`;
 
   return (
-    <StyledGrid gridTemplateColumns="max-content" gridTemplateRows="auto" width={width} height={height}>
+    <StyledGrid gridTemplateColumns="max-content" gridTemplateRows="auto" width={width} height={height} data-testid='pivot-table'>
       {rows.length === 0 && columns.length === 0 ? (
         <NoData>{t('No data to show')}</NoData>
       ) : (

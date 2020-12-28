@@ -25,7 +25,7 @@ import thumbnail from '../images/thumbnail.png';
 
 const metadata = new ChartMetadata({
   description: 'Pivot Table',
-  name: t('PivotTable'),
+  name: t('Pivot Table'),
   thumbnail,
 });
 
