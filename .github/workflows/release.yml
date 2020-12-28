@@ -26,7 +26,7 @@ jobs:
         fetch-depth: 0
     - name: Get tags and filter trigger tags
       run: |
-        git fetch --depth=1 . "+refs/tags/*:refs/tags/*"
+        git fetch --depth=0 . "+refs/tags/*:refs/tags/*"
       working-directory: ./superset-viz-plugins
 
     - name: Install dependencies
