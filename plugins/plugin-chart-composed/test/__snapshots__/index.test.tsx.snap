@@ -294,7 +294,7 @@ Object {
           label={
             Object {
               "angle": 90,
-              "offset": 10,
+              "offset": 0,
               "position": "right",
               "value": undefined,
             }
@@ -1076,8 +1076,8 @@ Object {
       "height": 596,
       "layout": "horizontal",
       "margin": Object {
-        "left": 20,
-        "right": 5,
+        "left": 10,
+        "right": 10,
       },
       "width": 560,
     },
@@ -1276,7 +1276,7 @@ Object {
       "angle": -0,
       "label": Object {
         "angle": 90,
-        "offset": 10,
+        "offset": 0,
         "position": "right",
         "value": undefined,
       },
@@ -1370,7 +1370,7 @@ Object {
           label={
             Object {
               "angle": 90,
-              "offset": 10,
+              "offset": 0,
               "position": "right",
               "value": "Label 2",
             }
@@ -1428,8 +1428,8 @@ Object {
       "height": 596,
       "layout": "horizontal",
       "margin": Object {
-        "left": 0,
-        "right": 25,
+        "left": 10,
+        "right": 10,
       },
       "width": 560,
     },
@@ -1499,7 +1499,7 @@ Object {
       "angle": -0,
       "label": Object {
         "angle": 90,
-        "offset": 10,
+        "offset": 0,
         "position": "right",
         "value": "Label 2",
       },
@@ -1551,7 +1551,7 @@ Object {
           wrapperStyle={
             Object {
               "maxHeight": 596,
-              "paddingLeft": 10,
+              "paddingLeft": 20,
             }
           }
         />,
@@ -1642,8 +1642,8 @@ Object {
       "height": 596,
       "layout": "vertical",
       "margin": Object {
-        "left": 20,
-        "right": 5,
+        "left": 10,
+        "right": 10,
       },
       "width": 560,
     },
@@ -1674,7 +1674,7 @@ Object {
       "width": 0,
       "wrapperStyle": Object {
         "maxHeight": 596,
-        "paddingLeft": 10,
+        "paddingLeft": 20,
       },
     },
     Object {},
@@ -1977,8 +1977,8 @@ Object {
       "height": 596,
       "layout": "horizontal",
       "margin": Object {
-        "left": 0,
-        "right": 5,
+        "left": 10,
+        "right": 10,
       },
       "width": 560,
     },
