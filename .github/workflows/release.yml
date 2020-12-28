@@ -28,7 +28,6 @@ jobs:
       run: |
         git fetch --depth=1 origin "+refs/tags/*:refs/tags/*"
         git fetch --prune --unshallow
-        git tag -d `git tag | grep -E '^trigger-'`
       working-directory: ./superset-viz-plugins
 
     - name: Install dependencies
@@ -56,7 +55,6 @@ jobs:
     - name: Bump version and publish package(s)
       run: |
         npm whoami
-        git tag -d `git tag | grep -E '^trigger-'`
         yarn prerelease
         yarn ci:release-from-tag
       working-directory: ./superset-viz-plugins
