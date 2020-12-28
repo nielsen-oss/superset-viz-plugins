@@ -47,6 +47,17 @@ const transpose: { name: string; config: ControlConfig<'CheckboxControl'> } = {
   },
 };
 
+const compactView: { name: string; config: ControlConfig<'CheckboxControl'> } = {
+  name: 'compact_view',
+  config: {
+    type: 'CheckboxControl',
+    label: t('Compact View'),
+    renderTrigger: true,
+    default: false,
+    description: t('If have only one row, hide title of row headers'),
+  },
+};
+
 const showTotal: { name: string; config: ControlConfig<'SelectControl'> } = {
   name: 'show_total',
   config: {
@@ -74,6 +85,17 @@ const numberFormat: { name: string; config: ControlConfig<'SelectControl'> } = {
   },
 };
 
+const emptyValuePlaceholder: { name: string; config: ControlConfig<'TextControl'> } = {
+  name: `empty_value_placeholder`,
+  config: {
+    type: 'TextControl',
+    label: t(`Empty value placeholder`),
+    renderTrigger: true,
+    default: '',
+    description: t(`Choose placeholder that will be shown instead empty value`),
+  },
+}
+
 const config: ControlPanelConfig = {
   controlPanelSections: [
     {
@@ -92,21 +114,8 @@ const config: ControlPanelConfig = {
       label: t('Table Options'),
       expanded: true,
       controlSetRows: [
-        [
-          numberFormat, showTotal
-        ],
-        [
-          {
-            name: `empty_value_placeholder`,
-            config: {
-              type: 'TextControl',
-              label: t(`Empty value placeholder`),
-              renderTrigger: true,
-              default: '',
-              description: t(`Choose placeholder that will be shown instead empty value`),
-            },
-          },
-        ],
+        [numberFormat, showTotal],
+        [compactView, emptyValuePlaceholder],
       ],
     },
   ],

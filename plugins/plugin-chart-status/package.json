@@ -35,12 +35,8 @@
   },
   "peerDependencies": {
     "@superset-ui/chart-controls": "^0.15.5",
-    "@superset-ui/core": "^0.15.10",
+    "@superset-ui/core": "^0.16.1",
     "react": "^16.13.1"
-  },
-  "devDependencies": {
-    "@types/jest": "^26.0.0",
-    "jest": "^26.0.1"
   },
   "babel": {
     "presets": [

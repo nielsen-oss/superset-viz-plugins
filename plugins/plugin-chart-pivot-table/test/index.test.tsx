@@ -22,7 +22,7 @@ import PivotTable from "../src/components/PivotTable";
 import {render, screen} from "@testing-library/react";
 import transformProps from "../src/plugin/transformProps"
 import {supersetTheme, ThemeProvider} from "@superset-ui/core";
-import {withNoTotals, withTotals} from "./__mocks__/pivotTableProps";
+import {singleRowCompact, singleRowCompactWithNoTotals, withNoTotals, withTotals} from "./__mocks__/pivotTableProps";
 
 describe('plugin-chart-table-pivot', () => {
   beforeEach(() => {
@@ -48,6 +48,16 @@ describe('plugin-chart-table-pivot', () => {
 
   it('Table with no totals', () => {
     getWrapper(withNoTotals)
+    expect(screen.getByTestId('pivot-table')).toMatchSnapshot();
+  });
+
+  it('CompactView: Table with totals', () => {
+    getWrapper(singleRowCompact)
+    expect(screen.getByTestId('pivot-table')).toMatchSnapshot();
+  });
+
+  it('CompactView: Table with no totals', () => {
+    getWrapper(singleRowCompactWithNoTotals)
     expect(screen.getByTestId('pivot-table')).toMatchSnapshot();
   });
 });

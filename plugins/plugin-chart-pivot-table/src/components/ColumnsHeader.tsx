@@ -25,10 +25,12 @@ type ColumnsHeaderProps<C extends string, M extends string> = {
   uiColumnUnits: Unit<C>;
   columns: C[];
   numberOfColumns: number;
+  compactView: boolean;
 };
 
 const ColumnsHeader: FC<ColumnsHeaderProps<string, string>> = ({
   metrics,
+  compactView,
   uiColumnUnits,
   columns,
   numberOfColumns,
@@ -49,9 +51,9 @@ const ColumnsHeader: FC<ColumnsHeaderProps<string, string>> = ({
       )),
     )}
     {/* One empty line for header columns of rows */}
-    <GridItem header bordered gridColumn={`span ${numberOfColumns}`} style={{ color: 'transparent' }}>
+    {!compactView && <GridItem header bordered gridColumn={`span ${numberOfColumns}`} style={{ color: 'transparent' }}>
       :)
-    </GridItem>
+    </GridItem>}
   </>
 );
 
