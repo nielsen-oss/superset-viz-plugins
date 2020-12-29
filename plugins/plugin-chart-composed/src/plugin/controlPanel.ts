@@ -182,7 +182,7 @@ const config: ControlPanelConfig = {
     },
     {
       label: t('Chart settings per metric'),
-      expanded: false,
+      expanded: true,
       controlSetRows: [...chartTypeMetrics],
     },
   ],

@@ -1,6 +1,6 @@
 import React from 'react';
 import PivotTable from '../../../../plugins/plugin-chart-pivot-table/src/components/PivotTable';
-import transformProps, {ChartProps} from '../../../../plugins/plugin-chart-pivot-table/src/plugin/transformProps';
+import transformProps from '../../../../plugins/plugin-chart-pivot-table/src/plugin/transformProps';
 import {
   singleRowCompact,
   withTotals
@@ -45,7 +45,7 @@ const DefaultTemplate = (args) =>
         formData: {
           ...withTotals.formData,
           numbersFormat: args.numbersFormat
-        } as unknown as ChartProps,
+        },
         queriesData: args.queriesData
       }).data}
     />
@@ -62,19 +62,19 @@ const CompactTemplate = (args) =>
           numbersFormat: args.numbersFormat
         },
         queriesData: args.queriesData
-      } as unknown as ChartProps).data}
+      }).data}
     />
   </ThemeProvider>;
 
 export const Default = DefaultTemplate.bind({});
 Default.args = {
-  ...transformProps(withTotals as unknown as ChartProps),
+  ...transformProps(withTotals),
   queriesData: withTotals.queriesData
 }
 
 export const CompactView = CompactTemplate.bind({});
 CompactView.args = {
-  ...transformProps(singleRowCompact as unknown as ChartProps),
+  ...transformProps(singleRowCompact),
   compactView: true,
   queriesData: singleRowCompact.queriesData
 }
