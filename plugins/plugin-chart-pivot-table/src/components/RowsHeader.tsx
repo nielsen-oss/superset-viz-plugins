@@ -30,6 +30,7 @@ type RowsHeaderProps<R extends string, C extends string> = {
   showTotal: ShowTotal;
   numberOfRows: number;
   rowsFillData: boolean[];
+  compactView: boolean;
 };
 
 const TotalGridItem = styled(GridItem)`
@@ -41,6 +42,7 @@ const RowsHeader: FC<RowsHeaderProps<string, string>> = ({
   numberOfRows,
   columns,
   rows,
+  compactView,
   uiRowUnits,
   rowsFillData,
   showTotal,
@@ -50,8 +52,8 @@ const RowsHeader: FC<RowsHeaderProps<string, string>> = ({
       <Grid
         withoutOverflow
         gridTemplateColumns={`repeat(${rows.length || 1}, max-content)`}
-        gridTemplateRows={`max-content max-content ${rowsFillData
-          .map(fillData => `${fillData ? ROW_HEIGHT : 0}`)
+        gridTemplateRows={`max-content ${compactView ? 0 : 'max-content'} ${rowsFillData
+          .map((fillData, index) => `${fillData ? ROW_HEIGHT : 0}`)
           .join(' ')}`}
         gridAutoFlow="column"
       >

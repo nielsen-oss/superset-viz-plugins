@@ -41,6 +41,7 @@ export type PivotTableProps<R extends string, C extends string, M extends string
   total: string;
   showTotal: ShowTotal;
   columnsTotal: string[];
+  compactView: boolean;
   rowsFillData: boolean[];
   uiRowUnits: Unit<R>;
 };
@@ -73,6 +74,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
   rowsFillData,
   uiRowUnits,
   showTotal,
+  compactView,
   columnsTotal,
   total,
   rowsTotal,
@@ -89,6 +91,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
         <Grid gridTemplateColumns="auto" gridTemplateRows="min-content">
           <Grid bordered gridTemplateColumns={mainGridTemplateColumns} gridTemplateRows="auto">
             <RowsHeader
+              compactView={compactView}
               showTotal={showTotal}
               rowsFillData={rowsFillData}
               numberOfRows={numberOfRows}
@@ -100,10 +103,11 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
               withoutOverflow
               gridTemplateColumns={columnsFillData.map(fillData => `${fillData ? 'max-content' : 0}`).join(' ')}
               gridTemplateRows={`repeat(${columns.length + 2}, ${ROW_HEIGHT}) ${rowsFillData
-                .map(fillData => `${fillData ? ROW_HEIGHT : 0}`)
+                .map((fillData, index) => `${fillData ? ROW_HEIGHT : 0}`)
                 .join(' ')}`}
             >
               <ColumnsHeader
+                compactView={compactView}
                 metrics={metrics}
                 uiColumnUnits={uiColumnUnits}
                 columns={columns}
@@ -130,6 +134,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
             </Grid>
             {(showTotal === ShowTotal.columnsAndRows || showTotal === ShowTotal.rows) && (
               <TotalColumn
+                compactView={compactView}
                 columns={columns}
                 rowsFillData={rowsFillData}
                 rowsTotal={rowsTotal}

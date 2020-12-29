@@ -26,17 +26,18 @@ export type TotalColumnProps = {
   rowsTotal: string[];
   rowsFillData: boolean[];
   total: string;
+  compactView: boolean;
   showTotalAll: boolean;
 };
 
-const TotalColumn: FC<TotalColumnProps> = ({ columns, rowsFillData, rowsTotal, total, showTotalAll }) => (
+const TotalColumn: FC<TotalColumnProps> = ({ columns, rowsFillData, rowsTotal, total, showTotalAll, compactView }) => (
   <Grid
     gridTemplateColumns="max-content"
-    gridTemplateRows={`repeat(${columns.length + 2}, ${ROW_HEIGHT}) ${rowsFillData
+    gridTemplateRows={`repeat(${columns.length + (compactView ? 1 : 2)}, ${ROW_HEIGHT}) ${rowsFillData
       .map(fillData => `${fillData ? ROW_HEIGHT : 0}`)
       .join(' ')}`}
   >
-    <GridItem header bordered bgLevel={2} gridRow={`span ${columns.length + 2}`}>
+    <GridItem header bordered bgLevel={2} gridRow={`span ${columns.length + (compactView ? 1 : 2)}`}>
       {t('Total')}
     </GridItem>
     {rowsTotal.map((rowTotal, index) => (
