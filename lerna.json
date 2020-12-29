@@ -6,11 +6,6 @@
   ],
   "useWorkspaces": true,
   "version": "independent",
-  "command": {
-    "version": {
-      "message": "chore(release): publish"
-    }
-  },
   "ignoreChanges": [
     "**/*.md",
     "**/*.spec.tsx?",
@@ -22,7 +17,7 @@
       "conventionalCommits": true
     },
     "version": {
-      "message": "chore: publish %s [ci-skip]",
+      "message": "chore(release): publish"
       "exact": true
     }
   }
