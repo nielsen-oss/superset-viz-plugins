@@ -19,7 +19,7 @@
 import React, { useState, FC, useEffect, memo, useRef, useCallback } from 'react';
 import { styled, t, CategoricalColorNamespace } from '@superset-ui/core';
 import {
-  PieChart,
+  PieChart as RechartsPieChart,
   Pie as RechartsPie,
   Cell,
   RechartsFunction,
@@ -88,7 +88,7 @@ const Styles = styled.div<PieStylesProps>`
   }
 `;
 
-const Pie: FC<PieProps<string, string>> = memo(props => {
+const PieChart: FC<PieProps<string, string>> = memo(props => {
   const {
     dataKey,
     data,
@@ -183,11 +183,14 @@ const Pie: FC<PieProps<string, string>> = memo(props => {
     pieProps.innerRadius = outerRadius - outerRadius * 0.2;
     pieProps.label = false;
   }
+  console.log(data.map(item => console.log(groupBy, item[groupBy], colorScheme, CategoricalColorNamespace.getScale(colorScheme), {
+    color: CategoricalColorNamespace.getScale(colorScheme)(item[groupBy]),
+  })))
 
   return (
     <Styles height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
       {notification && <Notification onClick={closeNotification}>{notification}</Notification>}
-      <PieChart key={updater} width={chartWidth} height={height}>
+      <RechartsPieChart key={updater} width={chartWidth} height={height}>
         {showLegend && (
           <Legend
             onClick={handleLegendClick}
@@ -210,9 +213,9 @@ const Pie: FC<PieProps<string, string>> = memo(props => {
             ))}
           </RechartsPie>
         )}
-      </PieChart>
+      </RechartsPieChart>
     </Styles>
   );
 });
 
-export default Pie;
+export default PieChart;
