@@ -57,10 +57,10 @@ const labelType = {
   config: {
     type: 'SelectControl',
     label: t('Label Type'),
-    default: 'percent',
+    default: LabelTypes.percent,
     renderTrigger: true,
     visibility: ({form_data}: { form_data: QueryFormData }) => form_data.is_donut === false && form_data.show_labels === true,
-    choices: Object.entries(LabelTypes).map(([key, val]) => ([val, LabelTypeNames[key as LabelTypes]])),
+    choices: Object.values(LabelTypes).map(val => ([val, LabelTypeNames[val as LabelTypes]])),
     description: t('What should be shown on the label?'),
   },
 }
