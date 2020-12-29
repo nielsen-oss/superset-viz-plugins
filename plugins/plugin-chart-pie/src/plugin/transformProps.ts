@@ -29,13 +29,13 @@ type FormData<G extends string, DK extends string> = {
   };
   colorPicker: string;
   showLegend: boolean;
-  pieLabelType: string;
+  labelType: string;
   showLabels: boolean;
   legendPosition: LegendPosition;
 };
 
 export default function transformProps<G extends string, DK extends string>(chartProps: ChartProps): PieProps<G, DK> {
-  const { width, height, formData, queryData } = chartProps;
+  const { width, height, formData, queryData, queriesData } = chartProps;
   const {
     colorScheme,
     isDonut,
@@ -43,11 +43,11 @@ export default function transformProps<G extends string, DK extends string>(char
     metric,
     colorPicker,
     showLegend,
-    pieLabelType,
+    labelType,
     showLabels,
     legendPosition,
   } = formData as FormData<G, DK>;
-  let data = queryData.data as PieChartData<G, DK>[];
+  let data = (queriesData?.[0]?.data || queryData.data) as PieChartData<G, DK>[];
 
   return {
     dataKey: metric.label,
@@ -61,6 +61,6 @@ export default function transformProps<G extends string, DK extends string>(char
     showLegend,
     showLabels,
     groupBy,
-    pieLabelType,
+    labelType,
   };
 }

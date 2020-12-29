@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { sharedControls, formatSelectOptions } from '@superset-ui/chart-controls';
-import { LegendPosition } from '../utils';
-import { QueryFormData, t, validateNonEmpty } from '@superset-ui/core';
-import { ColumnMeta, SelectControlConfig } from '@superset-ui/chart-controls/lib/types';
+import {formatSelectOptions, sharedControls} from '@superset-ui/chart-controls';
+import {LegendPosition} from '../utils';
+import {QueryFormData, t, validateNonEmpty} from '@superset-ui/core';
+import {ColumnMeta, SelectControlConfig} from '@superset-ui/chart-controls/lib/types';
 
 const groupBy: { name: string; config: SelectControlConfig<ColumnMeta, 'SelectControl'> } = {
   name: 'group_by',
@@ -38,6 +38,73 @@ const metric: { name: string; config: SelectControlConfig<string | Record<string
     multi: false,
   },
 };
+const showLabels = {
+  name: 'show_labels',
+  config: {
+    type: 'CheckboxControl',
+    label: t('Show Labels'),
+    renderTrigger: true,
+    visibility: ({form_data}: { form_data: QueryFormData }) => form_data.is_donut === false,
+    default: true,
+    description: t(
+      'Whether to display the labels. Note that the label only displays when the the 5% threshold.',
+    ),
+  },
+}
+
+const labelType = {
+  name: 'label_type',
+  config: {
+    type: 'SelectControl',
+    label: t('Label Type'),
+    default: 'percent',
+    renderTrigger: true,
+    visibility: ({form_data}: { form_data: QueryFormData }) => form_data.is_donut === false && form_data.show_labels === true,
+    choices: [
+      ['percent', 'Percentage'],
+      ['category', 'Category Name'],
+      ['category_percent', 'Category and Percentage'],
+    ],
+    description: t('What should be shown on the label?'),
+  },
+}
+
+const showLegend = {
+  name: 'show_legend',
+  config: {
+    type: 'CheckboxControl',
+    label: t('Show Legend'),
+    renderTrigger: true,
+    default: true,
+    description: t('Whether to display the legend (toggles)'),
+  },
+}
+
+const legendPosition = {
+  name: 'legend_position',
+  config: {
+    freeForm: true,
+    type: 'SelectControl',
+    clearable: false,
+    label: t('Legend position'),
+    renderTrigger: true,
+    choices: formatSelectOptions(Object.keys(LegendPosition)),
+    default: 'top',
+    description: t('Set legend position'),
+    visibility: ({form_data}: { form_data: QueryFormData }) => form_data.show_legend,
+  },
+}
+
+const isDonut = {
+  name: 'is_donut',
+  config: {
+    type: 'CheckboxControl',
+    label: t('Donut'),
+    default: false,
+    renderTrigger: true,
+    description: t('Do you want a donut or a pie?'),
+  },
+}
 
 export default {
   controlPanelSections: [
@@ -50,75 +117,10 @@ export default {
       label: t('Chart Options'),
       expanded: true,
       controlSetRows: [
-        [
-          {
-            name: 'pie_label_type',
-            config: {
-              type: 'SelectControl',
-              label: t('Label Type'),
-              default: 'percent',
-              renderTrigger: true,
-              choices: [
-                ['key', 'Category Name'],
-                ['percent', 'Percentage'],
-                ['key_percent', 'Category and Percentage'],
-              ],
-              description: t('What should be shown on the label?'),
-            },
-          },
-        ],
-        [
-          {
-            name: 'show_legend',
-            config: {
-              type: 'CheckboxControl',
-              label: t('Legend'),
-              renderTrigger: true,
-              default: true,
-              description: t('Whether to display the legend (toggles)'),
-            },
-          },
-          {
-            name: 'legend_position',
-            config: {
-              freeForm: true,
-              type: 'SelectControl',
-              clearable: false,
-              label: t('Legend position'),
-              renderTrigger: true,
-              choices: formatSelectOptions(Object.keys(LegendPosition)),
-              default: 'top',
-              description: t('Set legend position'),
-              visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.show_legend,
-            },
-          },
-        ],
-        [
-          {
-            name: 'is_donut',
-            config: {
-              type: 'CheckboxControl',
-              label: t('Donut'),
-              default: false,
-              renderTrigger: true,
-              description: t('Do you want a donut or a pie?'),
-            },
-          },
-          {
-            name: 'show_labels',
-            config: {
-              type: 'CheckboxControl',
-              label: t('Show Labels'),
-              renderTrigger: true,
-              visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.is_donut === false,
-              default: true,
-              description: t(
-                'Whether to display the labels. Note that the label only displays when the the 5% threshold.',
-              ),
-            },
-          },
-        ],
         ['color_scheme', 'label_colors'],
+        [isDonut],
+        [showLabels, labelType],
+        [showLegend, legendPosition],
       ],
     },
   ],
