@@ -42,8 +42,6 @@ export const FillItem = styled.div<{ hidden?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
 `;
 
 export const GridItem = styled(FillItem)<{

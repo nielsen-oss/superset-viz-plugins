@@ -178,7 +178,7 @@ type GetOneDimensionDataParams<R extends string, C extends string, M extends str
   numberOfRows: number;
   oneDimensionColumns: string[];
   oneDimensionRows: string[];
-  numberFormat: string;
+  numbersFormat: string;
   showTotal: ShowTotal;
 };
 
@@ -193,7 +193,7 @@ export const getOneDimensionData = <R extends string, C extends string, M extend
   rows,
   oneDimensionColumns,
   oneDimensionRows,
-  numberFormat,
+  numbersFormat,
   showTotal,
 }: GetOneDimensionDataParams<R, C, M>): {
   oneDimensionData: string[];
@@ -238,7 +238,7 @@ export const getOneDimensionData = <R extends string, C extends string, M extend
 
       oneDimensionData[
         columnIndex + metricIndex * numberOfColumnsPerMetric + rowIndex * (numberOfColumnsPerMetric * metrics.length)
-      ] = formatNumber(numberFormat, item[metric]);
+      ] = formatNumber(numbersFormat, item[metric]);
 
       // Set totals
       if (showTotal !== ShowTotal.noTotal) {
@@ -251,10 +251,10 @@ export const getOneDimensionData = <R extends string, C extends string, M extend
 
   return {
     oneDimensionData,
-    total: formatNumber(numberFormat, total),
+    total: formatNumber(numbersFormat, total),
     columnsFillData,
     rowsFillData,
-    rowsTotal: rowsTotal.map(row => formatNumber(numberFormat, row)),
-    columnsTotal: columnsTotal.map(column => formatNumber(numberFormat, column)),
+    rowsTotal: rowsTotal.map(row => formatNumber(numbersFormat, row)),
+    columnsTotal: columnsTotal.map(column => formatNumber(numbersFormat, column)),
   };
 };

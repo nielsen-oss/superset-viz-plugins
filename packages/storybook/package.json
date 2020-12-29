@@ -5,13 +5,16 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@emotion/jest": "^11.1.0",
     "@storybook/addon-actions": "^6.1.11",
     "@storybook/addon-essentials": "^6.1.11",
     "@storybook/addon-links": "^6.1.11",
     "@storybook/react": "^6.1.11",
-    "babel-loader": "^8.2.2"
+    "@types/recharts": "^1.8.18",
+    "babel-loader": "^8.2.2",
+    "jest-styled-components": "^7.0.3",
+    "styled-components": "^5.2.1"
   },
-  "dependencies": {},
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"

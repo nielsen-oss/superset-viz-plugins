@@ -37,7 +37,12 @@
     "@superset-ui/core": "^0.16.1",
     "react": "^16.13.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@emotion/jest": "^11.1.0",
+    "@types/recharts": "^1.8.18",
+    "jest-styled-components": "^7.0.3",
+    "styled-components": "^5.2.1"
+  },
   "babel": {
     "presets": [
       "react-app"

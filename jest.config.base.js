@@ -12,6 +12,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   timers: 'real',
   verbose: true,
+  snapshotSerializers: ["@emotion/jest/serializer"],
   transformIgnorePatterns: ['node_modules/(?!(vega-lite|lodash-es))'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'ts-jest',

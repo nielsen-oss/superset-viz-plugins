@@ -1,90 +1,30 @@
 const formDataWithTotals = {
-  "queryFields": {"metrics": "metrics", "rows": "groupby", "columns": "groupby"},
-  "datasource": "13__table",
-  "vizType": "pivot",
-  "urlParams": {},
-  "timeRangeEndpoints": ["inclusive", "exclusive"],
-  "timeRange": "Last week",
   "metrics": [{
-    "expressionType": "SIMPLE",
-    "column": {
-      "id": 449,
-      "column_name": "decomp_volume",
-      "verbose_name": null,
-      "description": null,
-      "expression": null,
-      "filterable": true,
-      "groupby": true,
-      "is_dttm": false,
-      "type": "DOUBLE PRECISION",
-      "python_date_format": null,
-      "optionName": "_col_decomp_volume"
-    },
-    "aggregate": "AVG",
-    "sqlExpression": null,
-    "isNew": false,
-    "hasCustomLabel": false,
     "label": "AVG(decomp_volume)",
-    "optionName": "metric_lfke6i7nx6k_6jgnc1zoyq5"
   }, {
-    "expressionType": "SIMPLE",
-    "column": {
-      "id": 450,
-      "column_name": "volume_for_roi",
-      "verbose_name": null,
-      "description": null,
-      "expression": null,
-      "filterable": true,
-      "groupby": true,
-      "is_dttm": false,
-      "type": "DOUBLE PRECISION",
-      "python_date_format": null
-    },
-    "aggregate": "AVG",
-    "sqlExpression": null,
-    "isNew": false,
-    "hasCustomLabel": false,
     "label": "AVG(volume_for_roi)",
-    "optionName": "metric_68w492l0n3a_s110voiy62q"
   }],
   "rows": ["group_type", "period_type"],
   "columns": ["period", "period_type"],
-  "adhocFilters": [{
-    "expressionType": "SIMPLE",
-    "subject": "period",
-    "operator": "!=",
-    "comparator": "2019",
-    "clause": "WHERE",
-    "sqlExpression": null,
-    "isExtra": false,
-    "isNew": false,
-    "filterOptionName": "filter_dv1vzir8d8v_ghbznkxwzmu"
-  }, {
-    "expressionType": "SIMPLE",
-    "subject": "period",
-    "operator": "!=",
-    "comparator": "2020",
-    "clause": "WHERE",
-    "sqlExpression": null,
-    "isExtra": false,
-    "isNew": false,
-    "filterOptionName": "filter_gdsjztfvsjh_4mip8d1hs8r"
-  }],
-  "rowLimit": 100,
   "transpose": false,
-  "showTotal": "columnsAndRows",
-  "numberFormat": "SMART_NUMBER"
+  "numbersFormat": "SMART_NUMBER",
+  "showTotal": "columnsAndRows"
 }
-const queryData = {
-  "cache_key": "ad06e7cb1276f8ebc1d2ef57f0a133ac",
-  "cached_dttm": null,
-  "cache_timeout": 86400,
-  "error": null,
-  "is_cached": true,
-  "status": "success",
-  "stacktrace": null,
-  "rowcount": 24,
-  "annotation_data": [],
+const formDataWithTotalsSingleRow = {
+  "metrics": [{
+    "label": "AVG(decomp_volume)",
+  }, {
+    "label": "AVG(volume_for_roi)",
+  }],
+  "rows": ["group_type"],
+  "columns": ["period", "period_type"],
+  "transpose": false,
+  "numbersFormat": "SMART_NUMBER",
+  "showTotal": "columnsAndRows",
+  "compactView": false
+}
+
+export const queryData = {
   "data": [{
     "group_type": "SummaryGroup",
     "period_type": "Standard",
@@ -231,74 +171,7 @@ const queryData = {
     "AVG(volume_for_roi)": 20054.2325581395
   }]
 }
-const formDataWithTotalsSingleRow = {
-  "queryFields": {"metrics": "metrics", "rows": "groupby", "columns": "groupby"},
-  "datasource": "13__table",
-  "vizType": "pivot",
-  "urlParams": {},
-  "timeRangeEndpoints": ["inclusive", "exclusive"],
-  "timeRange": "Last week",
-  "metrics": [{
-    "expressionType": "SIMPLE",
-    "column": {
-      "id": 449,
-      "column_name": "decomp_volume",
-      "verbose_name": null,
-      "description": null,
-      "expression": null,
-      "filterable": true,
-      "groupby": true,
-      "is_dttm": false,
-      "type": "DOUBLE PRECISION",
-      "python_date_format": null,
-      "optionName": "_col_decomp_volume"
-    },
-    "aggregate": "AVG",
-    "sqlExpression": null,
-    "isNew": false,
-    "hasCustomLabel": false,
-    "label": "AVG(decomp_volume)",
-    "optionName": "metric_cyoeegy9e_qf41v1mifge"
-  }, {
-    "expressionType": "SIMPLE",
-    "column": {
-      "id": 450,
-      "column_name": "volume_for_roi",
-      "verbose_name": null,
-      "description": null,
-      "expression": null,
-      "filterable": true,
-      "groupby": true,
-      "is_dttm": false,
-      "type": "DOUBLE PRECISION",
-      "python_date_format": null,
-      "optionName": "_col_volume_for_roi"
-    },
-    "aggregate": "AVG",
-    "sqlExpression": null,
-    "isNew": false,
-    "hasCustomLabel": false,
-    "label": "AVG(volume_for_roi)",
-    "optionName": "metric_x7ujtccruwe_vqyp8tpl7o8"
-  }],
-  "rows": ["group_type"],
-  "columns": ["period", "period_type"],
-  "adhocFilters": [],
-  "rowLimit": 100,
-  "numberFormat": "SMART_NUMBER",
-  "showTotal": "columnsAndRows",
-  "compactView": false
-}
-const queryDataSingleRow = {
-  "cache_key": "ad06e7cb1276f8ebc1d2ef57f0a133ac",
-  "cached_dttm": null,
-  "cache_timeout": 86400,
-  "error": null,
-  "is_cached": true,
-  "status": "success",
-  "stacktrace": null,
-  "rowcount": 24,
-  "annotation_data": [],
+export const queryDataSingleRow = {
   "data": [{
     "group_type": "DirectDueToGroup",
     "period": "2019",
@@ -519,51 +392,39 @@ const queryDataSingleRow = {
 }
 
 export const withTotals = {
-  "annotationData": {},
-  "initialValues": {},
   "formData": formDataWithTotals,
-  "height": 596,
-  "hooks": {},
+  "height": 400,
   "queriesData": [queryData],
-  "width": 595
+  "width": 800
 }
 
 export const withNoTotals = {
-  "annotationData": {},
-  "initialValues": {},
   "formData": {
     ...formDataWithTotals,
     "showTotal": "noTotal",
   },
-  "height": 596,
-  "hooks": {},
+  "height": 400,
   "queriesData": [queryData],
-  "width": 595
+  "width": 800
 }
 
 export const singleRowCompact = {
-  "annotationData": {},
-  "initialValues": {},
   "formData": {
     ...formDataWithTotalsSingleRow,
     "compactView": true,
   },
-  "height": 596,
-  "hooks": {},
+  "height": 400,
   "queriesData": [queryDataSingleRow],
-  "width": 595
+  "width": 800
 }
 
 export const singleRowCompactWithNoTotals = {
-  "annotationData": {},
-  "initialValues": {},
   "formData": {
     ...formDataWithTotalsSingleRow,
     "compactView": true,
     "showTotal": "noTotal",
   },
-  "height": 596,
-  "hooks": {},
+  "height": 400,
   "queriesData": [queryDataSingleRow],
-  "width": 595
+  "width": 800
 }
