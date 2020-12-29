@@ -114,6 +114,19 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   return result;
 }
 
+export const getChartMargin = (legendPosition: LegendPosition, yAxis: YAxisProps) => {
+  const chartMargin = { left: 0, right: 5 };
+
+  if (yAxis.label) {
+    chartMargin.left += 20;
+  }
+  if (yAxis.label2) {
+    chartMargin.right += 20;
+  }
+
+  return chartMargin;
+};
+
 const getLabelSize = (angle: number, dataKeyLength: number, angleMin: number, angleMax: number): number =>
   angle === angleMin
     ? MIN_LABEL_MARGIN
@@ -165,7 +178,7 @@ export const getLegendProps = (
         layout: Layout.vertical,
         wrapperStyle: {
           ...result.wrapperStyle,
-          paddingLeft: 20,
+          paddingLeft: 10,
         },
       };
     case LegendPosition.bottom:
@@ -326,7 +339,7 @@ export const getYAxisProps = ({
 }: AxisProps) => {
   const textAnchorPerAxis = isSecondAxis ? 'start' : 'end';
   const textAnchor = angle === -90 ? 'middle' : textAnchorPerAxis;
-  const labelOffset = 0;
+  const labelOffset = isSecondAxis ? 10 : 0;
   const labelProps: LabelProps = {
     offset: labelOffset,
     value: label,

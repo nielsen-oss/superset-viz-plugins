@@ -73,13 +73,13 @@ const showTotal: { name: string; config: ControlConfig<'SelectControl'> } = {
   },
 };
 
-const numbersFormat: { name: string; config: ControlConfig<'SelectControl'> } = {
-  name: 'numbers_format',
+const numberFormat: { name: string; config: ControlConfig<'SelectControl'> } = {
+  name: 'number_format',
   config: {
     type: 'SelectControl',
-    label: t('Numbers format'),
+    label: t('Number format'),
     renderTrigger: true,
-    default: D3_FORMAT_OPTIONS[0][0],
+    default: 'SMART_NUMBER',
     choices: D3_FORMAT_OPTIONS,
     description: D3_FORMAT_DOCS,
   },
@@ -114,7 +114,7 @@ const config: ControlPanelConfig = {
       label: t('Table Options'),
       expanded: true,
       controlSetRows: [
-        [numbersFormat, showTotal],
+        [numberFormat, showTotal],
         [compactView, emptyValuePlaceholder],
       ],
     },

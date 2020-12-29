@@ -25,7 +25,6 @@ type MetricObject<M extends string> = {
 
 type FormData<R extends string, C extends string, M extends string> = {
   numberFormat: string;
-  numbersFormat: string;
   emptyValuePlaceholder: string;
   compactView: boolean;
   transpose: boolean;
@@ -63,11 +62,9 @@ export default function transformProps<R extends string, C extends string, M ext
     columns: tempColumns,
     compactView: tempCompactView,
     numberFormat,
-    numbersFormat: tempNumbersFormat,
     showTotal = ShowTotal.noTotal,
     emptyValuePlaceholder,
   } = formData;
-  const numbersFormat = tempNumbersFormat || numberFormat;
   let rows: R[] = tempRows || [];
   let columns: C[] = tempColumns || [];
   const compactView = tempCompactView && rows.length <= 1
@@ -99,7 +96,7 @@ export default function transformProps<R extends string, C extends string, M ext
     columnUnits,
     rowUnits,
     numberOfColumnsPerMetric,
-    numbersFormat,
+    numberFormat,
     numberOfRows,
     oneDimensionRows,
     oneDimensionColumns,

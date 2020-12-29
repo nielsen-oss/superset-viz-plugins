@@ -18,7 +18,7 @@
  */
 import { validateNonEmpty, t } from '@superset-ui/core';
 import {
-  ControlPanelConfig, D3_FORMAT_DOCS,
+  ControlPanelConfig,
   D3_FORMAT_OPTIONS,
   formatSelectOptions,
   sharedControls,
@@ -41,10 +41,10 @@ export const numbersFormat = {
   name: 'numbers_format',
   config: {
     label: t('Numbers Format'),
-    description: D3_FORMAT_DOCS,
+    description: t('Choose the format for numbers in the chart'),
     type: 'SelectControl',
     clearable: false,
-    default: D3_FORMAT_OPTIONS[0][0],
+    default: D3_FORMAT_OPTIONS[0],
     choices: D3_FORMAT_OPTIONS,
     renderTrigger: true,
   },

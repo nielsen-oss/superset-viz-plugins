@@ -49,7 +49,7 @@ Object {
         />,
         <mockConstructor
           angle={-45}
-          dataKey="period_type"
+          dataKey="due_to_group"
           dy={10}
           interval={0}
           tick={[Function]}
@@ -61,13 +61,13 @@ Object {
           formatter={[Function]}
         />,
         <mockConstructor
-          dataKey="COUNT(volume_for_roi)"
+          dataKey="SUM(decomp_volume)"
           onClick={[Function]}
           shape={[Function]}
         >
           <LabelList
             content={[Function]}
-            dataKey="COUNT(volume_for_roi)"
+            dataKey="SUM(decomp_volume)"
             position="top"
             valueAccessor={[MockFunction]}
           />
@@ -75,121 +75,296 @@ Object {
       ],
       "data": Array [
         Object {
-          "COUNT(volume_for_roi)": Array [
+          "SUM(decomp_volume)": Array [
             0,
-            122,
+            1695120,
           ],
           "__TOTAL__": true,
+          "due_to_group": "2017",
           "period": "__TOTAL__",
-          "period_type": "Total Period",
         },
         Object {
-          "COUNT(volume_for_roi)": Array [
-            122,
-            166,
+          "SUM(decomp_volume)": Array [
+            1695120,
+            2695110,
           ],
-          "period": "2017",
-          "period_type": "Custom",
-        },
-        Object {
-          "COUNT(volume_for_roi)": Array [
-            166,
-            208,
-          ],
-          "period": "2017",
-          "period_type": "Standard",
-        },
-        Object {
-          "COUNT(volume_for_roi)": Array [
-            0,
-            208,
-          ],
-          "__TOTAL__": true,
-          "period": "__TOTAL__",
-          "period_type": "2017",
-        },
-        Object {
-          "COUNT(volume_for_roi)": Array [
-            208,
-            252,
-          ],
+          "due_to_group": "Online Advertising",
           "period": "2018",
-          "period_type": "Custom",
         },
         Object {
-          "COUNT(volume_for_roi)": Array [
-            252,
-            294,
+          "SUM(decomp_volume)": Array [
+            2695110,
+            3431686,
           ],
+          "due_to_group": "COREBASE",
           "period": "2018",
-          "period_type": "Standard",
         },
         Object {
-          "COUNT(volume_for_roi)": Array [
+          "SUM(decomp_volume)": Array [
+            3431686,
+            3820590,
+          ],
+          "due_to_group": "DISPLAY",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3820590,
+            3887418,
+          ],
+          "due_to_group": "Halo TV",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3887418,
+            3896862,
+          ],
+          "due_to_group": "Facebook",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "Promo",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "Email",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "BB Display",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "Competitive Coupons",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "Competitor TV Advertising",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "OTHER",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "Coupons",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "DFSI",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
             0,
-            294,
+            3896862,
           ],
           "__TOTAL__": true,
+          "due_to_group": "2018",
           "period": "__TOTAL__",
-          "period_type": "2018",
         },
         Object {
-          "COUNT(volume_for_roi)": Array [
-            294,
-            314,
+          "SUM(decomp_volume)": Array [
+            3896862,
+            5110114,
           ],
+          "due_to_group": "Competitor TV Advertising",
           "period": "2019",
-          "period_type": "Custom",
         },
         Object {
-          "COUNT(volume_for_roi)": Array [
-            314,
-            333,
+          "SUM(decomp_volume)": Array [
+            5110114,
+            5205023,
           ],
+          "due_to_group": "Facebook",
           "period": "2019",
-          "period_type": "Standard",
         },
         Object {
-          "COUNT(volume_for_roi)": Array [
+          "SUM(decomp_volume)": Array [
+            5205023,
+            5213808,
+          ],
+          "due_to_group": "DFSI",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            5213808,
+            5222532,
+          ],
+          "due_to_group": "Competitive Coupons",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            5222532,
+            5225482,
+          ],
+          "due_to_group": "Coupons",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            5225482,
+            5227326,
+          ],
+          "due_to_group": "BB Display",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            5227326,
+            5227326,
+          ],
+          "due_to_group": "Promo",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            5227326,
+            4240326,
+          ],
+          "due_to_group": "Email",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4240326,
+            2568674,
+          ],
+          "due_to_group": "Online Advertising",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
             0,
-            333,
+            2568674,
           ],
           "__TOTAL__": true,
+          "due_to_group": "2019",
           "period": "__TOTAL__",
-          "period_type": "2019",
         },
         Object {
-          "COUNT(volume_for_roi)": Array [
-            333,
-            354,
+          "SUM(decomp_volume)": Array [
+            2568674,
+            4514239.5,
           ],
+          "due_to_group": "Facebook",
           "period": "2020",
-          "period_type": "Custom",
         },
         Object {
-          "COUNT(volume_for_roi)": Array [
-            354,
-            373,
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            4514239.5,
           ],
+          "due_to_group": "DFSI",
           "period": "2020",
-          "period_type": "Standard",
         },
         Object {
-          "COUNT(volume_for_roi)": Array [
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            4514239.5,
+          ],
+          "due_to_group": "Coupons",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            4514239.5,
+          ],
+          "due_to_group": "Competitor TV Advertising",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            4514239.5,
+          ],
+          "due_to_group": "BB Display",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            4514239.5,
+          ],
+          "due_to_group": "Promo",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            4514239.5,
+          ],
+          "due_to_group": "Competitive Coupons",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            3515251.5,
+          ],
+          "due_to_group": "Email",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3515251.5,
+            2015250.8,
+          ],
+          "due_to_group": "Online Advertising",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
             0,
-            373,
+            2015250.8,
           ],
           "__TOTAL__": true,
+          "due_to_group": "2020",
           "period": "__TOTAL__",
-          "period_type": "2020",
         },
       ],
-      "height": 400,
+      "height": 808,
       "margin": Object {
         "bottom": 60,
         "left": 10,
       },
-      "width": 800,
+      "width": 1229,
     },
     Object {},
   ],
@@ -197,11 +372,11 @@ Object {
     Object {
       "children": <LabelList
         content={[Function]}
-        dataKey="COUNT(volume_for_roi)"
+        dataKey="SUM(decomp_volume)"
         position="top"
         valueAccessor={[MockFunction]}
       />,
-      "dataKey": "COUNT(volume_for_roi)",
+      "dataKey": "SUM(decomp_volume)",
       "onClick": [Function],
       "shape": [Function],
     },
@@ -259,7 +434,7 @@ Object {
   "XAxisProps": Array [
     Object {
       "angle": -45,
-      "dataKey": "period_type",
+      "dataKey": "due_to_group",
       "dy": 10,
       "interval": 0,
       "tick": [Function],

@@ -61,8 +61,8 @@ export type WaterfallChartProps = {
 };
 
 const Styles = styled.div<WaterfallStylesProps>`
-  height: ${({ height }) => height}px;
-  width: ${({ width }) => width}px;
+  height: ${({ height }) => height};
+  width: ${({ width }) => width};
 `;
 
 const Error = styled.div`

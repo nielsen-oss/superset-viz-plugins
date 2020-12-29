@@ -33,6 +33,7 @@ import {
   CHART_SUB_TYPES,
   CHART_TYPES,
   getCartesianGridProps,
+  getChartMargin,
   getLegendProps,
   getMaxLengthOfDataKey,
   getMaxLengthOfMetric,
@@ -175,6 +176,8 @@ export default function ComposedChart(props: ComposedChartProps) {
     setDisabledDataKeys(resultKeys);
   };
 
+  const chartMargin = getChartMargin(legendPosition, yAxis);
+
   return (
     <Styles key={updater} height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
       <RechartsComposedChart
@@ -182,7 +185,7 @@ export default function ComposedChart(props: ComposedChartProps) {
         width={width}
         height={height}
         layout={layout}
-        margin={{ left: 10, right: 10 }}
+        margin={chartMargin}
         data={currentData}
       >
         {showLegend && (
