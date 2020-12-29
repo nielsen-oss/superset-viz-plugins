@@ -17,7 +17,7 @@
  * under the License.
  */
 import {formatSelectOptions, sharedControls} from '@superset-ui/chart-controls';
-import {LegendPosition} from '../utils';
+import {LabelTypeNames, LabelTypes, LegendPosition} from '../utils';
 import {QueryFormData, t, validateNonEmpty} from '@superset-ui/core';
 import {ColumnMeta, SelectControlConfig} from '@superset-ui/chart-controls/lib/types';
 
@@ -60,11 +60,7 @@ const labelType = {
     default: 'percent',
     renderTrigger: true,
     visibility: ({form_data}: { form_data: QueryFormData }) => form_data.is_donut === false && form_data.show_labels === true,
-    choices: [
-      ['percent', 'Percentage'],
-      ['category', 'Category Name'],
-      ['category_percent', 'Category and Percentage'],
-    ],
+    choices: Object.entries(LabelTypes).map(([key, val]) => ([val, LabelTypeNames[key as LabelTypes]])),
     description: t('What should be shown on the label?'),
   },
 }

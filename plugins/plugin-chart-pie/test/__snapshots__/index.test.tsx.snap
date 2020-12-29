@@ -35,11 +35,11 @@ Object {
             ]
           }
           dataKey="AVG(efficiency)"
-          innerRadius={158}
+          innerRadius={80}
           label={false}
           onClick={[Function]}
           onMouseEnter={[Function]}
-          outerRadius={197.5}
+          outerRadius={100}
         >
           <Cell />
           <Cell />
@@ -48,8 +48,8 @@ Object {
           <Cell />
         </mockConstructor>,
       ],
-      "height": 596,
-      "width": 595,
+      "height": 400,
+      "width": 800,
     },
     Object {},
   ],
@@ -88,11 +88,11 @@ Object {
         },
       ],
       "dataKey": "AVG(efficiency)",
-      "innerRadius": 158,
+      "innerRadius": 80,
       "label": false,
       "onClick": [Function],
       "onMouseEnter": [Function],
-      "outerRadius": 197.5,
+      "outerRadius": 100,
     },
     Object {},
   ],
@@ -162,7 +162,7 @@ Object {
       ],
       "verticalAlign": "middle",
       "wrapperStyle": Object {
-        "maxHeight": 596,
+        "maxHeight": 400,
         "width": 0,
       },
     },
@@ -234,15 +234,15 @@ Object {
           verticalAlign="middle"
           wrapperStyle={
             Object {
-              "maxHeight": 596,
+              "maxHeight": 400,
               "width": 0,
             }
           }
         />,
         false,
       ],
-      "height": 596,
-      "width": 595,
+      "height": 400,
+      "width": 800,
     },
     Object {},
   ],
@@ -313,7 +313,7 @@ Object {
       ],
       "verticalAlign": "top",
       "wrapperStyle": Object {
-        "maxHeight": 596,
+        "maxHeight": 400,
       },
     },
     Object {},
@@ -384,7 +384,7 @@ Object {
           verticalAlign="top"
           wrapperStyle={
             Object {
-              "maxHeight": 596,
+              "maxHeight": 400,
             }
           }
         />,
@@ -418,7 +418,7 @@ Object {
           dataKey="AVG(efficiency)"
           label={[Function]}
           onClick={[Function]}
-          outerRadius={197.5}
+          outerRadius={100}
         >
           <Cell />
           <Cell />
@@ -427,8 +427,8 @@ Object {
           <Cell />
         </mockConstructor>,
       ],
-      "height": 596,
-      "width": 595,
+      "height": 400,
+      "width": 800,
     },
     Object {},
   ],
@@ -468,7 +468,7 @@ Object {
       "dataKey": "AVG(efficiency)",
       "label": [Function],
       "onClick": [Function],
-      "outerRadius": 197.5,
+      "outerRadius": 100,
     },
     Object {},
   ],
