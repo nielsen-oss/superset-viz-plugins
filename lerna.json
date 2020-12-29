@@ -17,7 +17,7 @@
       "conventionalCommits": true
     },
     "version": {
-      "message": "chore: publish %s [ci-skip]",
+      "message": "chore(release): publish",
       "exact": true
     }
   }
