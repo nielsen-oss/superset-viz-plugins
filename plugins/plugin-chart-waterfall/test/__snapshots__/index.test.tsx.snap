@@ -1,0 +1,451 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`plugin-chart-composed Chart with legend top 1`] = `
+Object {
+  "BarChartProps": Array [
+    Object {
+      "barCategoryGap": 0,
+      "children": Array [
+        <mockConstructor
+          iconSize={10}
+          iconType="circle"
+          payload={
+            Array [
+              Object {
+                "color": "#5AC189",
+                "id": "increase",
+                "type": "circle",
+                "value": "Increase",
+              },
+              Object {
+                "color": "#E04355",
+                "id": "decrease",
+                "type": "circle",
+                "value": "Decrease",
+              },
+              Object {
+                "color": "#66BCFE",
+                "id": "total",
+                "type": "circle",
+                "value": "Total",
+              },
+              Object {
+                "color": "#FCC700",
+                "id": "other",
+                "type": "circle",
+                "value": "Other",
+              },
+            ]
+          }
+          verticalAlign="top"
+          wrapperStyle={
+            Object {
+              "paddingBottom": 20,
+            }
+          }
+        />,
+        <mockConstructor
+          vertical={false}
+        />,
+        <mockConstructor
+          angle={-45}
+          dataKey="due_to_group"
+          dy={10}
+          interval={0}
+          tick={[Function]}
+        />,
+        <mockConstructor
+          tickFormatter={[Function]}
+        />,
+        <mockConstructor
+          formatter={[Function]}
+        />,
+        <mockConstructor
+          dataKey="SUM(decomp_volume)"
+          onClick={[Function]}
+          shape={[Function]}
+        >
+          <LabelList
+            content={[Function]}
+            dataKey="SUM(decomp_volume)"
+            position="top"
+            valueAccessor={[MockFunction]}
+          />
+        </mockConstructor>,
+      ],
+      "data": Array [
+        Object {
+          "SUM(decomp_volume)": Array [
+            0,
+            1695120,
+          ],
+          "__TOTAL__": true,
+          "due_to_group": "2017",
+          "period": "__TOTAL__",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            1695120,
+            2695110,
+          ],
+          "due_to_group": "Online Advertising",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            2695110,
+            3431686,
+          ],
+          "due_to_group": "COREBASE",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3431686,
+            3820590,
+          ],
+          "due_to_group": "DISPLAY",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3820590,
+            3887418,
+          ],
+          "due_to_group": "Halo TV",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3887418,
+            3896862,
+          ],
+          "due_to_group": "Facebook",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "Promo",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "Email",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "BB Display",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "Competitive Coupons",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "Competitor TV Advertising",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "OTHER",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "Coupons",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            3896862,
+          ],
+          "due_to_group": "DFSI",
+          "period": "2018",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            0,
+            3896862,
+          ],
+          "__TOTAL__": true,
+          "due_to_group": "2018",
+          "period": "__TOTAL__",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3896862,
+            5110114,
+          ],
+          "due_to_group": "Competitor TV Advertising",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            5110114,
+            5205023,
+          ],
+          "due_to_group": "Facebook",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            5205023,
+            5213808,
+          ],
+          "due_to_group": "DFSI",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            5213808,
+            5222532,
+          ],
+          "due_to_group": "Competitive Coupons",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            5222532,
+            5225482,
+          ],
+          "due_to_group": "Coupons",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            5225482,
+            5227326,
+          ],
+          "due_to_group": "BB Display",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            5227326,
+            5227326,
+          ],
+          "due_to_group": "Promo",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            5227326,
+            4240326,
+          ],
+          "due_to_group": "Email",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4240326,
+            2568674,
+          ],
+          "due_to_group": "Online Advertising",
+          "period": "2019",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            0,
+            2568674,
+          ],
+          "__TOTAL__": true,
+          "due_to_group": "2019",
+          "period": "__TOTAL__",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            2568674,
+            4514239.5,
+          ],
+          "due_to_group": "Facebook",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            4514239.5,
+          ],
+          "due_to_group": "DFSI",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            4514239.5,
+          ],
+          "due_to_group": "Coupons",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            4514239.5,
+          ],
+          "due_to_group": "Competitor TV Advertising",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            4514239.5,
+          ],
+          "due_to_group": "BB Display",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            4514239.5,
+          ],
+          "due_to_group": "Promo",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            4514239.5,
+          ],
+          "due_to_group": "Competitive Coupons",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            4514239.5,
+            3515251.5,
+          ],
+          "due_to_group": "Email",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            3515251.5,
+            2015250.8,
+          ],
+          "due_to_group": "Online Advertising",
+          "period": "2020",
+        },
+        Object {
+          "SUM(decomp_volume)": Array [
+            0,
+            2015250.8,
+          ],
+          "__TOTAL__": true,
+          "due_to_group": "2020",
+          "period": "__TOTAL__",
+        },
+      ],
+      "height": 808,
+      "margin": Object {
+        "bottom": 60,
+        "left": 10,
+      },
+      "width": 1229,
+    },
+    Object {},
+  ],
+  "BarProps": Array [
+    Object {
+      "children": <LabelList
+        content={[Function]}
+        dataKey="SUM(decomp_volume)"
+        position="top"
+        valueAccessor={[MockFunction]}
+      />,
+      "dataKey": "SUM(decomp_volume)",
+      "onClick": [Function],
+      "shape": [Function],
+    },
+    Object {},
+  ],
+  "CartesianGridProps": Array [
+    Object {
+      "vertical": false,
+    },
+    Object {},
+  ],
+  "LegendProps": Array [
+    Object {
+      "iconSize": 10,
+      "iconType": "circle",
+      "payload": Array [
+        Object {
+          "color": "#5AC189",
+          "id": "increase",
+          "type": "circle",
+          "value": "Increase",
+        },
+        Object {
+          "color": "#E04355",
+          "id": "decrease",
+          "type": "circle",
+          "value": "Decrease",
+        },
+        Object {
+          "color": "#66BCFE",
+          "id": "total",
+          "type": "circle",
+          "value": "Total",
+        },
+        Object {
+          "color": "#FCC700",
+          "id": "other",
+          "type": "circle",
+          "value": "Other",
+        },
+      ],
+      "verticalAlign": "top",
+      "wrapperStyle": Object {
+        "paddingBottom": 20,
+      },
+    },
+    Object {},
+  ],
+  "TooltipProps": Array [
+    Object {
+      "formatter": [Function],
+    },
+    Object {},
+  ],
+  "XAxisProps": Array [
+    Object {
+      "angle": -45,
+      "dataKey": "due_to_group",
+      "dy": 10,
+      "interval": 0,
+      "tick": [Function],
+    },
+    Object {},
+  ],
+  "YAxisProps": Array [
+    Object {
+      "tickFormatter": [Function],
+    },
+    Object {},
+  ],
+}
+`;

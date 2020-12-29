@@ -1,4 +1,4 @@
-export default {
+export const legendTop = {
   width: 1229,
   height: 808,
   formData: {
@@ -6,6 +6,8 @@ export default {
     datasource: '26__table',
     vizType: 'waterfall',
     sliceId: 493,
+    legendPosition: 'top',
+    numbersFormat: '.1s',
     urlParams: {},
     timeRangeEndpoints: ['inclusive', 'exclusive'],
     timeRange: 'Last week',
@@ -33,7 +35,6 @@ export default {
       optionName: 'metric_wo8xgwuq7tq_tknvpf3ks5l',
       sqlExpression: null,
     },
-
     adhocFilters: [
       {
         clause: 'WHERE',
@@ -60,14 +61,12 @@ export default {
     ],
     rowLimit: 100,
   },
-  queryData: {
+  queriesData: [{
     cache_key: '2e319663529c87ba567cb41ebb189af3',
     cached_dttm: '2020-07-26T07:33:24',
     cache_timeout: 86400,
     error: null,
     is_cached: true,
-    query:
-      'SELECT due_to_group AS due_to_group,\n       period AS period,\n       sum(decomp_volume) AS "SUM(decomp_volume)"\nFROM w3q\nWHERE period != \'Total Period\'\n  AND due_to_group IS NOT NULL\nGROUP BY due_to_group,\n         period\nORDER BY "SUM(decomp_volume)" DESC\nLIMIT 100',
     status: 'success',
     stacktrace: null,
     rowcount: 44,
@@ -117,5 +116,5 @@ export default {
       { due_to_group: 'Online Advertising', period: '2020', 'SUM(decomp_volume)': -1500000.7 },
       { due_to_group: 'Online Advertising', period: '2019', 'SUM(decomp_volume)': -1671652 },
     ],
-  },
+  }],
 };
