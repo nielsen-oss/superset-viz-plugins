@@ -28,7 +28,7 @@ import {
 } from 'recharts';
 import ComposedChartTooltip from './ComposedChartTooltip';
 import {getNumberFormatter, styled} from '@superset-ui/core';
-import {LabelColors, ResultData} from '../plugin/transformProps';
+import {LabelColors, ResultData} from '../plugin/utils';
 import {
   CHART_SUB_TYPES,
   CHART_TYPES,
