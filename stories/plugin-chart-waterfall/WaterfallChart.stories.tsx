@@ -1,7 +1,7 @@
 import React from 'react';
-import WaterfallChart from '../../../../plugins/plugin-chart-waterfall/src/components/WaterfallChart';
-import transformProps from '../../../../plugins/plugin-chart-waterfall/src/plugin/transformProps';
-import {legendTop} from '../../../../plugins/plugin-chart-waterfall/test/__mocks__/waterfallProps';
+import WaterfallChart from '../../plugins/plugin-chart-waterfall/src/components/WaterfallChart';
+import transformProps from '../../plugins/plugin-chart-waterfall/src/plugin/transformProps';
+import {legendTop} from '../../plugins/plugin-chart-waterfall/test/__mocks__/waterfallProps';
 import {D3_FORMAT_OPTIONS,} from '@superset-ui/chart-controls';
 import {ChartProps} from "@superset-ui/core";
 

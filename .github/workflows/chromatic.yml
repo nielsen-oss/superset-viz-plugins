@@ -1,0 +1,23 @@
+# .github/workflows/chromatic.yml
+# name of our action
+name: 'Chromatic deployment'
+# the event that will trigger the action
+on: push
+
+# what the action will do
+jobs:
+  deploy-to-chromatic:
+    name: Deploy to chromatic
+    # the operating system it will run on
+    runs-on: ubuntu-latest
+    # the list of steps that the action will go through
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+      - uses: chromaui/action@v1
+        # options required to the GitHub chromatic action
+        with:
+          # our project token, to see how to obtain it
+          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}

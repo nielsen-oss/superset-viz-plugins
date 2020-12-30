@@ -52,12 +52,7 @@ export default function buildQuery(formData: QueryFormData) {
     return [
       {
         ...baseQueryObject,
-        orderby,
-        filters: [
-          ...(baseQueryObject.filters || []),
-          // Add extra filters from dashboard
-          ...(formData.extra_filters || []).filter((filter: QueryFormExtraFilter) => filter.val !== null),
-        ],
+        orderby
       },
     ]
   });

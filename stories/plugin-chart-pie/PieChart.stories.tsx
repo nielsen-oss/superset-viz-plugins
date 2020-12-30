@@ -1,13 +1,16 @@
 import React from 'react';
-import PieChart from '../../../../plugins/plugin-chart-pie/src/PieChart';
-import {LabelTypes} from '../../../../plugins/plugin-chart-pie/src/utils';
-import transformProps from '../../../../plugins/plugin-chart-pie/src/plugin/transformProps';
-import {legendTopPercentage} from '../../../../plugins/plugin-chart-pie/test/__mocks__/pieProps';
+import PieChart from '../../plugins/plugin-chart-pie/src/PieChart';
+import {LabelTypes} from '../../plugins/plugin-chart-pie/src/utils';
+import transformProps from '../../plugins/plugin-chart-pie/src/plugin/transformProps';
+import {legendTopPercentage} from '../../plugins/plugin-chart-pie/test/__mocks__/pieProps';
 import {ChartProps, supersetTheme, ThemeProvider} from "@superset-ui/core";
 
 export default {
   title: 'Plugins/Pie Chart',
   component: PieChart,
+  parameters: {
+    chromatic: { delay: 2000 },
+  },
   argTypes: {
     data: {table: {disable: true}},
     dataKey: {table: {disable: true}},
@@ -50,7 +53,7 @@ const DonutTemplate = (args) =>
 export const Default = DefaultTemplate.bind({});
 Default.args = {
   ...transformProps(legendTopPercentage as unknown as ChartProps),
-  queriesData: legendTopPercentage.queriesData
+  queriesData: legendTopPercentage.queriesData,
 }
 
 export const Donut = DonutTemplate.bind({});
@@ -62,5 +65,5 @@ Donut.args = {
       isDonut: true
     }
   } as unknown as ChartProps),
-  queriesData: legendTopPercentage.queriesData
+  queriesData: legendTopPercentage.queriesData,
 }

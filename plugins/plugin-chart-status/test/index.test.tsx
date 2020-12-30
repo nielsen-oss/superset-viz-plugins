@@ -16,6 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import * as React from 'react'
+import React from "react";
+import StatusChartPlugin from '../src';
 
-export default Test => <div>Test</div>
+jest.mock('recharts')
+
+describe('plugin-chart-status', () => {
+  it('exists', () => {
+    expect(StatusChartPlugin).toBeDefined();
+  });
+});
