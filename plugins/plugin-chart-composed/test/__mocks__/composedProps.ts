@@ -859,28 +859,28 @@ const formDataWithAllChartTypes = {
 
 export const barsHorizontalLegendTop = {
   "formData": formDataBarsHorizontalLegendTop,
-  "height": 596,
+  "height": 400,
   "queriesData": [queriesDataMetrics2],
-  "width": 560
+  "width": 800
 }
 
 export const barsHorizontalLegendLeftY2AxisBreakdowns = {
   "formData": formDataBarsHorizontalLegendLeftY2Axis,
-  "height": 596,
+  "height": 400,
   "queriesData": [queriesDataMetrics2Breakdowns],
-  "width": 560
+  "width": 800
 }
 
 export const barsVerticalLegendRightNumFormatAllLabelsBreakdowns = {
   "formData": formDataBarsVerticalLegendRightNumFormatAllLabels,
-  "height": 596,
+  "height": 400,
   "queriesData": [queriesDataMetrics2Breakdowns],
-  "width": 560
+  "width": 800
 }
 
 export const allChatsLegendBottomBreakdowns = {
   "formData": formDataWithAllChartTypes,
-  "height": 596,
+  "height": 400,
   "queriesData": [queriesDataForAllCharts],
-  "width": 560
+  "width": 800
 }
