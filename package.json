@@ -7,6 +7,7 @@
     "build:assets": "node ./scripts/copyAssets.js",
     "storybook": "cd packages/storybook && yarn storybook",
     "build-storybook": "cd packages/storybook && yarn build-storybook",
+    "chromatic": "cd packages/storybook && yarn chromatic",
     "clean": "rm -rf ./{packages,plugins}/**/{dist,esm,tsconfig.tsbuildinfo} build/",
     "format": "lerna exec prettier --write",
     "lint": "eslint packages/**/*.{ts,tsx} plugins/**/*.{ts,tsx}",
