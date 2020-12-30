@@ -250,9 +250,9 @@ Object {
           width={0}
           wrapperStyle={
             Object {
-              "maxHeight": 596,
+              "maxHeight": 400,
               "paddingTop": 10,
-              "width": 560,
+              "width": 800,
             }
           }
         />,
@@ -1073,13 +1073,13 @@ Object {
           "rechartsDataKey": "SummaryGroup",
         },
       ],
-      "height": 596,
+      "height": 400,
       "layout": "horizontal",
       "margin": Object {
         "left": 10,
         "right": 10,
       },
-      "width": 560,
+      "width": 800,
     },
     Object {},
   ],
@@ -1143,9 +1143,9 @@ Object {
       "verticalAlign": "bottom",
       "width": 0,
       "wrapperStyle": Object {
-        "maxHeight": 596,
+        "maxHeight": 400,
         "paddingTop": 10,
-        "width": 560,
+        "width": 800,
       },
     },
     Object {},
@@ -1328,7 +1328,7 @@ Object {
           width={0}
           wrapperStyle={
             Object {
-              "maxHeight": 596,
+              "maxHeight": 400,
             }
           }
         />,
@@ -1425,13 +1425,13 @@ Object {
           "rechartsDataKey": "SummaryGroup",
         },
       ],
-      "height": 596,
+      "height": 400,
       "layout": "horizontal",
       "margin": Object {
         "left": 10,
         "right": 10,
       },
-      "width": 560,
+      "width": 800,
     },
     Object {},
   ],
@@ -1459,7 +1459,7 @@ Object {
       "verticalAlign": "middle",
       "width": 0,
       "wrapperStyle": Object {
-        "maxHeight": 596,
+        "maxHeight": 400,
       },
     },
     Object {},
@@ -1550,7 +1550,7 @@ Object {
           width={0}
           wrapperStyle={
             Object {
-              "maxHeight": 596,
+              "maxHeight": 400,
               "paddingLeft": 20,
             }
           }
@@ -1639,13 +1639,13 @@ Object {
           "rechartsTotal": 8,
         },
       ],
-      "height": 596,
+      "height": 400,
       "layout": "vertical",
       "margin": Object {
         "left": 10,
         "right": 10,
       },
-      "width": 560,
+      "width": 800,
     },
     Object {},
   ],
@@ -1673,7 +1673,7 @@ Object {
       "verticalAlign": "middle",
       "width": 0,
       "wrapperStyle": Object {
-        "maxHeight": 596,
+        "maxHeight": 400,
         "paddingLeft": 20,
       },
     },
@@ -1810,9 +1810,9 @@ Object {
           width={0}
           wrapperStyle={
             Object {
-              "maxHeight": 596,
+              "maxHeight": 400,
               "paddingBottom": 10,
-              "width": 560,
+              "width": 800,
             }
           }
         />,
@@ -1974,13 +1974,13 @@ Object {
           "rechartsDataKey": "Variable",
         },
       ],
-      "height": 596,
+      "height": 400,
       "layout": "horizontal",
       "margin": Object {
         "left": 10,
         "right": 10,
       },
-      "width": 560,
+      "width": 800,
     },
     Object {},
   ],
@@ -2008,9 +2008,9 @@ Object {
       "verticalAlign": "top",
       "width": 0,
       "wrapperStyle": Object {
-        "maxHeight": 596,
+        "maxHeight": 400,
         "paddingBottom": 10,
-        "width": 560,
+        "width": 800,
       },
     },
     Object {},
