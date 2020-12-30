@@ -50,7 +50,8 @@ const DonutTemplate = (args) =>
 export const Default = DefaultTemplate.bind({});
 Default.args = {
   ...transformProps(legendTopPercentage as unknown as ChartProps),
-  queriesData: legendTopPercentage.queriesData
+  queriesData: legendTopPercentage.queriesData,
+  chromatic: { delay: 300 }
 }
 
 export const Donut = DonutTemplate.bind({});
@@ -62,5 +63,6 @@ Donut.args = {
       isDonut: true
     }
   } as unknown as ChartProps),
-  queriesData: legendTopPercentage.queriesData
+  queriesData: legendTopPercentage.queriesData,
+  chromatic: { delay: 300 }
 }
