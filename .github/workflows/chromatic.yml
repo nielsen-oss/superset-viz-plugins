@@ -12,13 +12,12 @@ jobs:
     # the list of steps that the action will go through
     steps:
       - uses: actions/checkout@v1
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
+      - run: cd pacakges/storybook && yarn install --frozen-lockfile
+      - run: cd pacakges/storybook && yarn build
       - uses: chromaui/action@v1
         # options required to the GitHub chromatic action
         with:
           # our project token, to see how to obtain it
           # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
-          projectToken: ugfxue8czk
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          storybookBuildDir: docs
