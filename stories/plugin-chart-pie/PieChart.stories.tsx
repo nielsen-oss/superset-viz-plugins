@@ -8,6 +8,9 @@ import {ChartProps, supersetTheme, ThemeProvider} from "@superset-ui/core";
 export default {
   title: 'Plugins/Pie Chart',
   component: PieChart,
+  parameters: {
+    chromatic: { delay: 300 },
+  },
   argTypes: {
     data: {table: {disable: true}},
     dataKey: {table: {disable: true}},
@@ -51,7 +54,6 @@ export const Default = DefaultTemplate.bind({});
 Default.args = {
   ...transformProps(legendTopPercentage as unknown as ChartProps),
   queriesData: legendTopPercentage.queriesData,
-  chromatic: { delay: 300 }
 }
 
 export const Donut = DonutTemplate.bind({});
@@ -64,5 +66,4 @@ Donut.args = {
     }
   } as unknown as ChartProps),
   queriesData: legendTopPercentage.queriesData,
-  chromatic: { delay: 300 }
 }
