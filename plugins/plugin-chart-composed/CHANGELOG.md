@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.6.2...@superset-viz-plugins/plugin-chart-composed@0.7.0) (2020-12-30)
+
+
+### Features
+
+* sorting for composed chart ([#15](https://github.com/nielsen-oss/superset-viz-plugins/issues/15)) ([af0584a](https://github.com/nielsen-oss/superset-viz-plugins/commit/af0584af5b2108fabdb2c6c0fa0654a5a556fbd1))
+
+
+
+
+
 ## 0.6.2 (2020-12-30)
 
 

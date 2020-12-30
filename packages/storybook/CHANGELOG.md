@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.1.0 (2020-12-30)
+
+
+### Features
+
+* sorting for composed chart ([#15](https://github.com/nielsen-oss/superset-viz-plugins/issues/15)) ([af0584a](https://github.com/nielsen-oss/superset-viz-plugins/commit/af0584af5b2108fabdb2c6c0fa0654a5a556fbd1))
+
+
+
+
+
 ## [1.0.3](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/storybook@1.0.2...@superset-viz-plugins/storybook@1.0.3) (2020-12-30)
 
 

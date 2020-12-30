@@ -1,6 +1,6 @@
 {
   "name": "@superset-viz-plugins/storybook",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "main": "index.js",
   "license": "MIT",
   "description": "Storybook for Superset viz plugins ",
