@@ -14,7 +14,6 @@
     "babel-loader": "^8.2.2",
     "chromatic": "^5.5.0",
     "jest-styled-components": "^7.0.3",
-    "react": "^17.0.1",
     "styled-components": "^5.2.1"
   },
   "scripts": {
