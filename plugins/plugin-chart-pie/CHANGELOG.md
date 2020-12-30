@@ -1,0 +1,47 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 0.3.2 (2020-12-30)
+
+
+### Bug Fixes
+
+* add private annotation ([#17](https://github.com/nielsen-oss/superset-viz-plugins/issues/17)) ([6fa5db5](https://github.com/nielsen-oss/superset-viz-plugins/commit/6fa5db5cff10792d6f14eb82f30067c8dc3e2c71))
+
+
+
+
+
+## 0.3.2 (2020-12-30)
+
+**Note:** Version bump only for package @superset-viz-plugins/plugin-chart-pie
+
+
+
+
+
+## 0.3.1 (2020-12-29)
+
+**Note:** Version bump only for package @superset-viz-plugins/plugin-chart-pie
+
+
+
+
+
+# 0.3.0 (2020-12-28)
+
+
+### Bug Fixes
+
+* fix broken build ([cb6e455](https://github.com/nielsen-oss/superset-viz-plugins/commit/cb6e4558f133667d6ee184c9f2c4bb24aae22e0c))
+* fix composed chart ([c7adaaf](https://github.com/nielsen-oss/superset-viz-plugins/commit/c7adaafada43133b01fdc0bcf861c29a6b5562bf))
+
+
+### Features
+
+* add legend position ([97f6922](https://github.com/nielsen-oss/superset-viz-plugins/commit/97f692268c91754ca3f49d1d25c5b3ae298f7670))
+* add legend position to pie ([306abd9](https://github.com/nielsen-oss/superset-viz-plugins/commit/306abd91596c3eb6eb4e692d7d0a99b93f6e6548))
+* Add Pie chart ([ced5f21](https://github.com/nielsen-oss/superset-viz-plugins/commit/ced5f2185ddfec2003d0b88b42c075beea0f0cb2))
+* Composed chart with multi charts ([7842327](https://github.com/nielsen-oss/superset-viz-plugins/commit/784232758f4109e484f3052b45445f16c470d53a))

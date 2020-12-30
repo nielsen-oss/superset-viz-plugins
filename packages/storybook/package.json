@@ -1,8 +1,9 @@
 {
-  "name": "storybook",
-  "version": "1.0.0",
+  "name": "@superset-viz-plugins/storybook",
+  "version": "1.0.3",
   "main": "index.js",
   "license": "MIT",
+  "description": "Storybook for Superset viz plugins ",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@emotion/jest": "^11.1.0",
@@ -18,5 +19,6 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
-  }
+  },
+  "private": true
 }
