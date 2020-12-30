@@ -18,7 +18,7 @@
  */
 import React from 'react';
 import {Area, Bar, LabelFormatter, LabelProps, LegendPayload, LegendProps, Line, Scatter} from 'recharts';
-import {BREAKDOWN_SEPARATOR, LabelColors, ResultData} from '../plugin/transformProps';
+import {BREAKDOWN_SEPARATOR, LabelColors, ResultData} from '../plugin/utils';
 import ComposedChartTick, {ComposedChartTickProps} from './ComposedChartTick';
 import {CategoricalColorNamespace, getNumberFormatter} from '@superset-ui/core';
 
@@ -314,15 +314,15 @@ export const getXAxisProps = ({layout, angle = 0, label, dataKeyLength, metricLe
 };
 
 export const getYAxisProps = ({
-                                layout,
-                                angle = 0,
-                                label,
-                                dataKey,
-                                isSecondAxis,
-                                dataKeyLength,
-                                metricLength,
-                                numbersFormat,
-                              }: AxisProps) => {
+  layout,
+  angle = 0,
+  label,
+  dataKey,
+  isSecondAxis,
+  dataKeyLength,
+  metricLength,
+  numbersFormat,
+}: AxisProps) => {
   const textAnchorPerAxis = isSecondAxis ? 'start' : 'end';
   const textAnchor = angle === -90 ? 'middle' : textAnchorPerAxis;
   const labelOffset = 0;
@@ -384,13 +384,13 @@ export const getMaxLengthOfMetric = (data: ResultData[], metrics: string[], form
   );
 
 export const renderLabel = ({
-                              formatter = value => `${value}`,
-                              width: labelWidth = 0,
-                              height: labelHeight = 0,
-                              currentData,
-                              breakdown,
-                              index,
-                            }: LabelProps & { currentData: ResultData[]; breakdown: string; index: number }) => {
+  formatter = value => `${value}`,
+  width: labelWidth = 0,
+  height: labelHeight = 0,
+  currentData,
+  breakdown,
+  index,
+}: LabelProps & { currentData: ResultData[]; breakdown: string; index: number }) => {
   const formattedValue = `${formatter(currentData[index][breakdown])}`;
   if (
     Math.abs(labelHeight) < MIN_BAR_SIZE_FOR_LABEL ||
@@ -420,22 +420,22 @@ type ChartElementProps = {
 };
 
 export const renderChartElement = ({
-                                     breakdown,
-                                     chartType,
-                                     currentData,
-                                     metrics,
-                                     numbersFormat,
-                                     useY2Axis,
-                                     labelsColor,
-                                     isAnimationActive,
-                                     updater,
-                                     index,
-                                     chartSubType,
-                                     useCustomTypeMetrics,
-                                     chartTypeMetrics,
-                                     chartSubTypeMetrics,
-                                     colorScheme,
-                                   }: ChartElementProps) => {
+  breakdown,
+  chartType,
+  currentData,
+  metrics,
+  numbersFormat,
+  useY2Axis,
+  labelsColor,
+  isAnimationActive,
+  updater,
+  index,
+  chartSubType,
+  useCustomTypeMetrics,
+  chartTypeMetrics,
+  chartSubTypeMetrics,
+  colorScheme,
+}: ChartElementProps) => {
   let customChartType = chartType;
   let customChartSubType = chartSubType;
   if (useCustomTypeMetrics[index]) {
