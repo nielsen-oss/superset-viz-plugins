@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.5.4 (2020-12-30)
+
+
+### Bug Fixes
+
+* add private annotation ([#17](https://github.com/nielsen-oss/superset-viz-plugins/issues/17)) ([6fa5db5](https://github.com/nielsen-oss/superset-viz-plugins/commit/6fa5db5cff10792d6f14eb82f30067c8dc3e2c71))
+
+
+
+
+
 ## [0.5.4](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-pivot-table@0.5.3...@superset-viz-plugins/plugin-chart-pivot-table@0.5.4) (2020-12-30)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-pivot-table
