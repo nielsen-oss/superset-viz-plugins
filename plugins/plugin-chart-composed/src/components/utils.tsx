@@ -17,11 +17,10 @@
  * under the License.
  */
 import React from 'react';
-import { Area, Bar, LabelFormatter, LabelProps, LegendPayload, LegendProps, Line, Scatter } from 'recharts';
-import { BREAKDOWN_SEPARATOR, LabelColors, ResultData } from '../plugin/transformProps';
-import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
-import { CategoricalColorNamespace, getNumberFormatter } from '@superset-ui/core';
-import { YAxisProps } from './ComposedChart';
+import {Area, Bar, LabelFormatter, LabelProps, LegendPayload, LegendProps, Line, Scatter} from 'recharts';
+import {BREAKDOWN_SEPARATOR, LabelColors, ResultData} from '../plugin/utils';
+import ComposedChartTick, {ComposedChartTickProps} from './ComposedChartTick';
+import {CategoricalColorNamespace, getNumberFormatter} from '@superset-ui/core';
 
 export enum Layout {
   horizontal = 'horizontal',
@@ -265,7 +264,7 @@ export const getChartElement = (
       };
   }
 
-  return { ...commonProps };
+  return {...commonProps};
 };
 
 type AxisProps = {
@@ -280,7 +279,7 @@ type AxisProps = {
 };
 
 const AXIS_OFFSET = 30;
-export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricLength, numbersFormat }: AxisProps) => {
+export const getXAxisProps = ({layout, angle = 0, label, dataKeyLength, metricLength, numbersFormat}: AxisProps) => {
   const textAnchor = angle === 0 ? 'middle' : 'end';
   const labelProps: LabelProps = {
     value: label,
@@ -297,7 +296,7 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
       return {
         ...params,
         tick: (props: ComposedChartTickProps) => (
-          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
+          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)}/>
         ),
         height: angle === 0 ? MIN_LABEL_MARGIN + AXIS_OFFSET : metricLength + AXIS_OFFSET,
         type: 'number' as const,
@@ -306,7 +305,7 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
     default:
       return {
         ...params,
-        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
+        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor}/>,
         height: getLabelSize(angle, dataKeyLength, 0, -90) + AXIS_OFFSET,
         interval: 0,
         dataKey: 'rechartsDataKey',
@@ -343,7 +342,7 @@ export const getYAxisProps = ({
     case Layout.vertical:
       return {
         ...params,
-        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
+        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor}/>,
         width: getLabelSize(angle, dataKeyLength, -90, 0),
         dataKey: isSecondAxis ? dataKey : 'rechartsDataKey',
         type: 'category' as const,
@@ -353,13 +352,13 @@ export const getYAxisProps = ({
         ...params,
         width: angle === -90 ? MIN_LABEL_MARGIN : metricLength + AXIS_OFFSET,
         tick: (props: ComposedChartTickProps) => (
-          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
+          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)}/>
         ),
       };
   }
 };
 
-export const getCartesianGridProps = ({ layout }: { layout: Layout }) => {
+export const getCartesianGridProps = ({layout}: { layout: Layout }) => {
   switch (layout) {
     case Layout.vertical:
       return {
@@ -443,7 +442,7 @@ export const renderChartElement = ({
     customChartType = chartTypeMetrics[index];
     customChartSubType = chartSubTypeMetrics[index];
   }
-  const { Element, ...elementProps } = getChartElement(
+  const {Element, ...elementProps} = getChartElement(
     breakdown,
     customChartType,
     customChartSubType,
