@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/storybook@1.0.2...@superset-viz-plugins/storybook@1.0.3) (2020-12-30)
+
+
+### Bug Fixes
+
+* add private annotation ([1eb0120](https://github.com/nielsen-oss/superset-viz-plugins/commit/1eb0120ca410086660ba982f31c296e705717a60))
+
+
+
+
+
 ## 1.0.2 (2020-12-30)
 
 
