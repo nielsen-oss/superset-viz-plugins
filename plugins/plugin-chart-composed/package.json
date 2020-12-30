@@ -1,6 +1,6 @@
 {
   "name": "@superset-viz-plugins/plugin-chart-composed",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Superset Chart - Chart Composed",
   "pluginName": "ComposedChartPlugin",
   "sideEffects": false,
@@ -41,7 +41,6 @@
     "@superset-ui/core": "^0.16.11",
     "react": "^16.13.1"
   },
-  "devDependencies": {},
   "babel": {
     "presets": [
       "react-app"

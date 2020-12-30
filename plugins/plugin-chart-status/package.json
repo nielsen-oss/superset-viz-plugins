@@ -1,6 +1,6 @@
 {
   "name": "@superset-viz-plugins/plugin-chart-status",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Superset Chart - Status",
   "sideEffects": false,
   "pluginName": "Status",
@@ -42,6 +42,5 @@
     "presets": [
       "react-app"
     ]
-  },
-  "devDependencies": {}
+  }
 }
