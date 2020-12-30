@@ -27,13 +27,8 @@ jobs:
     - name: Get tags and filter trigger tags
       run: |
         git fetch --depth=1 origin "+refs/tags/*:refs/tags/*"
-        git fetch --prune --unshallow
-        git tag -d `git tag | grep -E '^trigger-'`
+        git fetch --prune
       working-directory: ./superset-viz-plugins
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
 
     - name: Install dependencies
       run: yarn install --frozen-lockfile
@@ -60,7 +55,6 @@ jobs:
     - name: Bump version and publish package(s)
       run: |
         npm whoami
-        git tag -d `git tag | grep -E '^trigger-'`
         yarn prerelease
         yarn ci:release-from-tag
       working-directory: ./superset-viz-plugins
