@@ -1,5 +1,15 @@
 # Manage Repository
 
+### Project Stack
+
+- [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/)
+- [Lerna](https://github.com/lerna/lerna)
+- [Typescript](https://www.typescriptlang.org/)
+- [Babel](https://babeljs.io/)
+- [Storybook](https://storybook.js.org/)
+- [ESLint](https://eslint.org/)
+- [Jest](https://jestjs.io/)
+
 ## Project Setup
 
 To work with this repository you'll need to install `yarn` and `lerna` globally on your machine.

@@ -1,16 +1,16 @@
 import React from 'react';
-import ComposedChart from '../../../../plugins/plugin-chart-composed/src/components/ComposedChart';
-import transformProps from '../../../../plugins/plugin-chart-pie/src/plugin/transformProps';
-import {legendTopPercentage} from '../../../../plugins/plugin-chart-pie/test/__mocks__/pieProps';
-import {ChartProps, supersetTheme, ThemeProvider} from "@superset-ui/core";
+// import ComposedChart from '../../../../plugins/plugin-chart-composed/src/components/ComposedChart';
+// import transformProps from '../../../../plugins/plugin-chart-pie/src/plugin/transformProps';
+// import {legendTopPercentage} from '../../../../plugins/plugin-chart-pie/test/__mocks__/pieProps';
+// import {ChartProps, supersetTheme, ThemeProvider} from "@superset-ui/core";
 
-export default {
-  title: 'Plugins/Composed Chart',
-  component: ComposedChart,
-  argTypes: {
-    data: {table: {disable: true}},
-  },
-};
+// export default {
+//   title: 'Plugins/Composed Chart',
+//   component: ComposedChart,
+//   argTypes: {
+//     data: {table: {disable: true}},
+//   },
+// };
 //
 // const BarTemplate = (args) =>
 //   <ThemeProvider theme={supersetTheme}><ComposedChart

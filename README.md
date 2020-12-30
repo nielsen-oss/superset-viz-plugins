@@ -16,19 +16,10 @@ This repository is using a monorepo strategy which lets us have one source of tr
 
   Docker Image is deployed [here](https://hub.docker.com/r/nielsenoss/apache-superset)
 
-### Project Stack
-
-- [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/)
-- [Lerna](https://github.com/lerna/lerna)
-- [Typescript](https://www.typescriptlang.org/)
-- [Babel](https://babeljs.io/)
-- [Storybook](https://storybook.js.org/)
-- [ESLint](https://eslint.org/)
-- [Jest](https://jestjs.io/)
   
 ### Connection to superset-incubator
 
-1. Replace `incubator-superset/superset-frontend/webpack.config.js` with [webpack.config.js](./docs/MANAGE_REPOSITORY.md)
+1. Replace `incubator-superset/superset-frontend/webpack.config.js` with [webpack.config.js](./docs/webpack.config.js)
    
 
 2. Use [this](https://preset.io/blog/2020-07-02-hello-world/) tutorial to connect plugins to superset

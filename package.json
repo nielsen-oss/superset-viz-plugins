@@ -7,7 +7,7 @@
     "build:assets": "node ./scripts/copyAssets.js",
     "sb": "yarn storybook",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
+    "build-storybook": "build-storybook -o docks-build",
     "clean": "rm -rf ./{packages,plugins}/**/{dist,esm,tsconfig.tsbuildinfo} build/",
     "format": "lerna exec prettier --write",
     "lint": "eslint packages/**/*.{ts,tsx} plugins/**/*.{ts,tsx}",
