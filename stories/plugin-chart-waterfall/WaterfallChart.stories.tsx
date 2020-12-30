@@ -32,5 +32,6 @@ const Template = (args) => <WaterfallChart
 export const Default = Template.bind({});
 Default.args = {
   ...transformProps(legendTop as unknown as ChartProps),
-  queriesData: legendTop.queriesData
+  queriesData: legendTop.queriesData,
+  chromatic: { delay: 300 }
 }
