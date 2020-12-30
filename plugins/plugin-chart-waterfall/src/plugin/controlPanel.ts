@@ -80,7 +80,7 @@ export const legendPosition = {
     clearable: false,
     label: t('Legend position'),
     renderTrigger: true,
-    choices: formatSelectOptions(Object.keys(LegendPosition)),
+    choices: formatSelectOptions(Object.values(LegendPosition)),
     default: 'top',
     description: t('Set legend position'),
   },
