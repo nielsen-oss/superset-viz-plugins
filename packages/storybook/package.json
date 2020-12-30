@@ -16,9 +16,9 @@
     "styled-components": "^5.2.1"
   },
   "scripts": {
-    "clean": "rm -rf  docks-build",
+    "clean": "rm -rf docks-build",
     "storybook": "start-storybook -p 6006",
-    "deploy-storybook": "storybook-to-ghpages -- --out=docks-build --ci",
-    "build-storybook": "npm run clean && build-storybook -o docks-build"
+    "build-storybook": "build-storybook -o docks-build",
+    "chromatic": "npx chromatic --project-token ugfxue8czk"
   }
 }
