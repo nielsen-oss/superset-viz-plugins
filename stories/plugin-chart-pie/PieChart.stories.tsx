@@ -9,7 +9,7 @@ export default {
   title: 'Plugins/Pie Chart',
   component: PieChart,
   parameters: {
-    chromatic: { delay: 300 },
+    chromatic: { delay: 1000 },
   },
   argTypes: {
     data: {table: {disable: true}},
