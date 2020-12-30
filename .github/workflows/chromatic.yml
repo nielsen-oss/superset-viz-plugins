@@ -12,8 +12,7 @@ jobs:
     # the list of steps that the action will go through
     steps:
       - uses: actions/checkout@v1
-      - run: cd packages/storybook && yarn install --frozen-lockfile
-      - run: cd packages/storybook && yarn build
+      - run: cd packages/storybook && yarn
       - uses: chromaui/action@v1
         # options required to the GitHub chromatic action
         with:
