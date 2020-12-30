@@ -17,11 +17,10 @@
  * under the License.
  */
 import React from 'react';
-import { Area, Bar, LabelFormatter, LabelProps, LegendPayload, LegendProps, Line, Scatter } from 'recharts';
-import { BREAKDOWN_SEPARATOR, LabelColors, ResultData } from '../plugin/transformProps';
-import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
-import { CategoricalColorNamespace, getNumberFormatter } from '@superset-ui/core';
-import { YAxisProps } from './ComposedChart';
+import {Area, Bar, LabelFormatter, LabelProps, LegendPayload, LegendProps, Line, Scatter} from 'recharts';
+import {BREAKDOWN_SEPARATOR, LabelColors, ResultData} from '../plugin/transformProps';
+import ComposedChartTick, {ComposedChartTickProps} from './ComposedChartTick';
+import {CategoricalColorNamespace, getNumberFormatter} from '@superset-ui/core';
 
 export enum Layout {
   horizontal = 'horizontal',
@@ -265,7 +264,7 @@ export const getChartElement = (
       };
   }
 
-  return { ...commonProps };
+  return {...commonProps};
 };
 
 type AxisProps = {
@@ -280,7 +279,7 @@ type AxisProps = {
 };
 
 const AXIS_OFFSET = 30;
-export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricLength, numbersFormat }: AxisProps) => {
+export const getXAxisProps = ({layout, angle = 0, label, dataKeyLength, metricLength, numbersFormat}: AxisProps) => {
   const textAnchor = angle === 0 ? 'middle' : 'end';
   const labelProps: LabelProps = {
     value: label,
@@ -297,7 +296,7 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
       return {
         ...params,
         tick: (props: ComposedChartTickProps) => (
-          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
+          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)}/>
         ),
         height: angle === 0 ? MIN_LABEL_MARGIN + AXIS_OFFSET : metricLength + AXIS_OFFSET,
         type: 'number' as const,
@@ -306,7 +305,7 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
     default:
       return {
         ...params,
-        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
+        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor}/>,
         height: getLabelSize(angle, dataKeyLength, 0, -90) + AXIS_OFFSET,
         interval: 0,
         dataKey: 'rechartsDataKey',
@@ -315,15 +314,15 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
 };
 
 export const getYAxisProps = ({
-  layout,
-  angle = 0,
-  label,
-  dataKey,
-  isSecondAxis,
-  dataKeyLength,
-  metricLength,
-  numbersFormat,
-}: AxisProps) => {
+                                layout,
+                                angle = 0,
+                                label,
+                                dataKey,
+                                isSecondAxis,
+                                dataKeyLength,
+                                metricLength,
+                                numbersFormat,
+                              }: AxisProps) => {
   const textAnchorPerAxis = isSecondAxis ? 'start' : 'end';
   const textAnchor = angle === -90 ? 'middle' : textAnchorPerAxis;
   const labelOffset = 0;
@@ -343,7 +342,7 @@ export const getYAxisProps = ({
     case Layout.vertical:
       return {
         ...params,
-        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
+        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor}/>,
         width: getLabelSize(angle, dataKeyLength, -90, 0),
         dataKey: isSecondAxis ? dataKey : 'rechartsDataKey',
         type: 'category' as const,
@@ -353,13 +352,13 @@ export const getYAxisProps = ({
         ...params,
         width: angle === -90 ? MIN_LABEL_MARGIN : metricLength + AXIS_OFFSET,
         tick: (props: ComposedChartTickProps) => (
-          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
+          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)}/>
         ),
       };
   }
 };
 
-export const getCartesianGridProps = ({ layout }: { layout: Layout }) => {
+export const getCartesianGridProps = ({layout}: { layout: Layout }) => {
   switch (layout) {
     case Layout.vertical:
       return {
@@ -385,13 +384,13 @@ export const getMaxLengthOfMetric = (data: ResultData[], metrics: string[], form
   );
 
 export const renderLabel = ({
-  formatter = value => `${value}`,
-  width: labelWidth = 0,
-  height: labelHeight = 0,
-  currentData,
-  breakdown,
-  index,
-}: LabelProps & { currentData: ResultData[]; breakdown: string; index: number }) => {
+                              formatter = value => `${value}`,
+                              width: labelWidth = 0,
+                              height: labelHeight = 0,
+                              currentData,
+                              breakdown,
+                              index,
+                            }: LabelProps & { currentData: ResultData[]; breakdown: string; index: number }) => {
   const formattedValue = `${formatter(currentData[index][breakdown])}`;
   if (
     Math.abs(labelHeight) < MIN_BAR_SIZE_FOR_LABEL ||
@@ -421,29 +420,29 @@ type ChartElementProps = {
 };
 
 export const renderChartElement = ({
-  breakdown,
-  chartType,
-  currentData,
-  metrics,
-  numbersFormat,
-  useY2Axis,
-  labelsColor,
-  isAnimationActive,
-  updater,
-  index,
-  chartSubType,
-  useCustomTypeMetrics,
-  chartTypeMetrics,
-  chartSubTypeMetrics,
-  colorScheme,
-}: ChartElementProps) => {
+                                     breakdown,
+                                     chartType,
+                                     currentData,
+                                     metrics,
+                                     numbersFormat,
+                                     useY2Axis,
+                                     labelsColor,
+                                     isAnimationActive,
+                                     updater,
+                                     index,
+                                     chartSubType,
+                                     useCustomTypeMetrics,
+                                     chartTypeMetrics,
+                                     chartSubTypeMetrics,
+                                     colorScheme,
+                                   }: ChartElementProps) => {
   let customChartType = chartType;
   let customChartSubType = chartSubType;
   if (useCustomTypeMetrics[index]) {
     customChartType = chartTypeMetrics[index];
     customChartSubType = chartSubTypeMetrics[index];
   }
-  const { Element, ...elementProps } = getChartElement(
+  const {Element, ...elementProps} = getChartElement(
     breakdown,
     customChartType,
     customChartSubType,

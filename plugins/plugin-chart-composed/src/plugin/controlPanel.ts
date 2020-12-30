@@ -23,7 +23,6 @@ import {
   D3_FORMAT_OPTIONS,
   CustomControlItem,
   DatasourceMeta,
-  ControlSetItem,
   ControlConfig,
   sharedControls,
 } from '@superset-ui/chart-controls';
@@ -45,6 +44,7 @@ import {
   scatterChartSubType,
 } from './configs/chartTypes';
 import { chartTypeMetrics } from './configs/chartTypeMetrics';
+import {orderByGroupBy, orderByMetric} from "./configs/orderBy";
 
 export const showLegend = {
   name: 'show_legend',
@@ -72,7 +72,7 @@ export const legendPosition = {
   },
 };
 
-const metrics: ControlSetItem = {
+const metrics: { name: string; config: ControlConfig<'MetricsControl'> } = {
   name: 'metrics',
   config: {
     type: 'MetricsControl',
@@ -181,7 +181,15 @@ const config: ControlPanelConfig = {
       ],
     },
     {
-      label: t('Chart settings per metric'),
+      label: t('Sorting'),
+      expanded: true,
+      controlSetRows: [
+        ...orderByMetric,
+        ...orderByGroupBy,
+      ],
+    },
+    {
+      label: t('Chart settings by metric'),
       expanded: true,
       controlSetRows: [...chartTypeMetrics],
     },
