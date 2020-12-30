@@ -1,12 +1,12 @@
 # .github/workflows/chromatic.yml
 # name of our action
-name: 'Chromatic Deployment'
+name: 'Chromatic deployment'
 # the event that will trigger the action
 on: push
 
 # what the action will do
 jobs:
-  deployment-to-chromatic:
+  Deployment to chromatic:
     # the operating system it will run on
     runs-on: ubuntu-latest
     # the list of steps that the action will go through
