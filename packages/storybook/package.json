@@ -18,6 +18,7 @@
   "scripts": {
     "clean": "rm -rf  docks-build",
     "storybook": "start-storybook -p 6006",
+    "deploy-storybook": "storybook-to-ghpages -- --out=docks-build",
     "build-storybook": "npm run clean && build-storybook -o docks-build"
   }
 }
