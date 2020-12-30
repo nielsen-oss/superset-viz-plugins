@@ -5,8 +5,8 @@
   "scripts": {
     "build": "lerna run build:prod && lerna run build:esm",
     "build:assets": "node ./scripts/copyAssets.js",
-    "storybook": "cd ./packages/storybook && yarn start-storybook -p 6006",
-    "build-storybook": "cd ./packages/storybook && yarn build-storybook -o docks-build",
+    "storybook": "cd packages/storybook && yarn start-storybook -p 6006",
+    "build-storybook": "cd packages/storybook && yarn build-storybook",
     "clean": "rm -rf ./{packages,plugins}/**/{dist,esm,tsconfig.tsbuildinfo} build/",
     "format": "lerna exec prettier --write",
     "lint": "eslint packages/**/*.{ts,tsx} plugins/**/*.{ts,tsx}",
