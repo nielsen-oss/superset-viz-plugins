@@ -1,0 +1,24 @@
+name: build-and-test-workflow
+
+on:
+  push:
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        # pulls all commits (needed for lerna / semantic release to correctly version)
+        fetch-depth: '0'
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+    - name: Build packages
+      run: yarn build
+    - name: Run unit tests
+      run: yarn test

@@ -44,7 +44,11 @@
     ]
   },
   "devDependencies": {
-    "react-bootstrap": "^1.4.0"
+    "@emotion/jest": "^11.1.0",
+    "@types/recharts": "^1.8.18",
+    "jest-styled-components": "^7.0.3",
+    "react-bootstrap": "^1.4.0",
+    "styled-components": "^5.2.1"
   },
   "peerDependencies": {
     "react-bootstrap": "^1.4.0"

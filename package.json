@@ -6,6 +6,8 @@
     "build": "lerna run build:prod && lerna run build:esm",
     "build:assets": "node ./scripts/copyAssets.js",
     "sb": "yarn storybook",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
     "clean": "rm -rf ./{packages,plugins}/**/{dist,esm,tsconfig.tsbuildinfo} build/",
     "format": "lerna exec prettier --write",
     "lint": "eslint packages/**/*.{ts,tsx} plugins/**/*.{ts,tsx}",

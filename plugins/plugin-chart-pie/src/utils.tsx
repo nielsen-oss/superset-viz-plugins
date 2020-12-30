@@ -20,6 +20,18 @@ import {LegendProps, PieLabelRenderProps, Sector} from 'recharts';
 import React from 'react';
 import {getNumberFormatter, NumberFormats} from '@superset-ui/core';
 
+export enum LabelTypes {
+  percent = 'percent',
+  category = 'category',
+  categoryPercent = 'category_percent'
+}
+
+export const LabelTypeNames = {
+  [LabelTypes.percent]: 'Percent',
+  [LabelTypes.category]: 'Category Name',
+  [LabelTypes.categoryPercent]: 'Category and Percentage',
+}
+
 export const renderCustomizedLabel = (
   labelProps: Partial<PieLabelRenderProps> & { x: number; groupBy: string; labelType: string },
 ) => {
@@ -27,16 +39,16 @@ export const renderCustomizedLabel = (
 
   const percentFormatter = getNumberFormatter(NumberFormats.PERCENT_2_POINT);
   switch (labelProps.labelType) {
-    case 'percent':
+    case LabelTypes.percent:
       return <tspan>{percentFormatter(percent)}</tspan>;
-    case 'category_percent':
+    case LabelTypes.categoryPercent:
       return (
         <tspan>
           <tspan>{`${labelProps[labelProps.groupBy]}: `}</tspan>
           <tspan x={labelProps.x} dy="1.2em" fontWeight="bold">{`${percentFormatter(percent)}`}</tspan>
         </tspan>
       );
-    case 'category':
+    case LabelTypes.category:
     default:
       return labelProps[labelProps.groupBy];
   }

@@ -16,8 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { getOneDimensionData, getUnits } from './utils';
-import { ShowTotal } from '../types';
+import {getOneDimensionData, getUnits} from './utils';
+import {ShowTotal} from '../types';
 
 type MetricObject<M extends string> = {
   label: M;
@@ -25,6 +25,7 @@ type MetricObject<M extends string> = {
 
 type FormData<R extends string, C extends string, M extends string> = {
   numberFormat: string;
+  numbersFormat: string;
   emptyValuePlaceholder: string;
   compactView: boolean;
   transpose: boolean;
@@ -38,7 +39,7 @@ export type QueryData<R extends string, C extends string, M extends string> = Re
   Record<C, string> &
   Record<M, number>;
 
-export type ChartProps<R extends string, C extends string, M extends string> = {
+export type ChartProps<R extends string = string, C extends string = string, M extends string = string> = {
   width: number;
   height: number;
   formData: FormData<R, C, M>;
@@ -50,21 +51,23 @@ export type ChartProps<R extends string, C extends string, M extends string> = {
   };
 };
 
-export default function transformProps<R extends string, C extends string, M extends string>(
+export default function transformProps<R extends string = string, C extends string = string, M extends string = string>(
   chartProps: ChartProps<R, C, M>,
 ) {
-  const { width, height, formData, queryData, queriesData } = chartProps;
+  const {width, height, formData, queryData, queriesData} = chartProps;
   const data = (queriesData?.[0]?.data || queryData?.data);
-  const metrics = formData.metrics.map(({ label }) => label).sort();
+  const metrics = formData.metrics.map(({label}) => label).sort();
   const {
     transpose,
     rows: tempRows,
     columns: tempColumns,
     compactView: tempCompactView,
     numberFormat,
+    numbersFormat: tempNumbersFormat,
     showTotal = ShowTotal.noTotal,
     emptyValuePlaceholder,
   } = formData;
+  const numbersFormat = tempNumbersFormat || numberFormat;
   let rows: R[] = tempRows || [];
   let columns: C[] = tempColumns || [];
   const compactView = tempCompactView && rows.length <= 1
@@ -84,11 +87,9 @@ export default function transformProps<R extends string, C extends string, M ext
     oneDimensionColumns,
   } = getUnits<R, C, M>(data, columns, rows, metrics);
 
-  const { oneDimensionData, columnsFillData, rowsFillData, rowsTotal, columnsTotal, total } = getOneDimensionData<
-    R,
+  const {oneDimensionData, columnsFillData, rowsFillData, rowsTotal, columnsTotal, total} = getOneDimensionData<R,
     C,
-    M
-  >({
+    M>({
     data,
     metrics,
     columns,
@@ -96,7 +97,7 @@ export default function transformProps<R extends string, C extends string, M ext
     columnUnits,
     rowUnits,
     numberOfColumnsPerMetric,
-    numberFormat,
+    numbersFormat,
     numberOfRows,
     oneDimensionRows,
     oneDimensionColumns,

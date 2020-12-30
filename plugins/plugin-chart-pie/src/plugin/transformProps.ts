@@ -17,7 +17,7 @@
  * under the License.
  */
 import { ChartProps } from '@superset-ui/core';
-import { PieChartData, PieProps } from '../Pie';
+import { PieChartData, PieProps } from '../PieChart';
 import { LegendPosition } from '../utils';
 
 type FormData<G extends string, DK extends string> = {
@@ -59,7 +59,7 @@ export default function transformProps<G extends string, DK extends string>(char
     baseColor: colorPicker,
     colorScheme,
     showLegend,
-    showLabels,
+    showLabels: isDonut || showLabels,
     groupBy,
     labelType,
   };

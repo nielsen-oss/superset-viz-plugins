@@ -33,7 +33,7 @@ export default class PieChartPlugin extends ChartPlugin {
     super({
       buildQuery,
       controlPanel,
-      loadChart: () => import('../Pie'),
+      loadChart: () => import('../PieChart'),
       metadata,
       transformProps,
     });
