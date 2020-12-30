@@ -18,7 +18,7 @@
  */
 import {LegendProps, PieLabelRenderProps, Sector} from 'recharts';
 import React from 'react';
-import {getNumberFormatter, NumberFormats} from '@superset-ui/core';
+import {getNumberFormatter, NumberFormats, t} from '@superset-ui/core';
 
 export enum LabelTypes {
   percent = 'percent',
@@ -27,9 +27,9 @@ export enum LabelTypes {
 }
 
 export const LabelTypeNames = {
-  [LabelTypes.percent]: 'Percent',
-  [LabelTypes.category]: 'Category Name',
-  [LabelTypes.categoryPercent]: 'Category and Percentage',
+  [LabelTypes.percent]: t('Percent'),
+  [LabelTypes.category]: t('Category Name'),
+  [LabelTypes.categoryPercent]: t('Category and Percentage'),
 }
 
 export const renderCustomizedLabel = (
