@@ -245,7 +245,7 @@ Scatter.args = {
   ...transformProps(barsHorizontalLegendTop as unknown as ChartProps),
   ...commonProps,
   queriesData: barsHorizontalLegendTop.queriesData,
-  chartSubType: CHART_SUB_TYPES.BASIS
+  chartSubType: CHART_SUB_TYPES.CIRCLE
 }
 
 export const AllTypes = AllTypesTemplate.bind({});
