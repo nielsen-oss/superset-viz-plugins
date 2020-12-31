@@ -35,6 +35,9 @@ const commonProps = {
 export default {
   title: 'Plugins/Composed Chart',
   component: ComposedChart,
+  parameters: {
+    chromatic: { delay: 2000 },
+  },
   argTypes: {
     data: {table: {disable: true}},
     metrics: {table: {disable: true}},
