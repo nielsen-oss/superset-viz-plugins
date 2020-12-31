@@ -18,7 +18,7 @@
  */
 import React from 'react';
 import { SupersetTheme, styled } from '@superset-ui/core';
-import { Color, StatusColorsMap } from './types';
+import { StatusColorsMap } from './types';
 
 interface StatusStylesProps {
   height: number;
@@ -37,24 +37,24 @@ const Styles = styled.div<StatusStylesProps>`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: ${({ height }) => height};
-  width: ${({ width }) => width};
+  height: ${({ height }) => height}px;
+  width: ${({ width }) => width}px;
 `;
 
 const ObjectName = styled.div<{ theme: SupersetTheme }>`
   font-size: ${({ theme }) => theme.typography.sizes.xl}px;
 `;
 
-const StatusName = styled.div<{ col: Color; theme: SupersetTheme }>`
+const StatusName = styled.div<{ col: string; theme: SupersetTheme }>`
   font-size: ${({ theme }) => theme.typography.sizes.xxl}px;
   font-weight: ${({ theme }) => theme.typography.weights.bold};
-  color: ${({ col: { r, g, b, a } = {} }) => `rgba(${r}, ${g}, ${b}, ${a})}`};
+  color: ${({ col }) => col};
 `;
 
-export default function Status(props: StatusProps) {
+export default function StatusChart(props: StatusProps) {
   const { data, height, width, statusColorsMap } = props;
   return (
-    <Styles height={height} width={width}>
+    <Styles height={height} width={width} data-testid='status'>
       <ObjectName>{data[0]}</ObjectName>
       <StatusName col={statusColorsMap[data[1]]}>{data[1]}</StatusName>
     </Styles>
