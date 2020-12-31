@@ -183,9 +183,6 @@ const PieChart: FC<PieProps<string, string>> = memo(props => {
     pieProps.innerRadius = outerRadius - outerRadius * 0.2;
     pieProps.label = false;
   }
-  console.log(data.map(item => console.log(groupBy, item[groupBy], colorScheme, CategoricalColorNamespace.getScale(colorScheme), {
-    color: CategoricalColorNamespace.getScale(colorScheme)(item[groupBy]),
-  })))
 
   return (
     <Styles height={height} width={width} legendPosition={legendPosition} ref={rootRef}>

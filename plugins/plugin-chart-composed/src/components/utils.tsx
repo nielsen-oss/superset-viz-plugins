@@ -242,6 +242,7 @@ export const getChartElement = (
         Element: Area,
         strokeWidth: 2,
         stroke: color,
+        fill: color,
         opacity: 0.8,
         type: chartSubType,
       };

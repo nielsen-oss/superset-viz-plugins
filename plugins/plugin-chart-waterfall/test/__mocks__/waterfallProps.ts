@@ -26,7 +26,7 @@ export const legendTop = {
     },
     "adhocFilters": [],
     "rowLimit": 100,
-    "numbersFormat": null,
+    "numbersFormat": "SMART_NUMBER",
     "legendPosition": "top"
   },
   "height": 400,

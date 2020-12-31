@@ -174,7 +174,6 @@ export default function ComposedChart(props: ComposedChartProps) {
     }
     setDisabledDataKeys(resultKeys);
   };
-
   return (
     <Styles key={updater} height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
       <RechartsComposedChart

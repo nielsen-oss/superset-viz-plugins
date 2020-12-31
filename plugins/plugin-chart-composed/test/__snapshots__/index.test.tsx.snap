@@ -5,6 +5,7 @@ Object {
   "AreaProps": Array [
     Object {
       "dataKey": "COUNT_DISTINCT(period)_$_Standard",
+      "fill": "#1f77b4",
       "isAnimationActive": undefined,
       "label": Object {
         "breakdown": "COUNT_DISTINCT(period)_$_Standard",
@@ -84,7 +85,7 @@ Object {
         "position": "center",
       },
       "opacity": 0.8,
-      "stroke": undefined,
+      "stroke": "#1f77b4",
       "strokeWidth": 2,
       "type": "basis",
       "yAxisId": "left",
@@ -94,7 +95,7 @@ Object {
   "BarProps": Array [
     Object {
       "dataKey": "COUNT_DISTINCT(period)_$_Custom",
-      "fill": undefined,
+      "fill": "#9467bd",
       "isAnimationActive": undefined,
       "label": Object {
         "breakdown": "COUNT_DISTINCT(period)_$_Custom",
@@ -197,49 +198,49 @@ Object {
           payload={
             Array [
               Object {
-                "color": undefined,
+                "color": "#1f77b4",
                 "id": "COUNT_DISTINCT(period)_$_Standard",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(period), Standard",
               },
               Object {
-                "color": undefined,
+                "color": "#ff7f0e",
                 "id": "COUNT_DISTINCT(group_name)_$_Standard",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(group_name), Standard",
               },
               Object {
-                "color": undefined,
+                "color": "#2ca02c",
                 "id": "COUNT_DISTINCT(due_to_group)_$_Standard",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(due_to_group), Standard",
               },
               Object {
-                "color": undefined,
+                "color": "#d62728",
                 "id": "COUNT_DISTINCT(efficiency)_$_Standard",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(efficiency), Standard",
               },
               Object {
-                "color": undefined,
+                "color": "#9467bd",
                 "id": "COUNT_DISTINCT(period)_$_Custom",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(period), Custom",
               },
               Object {
-                "color": undefined,
+                "color": "#8c564b",
                 "id": "COUNT_DISTINCT(group_name)_$_Custom",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(group_name), Custom",
               },
               Object {
-                "color": undefined,
+                "color": "#e377c2",
                 "id": "COUNT_DISTINCT(due_to_group)_$_Custom",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(due_to_group), Custom",
               },
               Object {
-                "color": undefined,
+                "color": "#7f7f7f",
                 "id": "COUNT_DISTINCT(efficiency)_$_Custom",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(efficiency), Custom",
@@ -286,7 +287,7 @@ Object {
           }
           orientation="left"
           tick={[Function]}
-          width={78}
+          width={42}
           yAxisId="left"
         />,
         <mockConstructor
@@ -301,7 +302,7 @@ Object {
           }
           orientation="right"
           tick={[Function]}
-          width={78}
+          width={42}
           yAxisId="right"
         />,
         <mockConstructor
@@ -315,13 +316,14 @@ Object {
                   "COUNT_DISTINCT(efficiency)",
                 ]
               }
-              numbersFormat=",.1%"
+              numbersFormat="SMART_NUMBER"
             />
           }
         />,
         Array [
           <mockConstructor
             dataKey="COUNT_DISTINCT(period)_$_Standard"
+            fill="#1f77b4"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(period)_$_Standard",
@@ -402,6 +404,7 @@ Object {
               }
             }
             opacity={0.8}
+            stroke="#1f77b4"
             strokeWidth={2}
             type="basis"
             yAxisId="left"
@@ -488,11 +491,14 @@ Object {
               }
             }
             opacity={0.8}
-            shape="circle"
+            stroke="#ff7f0e"
+            strokeWidth={2}
+            type="linear"
             yAxisId="left"
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(due_to_group)_$_Standard"
+            fill="#2ca02c"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(due_to_group)_$_Standard",
@@ -578,6 +584,7 @@ Object {
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(efficiency)_$_Standard"
+            fill="#d62728"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(efficiency)_$_Standard",
@@ -663,6 +670,7 @@ Object {
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(period)_$_Custom"
+            fill="#9467bd"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(period)_$_Custom",
@@ -748,6 +756,7 @@ Object {
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(group_name)_$_Custom"
+            fill="#8c564b"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(group_name)_$_Custom",
@@ -833,6 +842,7 @@ Object {
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(due_to_group)_$_Custom"
+            fill="#e377c2"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(due_to_group)_$_Custom",
@@ -918,6 +928,7 @@ Object {
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(efficiency)_$_Custom"
+            fill="#7f7f7f"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(efficiency)_$_Custom",
@@ -1092,49 +1103,49 @@ Object {
       "onClick": [Function],
       "payload": Array [
         Object {
-          "color": undefined,
+          "color": "#1f77b4",
           "id": "COUNT_DISTINCT(period)_$_Standard",
           "type": "circle",
           "value": "COUNT_DISTINCT(period), Standard",
         },
         Object {
-          "color": undefined,
+          "color": "#ff7f0e",
           "id": "COUNT_DISTINCT(group_name)_$_Standard",
           "type": "circle",
           "value": "COUNT_DISTINCT(group_name), Standard",
         },
         Object {
-          "color": undefined,
+          "color": "#2ca02c",
           "id": "COUNT_DISTINCT(due_to_group)_$_Standard",
           "type": "circle",
           "value": "COUNT_DISTINCT(due_to_group), Standard",
         },
         Object {
-          "color": undefined,
+          "color": "#d62728",
           "id": "COUNT_DISTINCT(efficiency)_$_Standard",
           "type": "circle",
           "value": "COUNT_DISTINCT(efficiency), Standard",
         },
         Object {
-          "color": undefined,
+          "color": "#9467bd",
           "id": "COUNT_DISTINCT(period)_$_Custom",
           "type": "circle",
           "value": "COUNT_DISTINCT(period), Custom",
         },
         Object {
-          "color": undefined,
+          "color": "#8c564b",
           "id": "COUNT_DISTINCT(group_name)_$_Custom",
           "type": "circle",
           "value": "COUNT_DISTINCT(group_name), Custom",
         },
         Object {
-          "color": undefined,
+          "color": "#e377c2",
           "id": "COUNT_DISTINCT(due_to_group)_$_Custom",
           "type": "circle",
           "value": "COUNT_DISTINCT(due_to_group), Custom",
         },
         Object {
-          "color": undefined,
+          "color": "#7f7f7f",
           "id": "COUNT_DISTINCT(efficiency)_$_Custom",
           "type": "circle",
           "value": "COUNT_DISTINCT(efficiency), Custom",
@@ -1150,11 +1161,99 @@ Object {
     },
     Object {},
   ],
-  "LineProps": undefined,
+  "LineProps": Array [
+    Object {
+      "dataKey": "COUNT_DISTINCT(group_name)_$_Standard",
+      "isAnimationActive": undefined,
+      "label": Object {
+        "breakdown": "COUNT_DISTINCT(group_name)_$_Standard",
+        "content": [Function],
+        "currentData": Array [
+          Object {
+            "COUNT_DISTINCT(due_to_group)": 12,
+            "COUNT_DISTINCT(due_to_group)_$_Custom": 12,
+            "COUNT_DISTINCT(due_to_group)_$_Standard": 12,
+            "COUNT_DISTINCT(efficiency)": 3,
+            "COUNT_DISTINCT(efficiency)_$_Custom": 3,
+            "COUNT_DISTINCT(efficiency)_$_Standard": 3,
+            "COUNT_DISTINCT(group_name)": 31,
+            "COUNT_DISTINCT(group_name)_$_Custom": 31,
+            "COUNT_DISTINCT(group_name)_$_Standard": 31,
+            "COUNT_DISTINCT(period)": 5,
+            "COUNT_DISTINCT(period)_$_Custom": 5,
+            "COUNT_DISTINCT(period)_$_Standard": 5,
+            "group_type": "Variable",
+            "period_type": "Custom",
+            "rechartsDataKey": "Variable",
+          },
+          Object {
+            "COUNT_DISTINCT(due_to_group)": 6,
+            "COUNT_DISTINCT(due_to_group)_$_Custom": 7,
+            "COUNT_DISTINCT(due_to_group)_$_Standard": 6,
+            "COUNT_DISTINCT(efficiency)": 2,
+            "COUNT_DISTINCT(efficiency)_$_Custom": 2,
+            "COUNT_DISTINCT(efficiency)_$_Standard": 2,
+            "COUNT_DISTINCT(group_name)": 6,
+            "COUNT_DISTINCT(group_name)_$_Custom": 7,
+            "COUNT_DISTINCT(group_name)_$_Standard": 6,
+            "COUNT_DISTINCT(period)": 3,
+            "COUNT_DISTINCT(period)_$_Custom": 5,
+            "COUNT_DISTINCT(period)_$_Standard": 3,
+            "group_type": "DirectDueToGroup",
+            "period_type": "Standard",
+            "rechartsDataKey": "DirectDueToGroup",
+          },
+          Object {
+            "COUNT_DISTINCT(due_to_group)": 6,
+            "COUNT_DISTINCT(due_to_group)_$_Custom": 7,
+            "COUNT_DISTINCT(due_to_group)_$_Standard": 6,
+            "COUNT_DISTINCT(efficiency)": 2,
+            "COUNT_DISTINCT(efficiency)_$_Custom": 2,
+            "COUNT_DISTINCT(efficiency)_$_Standard": 2,
+            "COUNT_DISTINCT(group_name)": 6,
+            "COUNT_DISTINCT(group_name)_$_Custom": 7,
+            "COUNT_DISTINCT(group_name)_$_Standard": 6,
+            "COUNT_DISTINCT(period)": 3,
+            "COUNT_DISTINCT(period)_$_Custom": 5,
+            "COUNT_DISTINCT(period)_$_Standard": 3,
+            "group_type": "DueToGroup",
+            "period_type": "Standard",
+            "rechartsDataKey": "DueToGroup",
+          },
+          Object {
+            "COUNT_DISTINCT(due_to_group)": 0,
+            "COUNT_DISTINCT(due_to_group)_$_Custom": 0,
+            "COUNT_DISTINCT(due_to_group)_$_Standard": 0,
+            "COUNT_DISTINCT(efficiency)": 6,
+            "COUNT_DISTINCT(efficiency)_$_Custom": 6,
+            "COUNT_DISTINCT(efficiency)_$_Standard": 6,
+            "COUNT_DISTINCT(group_name)": 3,
+            "COUNT_DISTINCT(group_name)_$_Custom": 3,
+            "COUNT_DISTINCT(group_name)_$_Standard": 3,
+            "COUNT_DISTINCT(period)": 5,
+            "COUNT_DISTINCT(period)_$_Custom": 5,
+            "COUNT_DISTINCT(period)_$_Standard": 5,
+            "group_type": "SummaryGroup",
+            "period_type": "Standard",
+            "rechartsDataKey": "SummaryGroup",
+          },
+        ],
+        "fill": "black",
+        "formatter": [Function],
+        "position": "center",
+      },
+      "opacity": 0.8,
+      "stroke": "#ff7f0e",
+      "strokeWidth": 2,
+      "type": "linear",
+      "yAxisId": "left",
+    },
+    Object {},
+  ],
   "ScatterProps": Array [
     Object {
       "dataKey": "COUNT_DISTINCT(due_to_group)_$_Standard",
-      "fill": undefined,
+      "fill": "#2ca02c",
       "isAnimationActive": undefined,
       "label": Object {
         "breakdown": "COUNT_DISTINCT(due_to_group)_$_Standard",
@@ -1250,7 +1349,7 @@ Object {
             "COUNT_DISTINCT(efficiency)",
           ]
         }
-        numbersFormat=",.1%"
+        numbersFormat="SMART_NUMBER"
       />,
     },
     Object {},
@@ -1282,7 +1381,7 @@ Object {
       },
       "orientation": "right",
       "tick": [Function],
-      "width": 78,
+      "width": 42,
       "yAxisId": "right",
     },
     Object {},
@@ -1311,13 +1410,13 @@ Object {
           payload={
             Array [
               Object {
-                "color": undefined,
+                "color": "#1f77b4",
                 "id": "COUNT_DISTINCT(period)",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(period)",
               },
               Object {
-                "color": undefined,
+                "color": "#ff7f0e",
                 "id": "COUNT_DISTINCT(group_name)",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(group_name)",
@@ -1389,7 +1488,7 @@ Object {
                   "COUNT_DISTINCT(group_name)",
                 ]
               }
-              numbersFormat={null}
+              numbersFormat="SMART_NUMBER"
             />
           }
         />,
@@ -1444,13 +1543,13 @@ Object {
       "onClick": [Function],
       "payload": Array [
         Object {
-          "color": undefined,
+          "color": "#1f77b4",
           "id": "COUNT_DISTINCT(period)",
           "type": "circle",
           "value": "COUNT_DISTINCT(period)",
         },
         Object {
-          "color": undefined,
+          "color": "#ff7f0e",
           "id": "COUNT_DISTINCT(group_name)",
           "type": "circle",
           "value": "COUNT_DISTINCT(group_name)",
@@ -1473,7 +1572,7 @@ Object {
             "COUNT_DISTINCT(group_name)",
           ]
         }
-        numbersFormat={null}
+        numbersFormat="SMART_NUMBER"
       />,
     },
     Object {},
@@ -1533,13 +1632,13 @@ Object {
           payload={
             Array [
               Object {
-                "color": undefined,
+                "color": "#1f77b4",
                 "id": "COUNT_DISTINCT(period)",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(period)",
               },
               Object {
-                "color": undefined,
+                "color": "#ff7f0e",
                 "id": "COUNT_DISTINCT(group_name)",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(group_name)",
@@ -1599,7 +1698,7 @@ Object {
                   "COUNT_DISTINCT(group_name)",
                 ]
               }
-              numbersFormat=",d"
+              numbersFormat="SMART_NUMBER"
             />
           }
         />,
@@ -1658,13 +1757,13 @@ Object {
       "onClick": [Function],
       "payload": Array [
         Object {
-          "color": undefined,
+          "color": "#1f77b4",
           "id": "COUNT_DISTINCT(period)",
           "type": "circle",
           "value": "COUNT_DISTINCT(period)",
         },
         Object {
-          "color": undefined,
+          "color": "#ff7f0e",
           "id": "COUNT_DISTINCT(group_name)",
           "type": "circle",
           "value": "COUNT_DISTINCT(group_name)",
@@ -1688,7 +1787,7 @@ Object {
             "COUNT_DISTINCT(group_name)",
           ]
         }
-        numbersFormat=",d"
+        numbersFormat="SMART_NUMBER"
       />,
     },
     Object {},
@@ -1734,7 +1833,7 @@ Object {
   "BarProps": Array [
     Object {
       "dataKey": "COUNT_DISTINCT(group_name)",
-      "fill": undefined,
+      "fill": "#ff7f0e",
       "isAnimationActive": undefined,
       "label": Object {
         "breakdown": "COUNT_DISTINCT(group_name)",
@@ -1793,13 +1892,13 @@ Object {
           payload={
             Array [
               Object {
-                "color": undefined,
+                "color": "#1f77b4",
                 "id": "COUNT_DISTINCT(period)",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(period)",
               },
               Object {
-                "color": undefined,
+                "color": "#ff7f0e",
                 "id": "COUNT_DISTINCT(group_name)",
                 "type": "circle",
                 "value": "COUNT_DISTINCT(group_name)",
@@ -1859,13 +1958,14 @@ Object {
                   "COUNT_DISTINCT(group_name)",
                 ]
               }
-              numbersFormat={null}
+              numbersFormat="SMART_NUMBER"
             />
           }
         />,
         Array [
           <mockConstructor
             dataKey="COUNT_DISTINCT(period)"
+            fill="#1f77b4"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(period)",
@@ -1907,6 +2007,7 @@ Object {
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(group_name)"
+            fill="#ff7f0e"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(group_name)",
@@ -1993,13 +2094,13 @@ Object {
       "onClick": [Function],
       "payload": Array [
         Object {
-          "color": undefined,
+          "color": "#1f77b4",
           "id": "COUNT_DISTINCT(period)",
           "type": "circle",
           "value": "COUNT_DISTINCT(period)",
         },
         Object {
-          "color": undefined,
+          "color": "#ff7f0e",
           "id": "COUNT_DISTINCT(group_name)",
           "type": "circle",
           "value": "COUNT_DISTINCT(group_name)",
@@ -2024,7 +2125,7 @@ Object {
             "COUNT_DISTINCT(group_name)",
           ]
         }
-        numbersFormat={null}
+        numbersFormat="SMART_NUMBER"
       />,
     },
     Object {},

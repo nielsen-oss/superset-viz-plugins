@@ -9,7 +9,7 @@
     "build-storybook": "build-storybook",
     "clean": "rm -rf ./{packages,plugins}/**/{dist,esm,tsconfig.tsbuildinfo} build/",
     "format": "lerna exec prettier --write",
-    "lint": "eslint packages/**/*.{ts,tsx} plugins/**/*.{ts,tsx}",
+    "lint": "eslint plugins/**/*.{ts,tsx}",
     "lint:fix": "yarn lint --fix",
     "prettier": "lerna exec prettier",
     "test": "lerna run test --since origin/master",
