@@ -19,7 +19,7 @@
 import React, { FC } from 'react';
 import { styled } from '@superset-ui/core';
 import { Grid, GridItem } from './Layout';
-import {ROW_HEIGHT} from "../plugin/utils";
+import { ROW_HEIGHT } from '../plugin/utils';
 
 type HeadersOfHeaderProps<R extends string, C extends string> = {
   rows: R[];
@@ -28,7 +28,7 @@ type HeadersOfHeaderProps<R extends string, C extends string> = {
 
 const EmptyItem = styled(GridItem)`
   height: ${ROW_HEIGHT};
-`
+`;
 
 const HeadersOfHeader: FC<HeadersOfHeaderProps<string, string>> = ({ rows, columns }) => (
   <Grid

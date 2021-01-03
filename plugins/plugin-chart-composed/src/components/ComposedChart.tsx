@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   CartesianGrid,
   ComposedChart as RechartsComposedChart,
@@ -26,9 +26,9 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
+import { getNumberFormatter, styled } from '@superset-ui/core';
 import ComposedChartTooltip from './ComposedChartTooltip';
-import {getNumberFormatter, styled} from '@superset-ui/core';
-import {LabelColors, ResultData} from '../plugin/utils';
+import { LabelColors, ResultData } from '../plugin/utils';
 import {
   CHART_SUB_TYPES,
   CHART_TYPES,
@@ -90,8 +90,8 @@ export type ComposedChartProps = {
 };
 
 const Styles = styled.div<ComposedChartStylesProps>`
-  height: ${({height}) => height};
-  width: ${({width}) => width};
+  height: ${({ height }) => height};
+  width: ${({ width }) => width};
   overflow: auto;
 
   & .recharts-legend-item {
@@ -154,7 +154,7 @@ export default function ComposedChart(props: ComposedChartProps) {
   }, [forceUpdate, props]);
 
   const currentData = data.map(item => {
-    const newItem = {...item};
+    const newItem = { ...item };
     disabledDataKeys.forEach(dataKey => delete newItem[dataKey]);
     return newItem;
   });
@@ -164,7 +164,7 @@ export default function ComposedChart(props: ComposedChartProps) {
   const metricLength =
     getMaxLengthOfMetric(currentData, metrics, getNumberFormatter(numbersFormat)) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
 
-  const handleLegendClick = ({id}: EventData) => {
+  const handleLegendClick = ({ id }: EventData) => {
     let resultKeys;
     if (disabledDataKeys.includes(id)) {
       resultKeys = disabledDataKeys.filter(item => item !== id);
@@ -201,7 +201,7 @@ export default function ComposedChart(props: ComposedChartProps) {
             iconSize={10}
           />
         )}
-        <CartesianGrid {...getCartesianGridProps({layout})} />
+        <CartesianGrid {...getCartesianGridProps({ layout })} />
         <XAxis
           {...getXAxisProps({
             dataKeyLength,
@@ -236,27 +236,27 @@ export default function ComposedChart(props: ComposedChartProps) {
             })}
           />
         )}
-        <Tooltip content={<ComposedChartTooltip numbersFormat={numbersFormat} metrics={metrics}/>}/>
+        <Tooltip content={<ComposedChartTooltip numbersFormat={numbersFormat} metrics={metrics} />} />
         {((isSideLegend && legendWidth) || !isSideLegend) &&
-        breakdowns.map((breakdown, index) =>
-          renderChartElement({
-            chartType,
-            metrics,
-            breakdown,
-            numbersFormat,
-            useY2Axis,
-            labelsColor,
-            isAnimationActive,
-            updater,
-            index,
-            chartSubType,
-            currentData,
-            useCustomTypeMetrics,
-            chartTypeMetrics,
-            chartSubTypeMetrics,
-            colorScheme,
-          }),
-        )}
+          breakdowns.map((breakdown, index) =>
+            renderChartElement({
+              chartType,
+              metrics,
+              breakdown,
+              numbersFormat,
+              useY2Axis,
+              labelsColor,
+              isAnimationActive,
+              updater,
+              index,
+              chartSubType,
+              currentData,
+              useCustomTypeMetrics,
+              chartTypeMetrics,
+              chartSubTypeMetrics,
+              colorScheme,
+            }),
+          )}
       </RechartsComposedChart>
     </Styles>
   );

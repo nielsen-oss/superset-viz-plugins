@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import {formatSelectOptions, sharedControls} from '@superset-ui/chart-controls';
-import {LabelTypeNames, LabelTypes, LegendPosition} from '../utils';
-import {QueryFormData, t, validateNonEmpty} from '@superset-ui/core';
-import {ColumnMeta, SelectControlConfig} from '@superset-ui/chart-controls/lib/types';
+import { formatSelectOptions, sharedControls } from '@superset-ui/chart-controls';
+import { QueryFormData, t, validateNonEmpty } from '@superset-ui/core';
+import { ColumnMeta, SelectControlConfig } from '@superset-ui/chart-controls/lib/types';
+import { LabelTypeNames, LabelTypes, LegendPosition } from '../utils';
 
 const groupBy: { name: string; config: SelectControlConfig<ColumnMeta, 'SelectControl'> } = {
   name: 'group_by',
@@ -30,7 +30,7 @@ const groupBy: { name: string; config: SelectControlConfig<ColumnMeta, 'SelectCo
   },
 };
 
-const metric: { name: string; config: SelectControlConfig<string | Record<string, any>, "MetricsControl"> } = {
+const metric: { name: string; config: SelectControlConfig<string | Record<string, any>, 'MetricsControl'> } = {
   name: 'metric',
   config: {
     ...sharedControls.metrics,
@@ -44,13 +44,11 @@ const showLabels = {
     type: 'CheckboxControl',
     label: t('Show Labels'),
     renderTrigger: true,
-    visibility: ({form_data}: { form_data: QueryFormData }) => form_data.is_donut === false,
+    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.is_donut === false,
     default: true,
-    description: t(
-      'Whether to display the labels. Note that the label only displays when the the 5% threshold.',
-    ),
+    description: t('Whether to display the labels. Note that the label only displays when the the 5% threshold.'),
   },
-}
+};
 
 const labelType = {
   name: 'label_type',
@@ -59,11 +57,12 @@ const labelType = {
     label: t('Label Type'),
     default: LabelTypes.percent,
     renderTrigger: true,
-    visibility: ({form_data}: { form_data: QueryFormData }) => form_data.is_donut === false && form_data.show_labels === true,
-    choices: Object.values(LabelTypes).map(val => ([val, LabelTypeNames[val as LabelTypes]])),
+    visibility: ({ form_data }: { form_data: QueryFormData }) =>
+      form_data.is_donut === false && form_data.show_labels === true,
+    choices: Object.values(LabelTypes).map(val => [val, LabelTypeNames[val as LabelTypes]]),
     description: t('What should be shown on the label?'),
   },
-}
+};
 
 const showLegend = {
   name: 'show_legend',
@@ -74,7 +73,7 @@ const showLegend = {
     default: true,
     description: t('Whether to display the legend (toggles)'),
   },
-}
+};
 
 const legendPosition = {
   name: 'legend_position',
@@ -87,9 +86,9 @@ const legendPosition = {
     choices: formatSelectOptions(Object.keys(LegendPosition)),
     default: 'top',
     description: t('Set legend position'),
-    visibility: ({form_data}: { form_data: QueryFormData }) => form_data.show_legend,
+    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.show_legend,
   },
-}
+};
 
 const isDonut = {
   name: 'is_donut',
@@ -100,7 +99,7 @@ const isDonut = {
     renderTrigger: true,
     description: t('Do you want a donut or a pie?'),
   },
-}
+};
 
 export default {
   controlPanelSections: [

@@ -16,11 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import {QueryFormData, t} from '@superset-ui/core';
-import {CHART_SUB_TYPE_NAMES, CHART_SUB_TYPES, CHART_TYPE_NAMES, CHART_TYPES} from '../../components/utils';
-import {MAX_FORM_CONTROLS} from "../utils";
+import { QueryFormData, t } from '@superset-ui/core';
+import { CHART_SUB_TYPE_NAMES, CHART_SUB_TYPES, CHART_TYPE_NAMES, CHART_TYPES } from '../../components/utils';
+import { MAX_FORM_CONTROLS } from '../utils';
 
-let chartTypeMetricsInit = [];
+const chartTypeMetricsInit = [];
 for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
   chartTypeMetricsInit.push(i + 1);
 }
@@ -37,10 +37,12 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
         value: key,
         label: CHART_SUB_TYPE_NAMES[key],
       })),
-      visibility: ({form_data}: { form_data: QueryFormData }) =>
-        !!(form_data[`use_custom_type_metric_${index}`] &&
+      visibility: ({ form_data }: { form_data: QueryFormData }) =>
+        !!(
+          form_data[`use_custom_type_metric_${index}`] &&
           form_data?.metrics?.[index] &&
-          form_data[`chart_type_metric_${index}`] === CHART_TYPES.BAR_CHART),
+          form_data[`chart_type_metric_${index}`] === CHART_TYPES.BAR_CHART
+        ),
       default: CHART_SUB_TYPES.DEFAULT,
       description: t(`Set subtype of chart for metric ${el}`),
     },
@@ -57,10 +59,12 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
         value: key,
         label: CHART_SUB_TYPE_NAMES[key],
       })),
-      visibility: ({form_data}: { form_data: QueryFormData }) =>
-        !!(form_data[`use_custom_type_metric_${index}`] &&
+      visibility: ({ form_data }: { form_data: QueryFormData }) =>
+        !!(
+          form_data[`use_custom_type_metric_${index}`] &&
           form_data?.metrics?.[index] &&
-          form_data[`chart_type_metric_${index}`] === CHART_TYPES.LINE_CHART),
+          form_data[`chart_type_metric_${index}`] === CHART_TYPES.LINE_CHART
+        ),
       default: CHART_SUB_TYPES.BASIS,
       description: t(`Set subtype of chart for metric ${el}`),
     },
@@ -77,9 +81,11 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
         value: key,
         label: CHART_SUB_TYPE_NAMES[key],
       })),
-      visibility: ({form_data}: { form_data: QueryFormData }) =>
-        !!(form_data[`use_custom_type_metric_${index}`] &&
-          form_data[`chart_type_metric_${index}`] === CHART_TYPES.AREA_CHART),
+      visibility: ({ form_data }: { form_data: QueryFormData }) =>
+        !!(
+          form_data[`use_custom_type_metric_${index}`] &&
+          form_data[`chart_type_metric_${index}`] === CHART_TYPES.AREA_CHART
+        ),
       default: CHART_SUB_TYPES.BASIS,
       description: t(`Set subtype of chart for metric ${el}`),
     },
@@ -96,10 +102,12 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
         value: key,
         label: CHART_SUB_TYPE_NAMES[key],
       })),
-      visibility: ({form_data}: { form_data: QueryFormData }) =>
-        !!(form_data[`use_custom_type_metric_${index}`] &&
+      visibility: ({ form_data }: { form_data: QueryFormData }) =>
+        !!(
+          form_data[`use_custom_type_metric_${index}`] &&
           form_data?.metrics?.[index] &&
-          form_data[`chart_type_metric_${index}`] === CHART_TYPES.SCATTER_CHART),
+          form_data[`chart_type_metric_${index}`] === CHART_TYPES.SCATTER_CHART
+        ),
       default: CHART_SUB_TYPES.CIRCLE,
       description: t(`Set subtype of chart for metric ${el}`),
     },
@@ -113,7 +121,7 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
         renderTrigger: true,
         default: false,
         description: null,
-        visibility: ({form_data}: { form_data: QueryFormData }) => !!(form_data?.metrics?.[index]),
+        visibility: ({ form_data }: { form_data: QueryFormData }) => !!form_data?.metrics?.[index],
       },
     },
     {
@@ -129,7 +137,7 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
         })),
         default: CHART_TYPES.BAR_CHART,
         description: t(`Set type of chart for metric ${el}`),
-        visibility: ({form_data}: { form_data: QueryFormData }) =>
+        visibility: ({ form_data }: { form_data: QueryFormData }) =>
           !!(form_data[`use_custom_type_metric_${index}`] && form_data?.metrics?.[index]),
       },
     },

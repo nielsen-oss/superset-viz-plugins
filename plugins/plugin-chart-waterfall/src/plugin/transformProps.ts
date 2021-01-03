@@ -56,7 +56,7 @@ export default function transformProps(
   const { periodColumn, xAxisColumn, metric, numbersFormat, legendPosition } = formData as FormData;
 
   const valueColumn = metric.label;
-  let data = (queriesData?.[0]?.data || queryData?.data) as QueryData[];
+  const data = (queriesData?.[0]?.data || queryData?.data) as QueryData[];
 
   // Sort by period (ascending)
   data.sort((a, b) => Number.parseInt(a[periodColumn] as string, 10) - Number.parseInt(b[periodColumn] as string, 10));

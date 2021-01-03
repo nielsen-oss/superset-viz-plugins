@@ -164,10 +164,10 @@ const PieChart: FC<PieProps<string, string>> = memo(props => {
     isSideLegend && legendWidth ? Math.max((outerRadius + chartMargin) * 2 + legendWidth, width) : width;
 
   const pieProps: RechartsPieProps & { key?: string | number } = {
-    activeIndex: activeIndex,
+    activeIndex,
     key: updater,
     data: currentData,
-    dataKey: dataKey,
+    dataKey,
     cx: isSideLegend ? outerRadius + chartMargin : '50%',
     outerRadius,
     label: showLabels
@@ -205,7 +205,7 @@ const PieChart: FC<PieProps<string, string>> = memo(props => {
         )}
         {((isSideLegend && legendWidth) || !isSideLegend) && (
           <RechartsPie {...pieProps}>
-            {currentData?.map((entry, index) => (
+            {currentData?.map(entry => (
               <Cell fill={CategoricalColorNamespace.getScale(colorScheme)(entry[groupBy])} />
             ))}
           </RechartsPie>

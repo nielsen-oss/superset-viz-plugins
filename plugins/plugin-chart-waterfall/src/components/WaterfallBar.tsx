@@ -40,15 +40,17 @@ const WaterfallBar: FC<WaterfallBarProps> = ({
   numberOfBars = 0,
 }) => {
   const isNegative = height < 0;
+  let newHeight = height;
+  let newY = y;
   let fill = !isNegative ? supersetTheme.colors.success.base : supersetTheme.colors.error.base;
   if (__TOTAL__) {
     fill = supersetTheme.colors.info.base;
   }
   if (isNegative) {
-    y += height;
-    height = Math.abs(height);
+    newY += height;
+    newHeight = Math.abs(newHeight);
   }
-  const lineY = !isNegative ? y : y + height;
+  const lineY = !isNegative ? y : y + newHeight;
   return (
     <>
       {index !== numberOfBars - 1 && (
@@ -66,9 +68,9 @@ const WaterfallBar: FC<WaterfallBarProps> = ({
       <ClickableRect
         data-test-id="bar"
         x={x + 0.1 * width}
-        y={y}
+        y={newY}
         width={width - 0.2 * width}
-        height={height}
+        height={newHeight}
         fill={fill}
       />
     </>

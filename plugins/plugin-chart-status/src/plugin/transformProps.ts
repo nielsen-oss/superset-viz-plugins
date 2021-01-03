@@ -29,7 +29,7 @@ export default function transformProps(chartProps: ChartProps) {
   const statusColorsMap: StatusColorsMap = {};
 
   for (let i = 0; i < NUMBER_OF_COLORS; i++) {
-    const { r, g, b, a } = formData[`statusValueColor${i}`]
+    const { r, g, b, a } = formData[`statusValueColor${i}`];
     statusColorsMap[formData[`statusValue${i}`] as string] = `rgba(${r}, ${g}, ${b}, ${a})}`;
   }
 

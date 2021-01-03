@@ -46,40 +46,38 @@ const RowsHeader: FC<RowsHeaderProps<string, string>> = ({
   uiRowUnits,
   rowsFillData,
   showTotal,
-}) => {
-  return (
-    <div>
-      <Grid
-        withoutOverflow
-        gridTemplateColumns={`repeat(${rows.length || 1}, max-content)`}
-        gridTemplateRows={`max-content ${compactView ? 0 : 'max-content'} ${rowsFillData
-          .map((fillData, index) => `${fillData ? ROW_HEIGHT : 0}`)
-          .join(' ')}`}
-        gridAutoFlow="column"
-      >
-        <HeadersOfHeader rows={rows} columns={columns} />
-        {rows.map(row =>
-          uiRowUnits[row].map((item, index) => (
-            // eslint-disable-next-line react/jsx-key
-            <GridItem
-              header
-              bordered
-              bgLevel={3}
-              // If index === 0, it's header of columns for rows
-              gridRow={`span ${index === 0 ? 1 : numberOfRows / (uiRowUnits[row].length - 1)}`}
-            >
-              {item}
-            </GridItem>
-          )),
-        )}
-      </Grid>
-      {(showTotal === ShowTotal.columnsAndRows || showTotal === ShowTotal.columns) && (
-        <TotalGridItem header bordered gridColumn={`span ${rows.length || 1}`} bgLevel={3}>
-          {t('Total')}
-        </TotalGridItem>
+}) => (
+  <div>
+    <Grid
+      withoutOverflow
+      gridTemplateColumns={`repeat(${rows.length || 1}, max-content)`}
+      gridTemplateRows={`max-content ${compactView ? 0 : 'max-content'} ${rowsFillData
+        .map(fillData => `${fillData ? ROW_HEIGHT : 0}`)
+        .join(' ')}`}
+      gridAutoFlow="column"
+    >
+      <HeadersOfHeader rows={rows} columns={columns} />
+      {rows.map(row =>
+        uiRowUnits[row].map((item, index) => (
+          // eslint-disable-next-line react/jsx-key
+          <GridItem
+            header
+            bordered
+            bgLevel={3}
+            // If index === 0, it's header of columns for rows
+            gridRow={`span ${index === 0 ? 1 : numberOfRows / (uiRowUnits[row].length - 1)}`}
+          >
+            {item}
+          </GridItem>
+        )),
       )}
-    </div>
-  );
-};
+    </Grid>
+    {(showTotal === ShowTotal.columnsAndRows || showTotal === ShowTotal.columns) && (
+      <TotalGridItem header bordered gridColumn={`span ${rows.length || 1}`} bgLevel={3}>
+        {t('Total')}
+      </TotalGridItem>
+    )}
+  </div>
+);
 
 export default RowsHeader;

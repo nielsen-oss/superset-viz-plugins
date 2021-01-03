@@ -20,5 +20,5 @@
 export const NUMBER_OF_COLORS = 5;
 
 export type StatusColorsMap = {
-  [key: string]: string
-}
+  [key: string]: string;
+};

@@ -17,8 +17,8 @@
  * under the License.
  */
 import { t } from '@superset-ui/core';
+import { ControlPanelsContainerProps, formatSelectOptions } from '@superset-ui/chart-controls';
 import { Layout } from '../../components/utils';
-import {ControlPanelsContainerProps, formatSelectOptions} from '@superset-ui/chart-controls';
 
 export const xAxisLabel = {
   name: 'x_axis_label',
@@ -111,6 +111,6 @@ export const useSecondYAxis = {
     description: t('Refers to the last chosen metric'),
     visibility: ({ form_data }: ControlPanelsContainerProps) =>
       // @ts-ignore (update in package)
-    form_data?.metrics?.length > 1 && form_data.layout === Layout.horizontal,
+      form_data?.metrics?.length > 1 && form_data.layout === Layout.horizontal,
   },
 };

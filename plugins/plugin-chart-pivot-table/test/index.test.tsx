@@ -16,48 +16,49 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React from "react"
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { supersetTheme, ThemeProvider } from '@superset-ui/core';
 import PivotTableChartPlugin from '../src';
-import PivotTable from "../src/components/PivotTable";
-import {render, screen} from "@testing-library/react";
-import transformProps from "../src/plugin/transformProps"
-import {supersetTheme, ThemeProvider} from "@superset-ui/core";
-import {singleRowCompact, singleRowCompactWithNoTotals, withNoTotals, withTotals} from "./__mocks__/pivotTableProps";
+import PivotTable from '../src/components/PivotTable';
+import transformProps from '../src/plugin/transformProps';
+import { singleRowCompact, singleRowCompactWithNoTotals, withNoTotals, withTotals } from './__mocks__/pivotTableProps';
 
 describe('plugin-chart-table-pivot', () => {
   beforeEach(() => {
     // Recharts still have some UNSAFE react functions that failing test
     jest.spyOn(console, 'warn').mockImplementation(() => null);
   });
-  const getWrapper = (props: object) => render(
-    <ThemeProvider theme={supersetTheme}>
-      {/*
+  const getWrapper = (props: object) =>
+    render(
+      <ThemeProvider theme={supersetTheme}>
+        {/*
        // @ts-ignore (no need emulate all props) */}
-      <PivotTable {...transformProps(props)} />
-    </ThemeProvider>,
-  );
+        <PivotTable {...transformProps(props)} />
+      </ThemeProvider>,
+    );
 
   it('exists', () => {
     expect(PivotTableChartPlugin).toBeDefined();
   });
 
   it('Table with all totals', () => {
-    getWrapper(withTotals)
+    getWrapper(withTotals);
     expect(screen.getByTestId('pivot-table')).toMatchSnapshot();
   });
 
   it('Table with no totals', () => {
-    getWrapper(withNoTotals)
+    getWrapper(withNoTotals);
     expect(screen.getByTestId('pivot-table')).toMatchSnapshot();
   });
 
   it('CompactView: Table with totals', () => {
-    getWrapper(singleRowCompact)
+    getWrapper(singleRowCompact);
     expect(screen.getByTestId('pivot-table')).toMatchSnapshot();
   });
 
   it('CompactView: Table with no totals', () => {
-    getWrapper(singleRowCompactWithNoTotals)
+    getWrapper(singleRowCompactWithNoTotals);
     expect(screen.getByTestId('pivot-table')).toMatchSnapshot();
   });
 });

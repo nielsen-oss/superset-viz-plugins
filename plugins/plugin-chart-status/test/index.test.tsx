@@ -16,34 +16,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React from "react";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { supersetTheme, ThemeProvider } from '@superset-ui/core';
 import StatusChartPlugin from '../src';
 import StatusChart from '../src/StatusChart';
 import transformProps from '../src/plugin/transformProps';
-import {render, screen} from "@testing-library/react";
-import {supersetTheme, ThemeProvider} from "@superset-ui/core";
-import {statusesAndObjects} from "./__mocks__/statusProps";
+import { statusesAndObjects } from './__mocks__/statusProps';
 
-jest.mock('recharts')
+jest.mock('recharts');
 
 describe('plugin-chart-status', () => {
   beforeEach(() => {
     // Recharts still have some UNSAFE react functions that failing test
     jest.spyOn(console, 'warn').mockImplementation(() => null);
   });
-  const getWrapper = (props: object) => render(
-    <ThemeProvider theme={supersetTheme}>
-      {/*
+  const getWrapper = (props: object) =>
+    render(
+      <ThemeProvider theme={supersetTheme}>
+        {/*
        // @ts-ignore (no need emulate all props) */}
-      <StatusChart {...transformProps(props)} />
-    </ThemeProvider>,
-  );
+        <StatusChart {...transformProps(props)} />
+      </ThemeProvider>,
+    );
   it('exists', () => {
     expect(StatusChartPlugin).toBeDefined();
   });
 
   it('Multiple Objects / Statuses', () => {
-    getWrapper(statusesAndObjects)
+    getWrapper(statusesAndObjects);
     expect(screen.getByTestId('status')).toMatchSnapshot();
   });
 });

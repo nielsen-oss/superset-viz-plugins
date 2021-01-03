@@ -25,8 +25,8 @@ import {
   getChartSubType,
   ResultData,
   Data,
-  FormData
-} from "./utils";
+  FormData,
+} from './utils';
 
 export default function transformProps(chartProps: ChartProps) {
   const { width, height, queryData, queriesData } = chartProps;
@@ -34,7 +34,7 @@ export default function transformProps(chartProps: ChartProps) {
   const formData = chartProps.formData as FormData;
   const metrics = formData.metrics.map(metric => metric.label);
 
-  let groupByValues: string[] = [];
+  const groupByValues: string[] = [];
   let resultData: ResultData[] = addRechartsKeyAndGetGroupByValues(formData, data, groupByValues);
 
   const breakdowns: string[] = [];
@@ -51,9 +51,9 @@ export default function transformProps(chartProps: ChartProps) {
     formData.scatterChartSubType,
   );
 
-  let chartTypeMetrics: (keyof typeof CHART_TYPES)[] = [];
-  let chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[] = [];
-  let useCustomTypeMetrics: boolean[] = [];
+  const chartTypeMetrics: (keyof typeof CHART_TYPES)[] = [];
+  const chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[] = [];
+  const useCustomTypeMetrics: boolean[] = [];
 
   metrics.forEach((metric, index) => {
     useCustomTypeMetrics.push(formData[`useCustomTypeMetric${index}`] as boolean);

@@ -54,7 +54,7 @@ const StatusName = styled.div<{ col: string; theme: SupersetTheme }>`
 export default function StatusChart(props: StatusProps) {
   const { data, height, width, statusColorsMap } = props;
   return (
-    <Styles height={height} width={width} data-testid='status'>
+    <Styles height={height} width={width} data-testid="status">
       <ObjectName>{data[0]}</ObjectName>
       <StatusName col={statusColorsMap[data[1]]}>{data[1]}</StatusName>
     </Styles>

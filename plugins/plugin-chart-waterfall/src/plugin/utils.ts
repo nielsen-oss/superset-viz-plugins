@@ -66,7 +66,7 @@ export const convertDataForRecharts = (
 
     addTotalValueToPeriod(newVal, xAxisColumn, periodColumn, valueColumn, key);
     newVal = removeRedundantValuesInPeriod(newVal, periodCounter);
-    periodCounter++;
+    periodCounter += 1;
 
     resultData = resultData.concat(newVal);
   });

@@ -51,9 +51,11 @@ const ColumnsHeader: FC<ColumnsHeaderProps<string, string>> = ({
       )),
     )}
     {/* One empty line for header columns of rows */}
-    {!compactView && <GridItem header bordered gridColumn={`span ${numberOfColumns}`} style={{ color: 'transparent' }}>
-      :)
-    </GridItem>}
+    {!compactView && (
+      <GridItem header bordered gridColumn={`span ${numberOfColumns}`} style={{ color: 'transparent' }}>
+        :)
+      </GridItem>
+    )}
   </>
 );
 
