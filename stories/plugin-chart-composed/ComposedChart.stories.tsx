@@ -36,7 +36,7 @@ export default {
   title: 'Plugins/Composed Chart',
   component: ComposedChart,
   parameters: {
-    chromatic: { delay: 2000 },
+    chromatic: {delay: 2000},
   },
   argTypes: {
     data: {table: {disable: true}},
@@ -125,11 +125,11 @@ export default {
 
 const BarsTemplate = (args) => {
   if (args.chartSubType !== CHART_SUB_TYPES.DEFAULT && args.chartSubType !== CHART_SUB_TYPES.STACKED) {
-    return <div>
+    return <>
       {`SubType "${args.chartSubType}" is not applied for Bars Chart, please change "chartSubType" property to:`}
       <li>{CHART_SUB_TYPES.DEFAULT}</li>
       <li>{CHART_SUB_TYPES.STACKED}</li>
-    </div>
+    </>
   }
   applyCommonLogic(args)
   return <ThemeProvider theme={supersetTheme}><ComposedChart
@@ -146,14 +146,14 @@ const LinesTemplate = (args) => {
     && args.chartSubType !== CHART_SUB_TYPES.MONOTONE
     && args.chartSubType !== CHART_SUB_TYPES.STEP
   ) {
-    return <div>
+    return <>
       {`SubType "${args.chartSubType}" is not applied for Lines Chart, please change "chartSubType" property to:`}
       <li>{CHART_SUB_TYPES.BASIS}</li>
       <li>{CHART_SUB_TYPES.LINEAR}</li>
       <li>{CHART_SUB_TYPES.NATURAL}</li>
       <li>{CHART_SUB_TYPES.MONOTONE}</li>
       <li>{CHART_SUB_TYPES.STEP}</li>
-    </div>
+    </>
   }
   applyCommonLogic(args)
   return <ThemeProvider theme={supersetTheme}><ComposedChart
@@ -170,14 +170,14 @@ const AreaTemplate = (args) => {
     && args.chartSubType !== CHART_SUB_TYPES.MONOTONE
     && args.chartSubType !== CHART_SUB_TYPES.STEP
   ) {
-    return <div>
+    return <>
       {`SubType "${args.chartSubType}" is not applied for Area Chart, please change "chartSubType" property to:`}
       <li>{CHART_SUB_TYPES.BASIS}</li>
       <li>{CHART_SUB_TYPES.LINEAR}</li>
       <li>{CHART_SUB_TYPES.NATURAL}</li>
       <li>{CHART_SUB_TYPES.MONOTONE}</li>
       <li>{CHART_SUB_TYPES.STEP}</li>
-    </div>
+    </>
   }
   applyCommonLogic(args)
   return <ThemeProvider theme={supersetTheme}><ComposedChart
@@ -193,13 +193,13 @@ const ScatterTemplate = (args) => {
     && args.chartSubType !== CHART_SUB_TYPES.SQUARE
     && args.chartSubType !== CHART_SUB_TYPES.WYE
   ) {
-    return <div>
+    return <>
       {`SubType "${args.chartSubType}" is not applied for Scatter Chart, please change "chartSubType" property to:`}
       <li>{CHART_SUB_TYPES.CIRCLE}</li>
       <li>{CHART_SUB_TYPES.DIAMOND}</li>
       <li>{CHART_SUB_TYPES.SQUARE}</li>
       <li>{CHART_SUB_TYPES.WYE}</li>
-    </div>
+    </>
   }
   applyCommonLogic(args)
   return <ThemeProvider theme={supersetTheme}><ComposedChart
@@ -214,7 +214,10 @@ const AllTypesTemplate = (args) => {
   applyCommonLogic(args)
   return <ThemeProvider theme={supersetTheme}><ComposedChart
     {...args}
-    data={transformProps({...allChatsLegendBottomBreakdowns, queriesData: args.queriesData} as unknown as ChartProps).data}
+    data={transformProps({
+      ...allChatsLegendBottomBreakdowns,
+      queriesData: args.queriesData
+    } as unknown as ChartProps).data}
   /></ThemeProvider>
 };
 
