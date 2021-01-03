@@ -7,7 +7,7 @@
     "build:assets": "node ./scripts/copyAssets.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "clean": "rm -rf ./{packages,plugins}/**/{dist,esm,tsconfig.tsbuildinfo} build/",
+    "clean": "rm -rf ./{plugins}/**/{dist,esm,tsconfig.tsbuildinfo} build/",
     "format": "lerna exec prettier --write",
     "lint": "eslint plugins/**/*.{ts,tsx} stories/**/*.tsx",
     "lint:fix": "yarn lint --fix",
@@ -19,7 +19,7 @@
     "pretest": "yarn lint",
     "release": "yarn prepare-release && lerna publish && yarn postrelease",
     "commit": "npx git-cz",
-    "clean-npm-lock": "rm -rf yarn.lock ./{packages,plugins}/*/yarn.lock",
+    "clean-npm-lock": "rm -rf yarn.lock ./{plugins}/*/yarn.lock",
     "ci:create-patch-version": "yarn clean-npm-lock && lerna version patch --yes",
     "ci:create-minor-version": "yarn clean-npm-lock && lerna version minor --yes",
     "ci:create-conventional-version": "yarn clean-npm-lock && lerna version --conventional-commits --create-release github  ",
@@ -99,7 +99,6 @@
     "yarn": ">=1.13.0"
   },
   "workspaces": [
-    "./packages/*",
     "./plugins/*"
   ],
   "browserslist": [
