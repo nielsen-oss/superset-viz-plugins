@@ -23,13 +23,9 @@ export const statusesAndObjects = {
     statusColumn: 'period_type',
     rowLimit: 100,
     statusValue0: 'Healty',
-    statusValueColor0: { r: 224, g: 67, b: 85, a: 1 },
+    statusValueColor0: { r: 85, g: 150, b: 92, a: 1 },
     statusValue1: 'Infected',
-    statusValueColor1: { r: 252, g: 199, b: 0, a: 1 },
-    statusValue2: 'Healty, Infected',
-    statusValueColor2: { r: 90, g: 193, b: 137, a: 1 },
-    statusValueColor3: { r: 0, g: 122, b: 135, a: 1 },
-    statusValueColor4: { r: 0, g: 122, b: 135, a: 1 },
+    statusValueColor1: { r: 202, g: 8, b: 49, a: 1 }
   },
   queriesData: [
     {
