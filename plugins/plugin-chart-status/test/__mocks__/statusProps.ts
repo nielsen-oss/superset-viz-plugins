@@ -22,11 +22,11 @@ export const statusesAndObjects = {
     ],
     statusColumn: 'period_type',
     rowLimit: 100,
-    statusValue0: 'Custom',
+    statusValue0: 'Healty',
     statusValueColor0: { r: 224, g: 67, b: 85, a: 1 },
-    statusValue1: 'Standard',
+    statusValue1: 'Infected',
     statusValueColor1: { r: 252, g: 199, b: 0, a: 1 },
-    statusValue2: 'Custom, Standard',
+    statusValue2: 'Healty, Infected',
     statusValueColor2: { r: 90, g: 193, b: 137, a: 1 },
     statusValueColor3: { r: 0, g: 122, b: 135, a: 1 },
     statusValueColor4: { r: 0, g: 122, b: 135, a: 1 },
@@ -36,7 +36,7 @@ export const statusesAndObjects = {
       data: [{ period: '2020' }, { period: '2019' }, { period: '2017' }, { period: '2018' }],
     },
     {
-      data: [{ period_type: 'Custom' }, { period_type: 'Standard' }],
+      data: [{ period_type: 'Healty' }, { period_type: 'Infected' }],
     },
   ],
 };
