@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`plugin-chart-status Multiple Objects / Statuses 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 400px;
+  width: 800px;
+}
+
+.emotion-1 {
+  font-size: 21px;
+}
+
+.emotion-2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: rgba(90,193,137,1);
+}
+
+<div
+  class="emotion-0"
+  data-testid="status"
+  height="400"
+  width="800"
+>
+  <div
+    class="emotion-1"
+  >
+    2020, 2019, 2017, 2018
+  </div>
+  <div
+    class="emotion-2"
+  >
+    Custom, Standard
+  </div>
+</div>
+`;

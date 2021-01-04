@@ -16,9 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import {CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition} from "../components/utils";
-import { t } from '@superset-ui/core'
-export const MAX_FORM_CONTROLS = 50
+import { t } from '@superset-ui/core';
+import { CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/utils';
+
+export const MAX_FORM_CONTROLS = 50;
 export const BREAKDOWN_SEPARATOR = '_$_';
 
 type Metric = {
@@ -60,13 +61,13 @@ export type ResultData = Data & {
 
 export enum SortingType {
   ASC = 'ASC',
-  DESC = 'DESC'
+  DESC = 'DESC',
 }
 
 export const SortingTypeNames = {
   [SortingType.ASC]: t('Ascending'),
-  [SortingType.DESC]: t('Descending')
-}
+  [SortingType.DESC]: t('Descending'),
+};
 
 export const getChartSubType = (
   chartType: keyof typeof CHART_TYPES,
@@ -95,11 +96,7 @@ const getGroupByValues = (field: string, item: Record<string, string | number>, 
   return item[field];
 };
 
-export const addRechartsKeyAndGetGroupByValues = (
-  formData: FormData,
-  data: Data[],
-  groupByValues: string[],
-) =>
+export const addRechartsKeyAndGetGroupByValues = (formData: FormData, data: Data[], groupByValues: string[]) =>
   data.map(item => ({
     ...item,
     rechartsDataKey: formData.groupBy.map(field => getGroupByValues(field, item, groupByValues)).join(', '),
@@ -119,6 +116,8 @@ export const addBreakdownMetricsAndGetBreakdownValues = (
       );
       // Build metric name by breakdown
       const resultBreakdown = `${metric}${breakdown}`;
+      // mutation to save unnecessary loops
+      // eslint-disable-next-line no-param-reassign
       item[resultBreakdown] = item[metric];
       // build breakdown values array
       if (!breakdowns.includes(resultBreakdown)) {

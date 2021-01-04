@@ -16,38 +16,38 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React from "react";
-import ComposedChartPlugin from '../src';
+import React from 'react';
+import { render } from '@testing-library/react';
+import * as recharts from 'recharts';
+import { supersetTheme, ThemeProvider } from '@superset-ui/core';
 import ComposedChart from '../src/components/ComposedChart';
-import {render} from "@testing-library/react";
-import * as recharts from 'recharts'
-import {supersetTheme, ThemeProvider} from "@superset-ui/core";
+import ComposedChartPlugin from '../src';
 import {
   allChatsLegendBottomBreakdowns,
   barsHorizontalLegendLeftY2AxisBreakdowns,
   barsHorizontalLegendTop,
-  barsVerticalLegendRightNumFormatAllLabelsBreakdowns
-} from './__mocks__/composedProps'
-import transformProps from '../src/plugin/transformProps'
+  barsVerticalLegendRightNumFormatAllLabelsBreakdowns,
+} from './__mocks__/composedProps';
+import transformProps from '../src/plugin/transformProps';
 
-jest.mock('recharts')
+jest.mock('recharts');
 
 describe('plugin-chart-composed', () => {
-  const RechartsComposedChart = jest.fn((props) => <div {...props}/>);
-  const CartesianGrid = jest.fn(() => <div/>);
-  const Legend = jest.fn(() => <div/>);
-  const Tooltip = jest.fn(() => <div/>);
-  const XAxis = jest.fn(() => <div/>);
-  const YAxis = jest.fn(() => <div/>);
-  const Scatter = jest.fn(() => <div/>);
-  const Area = jest.fn(() => <div/>);
-  const Bar = jest.fn(() => <div/>);
-  const Line = jest.fn(() => <div/>);
+  const RechartsComposedChart = jest.fn(props => <div {...props} />);
+  const CartesianGrid = jest.fn(() => <div />);
+  const Legend = jest.fn(() => <div />);
+  const Tooltip = jest.fn(() => <div />);
+  const XAxis = jest.fn(() => <div />);
+  const YAxis = jest.fn(() => <div />);
+  const Scatter = jest.fn(() => <div />);
+  const Area = jest.fn(() => <div />);
+  const Bar = jest.fn(() => <div />);
+  const Line = jest.fn(() => <div />);
   beforeEach(() => {
     // Recharts still have some UNSAFE react functions that failing test
     jest.spyOn(console, 'warn').mockImplementation(() => null);
 
-    jest.clearAllMocks()
+    jest.clearAllMocks();
 
     // @ts-ignore
     recharts.CartesianGrid = CartesianGrid;
@@ -69,22 +69,23 @@ describe('plugin-chart-composed', () => {
     recharts.Line = Line;
     // @ts-ignore
     recharts.Scatter = Scatter;
-  })
+  });
 
-  const getWrapper = (props: object) => render(
-    <ThemeProvider theme={supersetTheme}>
-      {/*
+  const getWrapper = (props: object) =>
+    render(
+      <ThemeProvider theme={supersetTheme}>
+        {/*
        // @ts-ignore (no need emulate all props) */}
-      <ComposedChart {...transformProps(props)} />
-    </ThemeProvider>,
-  );
+        <ComposedChart {...transformProps(props)} />
+      </ThemeProvider>,
+    );
 
   it('exists', () => {
     expect(ComposedChartPlugin).toBeDefined();
   });
 
   it('Chart with default props (legend top / horizontal / bars)', () => {
-    getWrapper(barsHorizontalLegendTop)
+    getWrapper(barsHorizontalLegendTop);
     expect({
       ComposedChartProps: RechartsComposedChart.mock.calls[1],
       CartesianGridProps: CartesianGrid.mock.calls[1],
@@ -93,14 +94,14 @@ describe('plugin-chart-composed', () => {
       XAxisProps: XAxis.mock.calls[1],
       YAxisProps: YAxis.mock.calls[1],
       BarProps: Bar.mock.calls[1],
-    }).toMatchSnapshot()
-    expect(Area).not.toHaveBeenCalled()
-    expect(Line).not.toHaveBeenCalled()
-    expect(Scatter).not.toHaveBeenCalled()
+    }).toMatchSnapshot();
+    expect(Area).not.toHaveBeenCalled();
+    expect(Line).not.toHaveBeenCalled();
+    expect(Scatter).not.toHaveBeenCalled();
   });
 
   it('Chart with default props (legend left / horizontal / Y2Axis / bars / breakdowns)', () => {
-    getWrapper(barsHorizontalLegendLeftY2AxisBreakdowns)
+    getWrapper(barsHorizontalLegendLeftY2AxisBreakdowns);
     expect({
       ComposedChartProps: RechartsComposedChart.mock.calls[1],
       CartesianGridProps: CartesianGrid.mock.calls[1],
@@ -109,11 +110,11 @@ describe('plugin-chart-composed', () => {
       XAxisProps: XAxis.mock.calls[1],
       YAxisProps: YAxis.mock.calls[1],
       BarProps: Bar.mock.calls[1],
-    }).toMatchSnapshot()
+    }).toMatchSnapshot();
   });
 
   it('Chart with default props (legend right / vertical / number format / bars / all labels / breakdowns)', () => {
-    getWrapper(barsVerticalLegendRightNumFormatAllLabelsBreakdowns)
+    getWrapper(barsVerticalLegendRightNumFormatAllLabelsBreakdowns);
     expect({
       ComposedChartProps: RechartsComposedChart.mock.calls[1],
       CartesianGridProps: CartesianGrid.mock.calls[1],
@@ -121,11 +122,11 @@ describe('plugin-chart-composed', () => {
       TooltipProps: Tooltip.mock.calls[1],
       XAxisProps: XAxis.mock.calls[1],
       YAxisProps: YAxis.mock.calls[1],
-    }).toMatchSnapshot()
+    }).toMatchSnapshot();
   });
 
   it('All charts with breakdowns', () => {
-    getWrapper(allChatsLegendBottomBreakdowns)
+    getWrapper(allChatsLegendBottomBreakdowns);
     expect({
       ComposedChartProps: RechartsComposedChart.mock.calls[1],
       CartesianGridProps: CartesianGrid.mock.calls[1],
@@ -137,6 +138,6 @@ describe('plugin-chart-composed', () => {
       AreaProps: Area.mock.calls[1],
       LineProps: Line.mock.calls[1],
       ScatterProps: Scatter.mock.calls[1],
-    }).toMatchSnapshot()
+    }).toMatchSnapshot();
   });
 });

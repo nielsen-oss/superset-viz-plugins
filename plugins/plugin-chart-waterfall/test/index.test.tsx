@@ -16,30 +16,30 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React from "react";
+import React from 'react';
+import { render } from '@testing-library/react';
+import * as recharts from 'recharts';
+import { supersetTheme, ThemeProvider } from '@superset-ui/core';
 import WaterfallChartPlugin from '../src';
-import {render} from "@testing-library/react";
-import * as recharts from 'recharts'
-import {supersetTheme, ThemeProvider} from "@superset-ui/core";
-import transformProps from '../src/plugin/transformProps'
-import {legendTop} from "./__mocks__/waterfallProps";
-import WaterfallChart from "../src/components/WaterfallChart";
+import transformProps from '../src/plugin/transformProps';
+import { legendTop } from './__mocks__/waterfallProps';
+import WaterfallChart from '../src/components/WaterfallChart';
 
-jest.mock('recharts')
+jest.mock('recharts');
 
 describe('plugin-chart-waterfall', () => {
-  const BarChart = jest.fn((props) => <div {...props}/>);
-  const CartesianGrid = jest.fn(() => <div/>);
-  const Legend = jest.fn(() => <div/>);
-  const Tooltip = jest.fn(() => <div/>);
-  const XAxis = jest.fn(() => <div/>);
-  const YAxis = jest.fn(() => <div/>);
-  const Bar = jest.fn(() => <div/>);
+  const BarChart = jest.fn(props => <div {...props} />);
+  const CartesianGrid = jest.fn(() => <div />);
+  const Legend = jest.fn(() => <div />);
+  const Tooltip = jest.fn(() => <div />);
+  const XAxis = jest.fn(() => <div />);
+  const YAxis = jest.fn(() => <div />);
+  const Bar = jest.fn(() => <div />);
   beforeEach(() => {
     // Recharts still have some UNSAFE react functions that failing test
     jest.spyOn(console, 'warn').mockImplementation(() => null);
 
-    jest.clearAllMocks()
+    jest.clearAllMocks();
 
     // @ts-ignore
     recharts.CartesianGrid = CartesianGrid;
@@ -55,22 +55,23 @@ describe('plugin-chart-waterfall', () => {
     recharts.YAxis = YAxis;
     // @ts-ignore
     recharts.Bar = Bar;
-  })
+  });
 
-  const getWrapper = (props: object) => render(
-    <ThemeProvider theme={supersetTheme}>
-      {/*
+  const getWrapper = (props: object) =>
+    render(
+      <ThemeProvider theme={supersetTheme}>
+        {/*
        // @ts-ignore (no need emulate all props) */}
-      <WaterfallChart {...transformProps(props)} />
-    </ThemeProvider>,
-  );
+        <WaterfallChart {...transformProps(props)} />
+      </ThemeProvider>,
+    );
 
   it('exists', () => {
     expect(WaterfallChartPlugin).toBeDefined();
   });
 
   it('Chart with legend top', () => {
-    getWrapper(legendTop)
+    getWrapper(legendTop);
     expect({
       BarChartProps: BarChart.mock.calls[0],
       CartesianGridProps: CartesianGrid.mock.calls[0],
@@ -79,6 +80,6 @@ describe('plugin-chart-waterfall', () => {
       XAxisProps: XAxis.mock.calls[0],
       YAxisProps: YAxis.mock.calls[0],
       BarProps: Bar.mock.calls[0],
-    }).toMatchSnapshot()
+    }).toMatchSnapshot();
   });
 });

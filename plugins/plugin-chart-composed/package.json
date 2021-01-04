@@ -33,12 +33,11 @@
     "access": "public"
   },
   "dependencies": {
-    "@superset-ui/core": "^0.16.1",
     "recharts": "^1.8.5"
   },
   "peerDependencies": {
     "@superset-ui/chart-controls": "^0.15.5",
-    "@superset-ui/core": "^0.16.11",
+    "@superset-ui/core": "^0.16.1",
     "react": "^16.13.1"
   },
   "babel": {

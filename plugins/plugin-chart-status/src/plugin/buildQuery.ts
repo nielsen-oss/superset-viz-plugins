@@ -18,13 +18,11 @@
  */
 import { buildQueryContext, QueryFormData } from '@superset-ui/core';
 
-const getFormDataPerField = (formData: QueryFormData, groupBy: string, filtersName: string): QueryFormData => {
-  return {
-    ...formData,
-    queryFields: { [groupBy]: 'groupby' },
-    adhoc_filters: formData[filtersName],
-  };
-};
+const getFormDataPerField = (formData: QueryFormData, groupBy: string, filtersName: string): QueryFormData => ({
+  ...formData,
+  groupby: [formData[groupBy]],
+  adhoc_filters: formData[filtersName],
+});
 
 export default function buildQuery(formData: QueryFormData) {
   const objectQuery = buildQueryContext(

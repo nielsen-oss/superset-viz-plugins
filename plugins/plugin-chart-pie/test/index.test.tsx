@@ -16,26 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React from "react";
+import React from 'react';
+import { render } from '@testing-library/react';
+import * as recharts from 'recharts';
+import { supersetTheme, ThemeProvider } from '@superset-ui/core';
 import PieChartPlugin from '../src';
-import {render} from "@testing-library/react";
-import * as recharts from 'recharts'
-import {supersetTheme, ThemeProvider} from "@superset-ui/core";
-import transformProps from '../src/plugin/transformProps'
-import {categoryPercentageDonutNoLegend, legendLeftWithoutLabels, legendTopPercentage} from "./__mocks__/pieProps";
-import PieChart from "../src/PieChart";
+import transformProps from '../src/plugin/transformProps';
+import { categoryPercentageDonutNoLegend, legendLeftWithoutLabels, legendTopPercentage } from './__mocks__/pieProps';
+import PieChart from '../src/PieChart';
 
-jest.mock('recharts')
+jest.mock('recharts');
 
 describe('plugin-chart-piw', () => {
-  const RechartsPieChart = jest.fn((props) => <div {...props}/>);
-  const Legend = jest.fn(() => <div/>);
-  const Pie = jest.fn(() => <div/>);
+  const RechartsPieChart = jest.fn(props => <div {...props} />);
+  const Legend = jest.fn(() => <div />);
+  const Pie = jest.fn(() => <div />);
   beforeEach(() => {
     // Recharts still have some UNSAFE react functions that failing test
     jest.spyOn(console, 'warn').mockImplementation(() => null);
 
-    jest.clearAllMocks()
+    jest.clearAllMocks();
 
     // @ts-ignore
     recharts.PieChart = RechartsPieChart;
@@ -43,44 +43,45 @@ describe('plugin-chart-piw', () => {
     recharts.Pie = Pie;
     // @ts-ignore
     recharts.Legend = Legend;
-  })
+  });
 
-  const getWrapper = (props: object) => render(
-    <ThemeProvider theme={supersetTheme}>
-      {/*
+  const getWrapper = (props: object) =>
+    render(
+      <ThemeProvider theme={supersetTheme}>
+        {/*
        // @ts-ignore (no need emulate all props) */}
-      <PieChart {...transformProps(props)} />
-    </ThemeProvider>,
-  );
+        <PieChart {...transformProps(props)} />
+      </ThemeProvider>,
+    );
 
   it('exists', () => {
     expect(PieChartPlugin).toBeDefined();
   });
 
   it('Chart with legend top / percentage labels ', () => {
-    getWrapper(legendTopPercentage)
+    getWrapper(legendTopPercentage);
     expect({
       PieChartProps: RechartsPieChart.mock.calls[1],
       PieProps: Pie.mock.calls[1],
       LegendProps: Legend.mock.calls[1],
-    }).toMatchSnapshot()
+    }).toMatchSnapshot();
   });
 
   it('Chart with legend left / without labels', () => {
-    getWrapper(legendLeftWithoutLabels)
+    getWrapper(legendLeftWithoutLabels);
     expect({
       PieChartProps: RechartsPieChart.mock.calls[1],
       PieProps: Pie.mock.calls[1],
       LegendProps: Legend.mock.calls[1],
-    }).toMatchSnapshot()
+    }).toMatchSnapshot();
   });
 
   it('Chart Donut with category and percentage labels / without legend', () => {
-    getWrapper(categoryPercentageDonutNoLegend)
+    getWrapper(categoryPercentageDonutNoLegend);
     expect({
       PieChartProps: RechartsPieChart.mock.calls[1],
       PieProps: Pie.mock.calls[1],
-    }).toMatchSnapshot()
-    expect(Legend).not.toBeCalled()
+    }).toMatchSnapshot();
+    expect(Legend).not.toBeCalled();
   });
 });

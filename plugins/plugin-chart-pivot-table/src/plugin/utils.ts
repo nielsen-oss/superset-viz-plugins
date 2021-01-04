@@ -18,7 +18,7 @@
  */
 import { formatNumber } from '@superset-ui/core';
 import { QueryData } from './transformProps';
-import { ShowTotal } from '../types'
+import { ShowTotal } from '../types';
 
 export const ROW_HEIGHT = '27px';
 
@@ -51,7 +51,7 @@ type BaseUnit<T extends string> = Record<T, Set<string>>;
 const extractUnits = <T extends string>(
   dimensionUnits: BaseUnit<T>,
   rootDimension: string[],
-  withHeader: boolean = false,
+  withHeader = false,
 ): { units: Unit<T>; unitsSize: number; uiUnits: Unit<T> } => {
   let unitsSize = 1;
   let prevKey: T;

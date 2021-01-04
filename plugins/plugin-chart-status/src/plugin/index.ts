@@ -33,7 +33,7 @@ export default class StatusChartPlugin extends ChartPlugin {
     super({
       buildQuery,
       controlPanel,
-      loadChart: () => import('../Status'),
+      loadChart: () => import('../StatusChart'),
       metadata,
       transformProps,
     });

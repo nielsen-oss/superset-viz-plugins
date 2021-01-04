@@ -15,5 +15,13 @@
     "isolatedModules": true,
     "jsx": "react"
   },
+  "paths": {
+    "plugins": [
+      "./src/plugins"
+    ],
+    "stories": [
+      "./src/stories"
+    ]
+  },
   "include": ["./packages/**/src", "./plugins/**/src"]
 }

@@ -18,7 +18,8 @@
  */
 import { validateNonEmpty, t } from '@superset-ui/core';
 import {
-  ControlPanelConfig, D3_FORMAT_DOCS,
+  ControlPanelConfig,
+  D3_FORMAT_DOCS,
   D3_FORMAT_OPTIONS,
   formatSelectOptions,
   sharedControls,
@@ -31,7 +32,7 @@ const xAxisColumn: typeof sharedControls.groupby = {
   description: t('Choose table column that will be displayed on XAxis in chart, should be chosen also in "Group by"'),
   multi: false,
   valueKey: 'column_name',
-  mapStateToProps: ({ datasource, controls }) => ({
+  mapStateToProps: ({ datasource }) => ({
     options: datasource?.columns || [],
   }),
   validators: [validateNonEmpty],
@@ -56,7 +57,7 @@ const periodColumn: typeof sharedControls.groupby = {
   description: t('Choose table column that will split data to periods, should be chosen also in "Group by"'),
   multi: false,
   valueKey: 'column_name',
-  mapStateToProps: ({ datasource, controls }) => ({
+  mapStateToProps: ({ datasource }) => ({
     options: datasource?.columns || [],
   }),
   validators: [validateNonEmpty],

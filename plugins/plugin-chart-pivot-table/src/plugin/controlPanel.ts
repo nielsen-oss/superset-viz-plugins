@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import {t, validateNonEmpty} from '@superset-ui/core';
+import { t, validateNonEmpty } from '@superset-ui/core';
 
 import {
   ControlConfig,
@@ -25,8 +25,8 @@ import {
   D3_FORMAT_OPTIONS,
   sharedControls,
 } from '@superset-ui/chart-controls';
-import {ColumnMeta, SelectControlConfig} from '@superset-ui/chart-controls/lib/types';
-import {SHOW_TOTAL_NAMES, ShowTotal} from '../types';
+import { ColumnMeta, SelectControlConfig } from '@superset-ui/chart-controls/lib/types';
+import { SHOW_TOTAL_NAMES, ShowTotal } from '../types';
 
 const rows: { name: string; config: SelectControlConfig<ColumnMeta, 'SelectControl'> } = {
   name: 'rows',
@@ -67,7 +67,7 @@ const showTotal: { name: string; config: ControlConfig<'SelectControl'> } = {
     renderTrigger: true,
     description: t('Show total for rows / columns'),
     options: Object.keys(ShowTotal).map(value => ({
-      value: value,
+      value,
       label: SHOW_TOTAL_NAMES[value as keyof typeof SHOW_TOTAL_NAMES],
     })),
   },
@@ -94,7 +94,7 @@ const emptyValuePlaceholder: { name: string; config: ControlConfig<'TextControl'
     default: '',
     description: t(`Choose placeholder that will be shown instead empty value`),
   },
-}
+};
 
 const config: ControlPanelConfig = {
   controlPanelSections: [
@@ -106,9 +106,7 @@ const config: ControlPanelConfig = {
     {
       label: t('Options'),
       expanded: true,
-      controlSetRows: [
-        [transpose]
-      ],
+      controlSetRows: [[transpose]],
     },
     {
       label: t('Table Options'),

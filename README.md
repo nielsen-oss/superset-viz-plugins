@@ -12,17 +12,20 @@ This repository is using a monorepo strategy which lets us have one source of tr
 
 #### Artifacts Deployment
 
-  Npm pacakges are deployed [here](https://www.npmjs.com/search?q=%40superset-viz-plugins)
-
-  Docker Image is deployed [here](https://hub.docker.com/r/nielsenoss/apache-superset)
+- Npm pacakges are deployed [here](https://www.npmjs.com/search?q=%40superset-viz-plugins)
+- Docker Image is deployed [here](https://hub.docker.com/r/nielsenoss/apache-superset)
 
   
 ### Connection to superset-incubator
 
 1. Replace `incubator-superset/superset-frontend/webpack.config.js` with [webpack.config.js](./docs/webpack.config.js)
-   
-
 2. Use [this](https://preset.io/blog/2020-07-02-hello-world/) tutorial to connect plugins to superset
+
+
+### Storybook examples (uses Chromatic)
+
+- [Stories view](https://master--5fec4c81935a8c002151e85f.chromatic.com/?path=/story/)
+- [Library view](https://www.chromatic.com/pullrequests?appId=5fec4c81935a8c002151e85f)
 
 ### Plugins in repository
 

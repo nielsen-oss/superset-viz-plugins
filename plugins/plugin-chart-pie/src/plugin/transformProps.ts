@@ -47,7 +47,7 @@ export default function transformProps<G extends string, DK extends string>(char
     showLabels,
     legendPosition,
   } = formData as FormData<G, DK>;
-  let data = (queriesData?.[0]?.data || queryData.data) as PieChartData<G, DK>[];
+  const data = (queriesData?.[0]?.data || queryData.data) as PieChartData<G, DK>[];
 
   return {
     dataKey: metric.label,

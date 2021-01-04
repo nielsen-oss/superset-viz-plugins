@@ -84,7 +84,13 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
   }`;
 
   return (
-    <StyledGrid gridTemplateColumns="max-content" gridTemplateRows="auto" width={width} height={height} data-testid='pivot-table'>
+    <StyledGrid
+      gridTemplateColumns="max-content"
+      gridTemplateRows="auto"
+      width={width}
+      height={height}
+      data-testid="pivot-table"
+    >
       {rows.length === 0 && columns.length === 0 ? (
         <NoData>{t('No data to show')}</NoData>
       ) : (
@@ -103,7 +109,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
               withoutOverflow
               gridTemplateColumns={columnsFillData.map(fillData => `${fillData ? 'max-content' : 0}`).join(' ')}
               gridTemplateRows={`repeat(${columns.length + 2}, ${ROW_HEIGHT}) ${rowsFillData
-                .map((fillData, index) => `${fillData ? ROW_HEIGHT : 0}`)
+                .map(fillData => `${fillData ? ROW_HEIGHT : 0}`)
                 .join(' ')}`}
             >
               <ColumnsHeader

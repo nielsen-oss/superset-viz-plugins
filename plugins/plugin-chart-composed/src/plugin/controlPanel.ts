@@ -44,7 +44,7 @@ import {
   scatterChartSubType,
 } from './configs/chartTypes';
 import { chartTypeMetrics } from './configs/chartTypeMetrics';
-import {orderByGroupBy, orderByMetric} from "./configs/orderBy";
+import { orderByGroupBy, orderByMetric } from './configs/orderBy';
 
 export const showLegend = {
   name: 'show_legend',
@@ -81,23 +81,21 @@ const metrics: { name: string; config: ControlConfig<'MetricsControl'> } = {
     multi: true,
     validators: [validateNonEmpty],
     // @ts-ignore
-    mapStateToProps: ({ datasource, controls }: { datasource: DatasourceMeta; controls: CustomControlItem }) => {
-      return {
-        columns: datasource?.columns || [],
-        savedMetrics: datasource?.metrics || [],
-        datasourceType: datasource?.type,
-        fields: [
-          {
-            type: 'SelectControl',
-            label: t('Chart type'),
-            options: Object.keys(CHART_TYPES).map(key => ({
-              value: key,
-              label: CHART_TYPE_NAMES[key],
-            })),
-          },
-        ],
-      };
-    },
+    mapStateToProps: ({ datasource }: { datasource: DatasourceMeta; controls: CustomControlItem }) => ({
+      columns: datasource?.columns || [],
+      savedMetrics: datasource?.metrics || [],
+      datasourceType: datasource?.type,
+      fields: [
+        {
+          type: 'SelectControl',
+          label: t('Chart type'),
+          options: Object.keys(CHART_TYPES).map(key => ({
+            value: key,
+            label: CHART_TYPE_NAMES[key],
+          })),
+        },
+      ],
+    }),
   },
 };
 
@@ -143,7 +141,7 @@ export const labelsColor = {
 };
 const groupBy: { name: string; config: ControlConfig<'SelectControl'> } = {
   name: 'group_by',
-  //@ts-ignore
+  // @ts-ignore
   config: {
     ...sharedControls.groupby,
     validators: [validateNonEmpty],
@@ -183,10 +181,7 @@ const config: ControlPanelConfig = {
     {
       label: t('Sorting'),
       expanded: true,
-      controlSetRows: [
-        ...orderByMetric,
-        ...orderByGroupBy,
-      ],
+      controlSetRows: [...orderByMetric, ...orderByGroupBy],
     },
     {
       label: t('Chart settings by metric'),

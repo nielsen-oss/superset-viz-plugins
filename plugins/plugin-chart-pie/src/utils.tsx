@@ -16,26 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import {LegendProps, PieLabelRenderProps, Sector} from 'recharts';
+import { LegendProps, PieLabelRenderProps, Sector } from 'recharts';
 import React from 'react';
-import {getNumberFormatter, NumberFormats, t} from '@superset-ui/core';
+import { getNumberFormatter, NumberFormats, t } from '@superset-ui/core';
 
 export enum LabelTypes {
   percent = 'percent',
   category = 'category',
-  categoryPercent = 'category_percent'
+  categoryPercent = 'category_percent',
 }
 
 export const LabelTypeNames = {
   [LabelTypes.percent]: t('Percent'),
   [LabelTypes.category]: t('Category Name'),
   [LabelTypes.categoryPercent]: t('Category and Percentage'),
-}
+};
 
 export const renderCustomizedLabel = (
   labelProps: Partial<PieLabelRenderProps> & { x: number; groupBy: string; labelType: string },
 ) => {
-  let percent = labelProps.percent ? +labelProps.percent : 100;
+  const percent = labelProps.percent ? +labelProps.percent : 100;
 
   const percentFormatter = getNumberFormatter(NumberFormats.PERCENT_2_POINT);
   switch (labelProps.labelType) {
@@ -73,7 +73,7 @@ export type ActiveShapeProps = {
   isDonut?: boolean;
 };
 
-export const renderActiveShape = (props: Partial<ActiveShapeProps>) => {
+export const renderActiveShape = (props: ActiveShapeProps) => {
   const RADIAN = Math.PI / 180;
   const {
     cx = 0,
@@ -104,7 +104,7 @@ export const renderActiveShape = (props: Partial<ActiveShapeProps>) => {
       {isDonut && (
         <>
           <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
-            {payload && payload[groupBy!]}
+            {payload && payload[groupBy]}
           </text>
           <Sector
             cx={cx}
@@ -126,10 +126,10 @@ export const renderActiveShape = (props: Partial<ActiveShapeProps>) => {
           />
         </>
       )}
-      <path d={`M${sx},${sy}L${mx},${my}`} stroke={fill} fill="none"/>
-      <circle cx={mx} cy={my} r={2} fill={fill} stroke="none"/>
+      <path d={`M${sx},${sy}L${mx},${my}`} stroke={fill} fill="none" />
+      <circle cx={mx} cy={my} r={2} fill={fill} stroke="none" />
       <text x={x} y={ey} textAnchor={textAnchor} fill={fill}>
-        {renderCustomizedLabel({...props, x, groupBy: groupBy!, labelType: labelType!})}
+        {renderCustomizedLabel({ ...props, x, groupBy, labelType })}
       </text>
     </g>
   );
@@ -145,8 +145,12 @@ export enum LegendPosition {
 type LegendAlign = 'left' | 'center' | 'right';
 type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
 
-export const getLegendProps = (legendPosition: LegendPosition, height: number, legendWidth: number | null): LegendProps => {
-  let result = {
+export const getLegendProps = (
+  legendPosition: LegendPosition,
+  height: number,
+  legendWidth: number | null,
+): LegendProps => {
+  const result = {
     wrapperStyle: {
       maxHeight: height,
     },
@@ -162,8 +166,8 @@ export const getLegendProps = (legendPosition: LegendPosition, height: number, l
         layout: 'vertical',
         wrapperStyle: {
           ...result.wrapperStyle,
-          width: legendWidth
-        }
+          width: legendWidth,
+        },
       };
     case LegendPosition.bottom:
     case LegendPosition.top:
