@@ -1,6 +1,6 @@
 {
   "name": "@superset-viz-plugins/plugin-chart-status",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Superset Chart - Status",
   "sideEffects": false,
   "pluginName": "Status",
