@@ -11,7 +11,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      SUPERSET_VERSION: 0.38
+      SUPERSET_VERSION: 1.0
       PRESET_NAME: Nielsen
     steps:
     - name: Use Node.js
