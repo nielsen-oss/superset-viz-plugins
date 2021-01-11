@@ -29,12 +29,6 @@ Object {
                 "type": "circle",
                 "value": "Total",
               },
-              Object {
-                "color": "#FCC700",
-                "id": "other",
-                "type": "circle",
-                "value": "Other",
-              },
             ]
           }
           verticalAlign="top"
@@ -88,7 +82,7 @@ Object {
             122,
             166,
           ],
-          "period": "2017",
+          "period": "2018",
           "period_type": "Custom",
         },
         Object {
@@ -96,38 +90,13 @@ Object {
             166,
             208,
           ],
-          "period": "2017",
-          "period_type": "Standard",
-        },
-        Object {
-          "COUNT(volume_for_roi)": Array [
-            0,
-            208,
-          ],
-          "__TOTAL__": true,
-          "period": "__TOTAL__",
-          "period_type": "2017",
-        },
-        Object {
-          "COUNT(volume_for_roi)": Array [
-            208,
-            252,
-          ],
-          "period": "2018",
-          "period_type": "Custom",
-        },
-        Object {
-          "COUNT(volume_for_roi)": Array [
-            252,
-            294,
-          ],
           "period": "2018",
           "period_type": "Standard",
         },
         Object {
           "COUNT(volume_for_roi)": Array [
             0,
-            294,
+            208,
           ],
           "__TOTAL__": true,
           "period": "__TOTAL__",
@@ -135,41 +104,41 @@ Object {
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            294,
-            314,
+            208,
+            252,
           ],
-          "period": "2019",
+          "period": "2017",
           "period_type": "Custom",
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            314,
-            333,
+            252,
+            294,
           ],
-          "period": "2019",
+          "period": "2017",
           "period_type": "Standard",
         },
         Object {
           "COUNT(volume_for_roi)": Array [
             0,
-            333,
+            294,
           ],
           "__TOTAL__": true,
           "period": "__TOTAL__",
-          "period_type": "2019",
+          "period_type": "2017",
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            333,
-            354,
+            294,
+            315,
           ],
           "period": "2020",
           "period_type": "Custom",
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            354,
-            373,
+            315,
+            334,
           ],
           "period": "2020",
           "period_type": "Standard",
@@ -177,11 +146,36 @@ Object {
         Object {
           "COUNT(volume_for_roi)": Array [
             0,
-            373,
+            334,
           ],
           "__TOTAL__": true,
           "period": "__TOTAL__",
           "period_type": "2020",
+        },
+        Object {
+          "COUNT(volume_for_roi)": Array [
+            334,
+            354,
+          ],
+          "period": "2019",
+          "period_type": "Custom",
+        },
+        Object {
+          "COUNT(volume_for_roi)": Array [
+            354,
+            373,
+          ],
+          "period": "2019",
+          "period_type": "Standard",
+        },
+        Object {
+          "COUNT(volume_for_roi)": Array [
+            0,
+            373,
+          ],
+          "__TOTAL__": true,
+          "period": "__TOTAL__",
+          "period_type": "2019",
         },
       ],
       "height": 400,
@@ -235,12 +229,6 @@ Object {
           "id": "total",
           "type": "circle",
           "value": "Total",
-        },
-        Object {
-          "color": "#FCC700",
-          "id": "other",
-          "type": "circle",
-          "value": "Other",
         },
       ],
       "verticalAlign": "top",
