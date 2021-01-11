@@ -58,9 +58,6 @@ export default function transformProps(
   const valueColumn = metric.label;
   const data = (queriesData?.[0]?.data || queryData?.data) as QueryData[];
 
-  // Sort by period (ascending)
-  data.sort((a, b) => Number.parseInt(a[periodColumn] as string, 10) - Number.parseInt(b[periodColumn] as string, 10));
-
   const rechartsData = convertDataForRecharts(periodColumn, xAxisColumn, valueColumn, data);
 
   const resultData = createReChartsBarValues(rechartsData, valueColumn, periodColumn);
