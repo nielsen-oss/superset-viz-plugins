@@ -46,7 +46,7 @@ export default function buildQuery(formData: QueryFormData) {
     if (formData.use_order_by_x_axis_column) {
       orderby.push([formData?.x_axis_column, formData.order_by_x_axis_column === SortingType.ASC]);
     }
-   
+
     return [
       {
         ...baseQueryObject,
