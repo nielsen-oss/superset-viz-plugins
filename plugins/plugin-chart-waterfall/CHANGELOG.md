@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-waterfall@0.6.2...@superset-viz-plugins/plugin-chart-waterfall@0.7.0) (2021-01-11)
+
+
+### Features
+
+* Waterfall sort ([#25](https://github.com/nielsen-oss/superset-viz-plugins/issues/25)) ([a182ca7](https://github.com/nielsen-oss/superset-viz-plugins/commit/a182ca72bd766d61a94975a8c1a24a9cb0748f23))
+
+
+
+
+
 ## [0.6.2](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-waterfall@0.6.1...@superset-viz-plugins/plugin-chart-waterfall@0.6.2) (2021-01-04)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-waterfall
