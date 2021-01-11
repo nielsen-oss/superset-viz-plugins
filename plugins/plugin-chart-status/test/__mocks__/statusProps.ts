@@ -36,7 +36,7 @@ export const statusesAndObjects = {
       data: [{ period: '2020' }, { period: '2019' }, { period: '2017' }, { period: '2018' }],
     },
     {
-      data: [{ period_type: 'Healty' }, { period_type: 'Infected' }],
+      data: [{ period_type: 'Healthy' }, { period_type: 'Infected' }],
     },
   ],
 };
