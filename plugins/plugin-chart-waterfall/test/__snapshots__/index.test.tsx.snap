@@ -29,12 +29,6 @@ Object {
                 "type": "circle",
                 "value": "Total",
               },
-              Object {
-                "color": "#FCC700",
-                "id": "other",
-                "type": "circle",
-                "value": "Other",
-              },
             ]
           }
           verticalAlign="top"
@@ -235,12 +229,6 @@ Object {
           "id": "total",
           "type": "circle",
           "value": "Total",
-        },
-        Object {
-          "color": "#FCC700",
-          "id": "other",
-          "type": "circle",
-          "value": "Other",
         },
       ],
       "verticalAlign": "top",
