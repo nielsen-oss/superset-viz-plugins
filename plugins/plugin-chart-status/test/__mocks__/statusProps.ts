@@ -25,7 +25,7 @@ export const statusesAndObjects = {
     statusValue0: 'Healty',
     statusValueColor0: { r: 85, g: 150, b: 92, a: 1 },
     statusValue1: 'Infected',
-    statusValueColor1: { r: 202, g: 8, b: 49, a: 1 }
+    statusValueColor1: { r: 202, g: 8, b: 49, a: 1 },
   },
   queriesData: [
     {
