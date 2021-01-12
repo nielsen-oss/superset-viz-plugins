@@ -24,6 +24,7 @@ import {
   formatSelectOptions,
   sharedControls,
 } from '@superset-ui/chart-controls';
+import { orderBy } from './configs/orderBy';
 import { LegendPosition } from '../components/utils';
 
 const xAxisColumn: typeof sharedControls.groupby = {
@@ -109,6 +110,11 @@ const config: ControlPanelConfig = {
       label: t('Query'),
       expanded: true,
       controlSetRows: [['metric'], ['adhoc_filters'], ['row_limit', null]],
+    },
+    {
+      label: t('Sorting'),
+      expanded: true,
+      controlSetRows: [...orderBy],
     },
     {
       label: t('Chart Options'),

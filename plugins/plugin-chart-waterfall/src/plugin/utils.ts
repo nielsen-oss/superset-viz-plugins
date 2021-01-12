@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import { t } from '@superset-ui/core';
 import { WaterfallChartData } from '../components/WaterfallChart';
 import { QueryData } from './transformProps';
 
@@ -101,3 +102,15 @@ export const createReChartsBarValues = (
       [valueColumn]: [totalSumUpToCur, totalSumUpToCur + (cur[valueColumn] as number)],
     } as WaterfallChartData;
   });
+
+export const MAX_FORM_CONTROLS = 50;
+
+export enum SortingType {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
+export const SortingTypeNames = {
+  [SortingType.ASC]: t('Ascending'),
+  [SortingType.DESC]: t('Descending'),
+};

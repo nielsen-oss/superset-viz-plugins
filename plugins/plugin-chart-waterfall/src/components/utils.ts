@@ -25,7 +25,6 @@ export const LEGEND: LegendPayload[] = [
   { value: t('Increase'), color: supersetTheme.colors.success.base, id: 'increase', type: 'circle' },
   { value: t('Decrease'), color: supersetTheme.colors.error.base, id: 'decrease', type: 'circle' },
   { value: t('Total'), color: supersetTheme.colors.info.base, id: 'total', type: 'circle' },
-  { value: t('Other'), color: supersetTheme.colors.alert.base, id: 'other', type: 'circle' },
 ];
 
 export enum LegendPosition {
