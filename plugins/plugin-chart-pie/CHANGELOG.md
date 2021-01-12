@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.5.0 (2021-01-12)
+
+
+### Features
+
+* migrate to superset 1.0 ([e53acfe](https://github.com/nielsen-oss/superset-viz-plugins/commit/e53acfed93ee1f39fcd8a63b065b284ab513b692))
+
+
+
+
+
 ## [0.4.2](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-pie@0.4.1...@superset-viz-plugins/plugin-chart-pie@0.4.2) (2021-01-04)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-pie
