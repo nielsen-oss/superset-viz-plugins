@@ -22,7 +22,7 @@ import { ColumnMeta, SelectControlConfig } from '@superset-ui/chart-controls/lib
 import { LabelTypeNames, LabelTypes, LegendPosition } from '../utils';
 
 const groupBy: { name: string; config: SelectControlConfig<ColumnMeta, 'SelectControl'> } = {
-  name: 'group_by',
+  name: 'groupby',
   config: {
     ...sharedControls.groupby,
     validators: [validateNonEmpty],

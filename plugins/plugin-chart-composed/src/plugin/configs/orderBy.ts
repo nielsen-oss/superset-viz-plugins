@@ -62,7 +62,7 @@ for (let i = 0; i < MAX_FORM_CONTROLS / 2; i++) {
 }
 
 for (let i = 0; i < MAX_FORM_CONTROLS / 2; i++) {
-  orderByGroupBy.push(getOrderByRow(i, 'group_by', 'group_by', t('"group by"')));
+  orderByGroupBy.push(getOrderByRow(i, 'groupby', 'group_by', t('"group by"')));
 }
 
 export { orderByMetric, orderByGroupBy };

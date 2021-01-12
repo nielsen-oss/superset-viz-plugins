@@ -22,6 +22,8 @@ export default function buildQuery(formData: QueryFormData) {
   return buildQueryContext(formData, baseQueryObject => [
     {
       ...baseQueryObject,
+      columns: [],
+      groupby: [...(formData.rows || []), ...(formData.columns || [])]
     },
   ]);
 }

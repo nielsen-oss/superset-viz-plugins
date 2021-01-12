@@ -54,8 +54,8 @@ export type ChartProps<R extends string = string, C extends string = string, M e
 export default function transformProps<R extends string = string, C extends string = string, M extends string = string>(
   chartProps: ChartProps<R, C, M>,
 ) {
-  const { width, height, formData, queryData, queriesData } = chartProps;
-  const data = queriesData?.[0]?.data || queryData?.data;
+  const { width, height, formData, queriesData } = chartProps;
+  const { data } = queriesData[0];
   const metrics = formData.metrics.map(({ label }) => label).sort();
   const {
     transpose,

@@ -23,7 +23,7 @@ import { LegendPosition } from '../utils';
 type FormData<G extends string, DK extends string> = {
   colorScheme: string;
   isDonut: boolean;
-  groupBy: G;
+  groupby: G;
   metric: {
     label: DK;
   };
@@ -35,11 +35,11 @@ type FormData<G extends string, DK extends string> = {
 };
 
 export default function transformProps<G extends string, DK extends string>(chartProps: ChartProps): PieProps<G, DK> {
-  const { width, height, formData, queryData, queriesData } = chartProps;
+  const { width, height, formData, queriesData } = chartProps;
   const {
     colorScheme,
     isDonut,
-    groupBy,
+    groupby,
     metric,
     colorPicker,
     showLegend,
@@ -47,20 +47,20 @@ export default function transformProps<G extends string, DK extends string>(char
     showLabels,
     legendPosition,
   } = formData as FormData<G, DK>;
-  const data = (queriesData?.[0]?.data || queryData.data) as PieChartData<G, DK>[];
+  const data = queriesData[0].data as PieChartData<G, DK>[];
 
   return {
     dataKey: metric.label,
     width,
     legendPosition,
     height,
-    data: data.filter(item => item[metric.label] !== null).filter(item => item[groupBy] !== null),
+    data: data.filter(item => item[metric.label] !== null).filter(item => item[groupby] !== null),
     isDonut,
     baseColor: colorPicker,
     colorScheme,
     showLegend,
     showLabels: isDonut || showLabels,
-    groupBy,
+    groupBy: groupby,
     labelType,
   };
 }

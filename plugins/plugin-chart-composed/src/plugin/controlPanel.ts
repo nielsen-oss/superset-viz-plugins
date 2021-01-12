@@ -140,7 +140,7 @@ export const labelsColor = {
   },
 };
 const groupBy: { name: string; config: ControlConfig<'SelectControl'> } = {
-  name: 'group_by',
+  name: 'groupby',
   // @ts-ignore
   config: {
     ...sharedControls.groupby,
