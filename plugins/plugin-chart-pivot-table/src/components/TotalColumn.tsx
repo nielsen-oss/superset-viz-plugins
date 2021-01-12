@@ -37,17 +37,17 @@ const TotalColumn: FC<TotalColumnProps> = ({ columns, rowsFillData, rowsTotal, t
       .map(fillData => `${fillData ? ROW_HEIGHT : 0}`)
       .join(' ')}`}
   >
-    <GridItem header bordered bgLevel={2} gridRow={`span ${columns.length + (compactView ? 1 : 2)}`}>
+    <GridItem header gridRow={`span ${columns.length + (compactView ? 1 : 2)}`}>
       {t('Total')}
     </GridItem>
     {rowsTotal.map((rowTotal, index) => (
       // eslint-disable-next-line react/jsx-key
-      <GridItem bordered bgLevel={2} hidden={!rowsFillData[index]}>
+      <GridItem bordered bgLevel={index % 2 === 0 ? 4 : undefined} hidden={!rowsFillData[index]}>
         {rowTotal}
       </GridItem>
     ))}
     {showTotalAll && (
-      <GridItem bordered bgLevel={2}>
+      <GridItem bordered bgLevel={4}>
         {total}
       </GridItem>
     )}
