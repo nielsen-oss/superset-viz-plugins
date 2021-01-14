@@ -307,7 +307,7 @@ const AllTypesTemplate = args => {
           transformProps(({
             ...allChatsLegendBottomBreakdowns,
             formData: {
-              ...barsHorizontalLegendTop.formData,
+              ...allChatsLegendBottomBreakdowns.formData,
               useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
             },
             queriesData: args.queriesData,
