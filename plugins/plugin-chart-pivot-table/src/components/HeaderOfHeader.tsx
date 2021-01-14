@@ -40,7 +40,7 @@ const HeadersOfHeader: FC<HeadersOfHeaderProps<string, string>> = ({ rows, colum
     <EmptyItem header />
     {columns.map(column => (
       // eslint-disable-next-line react/jsx-key
-      <GridItem bordered header>
+      <GridItem bordered justifyContent="flex-start">
         {column}
       </GridItem>
     ))}

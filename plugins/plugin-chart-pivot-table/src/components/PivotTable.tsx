@@ -97,7 +97,6 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
         <Grid gridTemplateColumns="auto" gridTemplateRows="min-content">
           <Grid gridTemplateColumns={mainGridTemplateColumns} gridTemplateRows="auto">
             <RowsHeader
-              numberOfColumns={numberOfColumns}
               compactView={compactView}
               showTotal={showTotal}
               rowsFillData={rowsFillData}
@@ -123,6 +122,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
               {data.map((item, index) => (
                 // eslint-disable-next-line react/jsx-key
                 <GridItem
+                  justifyContent="flex-end"
                   bgLevel={Math.floor((index / numberOfColumns) % 2) === 0 ? 4 : undefined}
                   bordered
                   hidden={
@@ -135,7 +135,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
               {(showTotal === ShowTotal.columns || showTotal === ShowTotal.columnsAndRows) &&
                 columnsTotal.map((columnTotal, index) => (
                   // eslint-disable-next-line react/jsx-key
-                  <GridItem bordered bgLevel={4} hidden={!columnsFillData[index]}>
+                  <GridItem bordered bgLevel={4} hidden={!columnsFillData[index]} justifyContent="flex-end">
                     {columnTotal}
                   </GridItem>
                 ))}

@@ -38,14 +38,19 @@ const ColumnsHeader: FC<ColumnsHeaderProps<string, string>> = ({
   <>
     {metrics.map(metric => (
       // eslint-disable-next-line react/jsx-key
-      <GridItem header gridColumn={`span ${numberOfColumns / metrics.length}`}>
+      <GridItem header gridColumn={`span ${numberOfColumns / metrics.length}`} justifyContent="flex-end">
         {metric}
       </GridItem>
     ))}
     {columns.map(column =>
       uiColumnUnits[column].map(item => (
         // eslint-disable-next-line react/jsx-key
-        <GridItem header bordered gridColumn={`span ${numberOfColumns / uiColumnUnits[column].length}`}>
+        <GridItem
+          justifyContent="flex-end"
+          header
+          bordered
+          gridColumn={`span ${numberOfColumns / uiColumnUnits[column].length}`}
+        >
           <div>{item}</div>
         </GridItem>
       )),

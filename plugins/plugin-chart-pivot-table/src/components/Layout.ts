@@ -37,11 +37,14 @@ export const Grid = styled.div<{
   ${({ gridTemplateRows }) => gridTemplateRows && `grid-template-rows: ${gridTemplateRows};`}
 `;
 
-export const FillItem = styled.div<{ hidden?: boolean }>`
-  ${({ hidden }) => !hidden && 'padding: 3px 5px;'}
+type JustifyContent = 'flex-start' | 'center' | 'flex-end';
+type AlignItems = JustifyContent;
+
+export const FillItem = styled.div<{ hidden?: boolean; justifyContent?: JustifyContent; alignItems?: AlignItems }>`
+  ${({ hidden }) => !hidden && 'padding: 3px 10px;'}
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: ${({ alignItems }) => alignItems || 'center'};
+  justify-content: ${({ justifyContent }) => justifyContent || 'center'};
 `;
 
 export const GridItem = styled(FillItem)<{
