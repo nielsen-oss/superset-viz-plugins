@@ -39,7 +39,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-5 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -58,7 +58,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-6 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -67,17 +67,16 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
 }
 
 .emotion-8 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -86,18 +85,17 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-row: span 1;
 }
 
 .emotion-9 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -106,13 +104,12 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
   background-color: #F7F7F7;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-row: span 1;
 }
@@ -125,7 +122,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-14 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -134,17 +131,17 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   grid-column: span 10;
 }
 
 .emotion-16 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -153,10 +150,10 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   border-top: 1px solid #E0E0E0;
@@ -164,7 +161,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-26 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -173,10 +170,10 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   border-top: 1px solid #E0E0E0;
@@ -184,7 +181,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-46 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -193,17 +190,17 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   background-color: #F7F7F7;
   border-top: 1px solid #E0E0E0;
 }
 
 .emotion-66 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -212,10 +209,10 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   border-top: 1px solid #E0E0E0;
 }
@@ -932,7 +929,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-5 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -951,7 +948,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-6 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -960,17 +957,16 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
 }
 
 .emotion-8 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -979,18 +975,17 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-row: span 1;
 }
 
 .emotion-9 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -999,19 +994,18 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
   background-color: #F7F7F7;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-row: span 1;
 }
 
 .emotion-13 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1020,13 +1014,12 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
   background-color: #F7F7F7;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-column: span 1;
   width: auto;
@@ -1041,7 +1034,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-15 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1050,17 +1043,17 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   grid-column: span 10;
 }
 
 .emotion-17 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1069,10 +1062,10 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   border-top: 1px solid #E0E0E0;
@@ -1080,7 +1073,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-27 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1089,10 +1082,10 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   border-top: 1px solid #E0E0E0;
@@ -1100,7 +1093,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-47 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1109,17 +1102,17 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   background-color: #F7F7F7;
   border-top: 1px solid #E0E0E0;
 }
 
 .emotion-67 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1128,10 +1121,10 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   border-top: 1px solid #E0E0E0;
 }
@@ -1143,7 +1136,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-148 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1152,10 +1145,10 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   grid-row: span 3;
@@ -2012,7 +2005,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-5 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2031,7 +2024,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-6 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2040,17 +2033,16 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
 }
 
 .emotion-8 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2059,18 +2051,17 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-row: span 1;
 }
 
 .emotion-9 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2079,19 +2070,18 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
   background-color: #F7F7F7;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-row: span 2;
 }
 
 .emotion-10 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2100,18 +2090,17 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-row: span 2;
 }
 
 .emotion-14 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2120,19 +2109,18 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
   background-color: #F7F7F7;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-row: span 1;
 }
 
 .emotion-22 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2141,13 +2129,12 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
   background-color: #F7F7F7;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-column: span 2;
   width: auto;
@@ -2162,7 +2149,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-24 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2171,17 +2158,17 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   grid-column: span 6;
 }
 
 .emotion-26 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2190,10 +2177,10 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   border-top: 1px solid #E0E0E0;
@@ -2201,7 +2188,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-32 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2210,10 +2197,10 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   border-top: 1px solid #E0E0E0;
@@ -2221,7 +2208,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-44 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2241,7 +2228,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-45 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2250,17 +2237,17 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   background-color: #F7F7F7;
   border-top: 1px solid #E0E0E0;
 }
 
 .emotion-57 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2269,10 +2256,10 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   border-top: 1px solid #E0E0E0;
 }
@@ -2284,7 +2271,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-154 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2293,10 +2280,10 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   grid-row: span 4;
@@ -3100,7 +3087,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-5 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3119,7 +3106,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-6 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3128,17 +3115,16 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
 }
 
 .emotion-8 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3147,18 +3133,17 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-row: span 1;
 }
 
 .emotion-9 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3167,19 +3152,18 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
   background-color: #F7F7F7;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-row: span 2;
 }
 
 .emotion-10 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3188,18 +3172,17 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-row: span 2;
 }
 
 .emotion-14 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3208,13 +3191,12 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
   background-color: #F7F7F7;
-  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
   grid-row: span 1;
 }
@@ -3227,7 +3209,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-23 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3236,17 +3218,17 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   grid-column: span 6;
 }
 
 .emotion-25 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3255,10 +3237,10 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   border-top: 1px solid #E0E0E0;
@@ -3266,7 +3248,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-31 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3275,10 +3257,10 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   font-weight: bolder;
   border-top: 1px solid #E0E0E0;
@@ -3286,7 +3268,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-43 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3306,7 +3288,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-44 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3315,17 +3297,17 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   background-color: #F7F7F7;
   border-top: 1px solid #E0E0E0;
 }
 
 .emotion-56 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3334,10 +3316,10 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
   border-top: 1px solid #E0E0E0;
 }
