@@ -45,7 +45,7 @@ exports[`plugin-chart-status Multiple Objects / Statuses 1`] = `
   <div
     class="emotion-2"
   >
-    Custom, Standard
+    Healthy, Infected
   </div>
 </div>
 `;
