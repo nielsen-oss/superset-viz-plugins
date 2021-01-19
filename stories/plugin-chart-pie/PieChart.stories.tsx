@@ -49,8 +49,14 @@ export default {
 const DefaultTemplate = args => (
   <ThemeProvider theme={supersetTheme}>
     <PieChart
-      {...args}
-      data={transformProps(({ ...legendTopPercentage, queriesData: args.queriesData } as unknown) as ChartProps).data}
+      {...transformProps(({
+        ...legendTopPercentage,
+        formData: {
+          ...legendTopPercentage.formData,
+          ...args,
+        },
+        queriesData: args.queriesData,
+      } as unknown) as ChartProps)}
     />
   </ThemeProvider>
 );
@@ -58,22 +64,15 @@ const DefaultTemplate = args => (
 const DonutTemplate = args => (
   <ThemeProvider theme={supersetTheme}>
     <PieChart
-      {...args}
-      showLabels={
-        transformProps(({
-          ...legendTopPercentage,
-          formData: {
-            ...legendTopPercentage.formData,
-            isDonut: true,
-          },
-        } as unknown) as ChartProps).showLabels
-      }
-      data={
-        transformProps(({
-          ...legendTopPercentage,
-          queriesData: args.queriesData,
-        } as unknown) as ChartProps).data
-      }
+      {...transformProps(({
+        ...legendTopPercentage,
+        formData: {
+          ...legendTopPercentage.formData,
+          isDonut: true,
+          ...args,
+        },
+        queriesData: args.queriesData,
+      } as unknown) as ChartProps)}
     />
   </ThemeProvider>
 );

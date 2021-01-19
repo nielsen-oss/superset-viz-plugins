@@ -48,7 +48,7 @@ type GroupBy<G extends string> = Record<G, string>;
 
 export type PieChartData<G extends string, DK extends string> = GroupBy<G> & Record<DK, number>;
 
-export type PieProps<G extends string, DK extends string> = {
+export type PieProps<G extends string = string, DK extends string = string> = {
   height: number;
   width: number;
   data: PieChartData<G, DK>[];
