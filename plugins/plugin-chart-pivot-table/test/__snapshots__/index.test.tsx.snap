@@ -72,6 +72,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -ms-flex-pack: start;
   justify-content: flex-start;
   overflow: hidden;
+  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
 }
 
@@ -962,6 +963,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -ms-flex-pack: start;
   justify-content: flex-start;
   overflow: hidden;
+  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
 }
 
@@ -2038,6 +2040,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -ms-flex-pack: start;
   justify-content: flex-start;
   overflow: hidden;
+  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
 }
 
@@ -3120,6 +3123,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -ms-flex-pack: start;
   justify-content: flex-start;
   overflow: hidden;
+  font-weight: bolder;
   border-top: 1px solid #E0E0E0;
 }
 
