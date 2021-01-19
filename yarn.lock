@@ -3632,16 +3632,16 @@
     resolve-from "^5.0.0"
     store2 "^2.7.1"
 
-"@superset-ui/chart-controls@^0.16.1":
+"@superset-ui/chart-controls@0.16.1":
   version "0.16.1"
-  resolved "https://registry.npmjs.org/@superset-ui/chart-controls/-/chart-controls-0.16.1.tgz#81e9bcf8f26f92b4f01e255984d49d297983cf7b"
+  resolved "https://registry.yarnpkg.com/@superset-ui/chart-controls/-/chart-controls-0.16.1.tgz#81e9bcf8f26f92b4f01e255984d49d297983cf7b"
   integrity sha512-r6HsOFeOHMstu2C70sXQphYiMZfXSTEsZrfXJ+TMaqbEovX+FWJ4KysPGY7ttGeYmYuiLG+ETfPAMuPAmQxR7g==
   dependencies:
     "@superset-ui/core" "0.16.1"
     lodash "^4.17.15"
     prop-types "^15.7.2"
 
-"@superset-ui/core@0.16.1", "@superset-ui/core@^0.16.1":
+"@superset-ui/core@0.16.1":
   version "0.16.1"
   resolved "https://registry.npmjs.org/@superset-ui/core/-/core-0.16.1.tgz#2010e77726d5d82367e2f8e4612527240e4b2f09"
   integrity sha512-5sZ7xtZrQ3tx2gXACvRNy3AhXUzrcuzq0D94W5J24LGmSULhNOCtQZyq0grXeyQNxcPiRp9UwHRhn8zyZ2Bdzw==

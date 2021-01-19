@@ -129,7 +129,7 @@
     }
   },
   "dependencies": {
-    "@superset-ui/chart-controls": "^0.16.1",
-    "@superset-ui/core": "^0.16.1"
+    "@superset-ui/chart-controls": "0.16.1",
+    "@superset-ui/core": "0.16.1"
   }
 }
