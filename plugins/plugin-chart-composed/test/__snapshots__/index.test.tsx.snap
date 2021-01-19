@@ -27,6 +27,7 @@ Object {
             "group_type": "Variable",
             "period_type": "Custom",
             "rechartsDataKey": "Variable",
+            "rechartsDataKeyUI": "Variable",
           },
           Object {
             "COUNT_DISTINCT(due_to_group)": 6,
@@ -44,6 +45,7 @@ Object {
             "group_type": "DirectDueToGroup",
             "period_type": "Standard",
             "rechartsDataKey": "DirectDueToGroup",
+            "rechartsDataKeyUI": "DirectDueToGroup",
           },
           Object {
             "COUNT_DISTINCT(due_to_group)": 6,
@@ -61,6 +63,7 @@ Object {
             "group_type": "DueToGroup",
             "period_type": "Standard",
             "rechartsDataKey": "DueToGroup",
+            "rechartsDataKeyUI": "DueToGroup",
           },
           Object {
             "COUNT_DISTINCT(due_to_group)": 0,
@@ -78,6 +81,7 @@ Object {
             "group_type": "SummaryGroup",
             "period_type": "Standard",
             "rechartsDataKey": "SummaryGroup",
+            "rechartsDataKeyUI": "SummaryGroup",
           },
         ],
         "fill": "black",
@@ -117,6 +121,7 @@ Object {
             "group_type": "Variable",
             "period_type": "Custom",
             "rechartsDataKey": "Variable",
+            "rechartsDataKeyUI": "Variable",
           },
           Object {
             "COUNT_DISTINCT(due_to_group)": 6,
@@ -134,6 +139,7 @@ Object {
             "group_type": "DirectDueToGroup",
             "period_type": "Standard",
             "rechartsDataKey": "DirectDueToGroup",
+            "rechartsDataKeyUI": "DirectDueToGroup",
           },
           Object {
             "COUNT_DISTINCT(due_to_group)": 6,
@@ -151,6 +157,7 @@ Object {
             "group_type": "DueToGroup",
             "period_type": "Standard",
             "rechartsDataKey": "DueToGroup",
+            "rechartsDataKeyUI": "DueToGroup",
           },
           Object {
             "COUNT_DISTINCT(due_to_group)": 0,
@@ -168,6 +175,7 @@ Object {
             "group_type": "SummaryGroup",
             "period_type": "Standard",
             "rechartsDataKey": "SummaryGroup",
+            "rechartsDataKeyUI": "SummaryGroup",
           },
         ],
         "fill": "black",
@@ -262,7 +270,7 @@ Object {
         />,
         <mockConstructor
           angle={-0}
-          dataKey="rechartsDataKey"
+          dataKey="rechartsDataKeyUI"
           dy={5}
           height={50}
           interval={0}
@@ -345,6 +353,7 @@ Object {
                     "group_type": "Variable",
                     "period_type": "Custom",
                     "rechartsDataKey": "Variable",
+                    "rechartsDataKeyUI": "Variable",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -362,6 +371,7 @@ Object {
                     "group_type": "DirectDueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DirectDueToGroup",
+                    "rechartsDataKeyUI": "DirectDueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -379,6 +389,7 @@ Object {
                     "group_type": "DueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DueToGroup",
+                    "rechartsDataKeyUI": "DueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 0,
@@ -396,6 +407,7 @@ Object {
                     "group_type": "SummaryGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "SummaryGroup",
+                    "rechartsDataKeyUI": "SummaryGroup",
                   },
                 ],
                 "fill": "black",
@@ -432,6 +444,7 @@ Object {
                     "group_type": "Variable",
                     "period_type": "Custom",
                     "rechartsDataKey": "Variable",
+                    "rechartsDataKeyUI": "Variable",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -449,6 +462,7 @@ Object {
                     "group_type": "DirectDueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DirectDueToGroup",
+                    "rechartsDataKeyUI": "DirectDueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -466,6 +480,7 @@ Object {
                     "group_type": "DueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DueToGroup",
+                    "rechartsDataKeyUI": "DueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 0,
@@ -483,6 +498,7 @@ Object {
                     "group_type": "SummaryGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "SummaryGroup",
+                    "rechartsDataKeyUI": "SummaryGroup",
                   },
                 ],
                 "fill": "black",
@@ -520,6 +536,7 @@ Object {
                     "group_type": "Variable",
                     "period_type": "Custom",
                     "rechartsDataKey": "Variable",
+                    "rechartsDataKeyUI": "Variable",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -537,6 +554,7 @@ Object {
                     "group_type": "DirectDueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DirectDueToGroup",
+                    "rechartsDataKeyUI": "DirectDueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -554,6 +572,7 @@ Object {
                     "group_type": "DueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DueToGroup",
+                    "rechartsDataKeyUI": "DueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 0,
@@ -571,6 +590,7 @@ Object {
                     "group_type": "SummaryGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "SummaryGroup",
+                    "rechartsDataKeyUI": "SummaryGroup",
                   },
                 ],
                 "fill": "black",
@@ -606,6 +626,7 @@ Object {
                     "group_type": "Variable",
                     "period_type": "Custom",
                     "rechartsDataKey": "Variable",
+                    "rechartsDataKeyUI": "Variable",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -623,6 +644,7 @@ Object {
                     "group_type": "DirectDueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DirectDueToGroup",
+                    "rechartsDataKeyUI": "DirectDueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -640,6 +662,7 @@ Object {
                     "group_type": "DueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DueToGroup",
+                    "rechartsDataKeyUI": "DueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 0,
@@ -657,6 +680,7 @@ Object {
                     "group_type": "SummaryGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "SummaryGroup",
+                    "rechartsDataKeyUI": "SummaryGroup",
                   },
                 ],
                 "fill": "black",
@@ -692,6 +716,7 @@ Object {
                     "group_type": "Variable",
                     "period_type": "Custom",
                     "rechartsDataKey": "Variable",
+                    "rechartsDataKeyUI": "Variable",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -709,6 +734,7 @@ Object {
                     "group_type": "DirectDueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DirectDueToGroup",
+                    "rechartsDataKeyUI": "DirectDueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -726,6 +752,7 @@ Object {
                     "group_type": "DueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DueToGroup",
+                    "rechartsDataKeyUI": "DueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 0,
@@ -743,6 +770,7 @@ Object {
                     "group_type": "SummaryGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "SummaryGroup",
+                    "rechartsDataKeyUI": "SummaryGroup",
                   },
                 ],
                 "fill": "black",
@@ -778,6 +806,7 @@ Object {
                     "group_type": "Variable",
                     "period_type": "Custom",
                     "rechartsDataKey": "Variable",
+                    "rechartsDataKeyUI": "Variable",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -795,6 +824,7 @@ Object {
                     "group_type": "DirectDueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DirectDueToGroup",
+                    "rechartsDataKeyUI": "DirectDueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -812,6 +842,7 @@ Object {
                     "group_type": "DueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DueToGroup",
+                    "rechartsDataKeyUI": "DueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 0,
@@ -829,6 +860,7 @@ Object {
                     "group_type": "SummaryGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "SummaryGroup",
+                    "rechartsDataKeyUI": "SummaryGroup",
                   },
                 ],
                 "fill": "black",
@@ -864,6 +896,7 @@ Object {
                     "group_type": "Variable",
                     "period_type": "Custom",
                     "rechartsDataKey": "Variable",
+                    "rechartsDataKeyUI": "Variable",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -881,6 +914,7 @@ Object {
                     "group_type": "DirectDueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DirectDueToGroup",
+                    "rechartsDataKeyUI": "DirectDueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -898,6 +932,7 @@ Object {
                     "group_type": "DueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DueToGroup",
+                    "rechartsDataKeyUI": "DueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 0,
@@ -915,6 +950,7 @@ Object {
                     "group_type": "SummaryGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "SummaryGroup",
+                    "rechartsDataKeyUI": "SummaryGroup",
                   },
                 ],
                 "fill": "black",
@@ -950,6 +986,7 @@ Object {
                     "group_type": "Variable",
                     "period_type": "Custom",
                     "rechartsDataKey": "Variable",
+                    "rechartsDataKeyUI": "Variable",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -967,6 +1004,7 @@ Object {
                     "group_type": "DirectDueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DirectDueToGroup",
+                    "rechartsDataKeyUI": "DirectDueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 6,
@@ -984,6 +1022,7 @@ Object {
                     "group_type": "DueToGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "DueToGroup",
+                    "rechartsDataKeyUI": "DueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(due_to_group)": 0,
@@ -1001,6 +1040,7 @@ Object {
                     "group_type": "SummaryGroup",
                     "period_type": "Standard",
                     "rechartsDataKey": "SummaryGroup",
+                    "rechartsDataKeyUI": "SummaryGroup",
                   },
                 ],
                 "fill": "black",
@@ -1031,6 +1071,7 @@ Object {
           "group_type": "Variable",
           "period_type": "Custom",
           "rechartsDataKey": "Variable",
+          "rechartsDataKeyUI": "Variable",
         },
         Object {
           "COUNT_DISTINCT(due_to_group)": 6,
@@ -1048,6 +1089,7 @@ Object {
           "group_type": "DirectDueToGroup",
           "period_type": "Standard",
           "rechartsDataKey": "DirectDueToGroup",
+          "rechartsDataKeyUI": "DirectDueToGroup",
         },
         Object {
           "COUNT_DISTINCT(due_to_group)": 6,
@@ -1065,6 +1107,7 @@ Object {
           "group_type": "DueToGroup",
           "period_type": "Standard",
           "rechartsDataKey": "DueToGroup",
+          "rechartsDataKeyUI": "DueToGroup",
         },
         Object {
           "COUNT_DISTINCT(due_to_group)": 0,
@@ -1082,6 +1125,7 @@ Object {
           "group_type": "SummaryGroup",
           "period_type": "Standard",
           "rechartsDataKey": "SummaryGroup",
+          "rechartsDataKeyUI": "SummaryGroup",
         },
       ],
       "height": 400,
@@ -1185,6 +1229,7 @@ Object {
             "group_type": "Variable",
             "period_type": "Custom",
             "rechartsDataKey": "Variable",
+            "rechartsDataKeyUI": "Variable",
           },
           Object {
             "COUNT_DISTINCT(due_to_group)": 6,
@@ -1202,6 +1247,7 @@ Object {
             "group_type": "DirectDueToGroup",
             "period_type": "Standard",
             "rechartsDataKey": "DirectDueToGroup",
+            "rechartsDataKeyUI": "DirectDueToGroup",
           },
           Object {
             "COUNT_DISTINCT(due_to_group)": 6,
@@ -1219,6 +1265,7 @@ Object {
             "group_type": "DueToGroup",
             "period_type": "Standard",
             "rechartsDataKey": "DueToGroup",
+            "rechartsDataKeyUI": "DueToGroup",
           },
           Object {
             "COUNT_DISTINCT(due_to_group)": 0,
@@ -1236,6 +1283,7 @@ Object {
             "group_type": "SummaryGroup",
             "period_type": "Standard",
             "rechartsDataKey": "SummaryGroup",
+            "rechartsDataKeyUI": "SummaryGroup",
           },
         ],
         "fill": "black",
@@ -1275,6 +1323,7 @@ Object {
             "group_type": "Variable",
             "period_type": "Custom",
             "rechartsDataKey": "Variable",
+            "rechartsDataKeyUI": "Variable",
           },
           Object {
             "COUNT_DISTINCT(due_to_group)": 6,
@@ -1292,6 +1341,7 @@ Object {
             "group_type": "DirectDueToGroup",
             "period_type": "Standard",
             "rechartsDataKey": "DirectDueToGroup",
+            "rechartsDataKeyUI": "DirectDueToGroup",
           },
           Object {
             "COUNT_DISTINCT(due_to_group)": 6,
@@ -1309,6 +1359,7 @@ Object {
             "group_type": "DueToGroup",
             "period_type": "Standard",
             "rechartsDataKey": "DueToGroup",
+            "rechartsDataKeyUI": "DueToGroup",
           },
           Object {
             "COUNT_DISTINCT(due_to_group)": 0,
@@ -1326,6 +1377,7 @@ Object {
             "group_type": "SummaryGroup",
             "period_type": "Standard",
             "rechartsDataKey": "SummaryGroup",
+            "rechartsDataKeyUI": "SummaryGroup",
           },
         ],
         "fill": "black",
@@ -1357,7 +1409,7 @@ Object {
   "XAxisProps": Array [
     Object {
       "angle": -0,
-      "dataKey": "rechartsDataKey",
+      "dataKey": "rechartsDataKeyUI",
       "dy": 5,
       "height": 50,
       "interval": 0,
@@ -1436,7 +1488,7 @@ Object {
         />,
         <mockConstructor
           angle={-45}
-          dataKey="rechartsDataKey"
+          dataKey="rechartsDataKeyUI"
           dy={5}
           height={126}
           interval={0}
@@ -1501,6 +1553,7 @@ Object {
           "group_type": "Variable",
           "period_type": "Custom",
           "rechartsDataKey": "Variable",
+          "rechartsDataKeyUI": "Variable",
         },
         Object {
           "COUNT_DISTINCT(group_name)": 6,
@@ -1508,6 +1561,7 @@ Object {
           "group_type": "DirectDueToGroup",
           "period_type": "Standard",
           "rechartsDataKey": "DirectDueToGroup",
+          "rechartsDataKeyUI": "DirectDueToGroup",
         },
         Object {
           "COUNT_DISTINCT(group_name)": 6,
@@ -1515,6 +1569,7 @@ Object {
           "group_type": "DueToGroup",
           "period_type": "Standard",
           "rechartsDataKey": "DueToGroup",
+          "rechartsDataKeyUI": "DueToGroup",
         },
         Object {
           "COUNT_DISTINCT(group_name)": 3,
@@ -1522,6 +1577,7 @@ Object {
           "group_type": "SummaryGroup",
           "period_type": "Standard",
           "rechartsDataKey": "SummaryGroup",
+          "rechartsDataKeyUI": "SummaryGroup",
         },
       ],
       "height": 400,
@@ -1580,7 +1636,7 @@ Object {
   "XAxisProps": Array [
     Object {
       "angle": -45,
-      "dataKey": "rechartsDataKey",
+      "dataKey": "rechartsDataKeyUI",
       "dy": 5,
       "height": 126,
       "interval": 0,
@@ -1673,7 +1729,7 @@ Object {
         />,
         <mockConstructor
           angle={-45}
-          dataKey="rechartsDataKey"
+          dataKey="rechartsDataKeyUI"
           label={
             Object {
               "angle": 90,
@@ -1711,6 +1767,7 @@ Object {
           "group_type": "Variable",
           "period_type": "Custom",
           "rechartsDataKey": "Variable",
+          "rechartsDataKeyUI": "Variable",
           "rechartsTotal": 36,
         },
         Object {
@@ -1719,6 +1776,7 @@ Object {
           "group_type": "DirectDueToGroup",
           "period_type": "Standard",
           "rechartsDataKey": "DirectDueToGroup",
+          "rechartsDataKeyUI": "DirectDueToGroup",
           "rechartsTotal": 9,
         },
         Object {
@@ -1727,6 +1785,7 @@ Object {
           "group_type": "DueToGroup",
           "period_type": "Standard",
           "rechartsDataKey": "DueToGroup",
+          "rechartsDataKeyUI": "DueToGroup",
           "rechartsTotal": 9,
         },
         Object {
@@ -1735,6 +1794,7 @@ Object {
           "group_type": "SummaryGroup",
           "period_type": "Standard",
           "rechartsDataKey": "SummaryGroup",
+          "rechartsDataKeyUI": "SummaryGroup",
           "rechartsTotal": 8,
         },
       ],
@@ -1810,7 +1870,7 @@ Object {
   "YAxisProps": Array [
     Object {
       "angle": -45,
-      "dataKey": "rechartsDataKey",
+      "dataKey": "rechartsDataKeyUI",
       "label": Object {
         "angle": 90,
         "offset": 0,
@@ -1844,24 +1904,28 @@ Object {
             "COUNT_DISTINCT(period)": 5,
             "group_type": "DirectDueToGroup",
             "rechartsDataKey": "DirectDueToGroup",
+            "rechartsDataKeyUI": "DirectDueToGroup",
           },
           Object {
             "COUNT_DISTINCT(group_name)": 7,
             "COUNT_DISTINCT(period)": 5,
             "group_type": "DueToGroup",
             "rechartsDataKey": "DueToGroup",
+            "rechartsDataKeyUI": "DueToGroup",
           },
           Object {
             "COUNT_DISTINCT(group_name)": 3,
             "COUNT_DISTINCT(period)": 5,
             "group_type": "SummaryGroup",
             "rechartsDataKey": "SummaryGroup",
+            "rechartsDataKeyUI": "SummaryGroup",
           },
           Object {
             "COUNT_DISTINCT(group_name)": 31,
             "COUNT_DISTINCT(period)": 5,
             "group_type": "Variable",
             "rechartsDataKey": "Variable",
+            "rechartsDataKeyUI": "Variable",
           },
         ],
         "fill": "white",
@@ -1920,7 +1984,7 @@ Object {
         />,
         <mockConstructor
           angle={-45}
-          dataKey="rechartsDataKey"
+          dataKey="rechartsDataKeyUI"
           dy={5}
           height={126}
           interval={0}
@@ -1976,24 +2040,28 @@ Object {
                     "COUNT_DISTINCT(period)": 5,
                     "group_type": "DirectDueToGroup",
                     "rechartsDataKey": "DirectDueToGroup",
+                    "rechartsDataKeyUI": "DirectDueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(group_name)": 7,
                     "COUNT_DISTINCT(period)": 5,
                     "group_type": "DueToGroup",
                     "rechartsDataKey": "DueToGroup",
+                    "rechartsDataKeyUI": "DueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(group_name)": 3,
                     "COUNT_DISTINCT(period)": 5,
                     "group_type": "SummaryGroup",
                     "rechartsDataKey": "SummaryGroup",
+                    "rechartsDataKeyUI": "SummaryGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(group_name)": 31,
                     "COUNT_DISTINCT(period)": 5,
                     "group_type": "Variable",
                     "rechartsDataKey": "Variable",
+                    "rechartsDataKeyUI": "Variable",
                   },
                 ],
                 "fill": "white",
@@ -2018,24 +2086,28 @@ Object {
                     "COUNT_DISTINCT(period)": 5,
                     "group_type": "DirectDueToGroup",
                     "rechartsDataKey": "DirectDueToGroup",
+                    "rechartsDataKeyUI": "DirectDueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(group_name)": 7,
                     "COUNT_DISTINCT(period)": 5,
                     "group_type": "DueToGroup",
                     "rechartsDataKey": "DueToGroup",
+                    "rechartsDataKeyUI": "DueToGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(group_name)": 3,
                     "COUNT_DISTINCT(period)": 5,
                     "group_type": "SummaryGroup",
                     "rechartsDataKey": "SummaryGroup",
+                    "rechartsDataKeyUI": "SummaryGroup",
                   },
                   Object {
                     "COUNT_DISTINCT(group_name)": 31,
                     "COUNT_DISTINCT(period)": 5,
                     "group_type": "Variable",
                     "rechartsDataKey": "Variable",
+                    "rechartsDataKeyUI": "Variable",
                   },
                 ],
                 "fill": "white",
@@ -2055,24 +2127,28 @@ Object {
           "COUNT_DISTINCT(period)": 5,
           "group_type": "DirectDueToGroup",
           "rechartsDataKey": "DirectDueToGroup",
+          "rechartsDataKeyUI": "DirectDueToGroup",
         },
         Object {
           "COUNT_DISTINCT(group_name)": 7,
           "COUNT_DISTINCT(period)": 5,
           "group_type": "DueToGroup",
           "rechartsDataKey": "DueToGroup",
+          "rechartsDataKeyUI": "DueToGroup",
         },
         Object {
           "COUNT_DISTINCT(group_name)": 3,
           "COUNT_DISTINCT(period)": 5,
           "group_type": "SummaryGroup",
           "rechartsDataKey": "SummaryGroup",
+          "rechartsDataKeyUI": "SummaryGroup",
         },
         Object {
           "COUNT_DISTINCT(group_name)": 31,
           "COUNT_DISTINCT(period)": 5,
           "group_type": "Variable",
           "rechartsDataKey": "Variable",
+          "rechartsDataKeyUI": "Variable",
         },
       ],
       "height": 400,
@@ -2133,7 +2209,7 @@ Object {
   "XAxisProps": Array [
     Object {
       "angle": -45,
-      "dataKey": "rechartsDataKey",
+      "dataKey": "rechartsDataKeyUI",
       "dy": 5,
       "height": 126,
       "interval": 0,

@@ -49,6 +49,7 @@ const commonProps = {
   xAxisTickLabelAngle: '45',
   yAxisTickLabelAngle: '0',
   y2AxisTickLabelAngle: '0',
+  useCategoryFormattingGroupBy0: true,
 };
 
 export default {
@@ -68,6 +69,11 @@ export default {
     chartType: { table: { disable: true } },
     xAxis: { table: { disable: true } },
     yAxis: { table: { disable: true } },
+    useCategoryFormattingGroupBy0: {
+      control: {
+        type: 'boolean',
+      },
+    },
     xAxisLabel: {
       table: {
         category: 'X Axis',
@@ -159,7 +165,14 @@ const BarsTemplate = args => {
         {...args}
         chartType={CHART_TYPES.BAR_CHART}
         data={
-          transformProps(({ ...barsHorizontalLegendTop, queriesData: args.queriesData } as unknown) as ChartProps).data
+          transformProps(({
+            ...barsHorizontalLegendTop,
+            formData: {
+              ...barsHorizontalLegendTop.formData,
+              useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
+            },
+            queriesData: args.queriesData,
+          } as unknown) as ChartProps).data
         }
       />
     </ThemeProvider>
@@ -192,7 +205,14 @@ const LinesTemplate = args => {
         {...args}
         chartType={CHART_TYPES.LINE_CHART}
         data={
-          transformProps(({ ...barsHorizontalLegendTop, queriesData: args.queriesData } as unknown) as ChartProps).data
+          transformProps(({
+            ...barsHorizontalLegendTop,
+            formData: {
+              ...barsHorizontalLegendTop.formData,
+              useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
+            },
+            queriesData: args.queriesData,
+          } as unknown) as ChartProps).data
         }
       />
     </ThemeProvider>
@@ -225,7 +245,14 @@ const AreaTemplate = args => {
         {...args}
         chartType={CHART_TYPES.AREA_CHART}
         data={
-          transformProps(({ ...barsHorizontalLegendTop, queriesData: args.queriesData } as unknown) as ChartProps).data
+          transformProps(({
+            ...barsHorizontalLegendTop,
+            formData: {
+              ...barsHorizontalLegendTop.formData,
+              useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
+            },
+            queriesData: args.queriesData,
+          } as unknown) as ChartProps).data
         }
       />
     </ThemeProvider>
@@ -256,7 +283,14 @@ const ScatterTemplate = args => {
         {...args}
         chartType={CHART_TYPES.SCATTER_CHART}
         data={
-          transformProps(({ ...barsHorizontalLegendTop, queriesData: args.queriesData } as unknown) as ChartProps).data
+          transformProps(({
+            ...barsHorizontalLegendTop,
+            formData: {
+              ...barsHorizontalLegendTop.formData,
+              useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
+            },
+            queriesData: args.queriesData,
+          } as unknown) as ChartProps).data
         }
       />
     </ThemeProvider>
@@ -272,6 +306,10 @@ const AllTypesTemplate = args => {
         data={
           transformProps(({
             ...allChatsLegendBottomBreakdowns,
+            formData: {
+              ...allChatsLegendBottomBreakdowns.formData,
+              useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
+            },
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
         }
