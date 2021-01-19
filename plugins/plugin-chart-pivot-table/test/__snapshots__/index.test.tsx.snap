@@ -17,7 +17,6 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-2 {
-  border: 1px solid black;
   display: grid;
   grid-template-columns: auto auto;
   grid-template-rows: auto;
@@ -28,7 +27,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: repeat(1,max-content);
-  grid-template-rows: max-content 0 27px 27px 27px 27px;
+  grid-template-rows: max-content 0 26px 26px 26px 26px;
 }
 
 .emotion-4 {
@@ -40,7 +39,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-5 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -54,14 +53,12 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
-  height: 27px;
+  height: 26px;
 }
 
 .emotion-6 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -70,18 +67,17 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
 }
 
 .emotion-8 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -90,14 +86,32 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  background-color: #F0F0F0;
-  font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
+  grid-row: span 1;
+}
+
+.emotion-9 {
+  padding: 3px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  overflow: hidden;
+  background-color: #F7F7F7;
+  border-top: 1px solid #E0E0E0;
   grid-row: span 1;
 }
 
@@ -105,11 +119,11 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   overflow: hidden;
   display: grid;
   grid-template-columns: max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content;
-  grid-template-rows: repeat(4,27px) 27px 27px 27px 27px;
+  grid-template-rows: repeat(4,26px) 26px 26px 26px 26px;
 }
 
 .emotion-14 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -118,19 +132,17 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
   grid-column: span 10;
 }
 
 .emotion-16 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -139,19 +151,18 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
   grid-column: span 2;
 }
 
 .emotion-26 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -160,19 +171,18 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
   grid-column: span 1;
 }
 
 .emotion-46 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -181,12 +191,31 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  border: 1px solid black;
+  background-color: #F7F7F7;
+  border-top: 1px solid #E0E0E0;
+}
+
+.emotion-66 {
+  padding: 3px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  overflow: hidden;
+  border-top: 1px solid #E0E0E0;
 }
 
 <div
@@ -228,7 +257,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
             group_type
           </div>
           <div
-            class="emotion-8"
+            class="emotion-9"
           >
             DirectDueToGroup
           </div>
@@ -238,7 +267,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
             DueToGroup
           </div>
           <div
-            class="emotion-8"
+            class="emotion-9"
           >
             SummaryGroup
           </div>
@@ -565,94 +594,94 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
           46.6k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           24.9k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           28.9k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           15.8k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           18.5k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           -9.49M
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         />
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           345k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         />
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           46.6k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           46.6k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           24.8k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           28.9k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           15.8k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           18.5k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           745
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         />
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           0
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         />
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           46.6k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           46.6k
         </div>
@@ -757,102 +786,102 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
           373k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           20k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           17.1k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           51.1k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           14.1k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           21.2k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           1.66k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           59.2k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           0
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           3.04k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           50.9k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           17.1k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           17.1k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           14.1k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           14.1k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           1.58k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           1.65k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           0
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           0
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           20.1k
         </div>
         <div
-          class="emotion-46"
+          class="emotion-66"
         >
           20.1k
         </div>
@@ -879,7 +908,6 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-2 {
-  border: 1px solid black;
   display: grid;
   grid-template-columns: auto auto auto;
   grid-template-rows: auto;
@@ -890,7 +918,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: repeat(1,max-content);
-  grid-template-rows: max-content 0 27px 27px 27px 27px;
+  grid-template-rows: max-content 0 26px 26px 26px 26px;
 }
 
 .emotion-4 {
@@ -902,7 +930,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-5 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -916,14 +944,12 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
-  height: 27px;
+  height: 26px;
 }
 
 .emotion-6 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -932,18 +958,17 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
 }
 
 .emotion-8 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -952,19 +977,37 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  background-color: #F0F0F0;
-  font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
+  grid-row: span 1;
+}
+
+.emotion-9 {
+  padding: 3px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  overflow: hidden;
+  background-color: #F7F7F7;
+  border-top: 1px solid #E0E0E0;
   grid-row: span 1;
 }
 
 .emotion-13 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -973,14 +1016,13 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  background-color: #F0F0F0;
-  font-weight: bolder;
-  border: 1px solid black;
+  background-color: #F7F7F7;
+  border-top: 1px solid #E0E0E0;
   grid-column: span 1;
   width: auto;
   height: auto;
@@ -990,11 +1032,11 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   overflow: hidden;
   display: grid;
   grid-template-columns: max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content;
-  grid-template-rows: repeat(4,27px) 27px 27px 27px 27px;
+  grid-template-rows: repeat(4,26px) 26px 26px 26px 26px;
 }
 
 .emotion-15 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1003,19 +1045,17 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
   grid-column: span 10;
 }
 
 .emotion-17 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1024,19 +1064,18 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
   grid-column: span 2;
 }
 
 .emotion-27 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1045,19 +1084,18 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
   grid-column: span 1;
 }
 
 .emotion-47 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1066,16 +1104,17 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  border: 1px solid black;
+  background-color: #F7F7F7;
+  border-top: 1px solid #E0E0E0;
 }
 
-.emotion-127 {
-  padding: 3px 5px;
+.emotion-67 {
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1084,23 +1123,22 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #F0F0F0;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
 }
 
 .emotion-147 {
   display: grid;
   grid-template-columns: max-content;
-  grid-template-rows: repeat(3,27px) 27px 27px 27px 27px;
+  grid-template-rows: repeat(3,26px) 26px 26px 26px 26px;
 }
 
 .emotion-148 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1109,34 +1147,13 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
   grid-row: span 3;
-}
-
-.emotion-149 {
-  padding: 3px 5px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  overflow: hidden;
-  background-color: #E0E0E0;
-  border: 1px solid black;
 }
 
 <div
@@ -1178,7 +1195,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
             group_type
           </div>
           <div
-            class="emotion-8"
+            class="emotion-9"
           >
             DirectDueToGroup
           </div>
@@ -1188,7 +1205,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
             DueToGroup
           </div>
           <div
-            class="emotion-8"
+            class="emotion-9"
           >
             SummaryGroup
           </div>
@@ -1520,94 +1537,94 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
           46.6k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           24.9k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           28.9k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           15.8k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           18.5k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           -9.49M
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         />
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           345k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         />
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           46.6k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           46.6k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           24.8k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           28.9k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           15.8k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           18.5k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           745
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         />
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           0
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         />
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           46.6k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           46.6k
         </div>
@@ -1712,202 +1729,202 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
           373k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           20k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           17.1k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           51.1k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           14.1k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           21.2k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           1.66k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           59.2k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           0
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           3.04k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           50.9k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           17.1k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           17.1k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           14.1k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           14.1k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           1.58k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           1.65k
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           0
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
         >
           0
         </div>
         <div
-          class="emotion-47"
+          class="emotion-67"
+        >
+          20.1k
+        </div>
+        <div
+          class="emotion-67"
         >
           20.1k
         </div>
         <div
           class="emotion-47"
-        >
-          20.1k
-        </div>
-        <div
-          class="emotion-127"
         >
           283k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           289k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           242k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           210k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           -470k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           1.19M
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           -1.24M
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           159k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           390k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           1.22M
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           281k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           289k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           204k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           210k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           217k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           216k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           159k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           159k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           486k
         </div>
         <div
-          class="emotion-127"
+          class="emotion-47"
         >
           486k
         </div>
@@ -1921,27 +1938,27 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
           Total
         </div>
         <div
-          class="emotion-149"
+          class="emotion-47"
         >
           6.33M
         </div>
         <div
-          class="emotion-149"
+          class="emotion-67"
         >
           -8.78M
         </div>
         <div
-          class="emotion-149"
+          class="emotion-47"
         >
           7.08M
         </div>
         <div
-          class="emotion-149"
+          class="emotion-67"
         >
           344k
         </div>
         <div
-          class="emotion-149"
+          class="emotion-47"
         >
           4.97M
         </div>
@@ -1968,7 +1985,6 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-2 {
-  border: 1px solid black;
   display: grid;
   grid-template-columns: auto auto auto;
   grid-template-rows: auto;
@@ -1979,7 +1995,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: repeat(2,max-content);
-  grid-template-rows: max-content max-content 27px 27px 27px 27px 27px 27px 27px 27px;
+  grid-template-rows: max-content max-content 26px 26px 26px 26px 26px 26px 26px 26px;
 }
 
 .emotion-4 {
@@ -1991,7 +2007,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-5 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2005,14 +2021,12 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
-  height: 27px;
+  height: 26px;
 }
 
 .emotion-6 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2021,18 +2035,17 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
 }
 
 .emotion-8 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2041,19 +2054,17 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  background-color: #F0F0F0;
-  font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
   grid-row: span 1;
 }
 
 .emotion-9 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2062,19 +2073,18 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  background-color: #F0F0F0;
-  font-weight: bolder;
-  border: 1px solid black;
+  background-color: #F7F7F7;
+  border-top: 1px solid #E0E0E0;
   grid-row: span 2;
 }
 
-.emotion-22 {
-  padding: 3px 5px;
+.emotion-10 {
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2083,14 +2093,52 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  background-color: #F0F0F0;
-  font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
+  grid-row: span 2;
+}
+
+.emotion-14 {
+  padding: 3px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  overflow: hidden;
+  background-color: #F7F7F7;
+  border-top: 1px solid #E0E0E0;
+  grid-row: span 1;
+}
+
+.emotion-22 {
+  padding: 3px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  overflow: hidden;
+  background-color: #F7F7F7;
+  border-top: 1px solid #E0E0E0;
   grid-column: span 2;
   width: auto;
   height: auto;
@@ -2100,11 +2148,11 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   overflow: hidden;
   display: grid;
   grid-template-columns: max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content;
-  grid-template-rows: repeat(4,27px) 27px 27px 27px 27px 27px 27px 27px 27px;
+  grid-template-rows: repeat(4,26px) 26px 26px 26px 26px 26px 26px 26px 26px;
 }
 
 .emotion-24 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2113,19 +2161,17 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
   grid-column: span 6;
 }
 
 .emotion-26 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2134,19 +2180,18 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
   grid-column: span 2;
 }
 
 .emotion-32 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2155,19 +2200,18 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
   grid-column: span 1;
 }
 
 .emotion-44 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2182,12 +2226,12 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   justify-content: center;
   overflow: hidden;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
   grid-column: span 12;
 }
 
 .emotion-45 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2196,16 +2240,17 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  border: 1px solid black;
+  background-color: #F7F7F7;
+  border-top: 1px solid #E0E0E0;
 }
 
-.emotion-141 {
-  padding: 3px 5px;
+.emotion-57 {
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2214,23 +2259,22 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #F0F0F0;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
 }
 
 .emotion-153 {
   display: grid;
   grid-template-columns: max-content;
-  grid-template-rows: repeat(4,27px) 27px 27px 27px 27px 27px 27px 27px 27px;
+  grid-template-rows: repeat(4,26px) 26px 26px 26px 26px 26px 26px 26px 26px;
 }
 
 .emotion-154 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2239,34 +2283,13 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
   grid-row: span 4;
-}
-
-.emotion-155 {
-  padding: 3px 5px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  overflow: hidden;
-  background-color: #E0E0E0;
-  border: 1px solid black;
 }
 
 <div
@@ -2313,7 +2336,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
             DirectDueToGroup
           </div>
           <div
-            class="emotion-9"
+            class="emotion-10"
           >
             DueToGroup
           </div>
@@ -2323,7 +2346,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
             SummaryGroup
           </div>
           <div
-            class="emotion-9"
+            class="emotion-10"
           >
             Variable
           </div>
@@ -2333,7 +2356,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
             period_type
           </div>
           <div
-            class="emotion-8"
+            class="emotion-14"
           >
             Custom
           </div>
@@ -2343,7 +2366,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
             Standard
           </div>
           <div
-            class="emotion-8"
+            class="emotion-14"
           >
             Custom
           </div>
@@ -2353,7 +2376,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
             Standard
           </div>
           <div
-            class="emotion-8"
+            class="emotion-14"
           >
             Custom
           </div>
@@ -2363,7 +2386,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
             Standard
           </div>
           <div
-            class="emotion-8"
+            class="emotion-14"
           >
             Custom
           </div>
@@ -2573,50 +2596,50 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
           class="emotion-45"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           28.9k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           18.5k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           46.6k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           28.9k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           18.5k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           46.6k
         </div>
@@ -2669,50 +2692,50 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
           class="emotion-45"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           28.9k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           18.5k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           46.6k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           28.9k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           18.5k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           46.6k
         </div>
@@ -2765,50 +2788,50 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
           class="emotion-45"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           214k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           159k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           1.08M
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           214k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           159k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           373k
         </div>
@@ -2861,110 +2884,110 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
           class="emotion-45"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           17.1k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           14.1k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           50.9k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           17.1k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           14.1k
         </div>
         <div
-          class="emotion-45"
+          class="emotion-57"
         />
         <div
-          class="emotion-45"
+          class="emotion-57"
         >
           20.1k
         </div>
         <div
-          class="emotion-141"
+          class="emotion-45"
         >
           283k
         </div>
         <div
-          class="emotion-141"
+          class="emotion-45"
         >
           289k
         </div>
         <div
-          class="emotion-141"
+          class="emotion-45"
         >
           242k
         </div>
         <div
-          class="emotion-141"
+          class="emotion-45"
         >
           210k
         </div>
         <div
-          class="emotion-141"
+          class="emotion-45"
         >
           390k
         </div>
         <div
-          class="emotion-141"
+          class="emotion-45"
         >
           1.22M
         </div>
         <div
-          class="emotion-141"
+          class="emotion-45"
         >
           281k
         </div>
         <div
-          class="emotion-141"
+          class="emotion-45"
         >
           289k
         </div>
         <div
-          class="emotion-141"
+          class="emotion-45"
         >
           204k
         </div>
         <div
-          class="emotion-141"
+          class="emotion-45"
         >
           210k
         </div>
         <div
-          class="emotion-141"
+          class="emotion-45"
         >
           486k
         </div>
         <div
-          class="emotion-141"
+          class="emotion-45"
         >
           486k
         </div>
@@ -2978,47 +3001,47 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
           Total
         </div>
         <div
-          class="emotion-155"
+          class="emotion-45"
         >
           175k
         </div>
         <div
-          class="emotion-155"
+          class="emotion-57"
         >
           188k
         </div>
         <div
-          class="emotion-155"
+          class="emotion-45"
         >
           175k
         </div>
         <div
-          class="emotion-155"
+          class="emotion-57"
         >
           188k
         </div>
         <div
-          class="emotion-155"
+          class="emotion-45"
         >
           1.41M
         </div>
         <div
-          class="emotion-155"
+          class="emotion-57"
         >
           2.19M
         </div>
         <div
-          class="emotion-155"
+          class="emotion-45"
         >
           125k
         </div>
         <div
-          class="emotion-155"
+          class="emotion-57"
         >
           133k
         </div>
         <div
-          class="emotion-155"
+          class="emotion-45"
         >
           4.59M
         </div>
@@ -3045,7 +3068,6 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-2 {
-  border: 1px solid black;
   display: grid;
   grid-template-columns: auto auto;
   grid-template-rows: auto;
@@ -3056,7 +3078,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: repeat(2,max-content);
-  grid-template-rows: max-content max-content 27px 27px 27px 27px 27px 27px 27px 27px;
+  grid-template-rows: max-content max-content 26px 26px 26px 26px 26px 26px 26px 26px;
 }
 
 .emotion-4 {
@@ -3068,7 +3090,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-5 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3082,14 +3104,12 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
-  height: 27px;
+  height: 26px;
 }
 
 .emotion-6 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3098,18 +3118,17 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
 }
 
 .emotion-8 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3118,19 +3137,17 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  background-color: #F0F0F0;
-  font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
   grid-row: span 1;
 }
 
 .emotion-9 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3139,26 +3156,64 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   overflow: hidden;
-  background-color: #F0F0F0;
-  font-weight: bolder;
-  border: 1px solid black;
+  background-color: #F7F7F7;
+  border-top: 1px solid #E0E0E0;
   grid-row: span 2;
+}
+
+.emotion-10 {
+  padding: 3px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  overflow: hidden;
+  border-top: 1px solid #E0E0E0;
+  grid-row: span 2;
+}
+
+.emotion-14 {
+  padding: 3px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  overflow: hidden;
+  background-color: #F7F7F7;
+  border-top: 1px solid #E0E0E0;
+  grid-row: span 1;
 }
 
 .emotion-22 {
   overflow: hidden;
   display: grid;
   grid-template-columns: max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content max-content;
-  grid-template-rows: repeat(4,27px) 27px 27px 27px 27px 27px 27px 27px 27px;
+  grid-template-rows: repeat(4,26px) 26px 26px 26px 26px 26px 26px 26px 26px;
 }
 
 .emotion-23 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3167,19 +3222,17 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
   grid-column: span 6;
 }
 
 .emotion-25 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3188,19 +3241,18 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
   grid-column: span 2;
 }
 
 .emotion-31 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3209,19 +3261,18 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  background-color: #E0E0E0;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
   grid-column: span 1;
 }
 
 .emotion-43 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3236,12 +3287,12 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   justify-content: center;
   overflow: hidden;
   font-weight: bolder;
-  border: 1px solid black;
+  border-top: 1px solid #E0E0E0;
   grid-column: span 12;
 }
 
 .emotion-44 {
-  padding: 3px 5px;
+  padding: 3px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3250,12 +3301,31 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   overflow: hidden;
-  border: 1px solid black;
+  background-color: #F7F7F7;
+  border-top: 1px solid #E0E0E0;
+}
+
+.emotion-56 {
+  padding: 3px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  overflow: hidden;
+  border-top: 1px solid #E0E0E0;
 }
 
 <div
@@ -3302,7 +3372,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
             DirectDueToGroup
           </div>
           <div
-            class="emotion-9"
+            class="emotion-10"
           >
             DueToGroup
           </div>
@@ -3312,7 +3382,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
             SummaryGroup
           </div>
           <div
-            class="emotion-9"
+            class="emotion-10"
           >
             Variable
           </div>
@@ -3322,7 +3392,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
             period_type
           </div>
           <div
-            class="emotion-8"
+            class="emotion-14"
           >
             Custom
           </div>
@@ -3332,7 +3402,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
             Standard
           </div>
           <div
-            class="emotion-8"
+            class="emotion-14"
           >
             Custom
           </div>
@@ -3342,7 +3412,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
             Standard
           </div>
           <div
-            class="emotion-8"
+            class="emotion-14"
           >
             Custom
           </div>
@@ -3352,7 +3422,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
             Standard
           </div>
           <div
-            class="emotion-8"
+            class="emotion-14"
           >
             Custom
           </div>
@@ -3557,50 +3627,50 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
           class="emotion-44"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           28.9k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           18.5k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           46.6k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           28.9k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           18.5k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           46.6k
         </div>
@@ -3653,50 +3723,50 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
           class="emotion-44"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           28.9k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           18.5k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           46.6k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           28.9k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           18.5k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           46.6k
         </div>
@@ -3749,50 +3819,50 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
           class="emotion-44"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           214k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           159k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           1.08M
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           214k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           159k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           373k
         </div>
@@ -3845,50 +3915,50 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
           class="emotion-44"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           17.1k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           14.1k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           50.9k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           17.1k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           14.1k
         </div>
         <div
-          class="emotion-44"
+          class="emotion-56"
         />
         <div
-          class="emotion-44"
+          class="emotion-56"
         >
           20.1k
         </div>

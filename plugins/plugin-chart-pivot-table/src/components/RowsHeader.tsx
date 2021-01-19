@@ -61,9 +61,9 @@ const RowsHeader: FC<RowsHeaderProps<string, string>> = ({
         uiRowUnits[row].map((item, index) => (
           // eslint-disable-next-line react/jsx-key
           <GridItem
-            header
-            bordered
-            bgLevel={3}
+            justifyContent="flex-start"
+            bordered={!(Math.floor(index / Math.floor(rows.length / rowsFillData.length)) === 1)}
+            bgLevel={Math.floor(index % 2) === 1 ? 4 : undefined}
             // If index === 0, it's header of columns for rows
             gridRow={`span ${index === 0 ? 1 : numberOfRows / (uiRowUnits[row].length - 1)}`}
           >
@@ -73,7 +73,7 @@ const RowsHeader: FC<RowsHeaderProps<string, string>> = ({
       )}
     </Grid>
     {(showTotal === ShowTotal.columnsAndRows || showTotal === ShowTotal.columns) && (
-      <TotalGridItem header bordered gridColumn={`span ${rows.length || 1}`} bgLevel={3}>
+      <TotalGridItem bordered gridColumn={`span ${rows.length || 1}`} bgLevel={4} justifyContent="flex-start">
         {t('Total')}
       </TotalGridItem>
     )}

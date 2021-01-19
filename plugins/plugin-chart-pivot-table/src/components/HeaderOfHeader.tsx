@@ -37,10 +37,10 @@ const HeadersOfHeader: FC<HeadersOfHeaderProps<string, string>> = ({ rows, colum
     gridTemplateColumns="1fr"
     gridTemplateRows={`repeat(${columns.length || 1}, max-content)`}
   >
-    <EmptyItem bordered header bgLevel={2} />
+    <EmptyItem header />
     {columns.map(column => (
       // eslint-disable-next-line react/jsx-key
-      <GridItem bordered header bgLevel={2}>
+      <GridItem bordered justifyContent="flex-start" header>
         {column}
       </GridItem>
     ))}

@@ -20,7 +20,7 @@ import { formatNumber } from '@superset-ui/core';
 import { QueryData } from './transformProps';
 import { ShowTotal } from '../types';
 
-export const ROW_HEIGHT = '27px';
+export const ROW_HEIGHT = '26px';
 
 const buildUnits = <R extends string, C extends string, M extends string, T extends R | C>(
   item: QueryData<R, C, M>,
