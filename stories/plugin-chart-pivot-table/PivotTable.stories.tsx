@@ -19,9 +19,10 @@
 import React from 'react';
 import { D3_FORMAT_OPTIONS } from '@superset-ui/chart-controls';
 import { supersetTheme, ThemeProvider } from '@superset-ui/core';
-import PivotTable from '../../plugins/plugin-chart-pivot-table/src/components/PivotTable';
+import PivotTable, { PivotTableProps } from '../../plugins/plugin-chart-pivot-table/src/components/PivotTable';
 import transformProps, { ChartProps } from '../../plugins/plugin-chart-pivot-table/src/plugin/transformProps';
 import { singleRowCompact, withTotals } from '../../plugins/plugin-chart-pivot-table/test/__mocks__/pivotTableProps';
+import { extractArgs } from '../utils';
 
 export default {
   title: 'Plugins/Pivot Table',
@@ -54,48 +55,41 @@ export default {
 const DefaultTemplate = args => (
   <ThemeProvider theme={supersetTheme}>
     <PivotTable
-      {...args}
-      data={
-        transformProps({
-          ...withTotals,
-          formData: ({
-            ...withTotals.formData,
-            numbersFormat: args.numbersFormat,
-          } as unknown) as ChartProps,
-          queriesData: args.queriesData,
-        }).data
-      }
+      {...transformProps({
+        ...extractArgs<typeof args>(args, withTotals),
+        formData: {
+          ...extractArgs(args, withTotals.formData),
+        },
+      })}
     />
   </ThemeProvider>
 );
-
 const CompactTemplate = args => (
   <ThemeProvider theme={supersetTheme}>
     <PivotTable
-      {...args}
-      data={
-        transformProps(({
-          ...singleRowCompact,
-          formData: {
-            ...singleRowCompact.formData,
-            numbersFormat: args.numbersFormat,
-          },
-          queriesData: args.queriesData,
-        } as unknown) as ChartProps).data
-      }
+      {...transformProps({
+        ...extractArgs<typeof args>(args, singleRowCompact),
+        formData: {
+          ...extractArgs<typeof args>(args, singleRowCompact.formData),
+        },
+      })}
     />
   </ThemeProvider>
 );
 
 export const Default = DefaultTemplate.bind({});
 Default.args = {
-  ...transformProps((withTotals as unknown) as ChartProps),
+  ...withTotals.formData,
+  width: withTotals.width,
+  height: withTotals.height,
   queriesData: withTotals.queriesData,
 };
 
 export const CompactView = CompactTemplate.bind({});
 CompactView.args = {
-  ...transformProps((singleRowCompact as unknown) as ChartProps),
+  ...singleRowCompact.formData,
+  width: singleRowCompact.width,
+  height: singleRowCompact.height,
   compactView: true,
   queriesData: singleRowCompact.queriesData,
 };
