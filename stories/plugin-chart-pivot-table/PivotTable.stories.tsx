@@ -19,8 +19,8 @@
 import React from 'react';
 import { D3_FORMAT_OPTIONS } from '@superset-ui/chart-controls';
 import { supersetTheme, ThemeProvider } from '@superset-ui/core';
-import PivotTable, { PivotTableProps } from '../../plugins/plugin-chart-pivot-table/src/components/PivotTable';
-import transformProps, { ChartProps } from '../../plugins/plugin-chart-pivot-table/src/plugin/transformProps';
+import PivotTable from '../../plugins/plugin-chart-pivot-table/src/components/PivotTable';
+import transformProps from '../../plugins/plugin-chart-pivot-table/src/plugin/transformProps';
 import { singleRowCompact, withTotals } from '../../plugins/plugin-chart-pivot-table/test/__mocks__/pivotTableProps';
 import { extractArgs } from '../utils';
 

@@ -23,7 +23,6 @@ import { LabelTypes } from '../../plugins/plugin-chart-pie/src/utils';
 import transformProps from '../../plugins/plugin-chart-pie/src/plugin/transformProps';
 import { legendTopPercentage } from '../../plugins/plugin-chart-pie/test/__mocks__/pieProps';
 import { extractArgs } from '../utils';
-import { singleRowCompact } from '../../plugins/plugin-chart-pivot-table/test/__mocks__/pivotTableProps';
 
 export default {
   title: 'Plugins/Pie Chart',
