@@ -95,7 +95,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
         <NoData>{t('No data to show')}</NoData>
       ) : (
         <Grid gridTemplateColumns="auto" gridTemplateRows="min-content">
-          <Grid bordered gridTemplateColumns={mainGridTemplateColumns} gridTemplateRows="auto">
+          <Grid gridTemplateColumns={mainGridTemplateColumns} gridTemplateRows="auto">
             <RowsHeader
               compactView={compactView}
               showTotal={showTotal}
@@ -122,6 +122,8 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
               {data.map((item, index) => (
                 // eslint-disable-next-line react/jsx-key
                 <GridItem
+                  justifyContent="flex-end"
+                  bgLevel={Math.floor((index / numberOfColumns) % 2) === 0 ? 4 : undefined}
                   bordered
                   hidden={
                     !(columnsFillData[index % numberOfColumns] && rowsFillData[Math.floor(index / numberOfColumns)])
@@ -133,7 +135,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
               {(showTotal === ShowTotal.columns || showTotal === ShowTotal.columnsAndRows) &&
                 columnsTotal.map((columnTotal, index) => (
                   // eslint-disable-next-line react/jsx-key
-                  <GridItem bordered bgLevel={3} hidden={!columnsFillData[index]}>
+                  <GridItem bordered bgLevel={4} hidden={!columnsFillData[index]} justifyContent="flex-end">
                     {columnTotal}
                   </GridItem>
                 ))}

@@ -1,6 +1,6 @@
 {
   "name": "@superset-viz-plugins/plugin-chart-pivot-table",
-  "version": "0.5.6",
+  "version": "0.6.2",
   "description": "Superset Chart - Pivot Table",
   "pluginName": "PivotTableChartPlugin",
   "sideEffects": false,
@@ -33,13 +33,13 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@superset-ui/chart-controls": "^0.16.",
+    "@superset-ui/chart-controls": "0.16.1",
+    "@superset-ui/core": "0.16.1",
     "react": "^16.13.1"
   },
   "babel": {
     "presets": [
       "react-app"
     ]
-  },
-  "dependencies": {}
+  }
 }

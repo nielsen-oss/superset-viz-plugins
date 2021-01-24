@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.8.2...@superset-viz-plugins/plugin-chart-composed@0.9.0) (2021-01-19)
+
+
+### Features
+
+* add category formatting to Composed chart ([#28](https://github.com/nielsen-oss/superset-viz-plugins/issues/28)) ([2b00f0c](https://github.com/nielsen-oss/superset-viz-plugins/commit/2b00f0c9e6c217f5e7177f1785dc6ee6a90839e3))
+
+
+
+
+
+## [0.8.2](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.8.1...@superset-viz-plugins/plugin-chart-composed@0.8.2) (2021-01-19)
+
+**Note:** Version bump only for package @superset-viz-plugins/plugin-chart-composed
+
+
+
+
+
+## 0.8.1 (2021-01-19)
+
+**Note:** Version bump only for package @superset-viz-plugins/plugin-chart-composed
+
+
+
+
+
 ## [0.7.2](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.7.1...@superset-viz-plugins/plugin-chart-composed@0.7.2) (2021-01-04)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-composed

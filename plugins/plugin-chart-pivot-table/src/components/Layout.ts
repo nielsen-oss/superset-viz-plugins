@@ -27,7 +27,7 @@ export const Grid = styled.div<{
   gridTemplateRows?: string;
   gridTemplateColumns?: string;
 }>`
-  ${({ bordered }) => bordered && 'border: 1px solid black;'}
+  ${({ bordered, theme }) => bordered && `border-top: 1px solid ${theme.colors.grayscale.light2};`}
   ${({ withoutOverflow }) => withoutOverflow && 'overflow: hidden;'}
   display: grid;
   ${({ gridColumn }) => gridColumn && `grid-column: ${gridColumn};`}
@@ -37,11 +37,14 @@ export const Grid = styled.div<{
   ${({ gridTemplateRows }) => gridTemplateRows && `grid-template-rows: ${gridTemplateRows};`}
 `;
 
-export const FillItem = styled.div<{ hidden?: boolean }>`
-  ${({ hidden }) => !hidden && 'padding: 3px 5px;'}
+type JustifyContent = 'flex-start' | 'center' | 'flex-end';
+type AlignItems = JustifyContent;
+
+export const FillItem = styled.div<{ hidden?: boolean; justifyContent?: JustifyContent; alignItems?: AlignItems }>`
+  ${({ hidden }) => !hidden && 'padding: 3px 10px;'}
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: ${({ alignItems }) => alignItems || 'center'};
+  justify-content: ${({ justifyContent }) => justifyContent || 'center'};
 `;
 
 export const GridItem = styled(FillItem)<{
@@ -57,7 +60,7 @@ export const GridItem = styled(FillItem)<{
     bgLevel &&
     `background-color: ${theme.colors.grayscale[`light${bgLevel}` as keyof typeof supersetTheme.colors.grayscale]};`}
   ${({ header }) => header && 'font-weight: bolder;'}
-  ${({ bordered, hidden }) => bordered && !hidden && 'border: 1px solid black;'}
+  ${({ bordered, hidden, theme }) => bordered && !hidden && `border-top: 1px solid ${theme.colors.grayscale.light2};`}
   ${({ gridColumn }) => gridColumn && `grid-column: ${gridColumn};`}
   ${({ gridRow }) => gridRow && `grid-row: ${gridRow};`}
 `;

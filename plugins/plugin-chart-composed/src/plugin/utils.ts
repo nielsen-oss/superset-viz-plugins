@@ -56,6 +56,7 @@ export type FormData = {
 export type Data = Record<string, string | number>;
 export type ResultData = Data & {
   rechartsDataKey: string;
+  rechartsDataKeyUI: string;
   rechartsTotal?: number;
 };
 
@@ -97,10 +98,14 @@ const getGroupByValues = (field: string, item: Record<string, string | number>, 
 };
 
 export const addRechartsKeyAndGetGroupByValues = (formData: FormData, data: Data[], groupByValues: string[]) =>
-  data.map(item => ({
-    ...item,
-    rechartsDataKey: formData.groupby.map(field => getGroupByValues(field, item, groupByValues)).join(', '),
-  }));
+  data.map(item => {
+    const dataKey = formData.groupby.map(field => getGroupByValues(field, item, groupByValues));
+    return {
+      ...item,
+      rechartsDataKey: dataKey.join(', '),
+      rechartsDataKeyUI: dataKey.filter((value, index) => formData[`useCategoryFormattingGroupBy${index}`]).join(', '),
+    };
+  });
 
 export const addBreakdownMetricsAndGetBreakdownValues = (
   resultData: ResultData[],

@@ -310,7 +310,7 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
         tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
         height: getLabelSize(angle, dataKeyLength, 0, -90) + AXIS_OFFSET,
         interval: 0,
-        dataKey: 'rechartsDataKey',
+        dataKey: 'rechartsDataKeyUI',
       };
   }
 };
@@ -346,7 +346,7 @@ export const getYAxisProps = ({
         ...params,
         tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
         width: getLabelSize(angle, dataKeyLength, -90, 0),
-        dataKey: isSecondAxis ? dataKey : 'rechartsDataKey',
+        dataKey: isSecondAxis ? dataKey : 'rechartsDataKeyUI',
         type: 'category' as const,
       };
     default:
@@ -375,7 +375,7 @@ export const getCartesianGridProps = ({ layout }: { layout: Layout }) => {
 };
 
 export const getMaxLengthOfDataKey = (data: ResultData[]) =>
-  Math.min(Math.max(...data.map(item => item.rechartsDataKey.length)), MAX_SYMBOLS_IN_TICK_LABEL);
+  Math.min(Math.max(...data.map(item => item.rechartsDataKeyUI.length)), MAX_SYMBOLS_IN_TICK_LABEL);
 
 export const getMaxLengthOfMetric = (data: ResultData[], metrics: string[], formatter = (value: any) => `${value}`) =>
   Math.max(

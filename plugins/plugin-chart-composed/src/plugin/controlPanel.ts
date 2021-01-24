@@ -45,6 +45,7 @@ import {
 } from './configs/chartTypes';
 import { chartTypeMetrics } from './configs/chartTypeMetrics';
 import { orderByGroupBy, orderByMetric } from './configs/orderBy';
+import { categoryFormatting } from './configs/categoryFormatting';
 
 export const showLegend = {
   name: 'show_legend',
@@ -177,6 +178,11 @@ const config: ControlPanelConfig = {
         [yAxisLabel, yAxisTickLabelAngle],
         [useSecondYAxis, y2AxisLabel, y2AxisTickLabelAngle],
       ],
+    },
+    {
+      label: t('Category formatting'),
+      expanded: true,
+      controlSetRows: [...categoryFormatting],
     },
     {
       label: t('Sorting'),

@@ -78,7 +78,7 @@
     "jest-environment-jsdom-fourteen": "0.1.0",
     "jest-resolve": "24.9.0",
     "jest-transform-stub": "^2.0.0",
-    "lerna": "^3.15.0",
+    "lerna": "^3.22.1",
     "lint-staged": "^10.0.3",
     "prettier": "^1.19.1",
     "react": "^16.13.1",
@@ -129,7 +129,7 @@
     }
   },
   "dependencies": {
-    "@superset-ui/chart-controls": "^0.16.1",
-    "@superset-ui/core": "^0.16.1"
+    "@superset-ui/chart-controls": "0.16.1",
+    "@superset-ui/core": "0.16.1"
   }
 }
