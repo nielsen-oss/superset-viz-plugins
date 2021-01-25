@@ -104,6 +104,7 @@ export default function transformProps<R extends string = string, C extends stri
     oneDimensionRows,
     oneDimensionColumns,
     showTotal,
+    emptyValuePlaceholder,
   });
 
   return {

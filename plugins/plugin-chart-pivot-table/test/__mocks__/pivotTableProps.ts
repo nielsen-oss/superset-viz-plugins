@@ -11,6 +11,7 @@ const formDataWithTotals = {
   columns: ['period', 'period_type'],
   transpose: false,
   numbersFormat: 'SMART_NUMBER',
+  emptyValuePlaceholder: '---',
   showTotal: 'columnsAndRows',
 };
 const formDataWithTotalsSingleRow = {
@@ -36,15 +37,15 @@ export const queryData = {
       group_type: 'SummaryGroup',
       period_type: 'Standard',
       period: 'Total Period',
-      'AVG(decomp_volume)': 1076125.66666667,
-      'AVG(volume_for_roi)': 372648.333333333,
+      'AVG(decomp_volume)': null,
+      'AVG(volume_for_roi)': null,
     },
     {
       group_type: 'SummaryGroup',
       period_type: 'Custom',
       period: 'Total Period',
-      'AVG(decomp_volume)': 293427.333333333,
-      'AVG(volume_for_roi)': 372648.333333333,
+      'AVG(decomp_volume)': null,
+      'AVG(volume_for_roi)': null,
     },
     {
       group_type: 'SummaryGroup',
@@ -78,8 +79,8 @@ export const queryData = {
       group_type: 'Variable',
       period_type: 'Custom',
       period: '2018',
-      'AVG(decomp_volume)': 51089.4814814815,
-      'AVG(volume_for_roi)': 14063.4814814815,
+      'AVG(decomp_volume)': null,
+      'AVG(volume_for_roi)': null,
     },
     {
       group_type: 'Variable',
@@ -162,8 +163,8 @@ export const queryData = {
       group_type: 'DueToGroup',
       period_type: 'Standard',
       period: '2018',
-      'AVG(decomp_volume)': 18454.1666666667,
-      'AVG(volume_for_roi)': 18472.8333333333,
+      'AVG(decomp_volume)': null,
+      'AVG(volume_for_roi)': null,
     },
     {
       group_type: 'Variable',
