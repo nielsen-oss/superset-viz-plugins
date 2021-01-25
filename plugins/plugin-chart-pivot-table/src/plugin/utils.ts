@@ -180,6 +180,7 @@ type GetOneDimensionDataParams<R extends string, C extends string, M extends str
   oneDimensionRows: string[];
   numbersFormat: string;
   showTotal: ShowTotal;
+  emptyValuePlaceholder: string;
 };
 
 export const getOneDimensionData = <R extends string, C extends string, M extends string>({
@@ -195,6 +196,7 @@ export const getOneDimensionData = <R extends string, C extends string, M extend
   oneDimensionRows,
   numbersFormat,
   showTotal,
+  emptyValuePlaceholder,
 }: GetOneDimensionDataParams<R, C, M>): {
   oneDimensionData: string[];
   columnsFillData: boolean[];
@@ -238,7 +240,7 @@ export const getOneDimensionData = <R extends string, C extends string, M extend
 
       oneDimensionData[
         columnIndex + metricIndex * numberOfColumnsPerMetric + rowIndex * (numberOfColumnsPerMetric * metrics.length)
-      ] = formatNumber(numbersFormat, item[metric]);
+      ] = item[metric] === null ? emptyValuePlaceholder : formatNumber(numbersFormat, item[metric]);
 
       // Set totals
       if (showTotal !== ShowTotal.noTotal) {
