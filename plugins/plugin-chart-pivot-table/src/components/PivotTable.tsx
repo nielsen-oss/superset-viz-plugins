@@ -25,7 +25,7 @@ import { ROW_HEIGHT, Unit } from '../plugin/utils';
 import TotalColumn from './TotalColumn';
 import { ShowTotal } from '../types';
 
-export type PivotTableProps<R extends string, C extends string, M extends string> = {
+export type PivotTableProps<R extends string = string, C extends string = string, M extends string = string> = {
   data: (string | number)[];
   columns: C[];
   rows: R[];
