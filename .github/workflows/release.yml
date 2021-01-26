@@ -8,7 +8,7 @@ on:
 
 jobs:
   main:
-    name: Inject plugins into superset and deploy docker image
+    name: Inject plugins into superset and push docker image
 
     runs-on: ubuntu-latest
     env:

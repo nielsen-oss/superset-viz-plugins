@@ -1,6 +1,6 @@
 {
   "name": "@superset-viz-plugins/plugin-chart-status",
-  "version": "0.1.2",
+  "version": "0.1.0",
   "description": "Superset Chart - Status",
   "sideEffects": false,
   "pluginName": "Status",
@@ -34,8 +34,8 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@superset-ui/chart-controls": "0.16.1",
-    "@superset-ui/core": "0.16.1",
+    "@superset-ui/chart-controls": "^0.16.1",
+    "@superset-ui/core": "^0.16.1",
     "react": "^16.13.1"
   },
   "babel": {
