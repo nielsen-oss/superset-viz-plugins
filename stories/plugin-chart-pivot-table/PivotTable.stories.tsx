@@ -22,7 +22,7 @@ import { supersetTheme, ThemeProvider } from '@superset-ui/core';
 import PivotTable from '../../plugins/plugin-chart-pivot-table/src/components/PivotTable';
 import transformProps from '../../plugins/plugin-chart-pivot-table/src/plugin/transformProps';
 import { singleRowCompact, withTotals } from '../../plugins/plugin-chart-pivot-table/test/__mocks__/pivotTableProps';
-import { extractArgs } from '../utils';
+import { extractTransformProps } from '../utils';
 
 export default {
   title: 'Plugins/Pivot Table',
@@ -54,26 +54,12 @@ export default {
 
 const DefaultTemplate = args => (
   <ThemeProvider theme={supersetTheme}>
-    <PivotTable
-      {...transformProps({
-        ...extractArgs<typeof args>(args, withTotals),
-        formData: {
-          ...extractArgs(args, withTotals.formData),
-        },
-      })}
-    />
+    <PivotTable {...extractTransformProps({ args, props: withTotals, transformProps })} />
   </ThemeProvider>
 );
 const CompactTemplate = args => (
   <ThemeProvider theme={supersetTheme}>
-    <PivotTable
-      {...transformProps({
-        ...extractArgs<typeof args>(args, singleRowCompact),
-        formData: {
-          ...extractArgs<typeof args>(args, singleRowCompact.formData),
-        },
-      })}
-    />
+    <PivotTable {...extractTransformProps({ args, props: singleRowCompact, transformProps })} />
   </ThemeProvider>
 );
 

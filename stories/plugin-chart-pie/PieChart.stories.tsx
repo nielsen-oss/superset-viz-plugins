@@ -22,7 +22,7 @@ import PieChart from '../../plugins/plugin-chart-pie/src/PieChart';
 import { LabelTypes } from '../../plugins/plugin-chart-pie/src/utils';
 import transformProps from '../../plugins/plugin-chart-pie/src/plugin/transformProps';
 import { legendTopPercentage } from '../../plugins/plugin-chart-pie/test/__mocks__/pieProps';
-import { extractArgs } from '../utils';
+import { extractTransformProps } from '../utils';
 
 export default {
   title: 'Plugins/Pie Chart',
@@ -49,27 +49,14 @@ export default {
 
 const DefaultTemplate = args => (
   <ThemeProvider theme={supersetTheme}>
-    <PieChart
-      {...transformProps({
-        ...extractArgs<typeof args>(args, legendTopPercentage),
-        formData: {
-          ...extractArgs<typeof args>(args, legendTopPercentage.formData),
-        },
-      })}
-    />
+    <PieChart {...extractTransformProps({ args, props: legendTopPercentage, transformProps })} />
   </ThemeProvider>
 );
 
 const DonutTemplate = args => (
   <ThemeProvider theme={supersetTheme}>
     <PieChart
-      {...transformProps({
-        ...extractArgs<typeof args>(args, legendTopPercentage),
-        formData: {
-          ...extractArgs<typeof args>(args, legendTopPercentage.formData),
-          isDonut: true,
-        },
-      })}
+      {...extractTransformProps({ args, props: legendTopPercentage, transformProps, formData: { isDonut: true } })}
     />
   </ThemeProvider>
 );
