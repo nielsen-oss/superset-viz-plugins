@@ -41,7 +41,9 @@ type JustifyContent = 'flex-start' | 'center' | 'flex-end';
 type AlignItems = JustifyContent;
 
 export const FillItem = styled.div<{ hidden?: boolean; justifyContent?: JustifyContent; alignItems?: AlignItems }>`
-  ${({ hidden }) => !hidden && 'padding: 3px 10px;'}
+  & > * {
+    ${({ hidden }) => !hidden && 'padding: 3px 10px;'}
+  }
   display: flex;
   align-items: ${({ alignItems }) => alignItems || 'center'};
   justify-content: ${({ justifyContent }) => justifyContent || 'center'};
@@ -60,7 +62,27 @@ export const GridItem = styled(FillItem)<{
     bgLevel &&
     `background-color: ${theme.colors.grayscale[`light${bgLevel}` as keyof typeof supersetTheme.colors.grayscale]};`}
   ${({ header }) => header && 'font-weight: bolder;'}
-  ${({ bordered, hidden, theme }) => bordered && !hidden && `border-top: 1px solid ${theme.colors.grayscale.light2};`}
+  ${({ bordered, theme }) => bordered && `border-top: 1px solid ${theme.colors.grayscale.light2};`}
   ${({ gridColumn }) => gridColumn && `grid-column: ${gridColumn};`}
   ${({ gridRow }) => gridRow && `grid-row: ${gridRow};`}
+`;
+
+export const InvisibleGridItem = styled(GridItem)<{
+  invisible?: boolean;
+}>`
+  ${({ invisible }) => invisible && 'visibility: hidden;'};
+`;
+
+export const UIGrid = styled(Grid)`
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
+
+export const UIGridContainer = styled(Grid)`
+  position: relative;
+  z-index: 1;
 `;
