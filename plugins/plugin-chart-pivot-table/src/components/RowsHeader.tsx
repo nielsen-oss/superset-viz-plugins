@@ -18,7 +18,7 @@
  */
 import React, { FC } from 'react';
 import { styled, t } from '@superset-ui/core';
-import { Grid, GridItem } from './Layout';
+import { Grid, GridItem, UIGridContainer, UIGrid, InvisibleGridItem } from './Layout';
 import { ROW_HEIGHT, Unit } from '../plugin/utils';
 import HeadersOfHeader from './HeaderOfHeader';
 import { ShowTotal } from '../types';
@@ -38,6 +38,10 @@ const TotalGridItem = styled(GridItem)`
   height: auto;
 `;
 
+const HiddenText = styled.div`
+  visibility: hidden;
+`;
+
 const RowsHeader: FC<RowsHeaderProps<string, string>> = ({
   numberOfRows,
   columns,
@@ -48,33 +52,37 @@ const RowsHeader: FC<RowsHeaderProps<string, string>> = ({
   showTotal,
 }) => (
   <div>
-    <Grid
-      withoutOverflow
-      gridTemplateColumns={`repeat(${rows.length || 1}, max-content)`}
-      gridTemplateRows={`max-content ${compactView ? 0 : 'max-content'} ${rowsFillData
-        .map(fillData => `${fillData ? ROW_HEIGHT : 0}`)
-        .join(' ')}`}
-      gridAutoFlow="column"
-    >
+    <Grid gridTemplateColumns="1fr" gridTemplateRows="max-content max-content">
       <HeadersOfHeader rows={rows} columns={columns} />
-      {rows.map(row =>
-        uiRowUnits[row].map((item, index) => (
-          // eslint-disable-next-line react/jsx-key
-          <GridItem
-            justifyContent="flex-start"
-            bordered={!(Math.floor(index / Math.floor(rows.length / rowsFillData.length)) === 1)}
-            bgLevel={Math.floor(index % 2) === 1 ? 4 : undefined}
-            // If index === 0, it's header of columns for rows
-            gridRow={`span ${index === 0 ? 1 : numberOfRows / (uiRowUnits[row].length - 1)}`}
-          >
-            {item}
-          </GridItem>
-        )),
-      )}
+      <UIGridContainer
+        withoutOverflow
+        gridTemplateColumns={`repeat(${rows.length || 1}, max-content)`}
+        gridTemplateRows={`${compactView ? 0 : 'max-content'} ${rowsFillData
+          .map(fillData => `${fillData ? ROW_HEIGHT : 0}px`)
+          .join(' ')}`}
+        gridAutoFlow="column"
+      >
+        {rows.map((row, rowIndex) =>
+          uiRowUnits[row].map((item, index) => (
+            // eslint-disable-next-line react/jsx-key
+            <InvisibleGridItem
+              invisible={compactView && index === 0}
+              bordered
+              header={index === 0}
+              bgLevel={rowIndex === rows.length - 1 ? undefined : 5}
+              justifyContent="flex-start"
+              // If index === 0, it's header of columns for rows
+              gridRow={`span ${index === 0 ? 1 : numberOfRows / (uiRowUnits[row].length - 1)}`}
+            >
+              <div>{item}</div>
+            </InvisibleGridItem>
+          )),
+        )}
+      </UIGridContainer>
     </Grid>
     {(showTotal === ShowTotal.columnsAndRows || showTotal === ShowTotal.columns) && (
-      <TotalGridItem bordered gridColumn={`span ${rows.length || 1}`} bgLevel={4} justifyContent="flex-start">
-        {t('Total')}
+      <TotalGridItem gridColumn={`span ${rows.length || 1}`} justifyContent="flex-start">
+        <div>{t('Total')}</div>
       </TotalGridItem>
     )}
   </div>

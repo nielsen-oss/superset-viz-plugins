@@ -17,7 +17,7 @@
  * under the License.
  */
 import React, { FC } from 'react';
-import { GridItem } from './Layout';
+import { GridItem, InvisibleGridItem } from './Layout';
 import { Unit } from '../plugin/utils';
 
 type ColumnsHeaderProps<C extends string, M extends string> = {
@@ -30,22 +30,23 @@ type ColumnsHeaderProps<C extends string, M extends string> = {
 
 const ColumnsHeader: FC<ColumnsHeaderProps<string, string>> = ({
   metrics,
-  compactView,
   uiColumnUnits,
   columns,
   numberOfColumns,
+  compactView,
 }) => (
   <>
     {metrics.map(metric => (
       // eslint-disable-next-line react/jsx-key
-      <GridItem header gridColumn={`span ${numberOfColumns / metrics.length}`} justifyContent="flex-end">
-        {metric}
+      <GridItem header bgLevel={5} gridColumn={`span ${numberOfColumns / metrics.length}`} justifyContent="flex-end">
+        <div>{metric}</div>
       </GridItem>
     ))}
     {columns.map(column =>
       uiColumnUnits[column].map(item => (
         // eslint-disable-next-line react/jsx-key
         <GridItem
+          bgLevel={5}
           justifyContent="flex-end"
           header
           bordered
@@ -56,11 +57,16 @@ const ColumnsHeader: FC<ColumnsHeaderProps<string, string>> = ({
       )),
     )}
     {/* One empty line for header columns of rows */}
-    {!compactView && (
-      <GridItem header bordered gridColumn={`span ${numberOfColumns}`} style={{ color: 'transparent' }}>
-        :)
-      </GridItem>
-    )}
+    <InvisibleGridItem
+      bgLevel={5}
+      invisible={compactView}
+      header
+      bordered
+      gridColumn={`span ${numberOfColumns}`}
+      style={{ color: 'transparent' }}
+    >
+      :)
+    </InvisibleGridItem>
   </>
 );
 

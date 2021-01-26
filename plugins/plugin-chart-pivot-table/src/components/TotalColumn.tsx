@@ -33,27 +33,22 @@ export type TotalColumnProps = {
 const TotalColumn: FC<TotalColumnProps> = ({ columns, rowsFillData, rowsTotal, total, showTotalAll, compactView }) => (
   <Grid
     gridTemplateColumns="max-content"
-    gridTemplateRows={`repeat(${columns.length + (compactView ? 1 : 2)}, ${ROW_HEIGHT}) ${rowsFillData
-      .map(fillData => `${fillData ? ROW_HEIGHT : 0}`)
+    gridTemplateRows={`repeat(${columns.length + (compactView ? 1 : 2)}, ${ROW_HEIGHT}px) ${rowsFillData
+      .map(fillData => `${fillData ? ROW_HEIGHT : 0}px`)
       .join(' ')}`}
   >
-    <GridItem header gridRow={`span ${columns.length + (compactView ? 1 : 2)}`} justifyContent="flex-end">
-      {t('Total')}
+    <GridItem header bgLevel={5} gridRow={`span ${columns.length + (compactView ? 1 : 2)}`} justifyContent="flex-end">
+      <div>{t('Total')}</div>
     </GridItem>
     {rowsTotal.map((rowTotal, index) => (
       // eslint-disable-next-line react/jsx-key
-      <GridItem
-        bordered
-        bgLevel={index % 2 === 0 ? 4 : undefined}
-        hidden={!rowsFillData[index]}
-        justifyContent="flex-end"
-      >
-        {rowTotal}
+      <GridItem hidden={!rowsFillData[index]} justifyContent="flex-end">
+        <div>{rowTotal}</div>
       </GridItem>
     ))}
     {showTotalAll && (
-      <GridItem bordered bgLevel={4} justifyContent="flex-end">
-        {total}
+      <GridItem justifyContent="flex-end">
+        <div>{total}</div>
       </GridItem>
     )}
   </Grid>
