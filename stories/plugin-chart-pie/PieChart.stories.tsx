@@ -22,6 +22,7 @@ import PieChart from '../../plugins/plugin-chart-pie/src/PieChart';
 import { LabelTypes } from '../../plugins/plugin-chart-pie/src/utils';
 import transformProps from '../../plugins/plugin-chart-pie/src/plugin/transformProps';
 import { legendTopPercentage } from '../../plugins/plugin-chart-pie/test/__mocks__/pieProps';
+import { extractTransformProps } from '../utils';
 
 export default {
   title: 'Plugins/Pie Chart',
@@ -48,32 +49,14 @@ export default {
 
 const DefaultTemplate = args => (
   <ThemeProvider theme={supersetTheme}>
-    <PieChart
-      {...args}
-      data={transformProps(({ ...legendTopPercentage, queriesData: args.queriesData } as unknown) as ChartProps).data}
-    />
+    <PieChart {...extractTransformProps({ args, props: legendTopPercentage, transformProps })} />
   </ThemeProvider>
 );
 
 const DonutTemplate = args => (
   <ThemeProvider theme={supersetTheme}>
     <PieChart
-      {...args}
-      showLabels={
-        transformProps(({
-          ...legendTopPercentage,
-          formData: {
-            ...legendTopPercentage.formData,
-            isDonut: true,
-          },
-        } as unknown) as ChartProps).showLabels
-      }
-      data={
-        transformProps(({
-          ...legendTopPercentage,
-          queriesData: args.queriesData,
-        } as unknown) as ChartProps).data
-      }
+      {...extractTransformProps({ args, props: legendTopPercentage, transformProps, formData: { isDonut: true } })}
     />
   </ThemeProvider>
 );

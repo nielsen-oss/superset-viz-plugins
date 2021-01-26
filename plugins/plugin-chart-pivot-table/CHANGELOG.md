@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.6.3 (2021-01-25)
+
+
+### Bug Fixes
+
+* fix table placeholder ([#32](https://github.com/nielsen-oss/superset-viz-plugins/issues/32)) ([d7dadca](https://github.com/nielsen-oss/superset-viz-plugins/commit/d7dadca0bca7cd6c7a84df0001e7815c89f0b9b8))
+
+
+
+
+
 ## [0.6.2](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-pivot-table@0.6.1...@superset-viz-plugins/plugin-chart-pivot-table@0.6.2) (2021-01-19)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-pivot-table
