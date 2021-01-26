@@ -142,14 +142,14 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
                     !(columnsFillData[index % numberOfColumns] && rowsFillData[Math.floor(index / numberOfColumns)])
                   }
                 >
-                  {item || emptyValuePlaceholder}
+                  <div>{item || emptyValuePlaceholder}</div>
                 </GridItem>
               ))}
               {(showTotal === ShowTotal.columns || showTotal === ShowTotal.columnsAndRows) &&
                 columnsTotal.map((columnTotal, index) => (
                   // eslint-disable-next-line react/jsx-key
                   <GridItem hidden={!columnsFillData[index]} justifyContent="flex-end">
-                    {columnTotal}
+                    <div>{columnTotal}</div>
                   </GridItem>
                 ))}
             </Grid>
