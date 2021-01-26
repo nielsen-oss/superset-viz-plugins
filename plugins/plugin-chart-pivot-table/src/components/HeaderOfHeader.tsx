@@ -27,7 +27,7 @@ type HeadersOfHeaderProps<R extends string, C extends string> = {
 };
 
 const EmptyItem = styled(GridItem)`
-  height: ${ROW_HEIGHT};
+  height: ${ROW_HEIGHT}px;
 `;
 
 const HeadersOfHeader: FC<HeadersOfHeaderProps<string, string>> = ({ rows, columns }) => (
@@ -37,11 +37,11 @@ const HeadersOfHeader: FC<HeadersOfHeaderProps<string, string>> = ({ rows, colum
     gridTemplateColumns="1fr"
     gridTemplateRows={`repeat(${columns.length || 1}, max-content)`}
   >
-    <EmptyItem header />
+    <EmptyItem header bgLevel={5} />
     {columns.map(column => (
       // eslint-disable-next-line react/jsx-key
-      <GridItem bordered justifyContent="flex-start" header>
-        {column}
+      <GridItem bgLevel={5} bordered justifyContent="flex-start" header>
+        <div>{column}</div>
       </GridItem>
     ))}
   </Grid>

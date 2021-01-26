@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { getOneDimensionData, getUnits } from './utils';
+import { extractUniqueData, getOneDimensionData, getUnits, makeDataUnique } from './utils';
 import { ShowTotal } from '../types';
 
 type MetricObject<M extends string> = {
@@ -55,13 +55,14 @@ export default function transformProps<R extends string = string, C extends stri
   chartProps: ChartProps<R, C, M>,
 ) {
   const { width, height, formData, queryData, queriesData } = chartProps;
-  const data = queriesData?.[0]?.data || queryData?.data;
+  let data = queriesData?.[0]?.data || queryData?.data;
   const metrics = formData.metrics.map(({ label }) => label).sort();
+  data = makeDataUnique<R, C, M>(data, metrics);
   const {
     transpose,
     rows: tempRows,
     columns: tempColumns,
-    compactView: tempCompactView,
+    compactView,
     numberFormat,
     numbersFormat: tempNumbersFormat,
     showTotal = ShowTotal.noTotal,
@@ -70,7 +71,6 @@ export default function transformProps<R extends string = string, C extends stri
   const numbersFormat = tempNumbersFormat || numberFormat;
   let rows: R[] = tempRows || [];
   let columns: C[] = tempColumns || [];
-  const compactView = tempCompactView && rows.length <= 1;
   if (transpose) {
     rows = ((tempColumns as unknown) as R[]) || [];
     columns = ((tempRows as unknown) as C[]) || [];
@@ -113,10 +113,10 @@ export default function transformProps<R extends string = string, C extends stri
     data: oneDimensionData,
     rows,
     emptyValuePlaceholder,
-    uiColumnUnits,
-    uiRowUnits,
-    columnUnits,
-    rowUnits,
+    uiColumnUnits: extractUniqueData(uiColumnUnits),
+    uiRowUnits: extractUniqueData(uiRowUnits),
+    columnUnits: extractUniqueData(columnUnits),
+    rowUnits: extractUniqueData(rowUnits),
     columnsFillData,
     rowsFillData,
     columns,

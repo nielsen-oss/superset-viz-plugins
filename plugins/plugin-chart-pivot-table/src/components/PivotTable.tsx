@@ -18,7 +18,7 @@
  */
 import React, { FC } from 'react';
 import { styled, t } from '@superset-ui/core';
-import { Grid, GridItem } from './Layout';
+import { Grid, GridItem, UIGridContainer, UIGrid } from './Layout';
 import RowsHeader from './RowsHeader';
 import ColumnsHeader from './ColumnsHeader';
 import { ROW_HEIGHT, Unit } from '../plugin/utils';
@@ -79,9 +79,24 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
   total,
   rowsTotal,
 }) => {
-  const mainGridTemplateColumns = `auto auto ${
-    showTotal === ShowTotal.rows || showTotal === ShowTotal.columnsAndRows ? 'auto' : ''
-  }`;
+  const hasTotalColumn = showTotal === ShowTotal.rows || showTotal === ShowTotal.columnsAndRows;
+  const hasTotalRow = showTotal === ShowTotal.columns || showTotal === ShowTotal.columnsAndRows;
+  const mainGridTemplateColumns = `auto auto ${hasTotalColumn ? 'auto' : ''}`;
+
+  const getUIMask = () => {
+    const uiRows: string[] = [];
+    const topHeadersCount = columns.length + 1 + (!compactView ? 1 : 0);
+    for (let i = 0; i < numberOfRows + topHeadersCount + (hasTotalRow ? 1 : 0); i++) {
+      uiRows.push(`${ROW_HEIGHT}px`);
+    }
+    return (
+      <UIGrid gridTemplateColumns="1fr" gridTemplateRows={`repeat(${uiRows.length}, ${ROW_HEIGHT}px)`}>
+        {uiRows.map((_, index) => (
+          <GridItem bgLevel={(index - topHeadersCount) % 2 === 0 ? 4 : undefined} bordered hidden />
+        ))}
+      </UIGrid>
+    );
+  };
 
   return (
     <StyledGrid
@@ -95,7 +110,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
         <NoData>{t('No data to show')}</NoData>
       ) : (
         <Grid gridTemplateColumns="auto" gridTemplateRows="min-content">
-          <Grid gridTemplateColumns={mainGridTemplateColumns} gridTemplateRows="auto">
+          <UIGridContainer withoutOverflow gridTemplateColumns={mainGridTemplateColumns} gridTemplateRows="auto">
             <RowsHeader
               compactView={compactView}
               showTotal={showTotal}
@@ -107,10 +122,10 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
             />
             <Grid
               withoutOverflow
-              gridTemplateColumns={columnsFillData.map(fillData => `${fillData ? 'max-content' : 0}`).join(' ')}
-              gridTemplateRows={`repeat(${columns.length + 2}, ${ROW_HEIGHT}) ${rowsFillData
-                .map(fillData => `${fillData ? ROW_HEIGHT : 0}`)
-                .join(' ')}`}
+              gridTemplateColumns={`${columnsFillData.map(fillData => `${fillData ? 'max-content' : 0}`).join(' ')}`}
+              gridTemplateRows={`repeat(${columns.length + 1}, ${ROW_HEIGHT}px) ${
+                compactView ? 0 : ROW_HEIGHT
+              }px ${rowsFillData.map(fillData => `${fillData ? ROW_HEIGHT : 0}px`).join(' ')}`}
             >
               <ColumnsHeader
                 compactView={compactView}
@@ -123,8 +138,6 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
                 // eslint-disable-next-line react/jsx-key
                 <GridItem
                   justifyContent="flex-end"
-                  bgLevel={Math.floor((index / numberOfColumns) % 2) === 0 ? 4 : undefined}
-                  bordered
                   hidden={
                     !(columnsFillData[index % numberOfColumns] && rowsFillData[Math.floor(index / numberOfColumns)])
                   }
@@ -135,7 +148,7 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
               {(showTotal === ShowTotal.columns || showTotal === ShowTotal.columnsAndRows) &&
                 columnsTotal.map((columnTotal, index) => (
                   // eslint-disable-next-line react/jsx-key
-                  <GridItem bordered bgLevel={4} hidden={!columnsFillData[index]} justifyContent="flex-end">
+                  <GridItem hidden={!columnsFillData[index]} justifyContent="flex-end">
                     {columnTotal}
                   </GridItem>
                 ))}
@@ -150,7 +163,8 @@ const PivotTable: FC<PivotTableProps<string, string, string>> = ({
                 showTotalAll={showTotal === ShowTotal.columnsAndRows}
               />
             )}
-          </Grid>
+            {getUIMask()}
+          </UIGridContainer>
         </Grid>
       )}
     </StyledGrid>
