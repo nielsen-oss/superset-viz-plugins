@@ -39,7 +39,7 @@ const getCategoryFormatting = (index: number, source: string, name: string, titl
 ];
 
 for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
-  categoryFormatting.push(getCategoryFormatting(i, 'group_by', 'group_by', t('"group by"')));
+  categoryFormatting.push(getCategoryFormatting(i, 'groupby', 'group_by', t('"group by"')));
 }
 
 export { categoryFormatting };
