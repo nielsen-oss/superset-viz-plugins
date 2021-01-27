@@ -22,6 +22,7 @@ import { ChartProps } from '@superset-ui/core';
 import WaterfallChart from '../../plugins/plugin-chart-waterfall/src/components/WaterfallChart';
 import transformProps from '../../plugins/plugin-chart-waterfall/src/plugin/transformProps';
 import { legendTop } from '../../plugins/plugin-chart-waterfall/test/__mocks__/waterfallProps';
+import { extractTransformProps } from '../utils';
 
 export default {
   title: 'Plugins/Waterfall Chart',
@@ -42,12 +43,7 @@ export default {
   },
 };
 
-const Template = args => (
-  <WaterfallChart
-    {...args}
-    data={transformProps(({ ...legendTop, queriesData: args.queriesData } as unknown) as ChartProps).data}
-  />
-);
+const Template = args => <WaterfallChart {...extractTransformProps({ args, props: legendTop, transformProps })} />;
 
 export const Default = Template.bind({});
 Default.args = {
