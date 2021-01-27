@@ -166,13 +166,13 @@ const queriesDataForAllCharts = {
   ],
 };
 const formDataBarsHorizontalLegendTop = {
-  queryFields: { group_by: 'groupby', columns: 'groupby' },
+  queryFields: { groupby: 'groupby', columns: 'groupby' },
   datasource: '13__table',
   vizType: 'composed',
   urlParams: {},
   timeRangeEndpoints: ['inclusive', 'exclusive'],
   timeRange: 'Last week',
-  groupBy: ['group_type'],
+  groupby: ['group_type'],
   numbersFormat: 'SMART_NUMBER',
   metrics: [
     {
@@ -518,13 +518,13 @@ const formDataBarsVerticalLegendRightNumFormatAllLabels = {
 };
 const formDataWithAllChartTypes = {
   numbersFormat: 'SMART_NUMBER',
-  queryFields: { group_by: 'groupby', columns: 'groupby' },
+  queryFields: { groupby: 'groupby', columns: 'groupby' },
   datasource: '13__table',
   vizType: 'composed',
   urlParams: { URL_IS_TOO_LONG_TO_SHARE: '' },
   timeRangeEndpoints: ['inclusive', 'exclusive'],
   timeRange: 'Last week',
-  groupBy: ['group_type'],
+  groupby: ['group_type'],
   metrics: [
     {
       expressionType: 'SIMPLE',
