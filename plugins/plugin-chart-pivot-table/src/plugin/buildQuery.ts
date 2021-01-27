@@ -23,7 +23,7 @@ export default function buildQuery(formData: QueryFormData) {
     {
       ...baseQueryObject,
       columns: [],
-      groupby: [...(formData.rows || []), ...(formData.columns || [])]
+      groupby: [...(formData.rows || []), ...(formData.columns || [])],
     },
   ]);
 }

@@ -18,7 +18,7 @@
  */
 import React, { FC } from 'react';
 import { styled, t } from '@superset-ui/core';
-import { Grid, GridItem, UIGridContainer, UIGrid, InvisibleGridItem } from './Layout';
+import { Grid, GridItem, UIGridContainer, InvisibleGridItem } from './Layout';
 import { ROW_HEIGHT, Unit } from '../plugin/utils';
 import HeadersOfHeader from './HeaderOfHeader';
 import { ShowTotal } from '../types';
@@ -36,10 +36,6 @@ type RowsHeaderProps<R extends string, C extends string> = {
 const TotalGridItem = styled(GridItem)`
   width: auto;
   height: auto;
-`;
-
-const HiddenText = styled.div`
-  visibility: hidden;
 `;
 
 const RowsHeader: FC<RowsHeaderProps<string, string>> = ({
