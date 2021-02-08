@@ -46,9 +46,6 @@ export type ChartProps<R extends string = string, C extends string = string, M e
   queriesData: {
     data: QueryData<R, C, M>[];
   }[];
-  queryData?: {
-    data: QueryData<R, C, M>[];
-  };
 };
 
 export default function transformProps<R extends string = string, C extends string = string, M extends string = string>(
