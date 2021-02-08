@@ -26,7 +26,7 @@ import {
   ControlConfig,
   sharedControls,
 } from '@superset-ui/chart-controls';
-import { CHART_TYPES, CHART_TYPE_NAMES, LegendPosition } from '../components/utils';
+import { CHART_TYPES, CHART_TYPE_NAMES, LegendPosition, CHART_SUB_TYPES } from '../components/utils';
 import {
   useSecondYAxis,
   xAxisLabel,
@@ -55,6 +55,19 @@ export const showLegend = {
     renderTrigger: true,
     default: true,
     description: t('Whether to display the legend (toggles)'),
+  },
+};
+
+export const showTotals = {
+  name: 'show_totals',
+  config: {
+    type: 'CheckboxControl',
+    label: t('Show Totals'),
+    renderTrigger: true,
+    default: false,
+    description: t('Show total values for stacked bar chart'),
+    visibility: ({ form_data }: { form_data: QueryFormData }) =>
+      form_data.bar_chart_sub_type === CHART_SUB_TYPES.STACKED,
   },
 };
 
@@ -164,6 +177,7 @@ const config: ControlPanelConfig = {
         [showLegend, legendPosition],
         [numbersFormat, labelsColor],
         [chartType, barChartSubType, lineChartSubType, areaChartSubType, scatterChartSubType],
+        [showTotals],
       ],
     },
     {
