@@ -51,12 +51,12 @@ export default function transformProps(
   legendPosition: LegendPosition;
   height: number;
 } {
-  const { width, height, formData, queryData, queriesData } = chartProps;
+  const { width, height, formData, queriesData } = chartProps;
 
   const { periodColumn, xAxisColumn, metric, numbersFormat, legendPosition } = formData as FormData;
 
   const valueColumn = metric.label;
-  const data = (queriesData?.[0]?.data || queryData?.data) as QueryData[];
+  const data = queriesData?.[0]?.data as QueryData[];
 
   const rechartsData = convertDataForRecharts(periodColumn, xAxisColumn, valueColumn, data);
 
