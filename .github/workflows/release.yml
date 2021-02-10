@@ -7,11 +7,11 @@ on:
 
 jobs:
   main:
-    name: Inject plugins into superset and deploy docker image
+    name: Inject plugins into superset and push docker image
 
     runs-on: ubuntu-latest
     env:
-      SUPERSET_VERSION: 0.38
+      SUPERSET_VERSION: '1.0'
       PRESET_NAME: Nielsen
     steps:
     - name: Use Node.js
@@ -78,7 +78,7 @@ jobs:
       working-directory: ./superset-viz-plugins
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        PLUGINS_EXTRA_FILENAME: 'setupPluginsExtra.js'
+        PLUGINS_EXTRA_FILENAME: 'setupPluginsExtra.ts'
 
 
     - name: build & push docker

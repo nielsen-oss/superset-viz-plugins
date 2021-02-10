@@ -3,28 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# 0.6.0 (2021-01-26)
+## [0.7.1](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-pie@0.7.0...@superset-viz-plugins/plugin-chart-pie@0.7.1) (2021-02-08)
+
+**Note:** Version bump only for package @superset-viz-plugins/plugin-chart-pie
+
+
+
+
+
+# [0.7.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-pie@0.5.0...@superset-viz-plugins/plugin-chart-pie@0.7.0) (2021-01-28)
 
 
 ### Features
 
+* migrate to superset 1.0 ([e53acfe](https://github.com/nielsen-oss/superset-viz-plugins/commit/e53acfed93ee1f39fcd8a63b065b284ab513b692))
 * pie story with full data flow ([#30](https://github.com/nielsen-oss/superset-viz-plugins/issues/30)) ([86f500e](https://github.com/nielsen-oss/superset-viz-plugins/commit/86f500ee3b59c90c564ca9a5eb6a5266eb10bbcb))
 
 
 
 
 
-## [0.5.2](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-pie@0.5.1...@superset-viz-plugins/plugin-chart-pie@0.5.2) (2021-01-19)
-
-**Note:** Version bump only for package @superset-viz-plugins/plugin-chart-pie
+# 0.5.0 (2021-01-12)
 
 
+### Features
 
-
-
-## 0.5.1 (2021-01-19)
-
-**Note:** Version bump only for package @superset-viz-plugins/plugin-chart-pie
+* migrate to superset 1.0 ([e53acfe](https://github.com/nielsen-oss/superset-viz-plugins/commit/e53acfed93ee1f39fcd8a63b065b284ab513b692))
 
 
 

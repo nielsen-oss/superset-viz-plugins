@@ -44,7 +44,7 @@ export default function buildQuery(formData: QueryFormData) {
       }
     }
     for (let i = 0; i < MAX_FORM_CONTROLS / 2; i++) {
-      const groupBy = formData?.group_by?.[i] as string;
+      const groupBy = formData.groupby?.[i] as string;
       if (formData[`use_order_by_group_by_${i}`] && groupBy) {
         orderby.push([groupBy, formData[`order_by_type_group_by_${i}`] === SortingType.ASC]);
       }
@@ -53,6 +53,8 @@ export default function buildQuery(formData: QueryFormData) {
       {
         ...baseQueryObject,
         orderby,
+        columns: [],
+        groupby: [...(formData.groupby || []), ...(formData.columns || [])],
       },
     ];
   });

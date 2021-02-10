@@ -101,7 +101,7 @@ const config: ControlPanelConfig = {
     {
       label: t('Query'),
       expanded: true,
-      controlSetRows: [['metrics'], [rows], ['columns'], ['adhoc_filters'], ['row_limit', null]],
+      controlSetRows: [[rows], ['columns'], ['metrics'], ['adhoc_filters'], ['row_limit', null]],
     },
     {
       label: t('Options'),

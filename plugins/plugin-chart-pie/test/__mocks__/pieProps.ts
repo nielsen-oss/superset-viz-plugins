@@ -1,5 +1,5 @@
 const formDataLegendTopPercent = {
-  groupBy: 'period',
+  groupby: 'period',
   metric: {
     label: 'AVG(efficiency)',
   },

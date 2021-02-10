@@ -50,7 +50,7 @@ export type FormData = {
   y2AxisTickLabelAngle: string;
   useY2Axis: boolean;
   metrics: Metric[];
-  groupBy: string[];
+  groupby: string[];
 };
 
 export type Data = Record<string, string | number>;
@@ -99,7 +99,7 @@ const getGroupByValues = (field: string, item: Record<string, string | number>, 
 
 export const addRechartsKeyAndGetGroupByValues = (formData: FormData, data: Data[], groupByValues: string[]) =>
   data.map(item => {
-    const dataKey = formData.groupBy.map(field => getGroupByValues(field, item, groupByValues));
+    const dataKey = formData.groupby.map(field => getGroupByValues(field, item, groupByValues));
     return {
       ...item,
       rechartsDataKey: dataKey.join(', '),
