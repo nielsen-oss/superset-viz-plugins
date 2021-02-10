@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.1.5 (2021-02-10)
+
+**Note:** Version bump only for package @superset-viz-plugins/plugin-chart-status
+
+
+
+
+
 ## [0.1.4](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-status@0.1.3...@superset-viz-plugins/plugin-chart-status@0.1.4) (2021-02-08)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-status
