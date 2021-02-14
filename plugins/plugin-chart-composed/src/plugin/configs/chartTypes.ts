@@ -31,7 +31,7 @@ export const chartType = {
       label: CHART_TYPE_NAMES[key],
     })),
     default: CHART_TYPES.BAR_CHART,
-    description: t('Set type of chart'),
+    description: t('Set default type of chart for all metrics'),
   },
 };
 export const barChartSubType = {
@@ -47,7 +47,7 @@ export const barChartSubType = {
     })),
     visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.chart_type === CHART_TYPES.BAR_CHART,
     default: CHART_SUB_TYPES.DEFAULT,
-    description: t('Set subtype of chart'),
+    description: t('Set default subtype of chart for all metrics'),
   },
 };
 

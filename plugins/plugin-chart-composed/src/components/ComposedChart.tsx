@@ -69,6 +69,7 @@ export type YAxisProps = XAxisProps & {
 export type ComposedChartProps = {
   height: number;
   width: number;
+  showTotals: boolean;
   showLegend: boolean;
   legendPosition: LegendPosition;
   data: ResultData[];
@@ -120,6 +121,7 @@ export default function ComposedChart(props: ComposedChartProps) {
     chartTypeMetrics,
     chartSubTypeMetrics,
     showLegend,
+    showTotals,
     legendPosition,
     useCustomTypeMetrics,
   } = props;
@@ -242,6 +244,7 @@ export default function ComposedChart(props: ComposedChartProps) {
             renderChartElement({
               chartType,
               metrics,
+              showTotals,
               breakdown,
               numbersFormat,
               useY2Axis,
@@ -255,6 +258,7 @@ export default function ComposedChart(props: ComposedChartProps) {
               chartTypeMetrics,
               chartSubTypeMetrics,
               colorScheme,
+              numberOfRenderedItems: breakdowns.length,
             }),
           )}
       </RechartsComposedChart>

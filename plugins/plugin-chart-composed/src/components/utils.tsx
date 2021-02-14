@@ -17,7 +17,18 @@
  * under the License.
  */
 import React from 'react';
-import { Area, Bar, LabelFormatter, LabelProps, LegendPayload, LegendProps, Line, Scatter } from 'recharts';
+import {
+  Area,
+  Bar,
+  LabelFormatter,
+  LabelProps,
+  LegendPayload,
+  LegendProps,
+  Line,
+  Scatter,
+  LabelList,
+  LabelListProps,
+} from 'recharts';
 import { CategoricalColorNamespace, getNumberFormatter } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, LabelColors, ResultData } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
@@ -100,6 +111,8 @@ export const CHART_SUB_TYPE_NAMES = {
 type LegendAlign = 'left' | 'center' | 'right';
 type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
 
+const emptyRender = () => null;
+
 export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[] {
   const result: ResultData[] = [];
   arrayOfObjects.forEach(item => {
@@ -119,7 +132,7 @@ const getLabelSize = (angle: number, dataKeyLength: number, angleMin: number, an
     : dataKeyLength + (angle === angleMax ? MIN_SYMBOL_WIDTH_FOR_TICK_LABEL * 6 : 0);
 
 export const getMetricName = (name: string, metrics: string[]) =>
-  metrics.length === 1 ? name.split(BREAKDOWN_SEPARATOR).pop() : name.split(BREAKDOWN_SEPARATOR).join(', ');
+  metrics.length === 1 ? name?.split(BREAKDOWN_SEPARATOR).pop() : name?.split(BREAKDOWN_SEPARATOR).join(', ');
 
 export const getLegendProps = (
   legendPosition: LegendPosition,
@@ -407,6 +420,7 @@ type ChartElementProps = {
   breakdown: string;
   colorScheme: string;
   useY2Axis?: boolean;
+  showTotals: boolean;
   chartSubType: keyof typeof CHART_SUB_TYPES;
   isAnimationActive?: boolean;
   chartType: keyof typeof CHART_TYPES;
@@ -418,6 +432,7 @@ type ChartElementProps = {
   numbersFormat: string;
   updater: number;
   index: number;
+  numberOfRenderedItems: number;
   currentData: ResultData[];
 };
 
@@ -436,13 +451,16 @@ export const renderChartElement = ({
   useCustomTypeMetrics,
   chartTypeMetrics,
   chartSubTypeMetrics,
+  showTotals,
   colorScheme,
+  numberOfRenderedItems,
 }: ChartElementProps) => {
   let customChartType = chartType;
   let customChartSubType = chartSubType;
-  if (useCustomTypeMetrics[index]) {
-    customChartType = chartTypeMetrics[index];
-    customChartSubType = chartSubTypeMetrics[index];
+  const actualMetricIndex = metrics.findIndex(metric => metric === breakdown?.split(BREAKDOWN_SEPARATOR)[0]);
+  if (useCustomTypeMetrics[actualMetricIndex]) {
+    customChartType = chartTypeMetrics[actualMetricIndex];
+    customChartSubType = chartSubTypeMetrics[actualMetricIndex];
   }
   const { Element, ...elementProps } = getChartElement(
     breakdown,
@@ -452,6 +470,16 @@ export const renderChartElement = ({
     customChartType === CHART_TYPES.BAR_CHART && useCustomTypeMetrics.some(el => el),
     index,
   );
+
+  const labelListExtraProps: LabelListProps = {
+    dataKey: 'rechartsTotal',
+    position: 'top',
+    formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
+  };
+  if (index !== numberOfRenderedItems - 1) {
+    labelListExtraProps.content = emptyRender;
+  }
+
   return (
     <Element
       key={`${breakdown}${updater}`}
@@ -464,9 +492,11 @@ export const renderChartElement = ({
         currentData,
         breakdown,
       }}
-      yAxisId={useY2Axis && breakdown.split(BREAKDOWN_SEPARATOR)[0] === metrics[metrics.length - 1] ? 'right' : 'left'}
+      yAxisId={useY2Axis && breakdown?.split(BREAKDOWN_SEPARATOR)[0] === metrics[metrics.length - 1] ? 'right' : 'left'}
       dataKey={breakdown}
       {...elementProps}
-    />
+    >
+      {showTotals && <LabelList {...labelListExtraProps} />}
+    </Element>
   );
 };

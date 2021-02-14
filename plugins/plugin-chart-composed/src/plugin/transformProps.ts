@@ -69,11 +69,13 @@ export default function transformProps(chartProps: ChartProps) {
     );
   });
 
+  let resultShowTotals = false;
   if (
     formData.barChartSubType === CHART_SUB_TYPES.STACKED &&
     formData.chartType === CHART_TYPES.BAR_CHART &&
     useCustomTypeMetrics.every(el => !el)
   ) {
+    resultShowTotals = formData.showTotals;
     resultData = resultData.map(item => ({
       ...item,
       rechartsTotal: breakdowns.reduce((total, breakdown) => total + ((item[breakdown] as number) || 0), 0),
@@ -93,6 +95,7 @@ export default function transformProps(chartProps: ChartProps) {
     showLegend: formData.showLegend,
     legendPosition: formData.legendPosition,
     chartSubType,
+    showTotals: resultShowTotals,
     numbersFormat: formData.numbersFormat,
     labelsColor: formData.labelsColor,
     xAxis: {

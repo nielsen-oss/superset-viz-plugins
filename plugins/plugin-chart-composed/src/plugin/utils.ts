@@ -41,6 +41,7 @@ export type FormData = {
   columns: string[];
   labelsColor: LabelColors;
   xAxisLabel: string;
+  showTotals: boolean;
   yAxisLabel: string;
   showLegend: boolean;
   legendPosition: LegendPosition;

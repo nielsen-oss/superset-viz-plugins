@@ -4,100 +4,7 @@ exports[`plugin-chart-composed All charts with breakdowns 1`] = `
 Object {
   "AreaProps": Array [
     Object {
-      "dataKey": "COUNT_DISTINCT(period)_$_Standard",
-      "fill": "#1f77b4",
-      "isAnimationActive": undefined,
-      "label": Object {
-        "breakdown": "COUNT_DISTINCT(period)_$_Standard",
-        "content": [Function],
-        "currentData": Array [
-          Object {
-            "COUNT_DISTINCT(due_to_group)": 12,
-            "COUNT_DISTINCT(due_to_group)_$_Custom": 12,
-            "COUNT_DISTINCT(due_to_group)_$_Standard": 12,
-            "COUNT_DISTINCT(efficiency)": 3,
-            "COUNT_DISTINCT(efficiency)_$_Custom": 3,
-            "COUNT_DISTINCT(efficiency)_$_Standard": 3,
-            "COUNT_DISTINCT(group_name)": 31,
-            "COUNT_DISTINCT(group_name)_$_Custom": 31,
-            "COUNT_DISTINCT(group_name)_$_Standard": 31,
-            "COUNT_DISTINCT(period)": 5,
-            "COUNT_DISTINCT(period)_$_Custom": 5,
-            "COUNT_DISTINCT(period)_$_Standard": 5,
-            "group_type": "Variable",
-            "period_type": "Custom",
-            "rechartsDataKey": "Variable",
-            "rechartsDataKeyUI": "Variable",
-          },
-          Object {
-            "COUNT_DISTINCT(due_to_group)": 6,
-            "COUNT_DISTINCT(due_to_group)_$_Custom": 7,
-            "COUNT_DISTINCT(due_to_group)_$_Standard": 6,
-            "COUNT_DISTINCT(efficiency)": 2,
-            "COUNT_DISTINCT(efficiency)_$_Custom": 2,
-            "COUNT_DISTINCT(efficiency)_$_Standard": 2,
-            "COUNT_DISTINCT(group_name)": 6,
-            "COUNT_DISTINCT(group_name)_$_Custom": 7,
-            "COUNT_DISTINCT(group_name)_$_Standard": 6,
-            "COUNT_DISTINCT(period)": 3,
-            "COUNT_DISTINCT(period)_$_Custom": 5,
-            "COUNT_DISTINCT(period)_$_Standard": 3,
-            "group_type": "DirectDueToGroup",
-            "period_type": "Standard",
-            "rechartsDataKey": "DirectDueToGroup",
-            "rechartsDataKeyUI": "DirectDueToGroup",
-          },
-          Object {
-            "COUNT_DISTINCT(due_to_group)": 6,
-            "COUNT_DISTINCT(due_to_group)_$_Custom": 7,
-            "COUNT_DISTINCT(due_to_group)_$_Standard": 6,
-            "COUNT_DISTINCT(efficiency)": 2,
-            "COUNT_DISTINCT(efficiency)_$_Custom": 2,
-            "COUNT_DISTINCT(efficiency)_$_Standard": 2,
-            "COUNT_DISTINCT(group_name)": 6,
-            "COUNT_DISTINCT(group_name)_$_Custom": 7,
-            "COUNT_DISTINCT(group_name)_$_Standard": 6,
-            "COUNT_DISTINCT(period)": 3,
-            "COUNT_DISTINCT(period)_$_Custom": 5,
-            "COUNT_DISTINCT(period)_$_Standard": 3,
-            "group_type": "DueToGroup",
-            "period_type": "Standard",
-            "rechartsDataKey": "DueToGroup",
-            "rechartsDataKeyUI": "DueToGroup",
-          },
-          Object {
-            "COUNT_DISTINCT(due_to_group)": 0,
-            "COUNT_DISTINCT(due_to_group)_$_Custom": 0,
-            "COUNT_DISTINCT(due_to_group)_$_Standard": 0,
-            "COUNT_DISTINCT(efficiency)": 6,
-            "COUNT_DISTINCT(efficiency)_$_Custom": 6,
-            "COUNT_DISTINCT(efficiency)_$_Standard": 6,
-            "COUNT_DISTINCT(group_name)": 3,
-            "COUNT_DISTINCT(group_name)_$_Custom": 3,
-            "COUNT_DISTINCT(group_name)_$_Standard": 3,
-            "COUNT_DISTINCT(period)": 5,
-            "COUNT_DISTINCT(period)_$_Custom": 5,
-            "COUNT_DISTINCT(period)_$_Standard": 5,
-            "group_type": "SummaryGroup",
-            "period_type": "Standard",
-            "rechartsDataKey": "SummaryGroup",
-            "rechartsDataKeyUI": "SummaryGroup",
-          },
-        ],
-        "fill": "black",
-        "formatter": [Function],
-        "position": "center",
-      },
-      "opacity": 0.8,
-      "stroke": "#1f77b4",
-      "strokeWidth": 2,
-      "type": "basis",
-      "yAxisId": "left",
-    },
-    Object {},
-  ],
-  "BarProps": Array [
-    Object {
+      "children": false,
       "dataKey": "COUNT_DISTINCT(period)_$_Custom",
       "fill": "#9467bd",
       "isAnimationActive": undefined,
@@ -182,9 +89,104 @@ Object {
         "formatter": [Function],
         "position": "center",
       },
-      "opacity": 0.6,
-      "stackId": "metric",
+      "opacity": 0.8,
+      "stroke": "#9467bd",
+      "strokeWidth": 2,
+      "type": "basis",
       "yAxisId": "left",
+    },
+    Object {},
+  ],
+  "BarProps": Array [
+    Object {
+      "children": false,
+      "dataKey": "COUNT_DISTINCT(efficiency)_$_Custom",
+      "fill": "#7f7f7f",
+      "isAnimationActive": undefined,
+      "label": Object {
+        "breakdown": "COUNT_DISTINCT(efficiency)_$_Custom",
+        "content": [Function],
+        "currentData": Array [
+          Object {
+            "COUNT_DISTINCT(due_to_group)": 12,
+            "COUNT_DISTINCT(due_to_group)_$_Custom": 12,
+            "COUNT_DISTINCT(due_to_group)_$_Standard": 12,
+            "COUNT_DISTINCT(efficiency)": 3,
+            "COUNT_DISTINCT(efficiency)_$_Custom": 3,
+            "COUNT_DISTINCT(efficiency)_$_Standard": 3,
+            "COUNT_DISTINCT(group_name)": 31,
+            "COUNT_DISTINCT(group_name)_$_Custom": 31,
+            "COUNT_DISTINCT(group_name)_$_Standard": 31,
+            "COUNT_DISTINCT(period)": 5,
+            "COUNT_DISTINCT(period)_$_Custom": 5,
+            "COUNT_DISTINCT(period)_$_Standard": 5,
+            "group_type": "Variable",
+            "period_type": "Custom",
+            "rechartsDataKey": "Variable",
+            "rechartsDataKeyUI": "Variable",
+          },
+          Object {
+            "COUNT_DISTINCT(due_to_group)": 6,
+            "COUNT_DISTINCT(due_to_group)_$_Custom": 7,
+            "COUNT_DISTINCT(due_to_group)_$_Standard": 6,
+            "COUNT_DISTINCT(efficiency)": 2,
+            "COUNT_DISTINCT(efficiency)_$_Custom": 2,
+            "COUNT_DISTINCT(efficiency)_$_Standard": 2,
+            "COUNT_DISTINCT(group_name)": 6,
+            "COUNT_DISTINCT(group_name)_$_Custom": 7,
+            "COUNT_DISTINCT(group_name)_$_Standard": 6,
+            "COUNT_DISTINCT(period)": 3,
+            "COUNT_DISTINCT(period)_$_Custom": 5,
+            "COUNT_DISTINCT(period)_$_Standard": 3,
+            "group_type": "DirectDueToGroup",
+            "period_type": "Standard",
+            "rechartsDataKey": "DirectDueToGroup",
+            "rechartsDataKeyUI": "DirectDueToGroup",
+          },
+          Object {
+            "COUNT_DISTINCT(due_to_group)": 6,
+            "COUNT_DISTINCT(due_to_group)_$_Custom": 7,
+            "COUNT_DISTINCT(due_to_group)_$_Standard": 6,
+            "COUNT_DISTINCT(efficiency)": 2,
+            "COUNT_DISTINCT(efficiency)_$_Custom": 2,
+            "COUNT_DISTINCT(efficiency)_$_Standard": 2,
+            "COUNT_DISTINCT(group_name)": 6,
+            "COUNT_DISTINCT(group_name)_$_Custom": 7,
+            "COUNT_DISTINCT(group_name)_$_Standard": 6,
+            "COUNT_DISTINCT(period)": 3,
+            "COUNT_DISTINCT(period)_$_Custom": 5,
+            "COUNT_DISTINCT(period)_$_Standard": 3,
+            "group_type": "DueToGroup",
+            "period_type": "Standard",
+            "rechartsDataKey": "DueToGroup",
+            "rechartsDataKeyUI": "DueToGroup",
+          },
+          Object {
+            "COUNT_DISTINCT(due_to_group)": 0,
+            "COUNT_DISTINCT(due_to_group)_$_Custom": 0,
+            "COUNT_DISTINCT(due_to_group)_$_Standard": 0,
+            "COUNT_DISTINCT(efficiency)": 6,
+            "COUNT_DISTINCT(efficiency)_$_Custom": 6,
+            "COUNT_DISTINCT(efficiency)_$_Standard": 6,
+            "COUNT_DISTINCT(group_name)": 3,
+            "COUNT_DISTINCT(group_name)_$_Custom": 3,
+            "COUNT_DISTINCT(group_name)_$_Standard": 3,
+            "COUNT_DISTINCT(period)": 5,
+            "COUNT_DISTINCT(period)_$_Custom": 5,
+            "COUNT_DISTINCT(period)_$_Standard": 5,
+            "group_type": "SummaryGroup",
+            "period_type": "Standard",
+            "rechartsDataKey": "SummaryGroup",
+            "rechartsDataKeyUI": "SummaryGroup",
+          },
+        ],
+        "fill": "black",
+        "formatter": [Function],
+        "position": "center",
+      },
+      "opacity": 0.6,
+      "stackId": "COUNT_DISTINCT(efficiency)_$_Custom",
+      "yAxisId": "right",
     },
     Object {},
   ],
@@ -778,13 +780,14 @@ Object {
                 "position": "center",
               }
             }
-            opacity={0.6}
-            stackId="metric"
+            opacity={0.8}
+            stroke="#9467bd"
+            strokeWidth={2}
+            type="basis"
             yAxisId="left"
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(group_name)_$_Custom"
-            fill="#8c564b"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(group_name)_$_Custom",
@@ -868,8 +871,10 @@ Object {
                 "position": "center",
               }
             }
-            opacity={0.6}
-            stackId="metric"
+            opacity={0.8}
+            stroke="#8c564b"
+            strokeWidth={2}
+            type="linear"
             yAxisId="left"
           />,
           <mockConstructor
@@ -958,8 +963,8 @@ Object {
                 "position": "center",
               }
             }
-            opacity={0.6}
-            stackId="metric"
+            opacity={0.8}
+            shape="circle"
             yAxisId="left"
           />,
           <mockConstructor
@@ -1049,7 +1054,7 @@ Object {
               }
             }
             opacity={0.6}
-            stackId="metric"
+            stackId="COUNT_DISTINCT(efficiency)_$_Custom"
             yAxisId="right"
           />,
         ],
@@ -1207,10 +1212,11 @@ Object {
   ],
   "LineProps": Array [
     Object {
-      "dataKey": "COUNT_DISTINCT(group_name)_$_Standard",
+      "children": false,
+      "dataKey": "COUNT_DISTINCT(group_name)_$_Custom",
       "isAnimationActive": undefined,
       "label": Object {
-        "breakdown": "COUNT_DISTINCT(group_name)_$_Standard",
+        "breakdown": "COUNT_DISTINCT(group_name)_$_Custom",
         "content": [Function],
         "currentData": Array [
           Object {
@@ -1291,7 +1297,7 @@ Object {
         "position": "center",
       },
       "opacity": 0.8,
-      "stroke": "#ff7f0e",
+      "stroke": "#8c564b",
       "strokeWidth": 2,
       "type": "linear",
       "yAxisId": "left",
@@ -1300,11 +1306,12 @@ Object {
   ],
   "ScatterProps": Array [
     Object {
-      "dataKey": "COUNT_DISTINCT(due_to_group)_$_Standard",
-      "fill": "#2ca02c",
+      "children": false,
+      "dataKey": "COUNT_DISTINCT(due_to_group)_$_Custom",
+      "fill": "#e377c2",
       "isAnimationActive": undefined,
       "label": Object {
-        "breakdown": "COUNT_DISTINCT(due_to_group)_$_Standard",
+        "breakdown": "COUNT_DISTINCT(due_to_group)_$_Custom",
         "content": [Function],
         "currentData": Array [
           Object {
@@ -1892,6 +1899,7 @@ exports[`plugin-chart-composed Chart with default props (legend top / horizontal
 Object {
   "BarProps": Array [
     Object {
+      "children": false,
       "dataKey": "COUNT_DISTINCT(group_name)",
       "fill": "#ff7f0e",
       "isAnimationActive": undefined,
