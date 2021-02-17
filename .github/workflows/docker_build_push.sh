@@ -26,5 +26,5 @@ else
   # Login and push
   docker logout
   docker login --username "${DOCKERHUB_USER}" --password "${DOCKERHUB_TOKEN}"
-  docker push "${REPOSITORY_NAME}"
+  docker push "${REPOSITORY_NAME}:${SUPERSET_VERSION}"
 fi
