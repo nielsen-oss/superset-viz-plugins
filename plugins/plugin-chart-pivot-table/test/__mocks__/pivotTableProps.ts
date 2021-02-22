@@ -461,13 +461,25 @@ export const queryDataSingleRow = {
 };
 
 export const withTotals = {
-  formData: formDataWithTotals,
+  datasource: {
+    verboseMap: {
+      group_type: 'Group Type',
+    },
+  },
+  formData: {
+    ...formDataWithTotals,
+  },
   height: 400,
   queriesData: [queryData],
   width: 800,
 };
 
 export const withNoTotals = {
+  datasource: {
+    verboseMap: {
+      group_type: 'Group Type',
+    },
+  },
   formData: {
     ...formDataWithTotals,
     showTotal: 'noTotal',
@@ -478,6 +490,11 @@ export const withNoTotals = {
 };
 
 export const singleRowCompact = {
+  datasource: {
+    verboseMap: {
+      group_type: 'Group Type',
+    },
+  },
   formData: {
     ...formDataWithTotalsSingleRow,
     compactView: true,
@@ -488,6 +505,11 @@ export const singleRowCompact = {
 };
 
 export const singleRowCompactWithNoTotals = {
+  datasource: {
+    verboseMap: {
+      group_type: 'Group Type',
+    },
+  },
   formData: {
     ...formDataWithTotalsSingleRow,
     compactView: true,

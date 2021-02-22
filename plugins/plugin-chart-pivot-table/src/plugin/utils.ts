@@ -17,7 +17,7 @@
  * under the License.
  */
 import { formatNumber } from '@superset-ui/core';
-import { QueryData } from './transformProps';
+import { DataSource, QueryData } from './transformProps';
 import { ShowTotal } from '../types';
 
 export const ROW_HEIGHT = 26;
@@ -283,4 +283,15 @@ export const extractUniqueData = (data: { [key: string]: string[] }) =>
   Object.entries(data).reduce(
     (acc, [itemKey, itemVal]) => ({ ...acc, [itemKey]: itemVal.map(val => val.split(TEXT_SEPARATOR)[0]) }),
     {},
+  );
+
+export const applyDatasourceLabels = <R extends string, C extends string, M extends string>(
+  data: QueryData<R, C, M>[],
+  datasource: DataSource<R, C>,
+) =>
+  data.map(item =>
+    Object.entries(item).reduce(
+      (acc, [key, val]) => ({ ...acc, [datasource.verboseMap[key] ?? key]: val }),
+      {} as Record<R, R> & Record<C, R> & Record<M, number>,
+    ),
   );

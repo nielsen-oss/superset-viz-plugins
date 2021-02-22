@@ -16,11 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { extractUniqueData, getOneDimensionData, getUnits, makeDataUnique } from './utils';
+import { applyDatasourceLabels, extractUniqueData, getOneDimensionData, getUnits, makeDataUnique } from './utils';
 import { ShowTotal } from '../types';
 
 type MetricObject<M extends string> = {
   label: M;
+  column: {
+    verbose_name: M;
+  };
 };
 
 type FormData<R extends string, C extends string, M extends string> = {
@@ -35,13 +38,14 @@ type FormData<R extends string, C extends string, M extends string> = {
   metrics: MetricObject<M>[];
 };
 
-export type QueryData<R extends string, C extends string, M extends string> = Record<R, string> &
-  Record<C, string> &
-  Record<M, number>;
-
+export type QueryData<R extends string, C extends string, M extends string> = Record<R | C, string> & Record<M, number>;
+export type DataSource<R extends string, C extends string> = {
+  verboseMap: Record<string, R> | Record<string, C>;
+};
 export type ChartProps<R extends string = string, C extends string = string, M extends string = string> = {
   width: number;
   height: number;
+  datasource: DataSource<R, C>;
   formData: FormData<R, C, M>;
   queriesData: {
     data: QueryData<R, C, M>[];
@@ -51,9 +55,10 @@ export type ChartProps<R extends string = string, C extends string = string, M e
 export default function transformProps<R extends string = string, C extends string = string, M extends string = string>(
   chartProps: ChartProps<R, C, M>,
 ) {
-  const { width, height, formData, queriesData } = chartProps;
+  const { width, height, formData, queriesData, datasource } = chartProps;
   let { data } = queriesData[0];
   const metrics = formData.metrics.map(({ label }) => label).sort();
+  data = applyDatasourceLabels<R, C, M>(data, datasource);
   data = makeDataUnique<R, C, M>(data, metrics);
   const {
     transpose,
@@ -66,8 +71,8 @@ export default function transformProps<R extends string = string, C extends stri
     emptyValuePlaceholder,
   } = formData;
   const numbersFormat = tempNumbersFormat || numberFormat;
-  let rows: R[] = tempRows || [];
-  let columns: C[] = tempColumns || [];
+  let rows: R[] = (tempRows ?? []).map(row => datasource.verboseMap[row] ?? row) as R[];
+  let columns: C[] = (tempColumns ?? []).map(column => datasource.verboseMap[column] ?? column) as C[];
   if (transpose) {
     rows = ((tempColumns as unknown) as R[]) || [];
     columns = ((tempRows as unknown) as C[]) || [];

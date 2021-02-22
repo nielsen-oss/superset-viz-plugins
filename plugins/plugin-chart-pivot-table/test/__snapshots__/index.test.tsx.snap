@@ -355,7 +355,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
               class="emotion-9"
             >
               <div>
-                group_type
+                Group Type
               </div>
             </div>
             <div
@@ -1611,7 +1611,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
               class="emotion-9"
             >
               <div>
-                group_type
+                Group Type
               </div>
             </div>
             <div
@@ -3109,7 +3109,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
               class="emotion-9"
             >
               <div>
-                group_type
+                Group Type
               </div>
             </div>
             <div
@@ -4654,7 +4654,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
               class="emotion-9"
             >
               <div>
-                group_type
+                Group Type
               </div>
             </div>
             <div
