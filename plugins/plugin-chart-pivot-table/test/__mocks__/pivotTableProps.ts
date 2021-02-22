@@ -1,4 +1,9 @@
 const formDataWithTotals = {
+  datasource: {
+    verboseMap: {
+      group_type: 'Group Type',
+    },
+  },
   metrics: [
     {
       label: 'AVG(decomp_volume)',
@@ -15,6 +20,11 @@ const formDataWithTotals = {
   showTotal: 'columnsAndRows',
 };
 const formDataWithTotalsSingleRow = {
+  datasource: {
+    verboseMap: {
+      group_type: 'Group Type',
+    },
+  },
   metrics: [
     {
       label: 'AVG(decomp_volume)',
