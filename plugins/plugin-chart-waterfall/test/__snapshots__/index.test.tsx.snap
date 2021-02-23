@@ -80,15 +80,15 @@ Object {
         Object {
           "COUNT(volume_for_roi)": Array [
             122,
-            166,
+            105,
           ],
           "period": "2018",
           "period_type": "Custom",
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            166,
-            208,
+            105,
+            86,
           ],
           "period": "2018",
           "period_type": "Standard",
@@ -96,7 +96,7 @@ Object {
         Object {
           "COUNT(volume_for_roi)": Array [
             0,
-            208,
+            86,
           ],
           "__TOTAL__": true,
           "period": "__TOTAL__",
@@ -104,16 +104,16 @@ Object {
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            208,
-            252,
+            86,
+            86,
           ],
           "period": "2017",
           "period_type": "Custom",
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            252,
-            294,
+            86,
+            86,
           ],
           "period": "2017",
           "period_type": "Standard",
@@ -121,7 +121,7 @@ Object {
         Object {
           "COUNT(volume_for_roi)": Array [
             0,
-            294,
+            86,
           ],
           "__TOTAL__": true,
           "period": "__TOTAL__",
@@ -129,16 +129,16 @@ Object {
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            294,
-            315,
+            86,
+            63,
           ],
           "period": "2020",
           "period_type": "Custom",
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            315,
-            334,
+            63,
+            40,
           ],
           "period": "2020",
           "period_type": "Standard",
@@ -146,7 +146,7 @@ Object {
         Object {
           "COUNT(volume_for_roi)": Array [
             0,
-            334,
+            40,
           ],
           "__TOTAL__": true,
           "period": "__TOTAL__",
@@ -154,16 +154,16 @@ Object {
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            334,
-            354,
+            40,
+            39,
           ],
           "period": "2019",
           "period_type": "Custom",
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            354,
-            373,
+            39,
+            39,
           ],
           "period": "2019",
           "period_type": "Standard",
@@ -171,7 +171,7 @@ Object {
         Object {
           "COUNT(volume_for_roi)": Array [
             0,
-            373,
+            39,
           ],
           "__TOTAL__": true,
           "period": "__TOTAL__",

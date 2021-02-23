@@ -50,15 +50,14 @@ const WaterfallBar: FC<WaterfallBarProps> = ({
     newY += height;
     newHeight = Math.abs(newHeight);
   }
-  const lineY = !isNegative ? y : y + newHeight;
   return (
     <>
       {index !== numberOfBars - 1 && (
         <line
           x1={x + 0.1 * width}
-          y1={lineY}
+          y1={y}
           x2={x + 2 * width - 0.1 * width}
-          y2={lineY}
+          y2={y}
           style={{
             stroke: supersetTheme.colors.grayscale.base,
             strokeWidth: 1,
