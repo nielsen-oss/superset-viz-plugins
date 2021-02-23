@@ -30,16 +30,16 @@ const groupDataByPeriod = (data: QueryData[], periodColumn: string) =>
   }, new Map<string, QueryData[]>());
 
 const addTotalValueToPeriod = (
-  newVal: QueryData[],
+  valuesOfPeriod: QueryData[],
   xAxisColumn: string,
   periodColumn: string,
   valueColumn: string,
   key: string,
 ) => {
   // Calc total per period
-  const sum = newVal.reduce((acc, cur) => acc + (cur[valueColumn] as number), 0);
+  const sum = valuesOfPeriod.reduce((acc, cur) => acc + (cur[valueColumn] as number), 0);
   // Push total per period to the end of period values array
-  newVal.push({
+  valuesOfPeriod.push({
     [xAxisColumn]: key,
     [periodColumn]: '__TOTAL__',
     [valueColumn]: sum,
@@ -48,6 +48,24 @@ const addTotalValueToPeriod = (
 
 const removeRedundantValuesInPeriod = (newVal: QueryData[], periodCounter: number) =>
   periodCounter === 0 ? [newVal[newVal.length - 1]] : newVal;
+
+const findDiffOfPeriodsValue = (
+  valueOfPeriod: QueryData,
+  valueColumn: string,
+  groupedData: Map<string, QueryData[]>,
+  keys: string[],
+  periodCounter: number,
+  xAxisColumn: string,
+): QueryData => ({
+  ...valueOfPeriod,
+  [valueColumn]:
+    (valueOfPeriod[valueColumn] as number) -
+    ((groupedData
+      ?.get(keys[periodCounter - 1])
+      ?.find(prevPeriodValue => prevPeriodValue[xAxisColumn] === valueOfPeriod[xAxisColumn])?.[
+      valueColumn
+    ] as number) ?? 0),
+});
 
 export const convertDataForRecharts = (
   periodColumn: string,
@@ -60,16 +78,22 @@ export const convertDataForRecharts = (
 
   let resultData: QueryData[] = [];
   let periodCounter = 0;
-  groupedData.forEach((val, key) => {
-    let newVal = val;
+  groupedData.forEach((valuesOfPeriod, periodKey) => {
+    const keys = [...groupedData.keys()];
+    let newValuesOfPeriod: QueryData[] =
+      periodCounter === 0
+        ? valuesOfPeriod
+        : valuesOfPeriod.map(valueOfPeriod =>
+            findDiffOfPeriodsValue(valueOfPeriod, valueColumn, groupedData, keys, periodCounter, xAxisColumn),
+          );
     // Sort for waterfall Desc
-    newVal.sort((a, b) => (a[periodColumn] as number) - (b[periodColumn] as number));
+    // newValuesOfPeriod.sort((a, b) => (a[periodColumn] as number) - (b[periodColumn] as number));
 
-    addTotalValueToPeriod(newVal, xAxisColumn, periodColumn, valueColumn, key);
-    newVal = removeRedundantValuesInPeriod(newVal, periodCounter);
+    addTotalValueToPeriod(newValuesOfPeriod, xAxisColumn, periodColumn, valueColumn, periodKey);
+    newValuesOfPeriod = removeRedundantValuesInPeriod(newValuesOfPeriod, periodCounter);
     periodCounter += 1;
 
-    resultData = resultData.concat(newVal);
+    resultData = resultData.concat(newValuesOfPeriod);
   });
   return resultData;
 };
