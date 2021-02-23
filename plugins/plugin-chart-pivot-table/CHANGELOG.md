@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.10.0 (2021-02-22)
+
+
+### Features
+
+* apply datasource labels ([#36](https://github.com/nielsen-oss/superset-viz-plugins/issues/36)) ([283e619](https://github.com/nielsen-oss/superset-viz-plugins/commit/283e6199e37af95606e1ad64e6d2533d35bf6343))
+
+
+
+
+
 ## [0.9.1](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-pivot-table@0.7.1...@superset-viz-plugins/plugin-chart-pivot-table@0.9.1) (2021-02-10)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-pivot-table
