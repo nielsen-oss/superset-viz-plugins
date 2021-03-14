@@ -37,14 +37,14 @@ export type QueryFormExtraFilter = {
 export default function buildQuery(formData: QueryFormData) {
   return buildQueryContext(formData, baseQueryObject => {
     const orderby: [string, boolean][] = [];
-    if (formData.use_order_by_metric) {
-      orderby.push([formData?.metric?.label, formData.order_by_metric === SortingType.ASC]);
-    }
     if (formData.use_order_by_period_column) {
       orderby.push([formData?.period_column, formData.order_by_period_column === SortingType.ASC]);
     }
     if (formData.use_order_by_x_axis_column) {
       orderby.push([formData?.x_axis_column, formData.order_by_x_axis_column === SortingType.ASC]);
+    }
+    if (formData.use_order_by_metric) {
+      orderby.push([formData?.metric?.label, formData.order_by_metric === SortingType.ASC]);
     }
 
     return [
