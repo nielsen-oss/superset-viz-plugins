@@ -28,13 +28,13 @@ import {
   Legend,
   LegendProps,
   Tooltip,
-  TooltipFormatter,
   XAxis,
   YAxis,
 } from 'recharts';
 import WaterfallTick from './WaterfallTick';
-import { getChartStyles, LEGEND, LegendPosition, renderLabel, tooltipFormatter } from './utils';
+import { getChartStyles, LEGEND, LegendPosition, renderLabel } from './utils';
 import WaterfallBar from './WaterfallBar';
+import WaterfallTooltip from './WaterfallTooltip';
 
 type WaterfallStylesProps = {
   height: number;
@@ -136,7 +136,7 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
             <CartesianGrid vertical={false} />
             <XAxis dataKey={xAxisDataKey} dy={10} angle={-45} tick={WaterfallTick} interval={0} />
             <YAxis tickFormatter={formatter} />
-            <Tooltip formatter={(tooltipFormatter(formatter) as unknown) as TooltipFormatter} />
+            <Tooltip content={<WaterfallTooltip formatter={formatter} />} />
             <Bar
               dataKey={dataKey}
               shape={props => <WaterfallBar {...props} numberOfBars={data?.length} />}

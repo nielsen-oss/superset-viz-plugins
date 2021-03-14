@@ -52,7 +52,11 @@ Object {
           tickFormatter={[Function]}
         />,
         <mockConstructor
-          formatter={[Function]}
+          content={
+            <WaterfallTooltip
+              formatter={[Function]}
+            />
+          }
         />,
         <mockConstructor
           dataKey="COUNT(volume_for_roi)"
@@ -240,7 +244,9 @@ Object {
   ],
   "TooltipProps": Array [
     Object {
-      "formatter": [Function],
+      "content": <WaterfallTooltip
+        formatter={[Function]}
+      />,
     },
     Object {},
   ],
