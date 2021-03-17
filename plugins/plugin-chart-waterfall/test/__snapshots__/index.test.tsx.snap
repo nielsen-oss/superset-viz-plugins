@@ -80,22 +80,31 @@ Object {
           "__TOTAL__": true,
           "period": "__TOTAL__",
           "period_type": "Total Period",
+          "thisPeriod": 122,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
             122,
             105,
           ],
+          "change": -17,
+          "dueTo": -13.934426229508196,
+          "lastPeriod": 122,
           "period": "2018",
           "period_type": "Custom",
+          "thisPeriod": 105,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
             105,
             86,
           ],
+          "change": -19,
+          "dueTo": -18.095238095238095,
+          "lastPeriod": 105,
           "period": "2018",
           "period_type": "Standard",
+          "thisPeriod": 86,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
@@ -105,22 +114,31 @@ Object {
           "__TOTAL__": true,
           "period": "__TOTAL__",
           "period_type": "2018",
+          "thisPeriod": 50,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
             86,
             86,
           ],
+          "change": 0,
+          "dueTo": 0,
+          "lastPeriod": 86,
           "period": "2017",
           "period_type": "Custom",
+          "thisPeriod": 86,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
             86,
             86,
           ],
+          "change": 0,
+          "dueTo": 0,
+          "lastPeriod": 86,
           "period": "2017",
           "period_type": "Standard",
+          "thisPeriod": 86,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
@@ -130,22 +148,31 @@ Object {
           "__TOTAL__": true,
           "period": "__TOTAL__",
           "period_type": "2017",
+          "thisPeriod": 86,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
             86,
             63,
           ],
+          "change": -23,
+          "dueTo": -26.744186046511626,
+          "lastPeriod": 86,
           "period": "2020",
           "period_type": "Custom",
+          "thisPeriod": 63,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
             63,
             40,
           ],
+          "change": -23,
+          "dueTo": -36.507936507936506,
+          "lastPeriod": 63,
           "period": "2020",
           "period_type": "Standard",
+          "thisPeriod": 40,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
@@ -155,22 +182,31 @@ Object {
           "__TOTAL__": true,
           "period": "__TOTAL__",
           "period_type": "2020",
+          "thisPeriod": -6,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
             40,
             39,
           ],
+          "change": -1,
+          "dueTo": -2.5,
+          "lastPeriod": 40,
           "period": "2019",
           "period_type": "Custom",
+          "thisPeriod": 39,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
             39,
             39,
           ],
+          "change": 0,
+          "dueTo": 0,
+          "lastPeriod": 39,
           "period": "2019",
           "period_type": "Standard",
+          "thisPeriod": 39,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
@@ -180,6 +216,7 @@ Object {
           "__TOTAL__": true,
           "period": "__TOTAL__",
           "period_type": "2019",
+          "thisPeriod": 38,
         },
       ],
       "height": 400,
