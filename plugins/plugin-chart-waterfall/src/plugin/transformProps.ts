@@ -18,7 +18,7 @@
  */
 import { ChartProps } from '@superset-ui/core';
 import { WaterfallChartData } from '../components/WaterfallChart';
-import { convertDataForRecharts, createReChartsBarValues } from './utils';
+import { convertDataForRecharts, createReChartsBarValues, SortingType } from './utils';
 import { LegendPosition } from '../components/utils';
 
 type Metric = {
@@ -36,6 +36,8 @@ type FormData = {
   metric: Metric;
   numbersFormat: string;
   legendPosition: LegendPosition;
+  orderByChange: SortingType;
+  useOrderByChange: boolean;
 };
 
 export default function transformProps(
@@ -53,12 +55,27 @@ export default function transformProps(
 } {
   const { width, height, formData, queriesData } = chartProps;
 
-  const { periodColumn, xAxisColumn, metric, numbersFormat, legendPosition } = formData as FormData;
+  const {
+    periodColumn,
+    xAxisColumn,
+    metric,
+    numbersFormat,
+    legendPosition,
+    orderByChange,
+    useOrderByChange,
+  } = formData as FormData;
 
   const valueColumn = metric.label;
   const data = queriesData?.[0]?.data as QueryData[];
 
-  const rechartsData = convertDataForRecharts(periodColumn, xAxisColumn, valueColumn, data);
+  const rechartsData = convertDataForRecharts(
+    periodColumn,
+    xAxisColumn,
+    valueColumn,
+    data,
+    orderByChange,
+    useOrderByChange,
+  );
 
   const resultData = createReChartsBarValues(rechartsData, valueColumn, periodColumn);
 

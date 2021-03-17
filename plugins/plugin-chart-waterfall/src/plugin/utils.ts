@@ -20,6 +20,11 @@ import { t } from '@superset-ui/core';
 import { WaterfallChartData } from '../components/WaterfallChart';
 import { QueryData } from './transformProps';
 
+export enum SortingType {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
 const groupDataByPeriod = (data: QueryData[], periodColumn: string) =>
   data.reduce((acc, cur) => {
     const period = cur[periodColumn] as string;
@@ -72,6 +77,8 @@ export const convertDataForRecharts = (
   xAxisColumn: string,
   valueColumn: string,
   data: QueryData[],
+  orderByChange: SortingType,
+  useOrderByChange: boolean,
 ) => {
   // Group by period (temporary map)
   const groupedData = groupDataByPeriod(data, periodColumn);
@@ -86,14 +93,20 @@ export const convertDataForRecharts = (
         : valuesOfPeriod.map(valueOfPeriod =>
             findDiffOfPeriodsValue(valueOfPeriod, valueColumn, groupedData, keys, periodCounter, xAxisColumn),
           );
-    // Sort for waterfall Desc
-    // newValuesOfPeriod.sort((a, b) => (a[periodColumn] as number) - (b[periodColumn] as number));
 
     addTotalValueToPeriod(newValuesOfPeriod, xAxisColumn, periodColumn, valueColumn, periodKey);
     newValuesOfPeriod = removeRedundantValuesInPeriod(newValuesOfPeriod, periodCounter);
-    periodCounter += 1;
+    // Add client sort by change
+    if (useOrderByChange) {
+      newValuesOfPeriod.sort((a, b) =>
+        a[periodColumn] === '__TOTAL__'
+          ? 1
+          : (orderByChange === SortingType.ASC ? 1 : -1) * ((a[valueColumn] as number) - (b[valueColumn] as number)),
+      );
+    }
 
     resultData = resultData.concat(newValuesOfPeriod);
+    periodCounter += 1;
   });
   return resultData;
 };
@@ -102,9 +115,9 @@ export const createReChartsBarValues = (
   rechartsData: QueryData[],
   valueColumn: keyof QueryData,
   periodColumn: keyof QueryData,
-): WaterfallChartData[] =>
+): WaterfallChartData[] => {
   // Create ReCharts values array of deltas for bars
-  rechartsData.map((cur: QueryData, index: number) => {
+  const resultData = rechartsData.map((cur: QueryData, index: number) => {
     let totalSumUpToCur = 0;
     for (let i = 0; i < index; i++) {
       // Ignore calculation on period column
@@ -113,26 +126,32 @@ export const createReChartsBarValues = (
       }
     }
 
+    const lastPeriod = totalSumUpToCur;
+    const thisPeriod = totalSumUpToCur + (cur[valueColumn] as number);
+    const change = thisPeriod - lastPeriod;
+    const dueTo = (change / lastPeriod) * 100;
     if (cur[periodColumn] === '__TOTAL__') {
       return {
         ...cur,
+        thisPeriod,
         __TOTAL__: true,
         [valueColumn]: [0, totalSumUpToCur || cur[valueColumn]],
       } as WaterfallChartData;
     }
-
     return {
       ...cur,
-      [valueColumn]: [totalSumUpToCur, totalSumUpToCur + (cur[valueColumn] as number)],
+      lastPeriod,
+      thisPeriod,
+      change,
+      dueTo,
+      [valueColumn]: [lastPeriod, thisPeriod],
     } as WaterfallChartData;
   });
 
-export const MAX_FORM_CONTROLS = 50;
+  return resultData;
+};
 
-export enum SortingType {
-  ASC = 'ASC',
-  DESC = 'DESC',
-}
+export const MAX_FORM_CONTROLS = 50;
 
 export const SortingTypeNames = {
   [SortingType.ASC]: t('Ascending'),

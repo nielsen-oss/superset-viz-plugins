@@ -27,13 +27,22 @@ type Sorting = [
 
 const orderBy: Sorting[] = [];
 
-const getOrderByRow = ({ name, title }: { name: string; title: string }): Sorting => [
+const getOrderByRow = ({
+  name,
+  title,
+  renderTrigger = false,
+}: {
+  name: string;
+  title: string;
+  renderTrigger?: boolean;
+}): Sorting => [
   {
     name: `use_order_by_${name}`,
     config: {
       type: 'CheckboxControl',
       label: t(`Use sorting for ${title}`),
       default: false,
+      renderTrigger,
       description: t(`Use sorting for ${title}`),
     },
   },
@@ -47,6 +56,7 @@ const getOrderByRow = ({ name, title }: { name: string; title: string }): Sortin
         value: key,
         label: SortingTypeNames[key],
       })),
+      renderTrigger,
       visibility: ({ form_data }: { form_data: QueryFormData }) => !!form_data[`use_order_by_${name}`],
       default: SortingType.ASC,
       description: t(`Set Ascending / Descending sorting for ${title}`),
@@ -58,6 +68,7 @@ const getOrderByRow = ({ name, title }: { name: string; title: string }): Sortin
   { title: t('"xAxis Column"'), name: 'x_axis_column' },
   { title: t('"Period Column"'), name: 'period_column' },
   { title: t('"Metric"'), name: 'metric' },
+  { title: t('"Change"'), name: 'change', renderTrigger: true },
 ].forEach(item => {
   orderBy.push(getOrderByRow(item));
 });
