@@ -24,11 +24,13 @@ type WaterfallTooltipProps = {
   active?: boolean;
   payload?: {
     value: number[];
-    name: string;
-    lastPeriod: number;
-    thisPeriod: number;
-    change: number;
-    dueTo: number;
+    payload: {
+      name: string;
+      lastPeriod: number;
+      thisPeriod: number;
+      change: number;
+      dueTo: number;
+    };
   }[];
   label?: string;
 };
