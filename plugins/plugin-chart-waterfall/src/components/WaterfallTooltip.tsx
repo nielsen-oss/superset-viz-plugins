@@ -22,7 +22,16 @@ import { styled, t } from '@superset-ui/core';
 type WaterfallTooltipProps = {
   formatter: Function;
   active?: boolean;
-  payload?: { value: number[]; name: string }[];
+  payload?: {
+    value: number[];
+    payload: {
+      name: string;
+      lastPeriod: number;
+      thisPeriod: number;
+      change: number;
+      changePercentage: number;
+    };
+  }[];
   label?: string;
 };
 
@@ -42,10 +51,7 @@ const Title = styled.div`
 
 const WaterfallTooltip: FC<WaterfallTooltipProps> = ({ active, payload, label, formatter }) => {
   if (active && payload && payload.length) {
-    const lastPeriod = payload[0].value[0];
-    const thisPeriod = payload[0].value[1];
-    const change = thisPeriod - lastPeriod;
-    const dueTo = (change / lastPeriod) * 100;
+    const { lastPeriod, thisPeriod, change, changePercentage } = payload[0]?.payload;
     return (
       <Wrapper>
         <Title>{label}</Title>
@@ -56,7 +62,7 @@ const WaterfallTooltip: FC<WaterfallTooltipProps> = ({ active, payload, label, f
         {!!lastPeriod && <div>{t('Change:')}</div>}
         {!!lastPeriod && <div>{formatter(change)}</div>}
         {!!lastPeriod && <div>{t('Due-To %:')}</div>}
-        {!!lastPeriod && <div>{formatter(dueTo)}%</div>}
+        {!!lastPeriod && <div>{formatter(changePercentage)}%</div>}
       </Wrapper>
     );
   }
