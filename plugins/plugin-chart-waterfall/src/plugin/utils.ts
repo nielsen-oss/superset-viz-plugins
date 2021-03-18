@@ -129,7 +129,7 @@ export const createReChartsBarValues = (
     const lastPeriod = totalSumUpToCur;
     const thisPeriod = totalSumUpToCur + (cur[valueColumn] as number);
     const change = thisPeriod - lastPeriod;
-    const dueTo = (change / lastPeriod) * 100;
+    const changePercentage = (change / lastPeriod) * 100;
     if (cur[periodColumn] === '__TOTAL__') {
       return {
         ...cur,
@@ -143,7 +143,7 @@ export const createReChartsBarValues = (
       lastPeriod,
       thisPeriod,
       change,
-      dueTo,
+      changePercentage,
       [valueColumn]: [lastPeriod, thisPeriod],
     } as WaterfallChartData;
   });

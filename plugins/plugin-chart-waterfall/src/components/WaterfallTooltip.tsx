@@ -29,7 +29,7 @@ type WaterfallTooltipProps = {
       lastPeriod: number;
       thisPeriod: number;
       change: number;
-      dueTo: number;
+      changePercentage: number;
     };
   }[];
   label?: string;
@@ -51,7 +51,7 @@ const Title = styled.div`
 
 const WaterfallTooltip: FC<WaterfallTooltipProps> = ({ active, payload, label, formatter }) => {
   if (active && payload && payload.length) {
-    const { lastPeriod, thisPeriod, change, dueTo } = payload[0]?.payload;
+    const { lastPeriod, thisPeriod, change, changePercentage } = payload[0]?.payload;
     return (
       <Wrapper>
         <Title>{label}</Title>
@@ -62,7 +62,7 @@ const WaterfallTooltip: FC<WaterfallTooltipProps> = ({ active, payload, label, f
         {!!lastPeriod && <div>{t('Change:')}</div>}
         {!!lastPeriod && <div>{formatter(change)}</div>}
         {!!lastPeriod && <div>{t('Due-To %:')}</div>}
-        {!!lastPeriod && <div>{formatter(dueTo)}%</div>}
+        {!!lastPeriod && <div>{formatter(changePercentage)}%</div>}
       </Wrapper>
     );
   }
