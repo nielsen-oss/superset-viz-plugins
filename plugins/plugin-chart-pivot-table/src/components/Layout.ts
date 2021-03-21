@@ -44,6 +44,7 @@ export const FillItem = styled.div<{ hidden?: boolean; justifyContent?: JustifyC
   & > * {
     ${({ hidden }) => !hidden && 'padding: 3px 10px;'}
   }
+  line-height: 1.4;
   display: flex;
   align-items: ${({ alignItems }) => alignItems || 'center'};
   justify-content: ${({ justifyContent }) => justifyContent || 'center'};

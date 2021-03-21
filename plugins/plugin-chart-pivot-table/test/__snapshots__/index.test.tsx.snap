@@ -40,6 +40,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-5 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -63,6 +64,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-6 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -96,6 +98,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-9 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -120,6 +123,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-10 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -149,6 +153,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-15 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -172,6 +177,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-17 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -196,6 +202,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-27 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -220,6 +227,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-47 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -245,6 +253,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-48 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -277,6 +286,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-129 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -294,6 +304,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
 }
 
 .emotion-130 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1244,6 +1255,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-5 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1267,6 +1279,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-6 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1300,6 +1313,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-9 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1324,6 +1338,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-10 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1346,6 +1361,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-14 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1376,6 +1392,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-16 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1399,6 +1416,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-18 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1423,6 +1441,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-28 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1447,6 +1466,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-48 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1472,6 +1492,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-49 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1498,6 +1519,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-150 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1533,6 +1555,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-157 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1550,6 +1573,7 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
 }
 
 .emotion-158 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2697,6 +2721,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-5 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2720,6 +2745,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-6 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2753,6 +2779,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-9 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2777,6 +2804,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-10 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2800,6 +2828,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-14 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2823,6 +2852,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-15 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2845,6 +2875,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-23 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2875,6 +2906,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-25 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2898,6 +2930,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-27 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2922,6 +2955,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-33 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2946,6 +2980,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-45 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2970,6 +3005,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-46 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2996,6 +3032,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-155 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3031,6 +3068,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-166 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3049,6 +3087,7 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
 }
 
 .emotion-167 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4294,6 +4333,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-5 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4317,6 +4357,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-6 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4350,6 +4391,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-9 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4374,6 +4416,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-10 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4397,6 +4440,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-14 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4420,6 +4464,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-15 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4449,6 +4494,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-24 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4472,6 +4518,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-26 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4496,6 +4543,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-32 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4520,6 +4568,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-44 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4544,6 +4593,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-45 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4576,6 +4626,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-142 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4594,6 +4645,7 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
 }
 
 .emotion-143 {
+  line-height: 1.4;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
