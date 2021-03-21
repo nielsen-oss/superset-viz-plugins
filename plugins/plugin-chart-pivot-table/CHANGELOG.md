@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.10.1 (2021-03-21)
+
+
+### Bug Fixes
+
+* fix pivot table ([6da4ce1](https://github.com/nielsen-oss/superset-viz-plugins/commit/6da4ce1f6d4d2f825272db5cfe023116419b2559))
+
+
+
+
+
 # 0.10.0 (2021-02-22)
 
 
