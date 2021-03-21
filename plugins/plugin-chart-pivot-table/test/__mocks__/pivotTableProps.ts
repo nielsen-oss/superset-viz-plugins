@@ -14,6 +14,7 @@ const formDataWithTotals = {
   emptyValuePlaceholder: '---',
   showTotal: 'columnsAndRows',
 };
+
 const formDataWithTotalsSingleRow = {
   metrics: [
     {
