@@ -67,7 +67,7 @@ jobs:
     - name: Checkout superset repo
       uses: actions/checkout@v2
       with:
-        repository: apache/incubator-superset
+        repository: apache/superset
         path: superset
         ref: ${{ env.SUPERSET_VERSION }}
 
