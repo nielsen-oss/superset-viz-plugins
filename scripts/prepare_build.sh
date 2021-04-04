@@ -5,8 +5,8 @@ bash --version
 echo $GITHUB_WORKSPACE
 
 # Add dependencies superset-frontend and generate the preset
-cp .npmrc $GITHUB_WORKSPACE/incubator-superset/superset-frontend/.npmrc
-cd $GITHUB_WORKSPACE/incubator-superset/superset-frontend
+cp .npmrc $GITHUB_WORKSPACE/superset/superset-frontend/.npmrc
+cd $GITHUB_WORKSPACE/superset/superset-frontend
 
 # add dependencies to package.json
 node $GITHUB_WORKSPACE/superset-viz-plugins/scripts/addDependencies.js
