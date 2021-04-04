@@ -87,5 +87,5 @@ jobs:
         REPOSITORY_NAME: 'nielsenoss/apache-superset'
       run: |
         chmod +x $GITHUB_WORKSPACE/superset-viz-plugins/.github/workflows/docker_build_push.sh
-        $GITHUB_WORKSPACE/superset-viz-plugins/.github/workflows/docker_build_push.sh $GITHUB_WORKSPACE/incubator-superset
+        $GITHUB_WORKSPACE/superset-viz-plugins/.github/workflows/docker_build_push.sh $GITHUB_WORKSPACE/superset
       working-directory: .
