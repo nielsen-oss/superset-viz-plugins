@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      - '1.2-integration'
 
 jobs:
   main:
@@ -11,7 +12,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      SUPERSET_VERSION: '1.0'
+      SUPERSET_VERSION: 'master'
       PRESET_NAME: Nielsen
     steps:
     - name: Use Node.js
@@ -63,14 +64,12 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-
     - name: Checkout superset repo
       uses: actions/checkout@v2
       with:
         repository: apache/incubator-superset
-        path: incubator-superset
+        path: superset
         ref: ${{ env.SUPERSET_VERSION }}
-
 
     - name: Prepare superset build
       run: |
@@ -79,7 +78,6 @@ jobs:
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         PLUGINS_EXTRA_FILENAME: 'setupPluginsExtra.ts'
-
 
     - name: build & push docker
       shell: bash
