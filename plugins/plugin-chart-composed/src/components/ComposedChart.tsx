@@ -183,7 +183,7 @@ export default function ComposedChart(props: ComposedChartProps) {
         width={width}
         height={height}
         layout={layout}
-        margin={{ left: 10, right: 10 }}
+        margin={{ left: 10, right: 10, top: 15 }}
         data={currentData}
       >
         {showLegend && (
