@@ -37,11 +37,20 @@ type Payload = {
   numbersFormat: string;
 };
 
-const ComposedChartTooltip: FC<TooltipProps & {
+type ComposedChartTooltipProps = TooltipProps & {
   numbersFormat: string;
   metrics: string[];
-  isBarChartOrder: boolean;
-}> = ({ active, numbersFormat, metrics, payload = [], label, isBarChartOrder }) => {
+  hasOrderedBars: boolean;
+};
+
+const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
+  active,
+  numbersFormat,
+  metrics,
+  payload = [],
+  label,
+  hasOrderedBars,
+}) => {
   if (active) {
     const firstPayload: Payload = payload[0]?.payload;
     const total = firstPayload?.rechartsTotal;
@@ -51,7 +60,7 @@ const ComposedChartTooltip: FC<TooltipProps & {
         <p>{label}</p>
         {payload.map((initItem, index) => {
           // @ts-ignore
-          const item = isBarChartOrder ? initItem?.payload[index] : initItem;
+          const item = hasOrderedBars ? initItem?.payload[index] : initItem;
           const name = getMetricName(item.name, metrics);
           return (
             <Line key={name} color={item.color}>{`${name}: ${

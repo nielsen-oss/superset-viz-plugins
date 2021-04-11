@@ -16,8 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { CategoricalColorNamespace, ChartProps } from '@superset-ui/core';
-import { CHART_SUB_TYPES, CHART_TYPES, mergeBy, Layout, BarChartValue } from '../components/utils';
+import { ChartProps } from '@superset-ui/core';
+import { CHART_SUB_TYPES, CHART_TYPES, mergeBy, Layout } from '../components/utils';
 import { ComposedChartProps } from '../components/ComposedChart';
 import {
   addBreakdownMetricsAndGetBreakdownValues,
@@ -79,17 +79,17 @@ export default function transformProps(chartProps: ChartProps) {
     resultShowTotals = formData.showTotals;
   }
 
-  const isBarChartOrder = formData.chartType === CHART_TYPES.BAR_CHART && formData.useOrderByMetric0;
+  const hasOrderedBars = formData.chartType === CHART_TYPES.BAR_CHART && formData.useOrderByMetric0;
 
   const result: ComposedChartProps = {
     orderByTypeMetric: formData.orderByTypeMetric0 as SortingType,
-    isBarChartOrder,
+    hasOrderedBars,
     breakdowns,
     width,
     height,
     chartTypeMetrics,
     chartSubTypeMetrics,
-    useCustomTypeMetrics,
+    hasCustomTypeMetrics: useCustomTypeMetrics,
     layout: formData.layout,
     colorScheme: formData.colorScheme,
     chartType: formData.chartType,
@@ -103,7 +103,7 @@ export default function transformProps(chartProps: ChartProps) {
       label: formData.xAxisLabel,
       tickLabelAngle: -Number(formData.xAxisTickLabelAngle),
     },
-    useY2Axis: formData.useY2Axis && formData.layout === Layout.horizontal,
+    hasY2Axis: formData.useY2Axis && formData.layout === Layout.horizontal,
     yAxis: {
       label: formData.yAxisLabel,
       tickLabelAngle: -Number(formData.yAxisTickLabelAngle),

@@ -34,16 +34,12 @@ import { CategoricalColorNamespace, getNumberFormatter } from '@superset-ui/core
 import { BREAKDOWN_SEPARATOR, ColorsMap, LabelColors, ResultData, SortingType } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 
+export type BarChartValue = { id: string; value: number; name: string; color: string };
+
 export enum Layout {
   horizontal = 'horizontal',
   vertical = 'vertical',
 }
-
-export const MAX_SYMBOLS_IN_TICK_LABEL = 20;
-export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 6;
-export const MIN_BAR_SIZE_FOR_LABEL = 18;
-export const MIN_SYMBOL_WIDTH_FOR_LABEL = 14;
-export const MIN_LABEL_MARGIN = 20;
 
 export enum LegendPosition {
   top = 'top',
@@ -51,6 +47,16 @@ export enum LegendPosition {
   bottom = 'bottom',
   left = 'left',
 }
+
+type LegendAlign = 'left' | 'center' | 'right';
+type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
+type BarChartValueMap = { [key: string]: BarChartValue };
+
+export const MAX_SYMBOLS_IN_TICK_LABEL = 20;
+export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 6;
+export const MIN_BAR_SIZE_FOR_LABEL = 18;
+export const MIN_SYMBOL_WIDTH_FOR_LABEL = 14;
+export const MIN_LABEL_MARGIN = 20;
 
 export const CHART_TYPES = {
   BAR_CHART: 'BAR_CHART',
@@ -74,8 +80,6 @@ export const CHART_SUB_TYPES = {
   DEFAULT: 'default',
   STACKED: 'stacked',
 };
-
-export type BarChartValue = { id: string; value: number; name: string; color: string };
 
 export const CHART_TYPE_NAMES = {
   [CHART_TYPES.BAR_CHART]: 'Bar Chart',
@@ -110,9 +114,6 @@ export const CHART_SUB_TYPE_NAMES = {
     [CHART_SUB_TYPES.STEP]: 'Step Area Chart',
   },
 };
-
-type LegendAlign = 'left' | 'center' | 'right';
-type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
 
 const emptyRender = () => null;
 
@@ -405,19 +406,21 @@ export const renderLabel = ({
   currentData,
   breakdown,
   index,
-  isBarChartOrder,
+  hasOrderedBars,
   breakdowns,
 }: LabelProps & {
   currentData: ResultData[];
   breakdown: string;
   index: number;
-  isBarChartOrder: boolean;
+  hasOrderedBars: boolean;
   breakdowns: string[];
 }) => {
-  const formattedValue = isBarChartOrder
-    ? // @ts-ignore
-      `${formatter(Object.values(currentData[index])[breakdowns.findIndex(item => item === breakdown)]?.value)}`
-    : `${formatter(currentData[index][breakdown])}`;
+  let formattedValue = `${formatter(currentData[index][breakdown])}`;
+  if (hasOrderedBars) {
+    const foundItemIndex = breakdowns.findIndex(item => item === breakdown);
+    // @ts-ignore
+    formattedValue = Object.values(currentData[index])[foundItemIndex]?.value;
+  }
   if (
     Math.abs(labelHeight) < MIN_BAR_SIZE_FOR_LABEL ||
     Math.abs(labelWidth) < formattedValue.length * MIN_SYMBOL_WIDTH_FOR_LABEL
@@ -428,11 +431,11 @@ export const renderLabel = ({
 };
 
 type ChartElementProps = {
-  isBarChartOrder: boolean;
+  hasOrderedBars: boolean;
   breakdown: string;
   breakdowns: string[];
   colorScheme: string;
-  useY2Axis?: boolean;
+  hasY2Axis?: boolean;
   showTotals: boolean;
   chartSubType: keyof typeof CHART_SUB_TYPES;
   isAnimationActive?: boolean;
@@ -441,7 +444,7 @@ type ChartElementProps = {
   labelsColor: LabelColors;
   chartTypeMetrics: (keyof typeof CHART_TYPES)[];
   chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[];
-  useCustomTypeMetrics: boolean[];
+  hasCustomTypeMetrics: boolean[];
   numbersFormat: string;
   updater: number;
   index: number;
@@ -449,23 +452,23 @@ type ChartElementProps = {
   currentData: ResultData[];
 };
 
-const getValueForBarChart = (obj: { [key: string]: BarChartValue }, key: string) => obj?.[key]?.value;
+const getValueForBarChart = (obj: BarChartValueMap, key: string) => obj?.[key]?.value;
 
 export const renderChartElement = ({
-  isBarChartOrder,
+  hasOrderedBars,
   breakdown,
   breakdowns,
   chartType,
   currentData,
   metrics,
   numbersFormat,
-  useY2Axis,
+  hasY2Axis,
   labelsColor,
   isAnimationActive,
   updater,
   index,
   chartSubType,
-  useCustomTypeMetrics,
+  hasCustomTypeMetrics,
   chartTypeMetrics,
   chartSubTypeMetrics,
   showTotals,
@@ -475,7 +478,7 @@ export const renderChartElement = ({
   let customChartType = chartType;
   let customChartSubType = chartSubType;
   const actualMetricIndex = metrics.findIndex(metric => metric === breakdown?.split(BREAKDOWN_SEPARATOR)[0]);
-  if (useCustomTypeMetrics[actualMetricIndex]) {
+  if (hasCustomTypeMetrics[actualMetricIndex]) {
     customChartType = chartTypeMetrics[actualMetricIndex];
     customChartSubType = chartSubTypeMetrics[actualMetricIndex];
   }
@@ -486,7 +489,7 @@ export const renderChartElement = ({
     customChartType,
     customChartSubType,
     color,
-    customChartType === CHART_TYPES.BAR_CHART && useCustomTypeMetrics.some(el => el),
+    customChartType === CHART_TYPES.BAR_CHART && hasCustomTypeMetrics.some(el => el),
   );
 
   const labelListExtraProps: LabelListProps = {
@@ -500,8 +503,8 @@ export const renderChartElement = ({
     labelListExtraProps.content = emptyRender;
   }
   let dataKey: string | Function = breakdown;
-  if (isBarChartOrder) {
-    dataKey = (val: { [key: string]: BarChartValue }) => getValueForBarChart(val, String(index));
+  if (hasOrderedBars) {
+    dataKey = (val: BarChartValueMap) => getValueForBarChart(val, String(index));
   }
 
   return (
@@ -516,17 +519,17 @@ export const renderChartElement = ({
         currentData,
         breakdown,
         breakdowns,
-        isBarChartOrder,
+        hasOrderedBars,
       }}
-      yAxisId={useY2Axis && breakdown?.split(BREAKDOWN_SEPARATOR)[0] === metrics[metrics.length - 1] ? 'right' : 'left'}
+      yAxisId={hasY2Axis && breakdown?.split(BREAKDOWN_SEPARATOR)[0] === metrics[metrics.length - 1] ? 'right' : 'left'}
       dataKey={dataKey}
       {...elementProps}
     >
-      {isBarChartOrder &&
+      {hasOrderedBars &&
         // @ts-ignore
-        currentData.map((entry: { [key: string]: BarChartValue }) => {
-          const otherProps = entry[index] ? {} : { fillOpacity: 0 };
-          return <Cell fill={entry[index]?.color} {...otherProps} />;
+        currentData.map((dataItem: BarChartValueMap) => {
+          const otherProps = dataItem[index] ? { fill: dataItem[index]?.color } : { fillOpacity: 0 };
+          return <Cell {...otherProps} />;
         })}
       {showTotals && <LabelList {...labelListExtraProps} />}
     </Element>
@@ -534,13 +537,13 @@ export const renderChartElement = ({
 };
 
 export const processBarChartOrder = (
-  isBarChartOrder: boolean,
+  hasOrderedBars: boolean,
   breakdowns: string[],
   resultData: ResultData[],
   colorScheme: string,
   orderByTypeMetric: SortingType,
 ): ResultData[] => {
-  if (isBarChartOrder) {
+  if (hasOrderedBars) {
     const barChartColorsMap: ColorsMap = {};
     // Build this model: https://mabdelsattar.medium.com/recharts-stack-order-bf22c245d0be
     breakdowns.forEach((breakdown, index) => {
@@ -576,13 +579,13 @@ export const processBarChartOrder = (
   return resultData;
 };
 
-export const addTotalValues = (breakdowns: string[], resultData: ResultData[], isBarChartOrder: boolean) =>
+export const addTotalValues = (breakdowns: string[], resultData: ResultData[], hasOrderedBars: boolean) =>
   resultData.map(item => ({
     ...item,
     rechartsTotal: breakdowns.reduce(
       (total, breakdown) =>
         total +
-        (((isBarChartOrder
+        (((hasOrderedBars
           ? // @ts-ignore
             Object.values(item).find(itemValue => itemValue?.id === breakdown)?.value ?? 0
           : item[breakdown]) as number) ?? 0),
