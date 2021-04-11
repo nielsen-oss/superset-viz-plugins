@@ -100,7 +100,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "isBarChartOrder": undefined,
+        "hasOrderedBars": undefined,
         "position": "center",
       },
       "opacity": 0.8,
@@ -209,7 +209,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "isBarChartOrder": undefined,
+        "hasOrderedBars": undefined,
         "position": "center",
       },
       "opacity": 0.6,
@@ -452,7 +452,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "isBarChartOrder": undefined,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -554,7 +554,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "isBarChartOrder": undefined,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -657,7 +657,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "isBarChartOrder": undefined,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -758,7 +758,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "isBarChartOrder": undefined,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -859,7 +859,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "isBarChartOrder": undefined,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -961,7 +961,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "isBarChartOrder": undefined,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -1064,7 +1064,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "isBarChartOrder": undefined,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -1165,7 +1165,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "isBarChartOrder": undefined,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -1424,7 +1424,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "isBarChartOrder": undefined,
+        "hasOrderedBars": undefined,
         "position": "center",
       },
       "opacity": 0.8,
@@ -1533,7 +1533,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "isBarChartOrder": undefined,
+        "hasOrderedBars": undefined,
         "position": "center",
       },
       "opacity": 0.8,
@@ -2088,7 +2088,7 @@ Object {
         ],
         "fill": "white",
         "formatter": [Function],
-        "isBarChartOrder": undefined,
+        "hasOrderedBars": undefined,
         "position": "center",
       },
       "opacity": 1,
@@ -2229,7 +2229,7 @@ Object {
                 ],
                 "fill": "white",
                 "formatter": [Function],
-                "isBarChartOrder": undefined,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -2280,7 +2280,7 @@ Object {
                 ],
                 "fill": "white",
                 "formatter": [Function],
-                "isBarChartOrder": undefined,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }

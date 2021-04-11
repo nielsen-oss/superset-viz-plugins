@@ -29,12 +29,14 @@ import {
   LabelList,
   LabelListProps,
   Cell,
+  BarChart,
 } from 'recharts';
 import { CategoricalColorNamespace, getNumberFormatter } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ColorsMap, LabelColors, ResultData, SortingType } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 
 export type BarChartValue = { id: string; value: number; name: string; color: string };
+export type BarChartValueMap = { [key: string]: BarChartValue };
 
 export enum Layout {
   horizontal = 'horizontal',
@@ -50,7 +52,6 @@ export enum LegendPosition {
 
 type LegendAlign = 'left' | 'center' | 'right';
 type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
-type BarChartValueMap = { [key: string]: BarChartValue };
 
 export const MAX_SYMBOLS_IN_TICK_LABEL = 20;
 export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 6;
@@ -399,6 +400,11 @@ export const getMaxLengthOfMetric = (data: ResultData[], metrics: string[], form
     ),
   );
 
+const findBarItem = (currentData: ResultData[], index: number, breakdowns: string[], breakdown: string) => {
+  const foundItemIndex = breakdowns.findIndex(item => item === breakdown);
+  return Object.values(currentData[index])[foundItemIndex] as BarChartValue;
+};
+
 export const renderLabel = ({
   formatter = value => `${value}`,
   width: labelWidth = 0,
@@ -415,11 +421,9 @@ export const renderLabel = ({
   hasOrderedBars: boolean;
   breakdowns: string[];
 }) => {
-  let formattedValue = `${formatter(currentData[index][breakdown])}`;
+  let formattedValue = `${formatter(currentData[index][breakdown] as number)}`;
   if (hasOrderedBars) {
-    const foundItemIndex = breakdowns.findIndex(item => item === breakdown);
-    // @ts-ignore
-    formattedValue = Object.values(currentData[index])[foundItemIndex]?.value;
+    formattedValue = `${findBarItem(currentData, index, breakdowns, breakdown).value ?? ''}`;
   }
   if (
     Math.abs(labelHeight) < MIN_BAR_SIZE_FOR_LABEL ||
@@ -492,8 +496,7 @@ export const renderChartElement = ({
     customChartType === CHART_TYPES.BAR_CHART && hasCustomTypeMetrics.some(el => el),
   );
 
-  const labelListExtraProps: LabelListProps = {
-    // @ts-ignore
+  const labelListExtraProps: LabelListProps & { fill: string } = {
     fill: 'black',
     dataKey: 'rechartsTotal',
     position: 'top',
@@ -526,9 +529,8 @@ export const renderChartElement = ({
       {...elementProps}
     >
       {hasOrderedBars &&
-        // @ts-ignore
-        currentData.map((dataItem: BarChartValueMap) => {
-          const otherProps = dataItem[index] ? { fill: dataItem[index]?.color } : { fillOpacity: 0 };
+        currentData.map(dataItem => {
+          const otherProps = dataItem[index] ? { fill: (dataItem[index] as BarChartValue)?.color } : { fillOpacity: 0 };
           return <Cell {...otherProps} />;
         })}
       {showTotals && <LabelList {...labelListExtraProps} />}
@@ -549,10 +551,9 @@ export const processBarChartOrder = (
     breakdowns.forEach((breakdown, index) => {
       barChartColorsMap[breakdown] = CategoricalColorNamespace.getScale(colorScheme)(index);
     });
-    // @ts-ignore
     return resultData.map(dataItem => {
       const tempSortedArray: BarChartValue[] = [];
-      const sortedData = Object.entries(dataItem).reduce((prev, next) => {
+      const sortedData: ResultData = Object.entries(dataItem).reduce((prev, next) => {
         // If not metric/breakdown field just return it
         if (!String(next[0]).includes(BREAKDOWN_SEPARATOR)) {
           return { ...prev, [next[0]]: next[1] };
@@ -560,7 +561,7 @@ export const processBarChartOrder = (
         // Build array with breakdowns to sort it next
         tempSortedArray.push({ id: next[0], value: next[1] as number, name: next[0], color: 'transparent' });
         return prev;
-      }, {});
+      }, {} as ResultData);
 
       // Sorting bars according order
       const sortSign = orderByTypeMetric === SortingType.ASC ? 1 : -1;
@@ -569,8 +570,10 @@ export const processBarChartOrder = (
       // Putting sorted bars back to result data by their index order
       breakdowns.forEach((item, index) => {
         if (tempSortedArray[index]) {
-          // @ts-ignore
-          sortedData[index] = { ...tempSortedArray[index], color: barChartColorsMap[tempSortedArray[index].id] };
+          sortedData[index] = {
+            ...tempSortedArray[index],
+            color: barChartColorsMap[tempSortedArray[index].id],
+          };
         }
       });
       return sortedData;
@@ -586,8 +589,8 @@ export const addTotalValues = (breakdowns: string[], resultData: ResultData[], h
       (total, breakdown) =>
         total +
         (((hasOrderedBars
-          ? // @ts-ignore
-            Object.values(item).find(itemValue => itemValue?.id === breakdown)?.value ?? 0
+          ? (Object.values(item).find(itemValue => (itemValue as BarChartValue)?.id === breakdown) as BarChartValue)
+              .value ?? 0
           : item[breakdown]) as number) ?? 0),
       0,
     ),
