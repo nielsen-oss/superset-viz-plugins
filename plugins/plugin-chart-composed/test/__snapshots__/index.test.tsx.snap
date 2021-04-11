@@ -4,12 +4,25 @@ exports[`plugin-chart-composed All charts with breakdowns 1`] = `
 Object {
   "AreaProps": Array [
     Object {
-      "children": false,
+      "children": Array [
+        undefined,
+        false,
+      ],
       "dataKey": "COUNT_DISTINCT(period)_$_Custom",
       "fill": "#9467bd",
       "isAnimationActive": undefined,
       "label": Object {
         "breakdown": "COUNT_DISTINCT(period)_$_Custom",
+        "breakdowns": Array [
+          "COUNT_DISTINCT(period)_$_Standard",
+          "COUNT_DISTINCT(group_name)_$_Standard",
+          "COUNT_DISTINCT(due_to_group)_$_Standard",
+          "COUNT_DISTINCT(efficiency)_$_Standard",
+          "COUNT_DISTINCT(period)_$_Custom",
+          "COUNT_DISTINCT(group_name)_$_Custom",
+          "COUNT_DISTINCT(due_to_group)_$_Custom",
+          "COUNT_DISTINCT(efficiency)_$_Custom",
+        ],
         "content": [Function],
         "currentData": Array [
           Object {
@@ -87,6 +100,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
+        "isBarChartOrder": undefined,
         "position": "center",
       },
       "opacity": 0.8,
@@ -99,12 +113,25 @@ Object {
   ],
   "BarProps": Array [
     Object {
-      "children": false,
+      "children": Array [
+        undefined,
+        false,
+      ],
       "dataKey": "COUNT_DISTINCT(efficiency)_$_Custom",
       "fill": "#7f7f7f",
       "isAnimationActive": undefined,
       "label": Object {
         "breakdown": "COUNT_DISTINCT(efficiency)_$_Custom",
+        "breakdowns": Array [
+          "COUNT_DISTINCT(period)_$_Standard",
+          "COUNT_DISTINCT(group_name)_$_Standard",
+          "COUNT_DISTINCT(due_to_group)_$_Standard",
+          "COUNT_DISTINCT(efficiency)_$_Standard",
+          "COUNT_DISTINCT(period)_$_Custom",
+          "COUNT_DISTINCT(group_name)_$_Custom",
+          "COUNT_DISTINCT(due_to_group)_$_Custom",
+          "COUNT_DISTINCT(efficiency)_$_Custom",
+        ],
         "content": [Function],
         "currentData": Array [
           Object {
@@ -182,6 +209,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
+        "isBarChartOrder": undefined,
         "position": "center",
       },
       "opacity": 0.6,
@@ -337,6 +365,16 @@ Object {
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(period)_$_Standard",
+                "breakdowns": Array [
+                  "COUNT_DISTINCT(period)_$_Standard",
+                  "COUNT_DISTINCT(group_name)_$_Standard",
+                  "COUNT_DISTINCT(due_to_group)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(period)_$_Custom",
+                  "COUNT_DISTINCT(group_name)_$_Custom",
+                  "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
+                ],
                 "content": [Function],
                 "currentData": Array [
                   Object {
@@ -414,6 +452,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
+                "isBarChartOrder": undefined,
                 "position": "center",
               }
             }
@@ -428,6 +467,16 @@ Object {
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(group_name)_$_Standard",
+                "breakdowns": Array [
+                  "COUNT_DISTINCT(period)_$_Standard",
+                  "COUNT_DISTINCT(group_name)_$_Standard",
+                  "COUNT_DISTINCT(due_to_group)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(period)_$_Custom",
+                  "COUNT_DISTINCT(group_name)_$_Custom",
+                  "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
+                ],
                 "content": [Function],
                 "currentData": Array [
                   Object {
@@ -505,6 +554,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
+                "isBarChartOrder": undefined,
                 "position": "center",
               }
             }
@@ -520,6 +570,16 @@ Object {
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(due_to_group)_$_Standard",
+                "breakdowns": Array [
+                  "COUNT_DISTINCT(period)_$_Standard",
+                  "COUNT_DISTINCT(group_name)_$_Standard",
+                  "COUNT_DISTINCT(due_to_group)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(period)_$_Custom",
+                  "COUNT_DISTINCT(group_name)_$_Custom",
+                  "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
+                ],
                 "content": [Function],
                 "currentData": Array [
                   Object {
@@ -597,6 +657,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
+                "isBarChartOrder": undefined,
                 "position": "center",
               }
             }
@@ -610,6 +671,16 @@ Object {
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(efficiency)_$_Standard",
+                "breakdowns": Array [
+                  "COUNT_DISTINCT(period)_$_Standard",
+                  "COUNT_DISTINCT(group_name)_$_Standard",
+                  "COUNT_DISTINCT(due_to_group)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(period)_$_Custom",
+                  "COUNT_DISTINCT(group_name)_$_Custom",
+                  "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
+                ],
                 "content": [Function],
                 "currentData": Array [
                   Object {
@@ -687,6 +758,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
+                "isBarChartOrder": undefined,
                 "position": "center",
               }
             }
@@ -700,6 +772,16 @@ Object {
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(period)_$_Custom",
+                "breakdowns": Array [
+                  "COUNT_DISTINCT(period)_$_Standard",
+                  "COUNT_DISTINCT(group_name)_$_Standard",
+                  "COUNT_DISTINCT(due_to_group)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(period)_$_Custom",
+                  "COUNT_DISTINCT(group_name)_$_Custom",
+                  "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
+                ],
                 "content": [Function],
                 "currentData": Array [
                   Object {
@@ -777,6 +859,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
+                "isBarChartOrder": undefined,
                 "position": "center",
               }
             }
@@ -791,6 +874,16 @@ Object {
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(group_name)_$_Custom",
+                "breakdowns": Array [
+                  "COUNT_DISTINCT(period)_$_Standard",
+                  "COUNT_DISTINCT(group_name)_$_Standard",
+                  "COUNT_DISTINCT(due_to_group)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(period)_$_Custom",
+                  "COUNT_DISTINCT(group_name)_$_Custom",
+                  "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
+                ],
                 "content": [Function],
                 "currentData": Array [
                   Object {
@@ -868,6 +961,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
+                "isBarChartOrder": undefined,
                 "position": "center",
               }
             }
@@ -883,6 +977,16 @@ Object {
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(due_to_group)_$_Custom",
+                "breakdowns": Array [
+                  "COUNT_DISTINCT(period)_$_Standard",
+                  "COUNT_DISTINCT(group_name)_$_Standard",
+                  "COUNT_DISTINCT(due_to_group)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(period)_$_Custom",
+                  "COUNT_DISTINCT(group_name)_$_Custom",
+                  "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
+                ],
                 "content": [Function],
                 "currentData": Array [
                   Object {
@@ -960,6 +1064,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
+                "isBarChartOrder": undefined,
                 "position": "center",
               }
             }
@@ -973,6 +1078,16 @@ Object {
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(efficiency)_$_Custom",
+                "breakdowns": Array [
+                  "COUNT_DISTINCT(period)_$_Standard",
+                  "COUNT_DISTINCT(group_name)_$_Standard",
+                  "COUNT_DISTINCT(due_to_group)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(period)_$_Custom",
+                  "COUNT_DISTINCT(group_name)_$_Custom",
+                  "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
+                ],
                 "content": [Function],
                 "currentData": Array [
                   Object {
@@ -1050,6 +1165,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
+                "isBarChartOrder": undefined,
                 "position": "center",
               }
             }
@@ -1138,6 +1254,7 @@ Object {
       "margin": Object {
         "left": 10,
         "right": 10,
+        "top": 15,
       },
       "width": 800,
     },
@@ -1212,11 +1329,24 @@ Object {
   ],
   "LineProps": Array [
     Object {
-      "children": false,
+      "children": Array [
+        undefined,
+        false,
+      ],
       "dataKey": "COUNT_DISTINCT(group_name)_$_Custom",
       "isAnimationActive": undefined,
       "label": Object {
         "breakdown": "COUNT_DISTINCT(group_name)_$_Custom",
+        "breakdowns": Array [
+          "COUNT_DISTINCT(period)_$_Standard",
+          "COUNT_DISTINCT(group_name)_$_Standard",
+          "COUNT_DISTINCT(due_to_group)_$_Standard",
+          "COUNT_DISTINCT(efficiency)_$_Standard",
+          "COUNT_DISTINCT(period)_$_Custom",
+          "COUNT_DISTINCT(group_name)_$_Custom",
+          "COUNT_DISTINCT(due_to_group)_$_Custom",
+          "COUNT_DISTINCT(efficiency)_$_Custom",
+        ],
         "content": [Function],
         "currentData": Array [
           Object {
@@ -1294,6 +1424,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
+        "isBarChartOrder": undefined,
         "position": "center",
       },
       "opacity": 0.8,
@@ -1306,12 +1437,25 @@ Object {
   ],
   "ScatterProps": Array [
     Object {
-      "children": false,
+      "children": Array [
+        undefined,
+        false,
+      ],
       "dataKey": "COUNT_DISTINCT(due_to_group)_$_Custom",
       "fill": "#e377c2",
       "isAnimationActive": undefined,
       "label": Object {
         "breakdown": "COUNT_DISTINCT(due_to_group)_$_Custom",
+        "breakdowns": Array [
+          "COUNT_DISTINCT(period)_$_Standard",
+          "COUNT_DISTINCT(group_name)_$_Standard",
+          "COUNT_DISTINCT(due_to_group)_$_Standard",
+          "COUNT_DISTINCT(efficiency)_$_Standard",
+          "COUNT_DISTINCT(period)_$_Custom",
+          "COUNT_DISTINCT(group_name)_$_Custom",
+          "COUNT_DISTINCT(due_to_group)_$_Custom",
+          "COUNT_DISTINCT(efficiency)_$_Custom",
+        ],
         "content": [Function],
         "currentData": Array [
           Object {
@@ -1389,6 +1533,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
+        "isBarChartOrder": undefined,
         "position": "center",
       },
       "opacity": 0.8,
@@ -1592,6 +1737,7 @@ Object {
       "margin": Object {
         "left": 10,
         "right": 10,
+        "top": 15,
       },
       "width": 800,
     },
@@ -1775,7 +1921,6 @@ Object {
           "period_type": "Custom",
           "rechartsDataKey": "Variable",
           "rechartsDataKeyUI": "Variable",
-          "rechartsTotal": 36,
         },
         Object {
           "COUNT_DISTINCT(group_name)": 6,
@@ -1784,7 +1929,6 @@ Object {
           "period_type": "Standard",
           "rechartsDataKey": "DirectDueToGroup",
           "rechartsDataKeyUI": "DirectDueToGroup",
-          "rechartsTotal": 9,
         },
         Object {
           "COUNT_DISTINCT(group_name)": 6,
@@ -1793,7 +1937,6 @@ Object {
           "period_type": "Standard",
           "rechartsDataKey": "DueToGroup",
           "rechartsDataKeyUI": "DueToGroup",
-          "rechartsTotal": 9,
         },
         Object {
           "COUNT_DISTINCT(group_name)": 3,
@@ -1802,7 +1945,6 @@ Object {
           "period_type": "Standard",
           "rechartsDataKey": "SummaryGroup",
           "rechartsDataKeyUI": "SummaryGroup",
-          "rechartsTotal": 8,
         },
       ],
       "height": 400,
@@ -1810,6 +1952,7 @@ Object {
       "margin": Object {
         "left": 10,
         "right": 10,
+        "top": 15,
       },
       "width": 800,
     },
@@ -1899,12 +2042,19 @@ exports[`plugin-chart-composed Chart with default props (legend top / horizontal
 Object {
   "BarProps": Array [
     Object {
-      "children": false,
+      "children": Array [
+        undefined,
+        false,
+      ],
       "dataKey": "COUNT_DISTINCT(group_name)",
       "fill": "#ff7f0e",
       "isAnimationActive": undefined,
       "label": Object {
         "breakdown": "COUNT_DISTINCT(group_name)",
+        "breakdowns": Array [
+          "COUNT_DISTINCT(period)",
+          "COUNT_DISTINCT(group_name)",
+        ],
         "content": [Function],
         "currentData": Array [
           Object {
@@ -1938,6 +2088,7 @@ Object {
         ],
         "fill": "white",
         "formatter": [Function],
+        "isBarChartOrder": undefined,
         "position": "center",
       },
       "opacity": 1,
@@ -2041,6 +2192,10 @@ Object {
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(period)",
+                "breakdowns": Array [
+                  "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
+                ],
                 "content": [Function],
                 "currentData": Array [
                   Object {
@@ -2074,6 +2229,7 @@ Object {
                 ],
                 "fill": "white",
                 "formatter": [Function],
+                "isBarChartOrder": undefined,
                 "position": "center",
               }
             }
@@ -2087,6 +2243,10 @@ Object {
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(group_name)",
+                "breakdowns": Array [
+                  "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
+                ],
                 "content": [Function],
                 "currentData": Array [
                   Object {
@@ -2120,6 +2280,7 @@ Object {
                 ],
                 "fill": "white",
                 "formatter": [Function],
+                "isBarChartOrder": undefined,
                 "position": "center",
               }
             }
@@ -2164,6 +2325,7 @@ Object {
       "margin": Object {
         "left": 10,
         "right": 10,
+        "top": 15,
       },
       "width": 800,
     },
