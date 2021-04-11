@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   CartesianGrid,
   ComposedChart as RechartsComposedChart,
@@ -28,8 +28,9 @@ import {
 } from 'recharts';
 import { getNumberFormatter, styled } from '@superset-ui/core';
 import ComposedChartTooltip from './ComposedChartTooltip';
-import { LabelColors, ResultData } from '../plugin/utils';
+import { LabelColors, ResultData, SortingType } from '../plugin/utils';
 import {
+  addTotalValues,
   CHART_SUB_TYPES,
   CHART_TYPES,
   getCartesianGridProps,
@@ -41,6 +42,7 @@ import {
   Layout,
   LegendPosition,
   MIN_SYMBOL_WIDTH_FOR_TICK_LABEL,
+  processBarChartOrder,
   renderChartElement,
 } from './utils';
 
@@ -67,8 +69,10 @@ export type YAxisProps = XAxisProps & {
 };
 
 export type ComposedChartProps = {
+  orderByTypeMetric: SortingType;
   height: number;
   width: number;
+  isBarChartOrder: boolean;
   showTotals: boolean;
   showLegend: boolean;
   legendPosition: LegendPosition;
@@ -103,6 +107,8 @@ const Styles = styled.div<ComposedChartStylesProps>`
 
 export default function ComposedChart(props: ComposedChartProps) {
   const {
+    orderByTypeMetric,
+    isBarChartOrder,
     data,
     height,
     width,
@@ -155,11 +161,24 @@ export default function ComposedChart(props: ComposedChartProps) {
     forceUpdate();
   }, [forceUpdate, props]);
 
-  const currentData = data.map(item => {
-    const newItem = { ...item };
-    disabledDataKeys.forEach(dataKey => delete newItem[dataKey]);
-    return newItem;
-  });
+  let currentData = useMemo(
+    () =>
+      data.map(item => {
+        const newItem = { ...item };
+        disabledDataKeys.forEach(dataKey => delete newItem[dataKey]);
+        return newItem;
+      }),
+    [data, disabledDataKeys],
+  );
+
+  currentData = useMemo(
+    () => processBarChartOrder(isBarChartOrder, breakdowns, currentData, colorScheme, orderByTypeMetric),
+    [breakdowns, colorScheme, currentData, isBarChartOrder, orderByTypeMetric],
+  );
+
+  if (showTotals) {
+    currentData = addTotalValues(breakdowns, currentData, isBarChartOrder);
+  }
 
   const dataKeyLength = getMaxLengthOfDataKey(currentData) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
 
@@ -176,6 +195,7 @@ export default function ComposedChart(props: ComposedChartProps) {
     }
     setDisabledDataKeys(resultKeys);
   };
+
   return (
     <Styles key={updater} height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
       <RechartsComposedChart
@@ -238,10 +258,15 @@ export default function ComposedChart(props: ComposedChartProps) {
             })}
           />
         )}
-        <Tooltip content={<ComposedChartTooltip numbersFormat={numbersFormat} metrics={metrics} />} />
+        <Tooltip
+          content={
+            <ComposedChartTooltip numbersFormat={numbersFormat} metrics={metrics} isBarChartOrder={isBarChartOrder} />
+          }
+        />
         {((isSideLegend && legendWidth) || !isSideLegend) &&
           breakdowns.map((breakdown, index) =>
             renderChartElement({
+              isBarChartOrder,
               chartType,
               metrics,
               showTotals,
@@ -258,7 +283,8 @@ export default function ComposedChart(props: ComposedChartProps) {
               chartTypeMetrics,
               chartSubTypeMetrics,
               colorScheme,
-              numberOfRenderedItems: breakdowns.length,
+              breakdowns,
+              numberOfRenderedItems: breakdowns.length - (isBarChartOrder ? disabledDataKeys.length : 0),
             }),
           )}
       </RechartsComposedChart>

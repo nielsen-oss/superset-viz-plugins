@@ -16,8 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { ChartProps } from '@superset-ui/core';
-import { CHART_SUB_TYPES, CHART_TYPES, mergeBy, Layout } from '../components/utils';
+import { CategoricalColorNamespace, ChartProps } from '@superset-ui/core';
+import { CHART_SUB_TYPES, CHART_TYPES, mergeBy, Layout, BarChartValue } from '../components/utils';
 import { ComposedChartProps } from '../components/ComposedChart';
 import {
   addBreakdownMetricsAndGetBreakdownValues,
@@ -26,6 +26,7 @@ import {
   ResultData,
   Data,
   FormData,
+  SortingType,
 } from './utils';
 
 export default function transformProps(chartProps: ChartProps) {
@@ -76,13 +77,13 @@ export default function transformProps(chartProps: ChartProps) {
     useCustomTypeMetrics.every(el => !el)
   ) {
     resultShowTotals = formData.showTotals;
-    resultData = resultData.map(item => ({
-      ...item,
-      rechartsTotal: breakdowns.reduce((total, breakdown) => total + ((item[breakdown] as number) || 0), 0),
-    }));
   }
 
+  const isBarChartOrder = formData.chartType === CHART_TYPES.BAR_CHART && formData.useOrderByMetric0;
+
   const result: ComposedChartProps = {
+    orderByTypeMetric: formData.orderByTypeMetric0 as SortingType,
+    isBarChartOrder,
     breakdowns,
     width,
     height,
