@@ -64,6 +64,8 @@ type XAxisProps = {
 export type YAxisProps = XAxisProps & {
   label2?: string;
   tickLabelAngle2?: number;
+  labelAngle?: number;
+  labelAngle2?: number;
 };
 
 export type ComposedChartProps = {
@@ -210,7 +212,7 @@ export default function ComposedChart(props: ComposedChartProps) {
             metricLength,
             numbersFormat,
             layout,
-            angle: xAxis.tickLabelAngle,
+            tickLabelAngle: xAxis.tickLabelAngle,
             label: xAxis.label,
           })}
         />
@@ -220,7 +222,8 @@ export default function ComposedChart(props: ComposedChartProps) {
             metricLength,
             numbersFormat,
             layout,
-            angle: yAxis.tickLabelAngle,
+            tickLabelAngle: yAxis.tickLabelAngle,
+            labelAngle: yAxis.labelAngle,
             label: yAxis.label,
           })}
         />
@@ -233,8 +236,9 @@ export default function ComposedChart(props: ComposedChartProps) {
               layout,
               isSecondAxis: true,
               dataKey: metrics[metrics.length - 1],
-              angle: yAxis.tickLabelAngle2,
+              tickLabelAngle: yAxis.tickLabelAngle2,
               label: yAxis.label2,
+              labelAngle: yAxis.labelAngle2,
             })}
           />
         )}

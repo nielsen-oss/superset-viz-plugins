@@ -126,10 +126,15 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   return result;
 }
 
-const getLabelSize = (angle: number, dataKeyLength: number, angleMin: number, angleMax: number): number =>
-  angle === angleMin
+const getLabelSize = (angle: number, dataKeyLength: number, angleMin: number | number[], angleMax: number): number => {
+  if (!Array.isArray(angleMin)) {
+    // eslint-disable-next-line no-param-reassign
+    angleMin = [angleMin];
+  }
+  return angleMin.includes(angle)
     ? MIN_LABEL_MARGIN
     : dataKeyLength + (angle === angleMax ? MIN_SYMBOL_WIDTH_FOR_TICK_LABEL * 6 : 0);
+};
 
 export const getMetricName = (name: string, metrics: string[]) =>
   metrics.length === 1 ? name?.split(BREAKDOWN_SEPARATOR).pop() : name?.split(BREAKDOWN_SEPARATOR).join(', ');
@@ -284,8 +289,9 @@ export const getChartElement = (
 
 type AxisProps = {
   layout: Layout;
-  angle?: number;
+  tickLabelAngle?: number;
   label?: string;
+  labelAngle?: number;
   isSecondAxis?: boolean;
   dataKey?: string;
   dataKeyLength: number;
@@ -294,8 +300,15 @@ type AxisProps = {
 };
 
 const AXIS_OFFSET = 30;
-export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricLength, numbersFormat }: AxisProps) => {
-  const textAnchor = angle === 0 ? 'middle' : 'end';
+export const getXAxisProps = ({
+  layout,
+  tickLabelAngle = 0,
+  label,
+  dataKeyLength,
+  metricLength,
+  numbersFormat,
+}: AxisProps) => {
+  const textAnchor = tickLabelAngle === 0 ? 'middle' : 'end';
   const labelProps: LabelProps = {
     value: label,
     position: 'bottom',
@@ -304,7 +317,7 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
   const params = {
     dy: 5,
     label: labelProps,
-    angle,
+    angle: tickLabelAngle,
   };
   switch (layout) {
     case Layout.vertical:
@@ -313,7 +326,7 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
         ),
-        height: angle === 0 ? MIN_LABEL_MARGIN + AXIS_OFFSET : metricLength + AXIS_OFFSET,
+        height: tickLabelAngle === 0 ? MIN_LABEL_MARGIN + AXIS_OFFSET : metricLength + AXIS_OFFSET,
         type: 'number' as const,
       };
     case Layout.horizontal:
@@ -321,7 +334,7 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
       return {
         ...params,
         tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
-        height: getLabelSize(angle, dataKeyLength, 0, -90) + AXIS_OFFSET,
+        height: getLabelSize(tickLabelAngle, dataKeyLength, 0, -90) + AXIS_OFFSET,
         interval: 0,
         dataKey: 'rechartsDataKeyUI',
       };
@@ -330,42 +343,44 @@ export const getXAxisProps = ({ layout, angle = 0, label, dataKeyLength, metricL
 
 export const getYAxisProps = ({
   layout,
-  angle = 0,
+  tickLabelAngle = 0,
   label,
   dataKey,
   isSecondAxis,
   dataKeyLength,
   metricLength,
+  labelAngle = 90,
   numbersFormat,
 }: AxisProps) => {
   const textAnchorPerAxis = isSecondAxis ? 'start' : 'end';
-  const textAnchor = angle === -90 ? 'middle' : textAnchorPerAxis;
+  const textAnchor = tickLabelAngle === -90 ? 'middle' : textAnchorPerAxis;
   const labelOffset = 0;
   const labelProps: LabelProps = {
     offset: labelOffset,
     value: label,
-    angle: 90,
-    position: isSecondAxis ? 'right' : 'left',
+    angle: labelAngle,
+    position: isSecondAxis ? 'insideRight' : 'insideLeft',
   };
   const params = {
-    angle,
+    angle: tickLabelAngle,
     orientation: isSecondAxis ? ('right' as const) : ('left' as const),
     yAxisId: isSecondAxis ? 'right' : 'left',
     label: labelProps,
   };
+  const labelWidth = getLabelSize(labelAngle, (label?.length ?? 0) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL, [-90, -270], 0);
   switch (layout) {
     case Layout.vertical:
       return {
         ...params,
         tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
-        width: getLabelSize(angle, dataKeyLength, -90, 0),
+        width: getLabelSize(tickLabelAngle, dataKeyLength, -90, 0) + labelWidth,
         dataKey: isSecondAxis ? dataKey : 'rechartsDataKeyUI',
         type: 'category' as const,
       };
     default:
       return {
         ...params,
-        width: angle === -90 ? MIN_LABEL_MARGIN : metricLength + AXIS_OFFSET,
+        width: (tickLabelAngle === -90 ? MIN_LABEL_MARGIN : metricLength + AXIS_OFFSET) + labelWidth,
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
         ),

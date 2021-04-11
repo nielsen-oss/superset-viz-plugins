@@ -32,8 +32,10 @@ import {
   xAxisLabel,
   xAxisTickLabelAngle,
   y2AxisLabel,
+  y2AxisLabelAngle,
   y2AxisTickLabelAngle,
   yAxisLabel,
+  yAxisLabelAngle,
   yAxisTickLabelAngle,
 } from './configs/axis';
 import {
@@ -189,8 +191,10 @@ const config: ControlPanelConfig = {
       label: t('Y Axis'),
       expanded: true,
       controlSetRows: [
-        [yAxisLabel, yAxisTickLabelAngle],
-        [useSecondYAxis, y2AxisLabel, y2AxisTickLabelAngle],
+        [yAxisLabel],
+        [yAxisLabelAngle, yAxisTickLabelAngle],
+        [useSecondYAxis, y2AxisLabel],
+        [y2AxisLabelAngle, y2AxisTickLabelAngle],
       ],
     },
     {
