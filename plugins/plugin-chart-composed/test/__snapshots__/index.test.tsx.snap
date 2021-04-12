@@ -274,7 +274,7 @@ Object {
           angle={-0}
           dataKey="rechartsDataKeyUI"
           dy={5}
-          height={50}
+          height={40}
           interval={0}
           label={
             Object {
@@ -289,30 +289,30 @@ Object {
           angle={-45}
           label={
             Object {
-              "angle": 90,
+              "angle": -0,
               "offset": 0,
-              "position": "left",
+              "position": "insideLeft",
               "value": "QWEr",
             }
           }
           orientation="left"
           tick={[Function]}
-          width={42}
+          width={104}
           yAxisId="left"
         />,
         <mockConstructor
           angle={-0}
           label={
             Object {
-              "angle": 90,
+              "angle": -0,
               "offset": 0,
-              "position": "right",
+              "position": "insideRight",
               "value": undefined,
             }
           }
           orientation="right"
           tick={[Function]}
-          width={42}
+          width={76}
           yAxisId="right"
         />,
         <mockConstructor
@@ -1418,7 +1418,7 @@ Object {
       "angle": -0,
       "dataKey": "rechartsDataKeyUI",
       "dy": 5,
-      "height": 50,
+      "height": 40,
       "interval": 0,
       "label": Object {
         "dy": -15,
@@ -1433,14 +1433,14 @@ Object {
     Object {
       "angle": -0,
       "label": Object {
-        "angle": 90,
+        "angle": -0,
         "offset": 0,
-        "position": "right",
+        "position": "insideRight",
         "value": undefined,
       },
       "orientation": "right",
       "tick": [Function],
-      "width": 42,
+      "width": 76,
       "yAxisId": "right",
     },
     Object {},
@@ -1497,7 +1497,7 @@ Object {
           angle={-45}
           dataKey="rechartsDataKeyUI"
           dy={5}
-          height={126}
+          height={132}
           interval={0}
           label={
             Object {
@@ -1512,30 +1512,30 @@ Object {
           angle={-0}
           label={
             Object {
-              "angle": 90,
+              "angle": -0,
               "offset": 0,
-              "position": "left",
+              "position": "insideLeft",
               "value": undefined,
             }
           }
           orientation="left"
           tick={[Function]}
-          width={42}
+          width={76}
           yAxisId="left"
         />,
         <mockConstructor
           angle={-0}
           label={
             Object {
-              "angle": 90,
+              "angle": -0,
               "offset": 0,
-              "position": "right",
+              "position": "insideRight",
               "value": "Label 2",
             }
           }
           orientation="right"
           tick={[Function]}
-          width={42}
+          width={125}
           yAxisId="right"
         />,
         <mockConstructor
@@ -1645,7 +1645,7 @@ Object {
       "angle": -45,
       "dataKey": "rechartsDataKeyUI",
       "dy": 5,
-      "height": 126,
+      "height": 132,
       "interval": 0,
       "label": Object {
         "dy": -15,
@@ -1660,14 +1660,14 @@ Object {
     Object {
       "angle": -0,
       "label": Object {
-        "angle": 90,
+        "angle": -0,
         "offset": 0,
-        "position": "right",
+        "position": "insideRight",
         "value": "Label 2",
       },
       "orientation": "right",
       "tick": [Function],
-      "width": 42,
+      "width": 125,
       "yAxisId": "right",
     },
     Object {},
@@ -1723,7 +1723,7 @@ Object {
         <mockConstructor
           angle={-0}
           dy={5}
-          height={50}
+          height={40}
           label={
             Object {
               "dy": -15,
@@ -1739,16 +1739,16 @@ Object {
           dataKey="rechartsDataKeyUI"
           label={
             Object {
-              "angle": 90,
+              "angle": -0,
               "offset": 0,
-              "position": "left",
+              "position": "insideLeft",
               "value": "YLabel",
             }
           }
           orientation="left"
           tick={[Function]}
           type="category"
-          width={96}
+          width={196}
           yAxisId="left"
         />,
         false,
@@ -1863,7 +1863,7 @@ Object {
     Object {
       "angle": -0,
       "dy": 5,
-      "height": 50,
+      "height": 40,
       "label": Object {
         "dy": -15,
         "position": "bottom",
@@ -1879,15 +1879,15 @@ Object {
       "angle": -45,
       "dataKey": "rechartsDataKeyUI",
       "label": Object {
-        "angle": 90,
+        "angle": -0,
         "offset": 0,
-        "position": "left",
+        "position": "insideLeft",
         "value": "YLabel",
       },
       "orientation": "left",
       "tick": [Function],
       "type": "category",
-      "width": 96,
+      "width": 196,
       "yAxisId": "left",
     },
     Object {},
@@ -1994,7 +1994,7 @@ Object {
           angle={-45}
           dataKey="rechartsDataKeyUI"
           dy={5}
-          height={126}
+          height={132}
           interval={0}
           label={
             Object {
@@ -2009,15 +2009,15 @@ Object {
           angle={-0}
           label={
             Object {
-              "angle": 90,
+              "angle": -0,
               "offset": 0,
-              "position": "left",
+              "position": "insideLeft",
               "value": undefined,
             }
           }
           orientation="left"
           tick={[Function]}
-          width={42}
+          width={76}
           yAxisId="left"
         />,
         undefined,
@@ -2219,7 +2219,7 @@ Object {
       "angle": -45,
       "dataKey": "rechartsDataKeyUI",
       "dy": 5,
-      "height": 126,
+      "height": 132,
       "interval": 0,
       "label": Object {
         "dy": -15,
@@ -2234,14 +2234,14 @@ Object {
     Object {
       "angle": -0,
       "label": Object {
-        "angle": 90,
+        "angle": -0,
         "offset": 0,
-        "position": "left",
+        "position": "insideLeft",
         "value": undefined,
       },
       "orientation": "left",
       "tick": [Function],
-      "width": 42,
+      "width": 76,
       "yAxisId": "left",
     },
     Object {},
