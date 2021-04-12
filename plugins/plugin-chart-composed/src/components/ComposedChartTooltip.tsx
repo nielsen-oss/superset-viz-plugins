@@ -59,7 +59,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
       <Container>
         <p>{label}</p>
         {payload.map((initItem, index) => {
-          const item = hasOrderedBars ? initItem?.payload[index] : initItem;
+          const item = hasOrderedBars ? initItem.payload[index] : initItem;
           const name = getMetricName(item.name, metrics);
           return (
             <Line key={name} color={item.color}>{`${name}: ${

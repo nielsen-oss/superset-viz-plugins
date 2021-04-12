@@ -538,6 +538,36 @@ export const renderChartElement = ({
   );
 };
 
+const fillBarsDataByOrder = (
+  breakdowns: string[],
+  sortedData: ResultData,
+  tempSortedArray: BarChartValue[],
+  barChartColorsMap: ColorsMap,
+) => {
+  const newSortedData = { ...sortedData };
+  // Putting sorted bars back to result data by their index order
+  breakdowns.forEach((item, index) => {
+    if (tempSortedArray[index]) {
+      newSortedData[index] = {
+        ...tempSortedArray[index],
+        color: barChartColorsMap[tempSortedArray[index].id],
+      };
+    }
+  });
+  return newSortedData;
+};
+
+const buildSortedDataForBars = (dataItem: ResultData, tempSortedArray: BarChartValue[]) =>
+  Object.entries(dataItem).reduce((prev, next) => {
+    // If not metric/breakdown field just return it
+    if (!String(next[0]).includes(BREAKDOWN_SEPARATOR)) {
+      return { ...prev, [next[0]]: next[1] };
+    }
+    // Build array with breakdowns to sort it next
+    tempSortedArray.push({ id: next[0], value: next[1] as number, name: next[0], color: 'transparent' });
+    return prev;
+  }, {} as ResultData);
+
 export const processBarChartOrder = (
   hasOrderedBars: boolean,
   breakdowns: string[],
@@ -553,30 +583,13 @@ export const processBarChartOrder = (
     });
     return resultData.map(dataItem => {
       const tempSortedArray: BarChartValue[] = [];
-      const sortedData: ResultData = Object.entries(dataItem).reduce((prev, next) => {
-        // If not metric/breakdown field just return it
-        if (!String(next[0]).includes(BREAKDOWN_SEPARATOR)) {
-          return { ...prev, [next[0]]: next[1] };
-        }
-        // Build array with breakdowns to sort it next
-        tempSortedArray.push({ id: next[0], value: next[1] as number, name: next[0], color: 'transparent' });
-        return prev;
-      }, {} as ResultData);
+      const sortedData: ResultData = buildSortedDataForBars(dataItem, tempSortedArray);
 
       // Sorting bars according order
       const sortSign = orderByTypeMetric === SortingType.ASC ? 1 : -1;
       tempSortedArray.sort((a, b) => sortSign * (a.value - b.value));
 
-      // Putting sorted bars back to result data by their index order
-      breakdowns.forEach((item, index) => {
-        if (tempSortedArray[index]) {
-          sortedData[index] = {
-            ...tempSortedArray[index],
-            color: barChartColorsMap[tempSortedArray[index].id],
-          };
-        }
-      });
-      return sortedData;
+      return fillBarsDataByOrder(breakdowns, sortedData, tempSortedArray, barChartColorsMap);
     });
   }
   return resultData;
