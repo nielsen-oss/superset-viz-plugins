@@ -39,7 +39,7 @@ export enum Layout {
 }
 
 export const MAX_SYMBOLS_IN_TICK_LABEL = 20;
-export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 6;
+export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 7;
 export const MIN_BAR_SIZE_FOR_LABEL = 18;
 export const MIN_SYMBOL_WIDTH_FOR_LABEL = 14;
 export const MIN_LABEL_MARGIN = 20;
@@ -354,9 +354,8 @@ export const getYAxisProps = ({
 }: AxisProps) => {
   const textAnchorPerAxis = isSecondAxis ? 'start' : 'end';
   const textAnchor = tickLabelAngle === -90 ? 'middle' : textAnchorPerAxis;
-  const labelOffset = 0;
   const labelProps: LabelProps = {
-    offset: labelOffset,
+    offset: 0,
     value: label,
     angle: labelAngle,
     position: isSecondAxis ? 'insideRight' : 'insideLeft',

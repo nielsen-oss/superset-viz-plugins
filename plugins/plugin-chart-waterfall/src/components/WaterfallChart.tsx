@@ -29,10 +29,21 @@ import {
   LegendProps,
   Tooltip,
   XAxis,
+  XAxisProps,
   YAxis,
+  YAxisProps,
 } from 'recharts';
 import WaterfallTick from './WaterfallTick';
-import { getChartStyles, LEGEND, LegendPosition, renderLabel } from './utils';
+import {
+  AXIS_OFFSET,
+  getChartStyles,
+  getLabelSize,
+  getMaxLengthOfMetric,
+  LEGEND,
+  LegendPosition,
+  MIN_SYMBOL_WIDTH_FOR_TICK_LABEL,
+  renderLabel,
+} from './utils';
 import WaterfallBar from './WaterfallBar';
 import WaterfallTooltip from './WaterfallTooltip';
 
@@ -48,8 +59,11 @@ export type WaterfallChartData = {
 };
 
 export type WaterfallChartProps = {
-  xAxisDataKey?: string;
+  xAxisDataKey: string;
   dataKey: string;
+  xAxisLabel: string;
+  yAxisLabel: string;
+  yAxisLabelAngle: number;
   legendPosition: LegendPosition;
   error?: string;
   numbersFormat?: string;
@@ -57,7 +71,7 @@ export type WaterfallChartProps = {
   resetFilters?: Function;
   onBarClick?: Function;
   width: number;
-  data?: WaterfallChartData[];
+  data: WaterfallChartData[];
 };
 
 const Styles = styled.div<WaterfallStylesProps>`
@@ -99,6 +113,9 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
     width,
     error,
     legendPosition,
+    yAxisLabelAngle,
+    xAxisLabel,
+    yAxisLabel,
   } = props;
   const [notification, setNotification] = useState<string | null>(null);
   const [updater, setUpdater] = useState<number>(0);
@@ -118,6 +135,37 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
   const formatter = getNumberFormatter(numbersFormat);
   const { chartMargin, legendStyle } = getChartStyles(legendPosition);
 
+  const yMetricLength =
+    getMaxLengthOfMetric(data, [dataKey], getNumberFormatter(numbersFormat)) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL ?? 0;
+
+  const yLabelWidth = getLabelSize(
+    yAxisLabelAngle,
+    (yAxisLabel.length ?? 0) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL,
+    [-90, -270],
+    0,
+  );
+
+  const xAxisProps: XAxisProps = {};
+  if (xAxisLabel) {
+    xAxisProps.label = {
+      position: 'bottom',
+      value: xAxisLabel,
+    };
+    xAxisProps.height = 120;
+  }
+
+  const yAxisProps: YAxisProps = {
+    width: AXIS_OFFSET + yMetricLength,
+  };
+  if (yAxisLabel) {
+    yAxisProps.label = {
+      value: yAxisLabel,
+      angle: yAxisLabelAngle,
+      position: 'insideLeft',
+    };
+    yAxisProps.width = AXIS_OFFSET + yLabelWidth + yMetricLength;
+  }
+
   return (
     <Styles height={height} width={width}>
       {notification && <Notification onClick={closeNotification}>{notification}</Notification>}
@@ -134,8 +182,8 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
               payload={LEGEND}
             />
             <CartesianGrid vertical={false} />
-            <XAxis dataKey={xAxisDataKey} dy={10} angle={-45} tick={WaterfallTick} interval={0} />
-            <YAxis tickFormatter={formatter} />
+            <XAxis dataKey={xAxisDataKey} dy={10} angle={-45} tick={WaterfallTick} interval={0} {...xAxisProps} />
+            <YAxis tickFormatter={formatter} {...yAxisProps} />
             <Tooltip content={<WaterfallTooltip formatter={formatter} />} />
             <Bar
               dataKey={dataKey}
