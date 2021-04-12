@@ -28,8 +28,9 @@ import {
 } from 'recharts';
 import { getNumberFormatter, styled } from '@superset-ui/core';
 import ComposedChartTooltip from './ComposedChartTooltip';
-import { LabelColors, ResultData } from '../plugin/utils';
+import { LabelColors, ResultData, SortingType } from '../plugin/utils';
 import {
+  addTotalValues,
   CHART_SUB_TYPES,
   CHART_TYPES,
   getCartesianGridProps,
@@ -41,8 +42,10 @@ import {
   Layout,
   LegendPosition,
   MIN_SYMBOL_WIDTH_FOR_TICK_LABEL,
+  processBarChartOrder,
   renderChartElement,
 } from './utils';
+import { useCurrentData } from './state';
 
 type EventData = {
   color: string;
@@ -67,8 +70,10 @@ export type YAxisProps = XAxisProps & {
 };
 
 export type ComposedChartProps = {
+  orderByTypeMetric: SortingType;
   height: number;
   width: number;
+  hasOrderedBars: boolean;
   showTotals: boolean;
   showLegend: boolean;
   legendPosition: LegendPosition;
@@ -77,7 +82,7 @@ export type ComposedChartProps = {
   metrics: string[];
   breakdowns: string[];
   colorScheme: string;
-  useY2Axis?: boolean;
+  hasY2Axis?: boolean;
   chartSubType: keyof typeof CHART_SUB_TYPES;
   isAnimationActive?: boolean;
   chartType: keyof typeof CHART_TYPES;
@@ -87,7 +92,7 @@ export type ComposedChartProps = {
   numbersFormat: string;
   chartTypeMetrics: (keyof typeof CHART_TYPES)[];
   chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[];
-  useCustomTypeMetrics: boolean[];
+  hasCustomTypeMetrics: boolean[];
 };
 
 const Styles = styled.div<ComposedChartStylesProps>`
@@ -103,6 +108,8 @@ const Styles = styled.div<ComposedChartStylesProps>`
 
 export default function ComposedChart(props: ComposedChartProps) {
   const {
+    orderByTypeMetric,
+    hasOrderedBars,
     data,
     height,
     width,
@@ -116,14 +123,14 @@ export default function ComposedChart(props: ComposedChartProps) {
     breakdowns,
     isAnimationActive,
     labelsColor,
-    useY2Axis,
+    hasY2Axis,
     numbersFormat,
     chartTypeMetrics,
     chartSubTypeMetrics,
     showLegend,
     showTotals,
     legendPosition,
-    useCustomTypeMetrics,
+    hasCustomTypeMetrics,
   } = props;
 
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
@@ -155,11 +162,15 @@ export default function ComposedChart(props: ComposedChartProps) {
     forceUpdate();
   }, [forceUpdate, props]);
 
-  const currentData = data.map(item => {
-    const newItem = { ...item };
-    disabledDataKeys.forEach(dataKey => delete newItem[dataKey]);
-    return newItem;
-  });
+  const currentData = useCurrentData(
+    data,
+    disabledDataKeys,
+    colorScheme,
+    hasOrderedBars,
+    breakdowns,
+    orderByTypeMetric,
+    showTotals,
+  );
 
   const dataKeyLength = getMaxLengthOfDataKey(currentData) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
 
@@ -176,6 +187,7 @@ export default function ComposedChart(props: ComposedChartProps) {
     }
     setDisabledDataKeys(resultKeys);
   };
+
   return (
     <Styles key={updater} height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
       <RechartsComposedChart
@@ -183,7 +195,7 @@ export default function ComposedChart(props: ComposedChartProps) {
         width={width}
         height={height}
         layout={layout}
-        margin={{ left: 10, right: 10 }}
+        margin={{ left: 10, right: 10, top: 15 }}
         data={currentData}
       >
         {showLegend && (
@@ -224,7 +236,7 @@ export default function ComposedChart(props: ComposedChartProps) {
             label: yAxis.label,
           })}
         />
-        {useY2Axis && (
+        {hasY2Axis && (
           <YAxis
             {...getYAxisProps({
               dataKeyLength,
@@ -238,27 +250,33 @@ export default function ComposedChart(props: ComposedChartProps) {
             })}
           />
         )}
-        <Tooltip content={<ComposedChartTooltip numbersFormat={numbersFormat} metrics={metrics} />} />
+        <Tooltip
+          content={
+            <ComposedChartTooltip numbersFormat={numbersFormat} metrics={metrics} hasOrderedBars={hasOrderedBars} />
+          }
+        />
         {((isSideLegend && legendWidth) || !isSideLegend) &&
           breakdowns.map((breakdown, index) =>
             renderChartElement({
+              hasOrderedBars,
               chartType,
               metrics,
               showTotals,
               breakdown,
               numbersFormat,
-              useY2Axis,
+              hasY2Axis,
               labelsColor,
               isAnimationActive,
               updater,
               index,
               chartSubType,
               currentData,
-              useCustomTypeMetrics,
+              hasCustomTypeMetrics,
               chartTypeMetrics,
               chartSubTypeMetrics,
               colorScheme,
-              numberOfRenderedItems: breakdowns.length,
+              breakdowns,
+              numberOfRenderedItems: breakdowns.length - (hasOrderedBars ? disabledDataKeys.length : 0),
             }),
           )}
       </RechartsComposedChart>

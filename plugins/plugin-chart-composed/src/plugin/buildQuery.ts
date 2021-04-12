@@ -37,11 +37,9 @@ export type QueryFormExtraFilter = {
 export default function buildQuery(formData: QueryFormData) {
   return buildQueryContext(formData, baseQueryObject => {
     const orderby: [string, boolean][] = [];
-    for (let i = 0; i < MAX_FORM_CONTROLS / 2; i++) {
-      const metric = (formData?.metrics as AdhocMetric[])?.[i]?.label;
-      if (formData[`use_order_by_metric_${i}`] && metric) {
-        orderby.push([metric as string, formData[`order_by_type_metric_${i}`] === SortingType.ASC]);
-      }
+    const metric = (formData?.metrics as AdhocMetric[])?.[0]?.label;
+    if (formData.use_order_by_metric_0 && metric) {
+      orderby.push([metric as string, formData.order_by_type_metric_0 === SortingType.ASC]);
     }
     for (let i = 0; i < MAX_FORM_CONTROLS / 2; i++) {
       const groupBy = formData.groupby?.[i] as string;

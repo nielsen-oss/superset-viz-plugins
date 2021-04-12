@@ -28,21 +28,28 @@ type Sorting = [
 const orderByMetric: Sorting[] = [];
 const orderByGroupBy: Sorting[] = [];
 
-const getOrderByRow = (index: number, source: string, name: string, title: string): Sorting => [
+const getOrderByRow = (source: string, name: string, title: string, index?: number): Sorting => [
   {
-    name: `use_order_by_${name}_${index}`,
+    name: `use_order_by_${name}_${index ?? 0}`,
     config: {
       type: 'CheckboxControl',
-      label: t(`Use sorting for ${title} ${index + 1}`),
+      label: t(`Use sorting for ${title} ${index === undefined ? '' : index + 1}`),
       default: false,
-      description: t(`Use sorting for ${title} ${index + 1}`),
-      visibility: ({ form_data }: { form_data: QueryFormData }) => !!form_data?.[source]?.[index],
+      description: t(
+        `Use sorting for ${title} ${index === undefined ? '' : index + 1}${
+          source === 'metrics'
+            ? ' (if you use "BarChart", can be applied correctly only without composition with other charts)'
+            : ''
+        }`,
+      ),
+      visibility: ({ form_data }: { form_data: QueryFormData }) =>
+        index === undefined || !!form_data?.[source]?.[index],
     },
   },
   {
-    name: `order_by_type_${name}_${index}`,
+    name: `order_by_type_${name}_${index ?? 0}`,
     config: {
-      label: t(`Sorting type ${index + 1}`),
+      label: t(`Sorting type ${index === undefined ? '' : index + 1}`),
       type: 'SelectControl',
       clearable: false,
       options: Object.values(SortingType).map(key => ({
@@ -50,19 +57,17 @@ const getOrderByRow = (index: number, source: string, name: string, title: strin
         label: SortingTypeNames[key],
       })),
       visibility: ({ form_data }: { form_data: QueryFormData }) =>
-        !!(form_data[`use_order_by_${name}_${index}`] && form_data?.[source]?.[index]),
+        !!(form_data[`use_order_by_${name}_${index ?? 0}`] && (index === undefined || form_data?.[source]?.[index])),
       default: SortingType.ASC,
-      description: t(`Set Ascending / Descending sorting for ${title} ${index + 1}`),
+      description: t(`Set Ascending / Descending sorting for ${title} ${index === undefined ? '' : index + 1}`),
     },
   },
 ];
 
-for (let i = 0; i < MAX_FORM_CONTROLS / 2; i++) {
-  orderByMetric.push(getOrderByRow(i, 'metrics', 'metric', t('"metric"')));
-}
+orderByMetric.push(getOrderByRow('metrics', 'metric', t('"metric"')));
 
 for (let i = 0; i < MAX_FORM_CONTROLS / 2; i++) {
-  orderByGroupBy.push(getOrderByRow(i, 'groupby', 'group_by', t('"group by"')));
+  orderByGroupBy.push(getOrderByRow('groupby', 'group_by', t('"group by"'), i));
 }
 
 export { orderByMetric, orderByGroupBy };
