@@ -60,7 +60,7 @@ export const getChartStyles = (legendPosition: LegendPosition) => {
   };
 };
 
-export const AXIS_OFFSET = 30;
+export const AXIS_OFFSET = 20;
 export const getLabelSize = (
   angle: number,
   dataKeyLength: number,

@@ -299,7 +299,7 @@ type AxisProps = {
   numbersFormat: string;
 };
 
-const AXIS_OFFSET = 30;
+const AXIS_OFFSET = 20;
 export const getXAxisProps = ({
   layout,
   tickLabelAngle = 0,
