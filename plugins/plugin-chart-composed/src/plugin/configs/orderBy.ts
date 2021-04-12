@@ -43,7 +43,7 @@ const getOrderByRow = (source: string, name: string, title: string, index?: numb
         }`,
       ),
       visibility: ({ form_data }: { form_data: QueryFormData }) =>
-        index === undefined || !!form_data?.[source]?.[index ?? 0],
+        index === undefined || !!form_data?.[source]?.[index],
     },
   },
   {
@@ -59,7 +59,7 @@ const getOrderByRow = (source: string, name: string, title: string, index?: numb
       visibility: ({ form_data }: { form_data: QueryFormData }) =>
         !!(
           form_data[`use_order_by_${name}_${index ?? 0}`] &&
-          (index === undefined || form_data?.[source]?.[index ?? 0])
+          (index === undefined || form_data?.[source]?.[index])
         ),
       default: SortingType.ASC,
       description: t(`Set Ascending / Descending sorting for ${title} ${index === undefined ? '' : index + 1}`),
