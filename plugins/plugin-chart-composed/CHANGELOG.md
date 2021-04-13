@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.11.0 (2021-04-12)
+
+
+### Features
+
+* support for bar chart custom sorting and not by dataKey ([#43](https://github.com/nielsen-oss/superset-viz-plugins/issues/43)) ([3f30846](https://github.com/nielsen-oss/superset-viz-plugins/commit/3f308461d370ecb40c81e09d642bdc072541d19d))
+
+
+
+
+
 ## [0.10.3](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.10.2...@superset-viz-plugins/plugin-chart-composed@0.10.3) (2021-02-14)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-composed

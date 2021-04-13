@@ -26,6 +26,7 @@ import {
   ResultData,
   Data,
   FormData,
+  SortingType,
 } from './utils';
 import { yAxisLabelAngle } from './configs/axis';
 
@@ -77,19 +78,19 @@ export default function transformProps(chartProps: ChartProps) {
     useCustomTypeMetrics.every(el => !el)
   ) {
     resultShowTotals = formData.showTotals;
-    resultData = resultData.map(item => ({
-      ...item,
-      rechartsTotal: breakdowns.reduce((total, breakdown) => total + ((item[breakdown] as number) || 0), 0),
-    }));
   }
 
+  const hasOrderedBars = formData.chartType === CHART_TYPES.BAR_CHART && formData.useOrderByMetric0;
+
   const result: ComposedChartProps = {
+    orderByTypeMetric: formData.orderByTypeMetric0 as SortingType,
+    hasOrderedBars,
     breakdowns,
     width,
     height,
     chartTypeMetrics,
     chartSubTypeMetrics,
-    useCustomTypeMetrics,
+    hasCustomTypeMetrics: useCustomTypeMetrics,
     layout: formData.layout,
     colorScheme: formData.colorScheme,
     chartType: formData.chartType,
@@ -103,7 +104,7 @@ export default function transformProps(chartProps: ChartProps) {
       label: formData.xAxisLabel,
       tickLabelAngle: -Number(formData.xAxisTickLabelAngle),
     },
-    useY2Axis: metrics.length > 1 && formData.useY2Axis && formData.layout === Layout.horizontal,
+    hasY2Axis: metrics.length > 1 && formData.useY2Axis && formData.layout === Layout.horizontal,
     yAxis: {
       labelAngle: -Number(formData.yAxisLabelAngle ?? 0),
       labelAngle2: -Number(formData.y2AxisLabelAngle ?? 0),

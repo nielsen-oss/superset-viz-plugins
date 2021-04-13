@@ -67,7 +67,9 @@ export const showTotals = {
     label: t('Show Totals'),
     renderTrigger: true,
     default: false,
-    description: t('Show total values for stacked bar chart'),
+    description: t(
+      'Show total values for stacked bar chart (can be applied correctly only without composition with other charts)',
+    ),
     visibility: ({ form_data }: { form_data: QueryFormData }) =>
       form_data.bar_chart_sub_type === CHART_SUB_TYPES.STACKED,
   },

@@ -17,7 +17,7 @@
  * under the License.
  */
 import { t } from '@superset-ui/core';
-import { CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/utils';
+import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/utils';
 
 export const MAX_FORM_CONTROLS = 50;
 export const BREAKDOWN_SEPARATOR = '_$_';
@@ -32,6 +32,7 @@ export type FormData = {
   [key: string]: string | string[] | Metric[] | boolean;
   layout: Layout;
   colorScheme: string;
+  useOrderByMetric0: boolean;
   chartType: keyof typeof CHART_TYPES;
   lineChartSubType: keyof typeof CHART_SUB_TYPES;
   areaChartSubType: keyof typeof CHART_SUB_TYPES;
@@ -54,12 +55,16 @@ export type FormData = {
   groupby: string[];
 };
 
-export type Data = Record<string, string | number>;
-export type ResultData = Data & {
+export type Data = { [key: string]: string | number };
+export type ResultData = {
   rechartsDataKey: string;
   rechartsDataKeyUI: string;
   rechartsTotal?: number;
+  color?: string;
+  [key: string]: BarChartValue | string | number | undefined;
 };
+
+export type ColorsMap = { [key: string]: string };
 
 export enum SortingType {
   ASC = 'ASC',
