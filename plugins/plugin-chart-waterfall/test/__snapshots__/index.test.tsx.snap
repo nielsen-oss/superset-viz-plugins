@@ -50,6 +50,7 @@ Object {
         />,
         <mockConstructor
           tickFormatter={[Function]}
+          width={41}
         />,
         <mockConstructor
           content={
@@ -300,6 +301,7 @@ Object {
   "YAxisProps": Array [
     Object {
       "tickFormatter": [Function],
+      "width": 41,
     },
     Object {},
   ],

@@ -19,7 +19,10 @@
 
 import { supersetTheme, t } from '@superset-ui/core';
 import { LegendPayload } from 'recharts';
-import { BarValue } from './WaterfallChart';
+import { BarValue, WaterfallChartData } from './WaterfallChart';
+
+export const MIN_LABEL_MARGIN = 20;
+export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 7;
 
 export const LEGEND: LegendPayload[] = [
   { value: t('Increase'), color: supersetTheme.colors.success.base, id: 'increase', type: 'circle' },
@@ -56,3 +59,30 @@ export const getChartStyles = (legendPosition: LegendPosition) => {
     chartMargin,
   };
 };
+
+export const AXIS_OFFSET = 20;
+export const getLabelSize = (
+  angle: number,
+  dataKeyLength: number,
+  angleMin: number | number[],
+  angleMax: number,
+): number => {
+  if (!Array.isArray(angleMin)) {
+    // eslint-disable-next-line no-param-reassign
+    angleMin = [angleMin];
+  }
+  return angleMin.includes(angle)
+    ? MIN_LABEL_MARGIN
+    : dataKeyLength + (angle === angleMax ? MIN_SYMBOL_WIDTH_FOR_TICK_LABEL * 6 : 0);
+};
+
+export const getMaxLengthOfMetric = (
+  data: WaterfallChartData[],
+  metrics: string[],
+  formatter = (value: any) => `${value}`,
+) =>
+  Math.max(
+    ...data.map(
+      item => (formatter(Math.abs(metrics.reduce(total => total + (item.thisPeriod as number), 0))) as string).length,
+    ),
+  );

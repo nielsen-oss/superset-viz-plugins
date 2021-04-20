@@ -17,7 +17,7 @@
  * under the License.
  */
 import { ChartProps } from '@superset-ui/core';
-import { WaterfallChartData } from '../components/WaterfallChart';
+import { WaterfallChartProps } from '../components/WaterfallChart';
 import { convertDataForRecharts, createReChartsBarValues, SortingType } from './utils';
 import { LegendPosition } from '../components/utils';
 
@@ -31,6 +31,9 @@ export type QueryData = {
 
 type FormData = {
   xAxisColumn: string;
+  xAxisLabel: string;
+  yAxisLabel: string;
+  yAxisLabelAngle: string;
   periodColumn: string;
   queryFields: { metric: string };
   metric: Metric;
@@ -40,19 +43,7 @@ type FormData = {
   useOrderByChange: boolean;
 };
 
-export default function transformProps(
-  chartProps: ChartProps,
-): {
-  dataKey: string;
-  onBarClick: () => null;
-  numbersFormat: string;
-  data: WaterfallChartData[];
-  xAxisDataKey: string;
-  width: number;
-  resetFilters: () => null;
-  legendPosition: LegendPosition;
-  height: number;
-} {
+export default function transformProps(chartProps: ChartProps): WaterfallChartProps {
   const { width, height, formData, queriesData } = chartProps;
 
   const {
@@ -82,6 +73,9 @@ export default function transformProps(
   return {
     dataKey: valueColumn,
     xAxisDataKey: xAxisColumn,
+    xAxisLabel: formData.xAxisLabel ?? '',
+    yAxisLabel: formData.yAxisLabel ?? '',
+    yAxisLabelAngle: -Number(formData.yAxisLabelAngle),
     width,
     height,
     legendPosition,

@@ -64,15 +64,41 @@ const periodColumn: typeof sharedControls.groupby = {
   validators: [validateNonEmpty],
 };
 
-// TODO: Uncomment when dashboard will support ChartsFilter
-// const filterConfigs = {
-//   type: 'CollectionControl',
-//   label: 'Filters',
-//   description: t('Choose columns name that will be filtered on bar click'),
-//   validators: [],
-//   controlName: 'FilterBoxItemControl',
-//   mapStateToProps: ({ datasource }) => ({ datasource }),
-// };
+export const xAxisLabel = {
+  name: 'x_axis_label',
+  config: {
+    type: 'TextControl',
+    label: t('X Axis label'),
+    renderTrigger: true,
+    default: '',
+    description: t('Show X Axis Label in the chart'),
+  },
+};
+
+export const yAxisLabel = {
+  name: 'y_axis_label',
+  config: {
+    type: 'TextControl',
+    label: t('Y Axis label'),
+    renderTrigger: true,
+    default: '',
+    description: t('Show Y Axis Label in the chart'),
+  },
+};
+
+export const yAxisLabelAngle = {
+  name: 'y_axis_label_angle',
+  config: {
+    freeForm: true,
+    type: 'SelectControl',
+    clearable: false,
+    label: t('Y axis label angle'),
+    renderTrigger: true,
+    choices: formatSelectOptions(['0', '90', '270']),
+    default: '0',
+    description: t('Set Y axis label angle in the chart'),
+  },
+};
 
 export const legendPosition = {
   name: 'legend_position',
@@ -120,6 +146,16 @@ const config: ControlPanelConfig = {
       label: t('Chart Options'),
       expanded: true,
       controlSetRows: [[numbersFormat], [legendPosition]],
+    },
+    {
+      label: t('X Axis'),
+      expanded: true,
+      controlSetRows: [[xAxisLabel]],
+    },
+    {
+      label: t('Y Axis'),
+      expanded: true,
+      controlSetRows: [[yAxisLabel, yAxisLabelAngle]],
     },
   ],
 

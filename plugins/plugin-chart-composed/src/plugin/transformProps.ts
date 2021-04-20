@@ -28,6 +28,7 @@ import {
   FormData,
   SortingType,
 } from './utils';
+import { yAxisLabelAngle } from './configs/axis';
 
 export default function transformProps(chartProps: ChartProps) {
   const { width, height, queriesData } = chartProps;
@@ -103,8 +104,10 @@ export default function transformProps(chartProps: ChartProps) {
       label: formData.xAxisLabel,
       tickLabelAngle: -Number(formData.xAxisTickLabelAngle),
     },
-    hasY2Axis: formData.useY2Axis && formData.layout === Layout.horizontal,
+    hasY2Axis: metrics.length > 1 && formData.useY2Axis && formData.layout === Layout.horizontal,
     yAxis: {
+      labelAngle: -Number(formData.yAxisLabelAngle ?? 0),
+      labelAngle2: -Number(formData.y2AxisLabelAngle ?? 0),
       label: formData.yAxisLabel,
       tickLabelAngle: -Number(formData.yAxisTickLabelAngle),
       label2: formData.y2AxisLabel,
