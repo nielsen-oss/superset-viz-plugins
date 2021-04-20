@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'master'
-      - '1.2-integration'
 
 jobs:
   main:
@@ -12,7 +11,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      SUPERSET_VERSION: 'master'
+      SUPERSET_VERSION: '1.2'
       PRESET_NAME: Nielsen
     steps:
     - name: Use Node.js
