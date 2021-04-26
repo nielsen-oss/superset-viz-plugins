@@ -293,7 +293,7 @@ type AxisProps = {
   axisHeight: number;
   axisWidth: number;
   xAxisClientRect?: ClientRect;
-  rootRef?: Ref<HTMLDivElement>;
+  rootRef?: Ref<HTMLElement>;
 };
 
 const getActualXAxisSize = (
@@ -405,8 +405,8 @@ export const getYAxisProps = ({
   rootRef,
 }: AxisProps) => {
   const textAnchorPerAxis = isSecondAxis ? 'start' : 'end';
-  const textAnchor = tickLabelAngle === -90 ? 'start' : textAnchorPerAxis;
-  const verticalAnchor = 'middle';
+  const textAnchor = tickLabelAngle === -270 ? 'middle' : textAnchorPerAxis;
+  const verticalAnchor = tickLabelAngle === -270 ? 'start' : 'middle';
 
   const labelProps: LabelProps = {
     offset: 0,

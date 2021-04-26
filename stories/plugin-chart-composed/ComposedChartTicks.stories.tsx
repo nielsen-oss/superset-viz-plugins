@@ -17,7 +17,7 @@
  * under the License.
  */
 import React from 'react';
-import { ChartProps, supersetTheme, ThemeProvider, styled } from '@superset-ui/core';
+import { ChartProps, styled, supersetTheme, ThemeProvider } from '@superset-ui/core';
 import { D3_FORMAT_OPTIONS } from '@superset-ui/chart-controls';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
 import { CHART_SUB_TYPES, CHART_TYPES, Layout } from '../../plugins/plugin-chart-composed/src/components/utils';
@@ -48,7 +48,7 @@ const commonProps = {
   yAxisTickLabelAngle: '0',
   y2AxisTickLabelAngle: '0',
   useCategoryFormattingGroupBy0: true,
-  width: 400,
+  width: 350,
   height: 400,
 };
 
@@ -150,7 +150,7 @@ export default {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 `;
 
 const TicksTemplate = args => {
@@ -224,6 +224,40 @@ const TicksTemplate = args => {
             } as unknown) as ChartProps).data
           }
           {...applyCommonLogic(args)}
+          layout={Layout.vertical}
+          yAxis={{ ...args.yAxis, tickLabelAngle: 0 }}
+        />
+        <ComposedChart
+          chartType={CHART_TYPES.BAR_CHART}
+          data={
+            transformProps(({
+              ...barsHorizontalLegendTop,
+              formData: {
+                ...barsHorizontalLegendTop.formData,
+                useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
+              },
+              queriesData: args.queriesData,
+            } as unknown) as ChartProps).data
+          }
+          {...applyCommonLogic(args)}
+          layout={Layout.vertical}
+          yAxis={{ ...args.yAxis, tickLabelAngle: -45 }}
+        />
+        <ComposedChart
+          chartType={CHART_TYPES.BAR_CHART}
+          data={
+            transformProps(({
+              ...barsHorizontalLegendTop,
+              formData: {
+                ...barsHorizontalLegendTop.formData,
+                useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
+              },
+              queriesData: args.queriesData,
+            } as unknown) as ChartProps).data
+          }
+          {...applyCommonLogic(args)}
+          layout={Layout.vertical}
+          yAxis={{ ...args.yAxis, tickLabelAngle: -270 }}
         />
       </Container>
     </ThemeProvider>
