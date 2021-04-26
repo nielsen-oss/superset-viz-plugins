@@ -441,6 +441,7 @@ Object {
   "YAxisProps": Array [
     Object {
       "angle": -0,
+      "dx": 0,
       "label": Object {
         "angle": -0,
         "position": "insideRight",
@@ -467,6 +468,7 @@ Object {
   "YAxisProps": Array [
     Object {
       "angle": -0,
+      "dx": 0,
       "label": Object {
         "angle": -0,
         "position": "insideRight",
