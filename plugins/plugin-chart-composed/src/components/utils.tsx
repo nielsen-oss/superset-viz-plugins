@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React from 'react';
+import React, { Ref } from 'react';
 import {
   Area,
   Bar,
@@ -30,6 +30,7 @@ import {
   LabelListProps,
   Cell,
   BarChart,
+  XAxisProps,
 } from 'recharts';
 import { CategoricalColorNamespace, getNumberFormatter } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ColorsMap, LabelColors, ResultData, SortingType } from '../plugin/utils';
@@ -131,16 +132,6 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   return result;
 }
 
-const getLabelSize = (angle: number, dataKeyLength: number, angleMin: number | number[], angleMax: number): number => {
-  if (!Array.isArray(angleMin)) {
-    // eslint-disable-next-line no-param-reassign
-    angleMin = [angleMin];
-  }
-  return angleMin.includes(angle)
-    ? MIN_LABEL_MARGIN
-    : dataKeyLength + (angle === angleMax ? MIN_SYMBOL_WIDTH_FOR_TICK_LABEL * 6 : 0);
-};
-
 export const getMetricName = (name: string, metrics: string[]) =>
   metrics.length === 1 ? name?.split(BREAKDOWN_SEPARATOR).pop() : name?.split(BREAKDOWN_SEPARATOR).join(', ');
 
@@ -153,6 +144,7 @@ export const getLegendProps = (
   disabledDataKeys: string[],
   colorScheme: string,
   metrics: string[],
+  xAxisHeight: number,
 ): LegendProps => {
   const payload: LegendPayload[] = breakdowns.map((breakdown, index) => ({
     value: getMetricName(breakdown, metrics),
@@ -197,7 +189,7 @@ export const getLegendProps = (
         verticalAlign: legendPosition as LegendVerticalAlign,
         wrapperStyle: {
           ...result.wrapperStyle,
-          paddingTop: 10,
+          paddingTop: xAxisHeight,
           width,
         },
       };
@@ -296,47 +288,103 @@ type AxisProps = {
   labelAngle?: number;
   isSecondAxis?: boolean;
   dataKey?: string;
-  dataKeyLength: number;
-  metricLength: number;
   numbersFormat: string;
+  currentDataSize: number;
+  axisHeight: number;
+  axisWidth: number;
+  xAxisClientRect?: ClientRect;
+  rootRef?: Ref<HTMLDivElement>;
 };
 
-const AXIS_OFFSET = 20;
+const getActualXAxisSize = (
+  axisWidth: number,
+  numberOfTicks: number,
+  axisHeight: number,
+  tickLabelAngle: number,
+): {
+  actualWidth?: number;
+  actualHeight?: number;
+} => {
+  const tickWidth = axisWidth / numberOfTicks;
+  switch (tickLabelAngle) {
+    case 0:
+      return { actualWidth: Number.isNaN(tickWidth) ? 1 : tickWidth };
+    case -45:
+      return { actualWidth: 1.5 * (Number.isNaN(tickWidth) ? 1 : tickWidth) };
+    case -90:
+    default:
+      return {
+        actualHeight: Number.isNaN(tickWidth) ? 1 : tickWidth,
+        actualWidth: axisHeight,
+      };
+  }
+};
+
+const getActualYAxisSize = (
+  axisWidth: number,
+  numberOfTicks: number,
+  axisHeight: number,
+  tickLabelAngle: number,
+): {
+  actualWidth?: number;
+  actualHeight?: number;
+} => {
+  const tickWidth = axisWidth / numberOfTicks;
+  switch (tickLabelAngle) {
+    case 0:
+      return { actualWidth: 1.2 * axisWidth };
+    case -45:
+      return { actualWidth: 1.4 * axisWidth };
+    case -90:
+    default:
+      return {
+        actualWidth: tickWidth,
+      };
+  }
+};
+
 export const getXAxisProps = ({
   layout,
   tickLabelAngle = 0,
-  label,
-  dataKeyLength,
-  metricLength,
   numbersFormat,
+  currentDataSize,
+  axisHeight,
+  axisWidth,
 }: AxisProps) => {
   const textAnchor = tickLabelAngle === 0 ? 'middle' : 'end';
-  const labelProps: LabelProps = {
-    value: label,
-    position: 'bottom',
-    dy: -15,
-  };
-  const params = {
-    dy: 5,
-    label: labelProps,
+  const verticalAnchor = tickLabelAngle === 0 ? 'start' : 'middle';
+  const params: XAxisProps = {
+    dy: tickLabelAngle === -45 ? 15 : 5,
     angle: tickLabelAngle,
   };
+
   switch (layout) {
     case Layout.vertical:
       return {
         ...params,
         tick: (props: ComposedChartTickProps) => (
-          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
+          <ComposedChartTick
+            {...props}
+            textAnchor={textAnchor}
+            verticalAnchor={verticalAnchor}
+            tickFormatter={getNumberFormatter(numbersFormat)}
+            {...getActualXAxisSize(axisWidth, 5, axisHeight, tickLabelAngle)}
+          />
         ),
-        height: tickLabelAngle === 0 ? MIN_LABEL_MARGIN + AXIS_OFFSET : metricLength + AXIS_OFFSET,
         type: 'number' as const,
       };
     case Layout.horizontal:
     default:
       return {
         ...params,
-        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
-        height: getLabelSize(tickLabelAngle, dataKeyLength, 0, -90) + AXIS_OFFSET,
+        tick: (props: ComposedChartTickProps) => (
+          <ComposedChartTick
+            {...props}
+            textAnchor={textAnchor}
+            verticalAnchor={verticalAnchor}
+            {...getActualXAxisSize(axisWidth, currentDataSize, axisHeight, tickLabelAngle)}
+          />
+        ),
         interval: 0,
         dataKey: 'rechartsDataKeyUI',
       };
@@ -349,41 +397,64 @@ export const getYAxisProps = ({
   label,
   dataKey,
   isSecondAxis,
-  dataKeyLength,
-  metricLength,
   labelAngle = 90,
   numbersFormat,
+  currentDataSize,
+  axisHeight,
+  axisWidth,
+  rootRef,
 }: AxisProps) => {
   const textAnchorPerAxis = isSecondAxis ? 'start' : 'end';
   const textAnchor = tickLabelAngle === -90 ? 'middle' : textAnchorPerAxis;
+  const verticalAnchor = tickLabelAngle === -90 ? 'end' : 'middle';
+
   const labelProps: LabelProps = {
     offset: 0,
     value: label,
     angle: labelAngle,
     position: isSecondAxis ? 'insideRight' : 'insideLeft',
   };
+
+  const labelWidth = label?.length
+    ? Number(rootRef?.current?.querySelector('.recharts-label')?.getBoundingClientRect()?.width ?? 0) + 10
+    : 0;
+
   const params = {
+    dx: -5,
+    width: axisWidth + labelWidth,
     angle: tickLabelAngle,
     orientation: isSecondAxis ? ('right' as const) : ('left' as const),
     yAxisId: isSecondAxis ? 'right' : 'left',
     label: labelProps,
   };
-  const labelWidth = getLabelSize(labelAngle, (label?.length ?? 0) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL, [-90, -270], 0);
+
   switch (layout) {
     case Layout.vertical:
       return {
         ...params,
-        tick: (props: ComposedChartTickProps) => <ComposedChartTick {...props} textAnchor={textAnchor} />,
-        width: getLabelSize(tickLabelAngle, dataKeyLength, -90, 0) + labelWidth,
+        tick: (props: ComposedChartTickProps) => (
+          <ComposedChartTick
+            {...props}
+            verticalAnchor={verticalAnchor}
+            textAnchor={textAnchor}
+            {...getActualYAxisSize(axisWidth, currentDataSize, axisHeight, tickLabelAngle)}
+          />
+        ),
         dataKey: isSecondAxis ? dataKey : 'rechartsDataKeyUI',
         type: 'category' as const,
       };
+    case Layout.horizontal:
     default:
       return {
         ...params,
-        width: (tickLabelAngle === -90 ? MIN_LABEL_MARGIN : metricLength + AXIS_OFFSET) + labelWidth,
         tick: (props: ComposedChartTickProps) => (
-          <ComposedChartTick {...props} textAnchor={textAnchor} tickFormatter={getNumberFormatter(numbersFormat)} />
+          <ComposedChartTick
+            {...props}
+            verticalAnchor={verticalAnchor}
+            textAnchor={textAnchor}
+            tickFormatter={getNumberFormatter(numbersFormat)}
+            {...getActualYAxisSize(axisWidth, 5, axisHeight, tickLabelAngle)}
+          />
         ),
       };
   }
@@ -402,17 +473,6 @@ export const getCartesianGridProps = ({ layout }: { layout: Layout }) => {
       };
   }
 };
-
-export const getMaxLengthOfDataKey = (data: ResultData[]) =>
-  Math.min(Math.max(...data.map(item => item.rechartsDataKeyUI.length)), MAX_SYMBOLS_IN_TICK_LABEL);
-
-export const getMaxLengthOfMetric = (data: ResultData[], metrics: string[], formatter = (value: any) => `${value}`) =>
-  Math.max(
-    ...data.map(
-      item =>
-        (formatter(Math.abs(metrics.reduce((total, metric) => total + (item[metric] as number), 0))) as string).length,
-    ),
-  );
 
 const findBarItem = (currentData: ResultData[], index: number, breakdowns: string[], breakdown: string) => {
   const foundItemIndex = breakdowns.findIndex(item => item === breakdown);
@@ -437,7 +497,7 @@ export const renderLabel = ({
 }) => {
   let formattedValue = `${formatter(currentData[index][breakdown] as number)}`;
   if (hasOrderedBars) {
-    formattedValue = `${findBarItem(currentData, index, breakdowns, breakdown).value ?? ''}`;
+    formattedValue = `${findBarItem(currentData, index, breakdowns, breakdown)?.value ?? ''}`;
   }
   if (
     Math.abs(labelHeight) < MIN_BAR_SIZE_FOR_LABEL ||

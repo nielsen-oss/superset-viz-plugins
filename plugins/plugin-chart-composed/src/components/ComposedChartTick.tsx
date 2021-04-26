@@ -25,14 +25,17 @@ export type ComposedChartTickProps = {
   x: number;
   y: number;
   angle?: number;
-  textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
-  width?: number;
+  textAnchor: 'start' | 'middle' | 'end';
+  verticalAnchor: 'start' | 'middle' | 'end';
+  width: number;
   tickFormatter?: NumberFormatter;
   payload: {
     value: number;
   };
   dy?: number;
   dx?: number;
+  actualWidth?: number;
+  actualHeight: number;
 };
 
 const ComposedChartTick: FC<ComposedChartTickProps> = ({
@@ -43,7 +46,10 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
   dy,
   dx,
   textAnchor = 'end',
+  verticalAnchor = 'start',
   tickFormatter = value => value,
+  actualHeight,
+  actualWidth,
 }) => {
   let text;
   if (!isNaN(payload.value)) {
@@ -51,10 +57,24 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
   } else {
     text = `${payload.value}`;
   }
-  text = text.length > MAX_SYMBOLS_IN_TICK_LABEL ? `${text.slice(0, MAX_SYMBOLS_IN_TICK_LABEL)}...` : text;
+  const otherProps: { width?: number; height?: number } = {};
+  if (actualHeight) {
+    otherProps.height = actualHeight;
+  }
+  if (actualWidth) {
+    otherProps.width = actualWidth;
+  }
   return (
     <g transform={`translate(${x},${y})`} data-test-id={`tick-${text}`}>
-      <Text angle={angle} dy={dy} dx={dx} fontSize={12} verticalAnchor="middle" textAnchor={textAnchor}>
+      <Text
+        angle={angle}
+        dy={dy}
+        dx={dx}
+        fontSize={12}
+        verticalAnchor={verticalAnchor}
+        textAnchor={textAnchor}
+        {...otherProps}
+      >
         {text}
       </Text>
     </g>

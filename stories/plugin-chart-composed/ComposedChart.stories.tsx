@@ -29,6 +29,7 @@ import {
 
 const applyCommonLogic = initArgs => {
   const args = { ...initArgs };
+  delete args.data;
   if (args.layout !== Layout.horizontal) {
     args.useY2Axis = false;
   }
@@ -158,11 +159,9 @@ const BarsTemplate = args => {
       </>
     );
   }
-  applyCommonLogic(args);
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        {...args}
         chartType={CHART_TYPES.BAR_CHART}
         data={
           transformProps(({
@@ -174,6 +173,7 @@ const BarsTemplate = args => {
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
         }
+        {...applyCommonLogic(args)}
       />
     </ThemeProvider>
   );
@@ -198,11 +198,9 @@ const LinesTemplate = args => {
       </>
     );
   }
-  applyCommonLogic(args);
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        {...args}
         chartType={CHART_TYPES.LINE_CHART}
         data={
           transformProps(({
@@ -214,6 +212,7 @@ const LinesTemplate = args => {
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
         }
+        {...applyCommonLogic(args)}
       />
     </ThemeProvider>
   );
@@ -238,11 +237,9 @@ const AreaTemplate = args => {
       </>
     );
   }
-  applyCommonLogic(args);
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        {...args}
         chartType={CHART_TYPES.AREA_CHART}
         data={
           transformProps(({
@@ -254,6 +251,7 @@ const AreaTemplate = args => {
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
         }
+        {...applyCommonLogic(args)}
       />
     </ThemeProvider>
   );
@@ -276,11 +274,9 @@ const ScatterTemplate = args => {
       </>
     );
   }
-  applyCommonLogic(args);
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        {...args}
         chartType={CHART_TYPES.SCATTER_CHART}
         data={
           transformProps(({
@@ -292,31 +288,29 @@ const ScatterTemplate = args => {
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
         }
+        {...applyCommonLogic(args)}
       />
     </ThemeProvider>
   );
 };
 
-const AllTypesTemplate = args => {
-  applyCommonLogic(args);
-  return (
-    <ThemeProvider theme={supersetTheme}>
-      <ComposedChart
-        {...args}
-        data={
-          transformProps(({
-            ...allChatsLegendBottomBreakdowns,
-            formData: {
-              ...allChatsLegendBottomBreakdowns.formData,
-              useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
-            },
-            queriesData: args.queriesData,
-          } as unknown) as ChartProps).data
-        }
-      />
-    </ThemeProvider>
-  );
-};
+const AllTypesTemplate = args => (
+  <ThemeProvider theme={supersetTheme}>
+    <ComposedChart
+      data={
+        transformProps(({
+          ...allChatsLegendBottomBreakdowns,
+          formData: {
+            ...allChatsLegendBottomBreakdowns.formData,
+            useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
+          },
+          queriesData: args.queriesData,
+        } as unknown) as ChartProps).data
+      }
+      {...applyCommonLogic(args)}
+    />
+  </ThemeProvider>
+);
 
 export const Bars = BarsTemplate.bind({});
 Bars.args = {

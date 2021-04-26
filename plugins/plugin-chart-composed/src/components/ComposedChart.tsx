@@ -26,23 +26,18 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { getNumberFormatter, styled } from '@superset-ui/core';
+import { styled } from '@superset-ui/core';
 import ComposedChartTooltip from './ComposedChartTooltip';
 import { LabelColors, ResultData, SortingType } from '../plugin/utils';
 import {
-  addTotalValues,
   CHART_SUB_TYPES,
   CHART_TYPES,
   getCartesianGridProps,
   getLegendProps,
-  getMaxLengthOfDataKey,
-  getMaxLengthOfMetric,
   getXAxisProps,
   getYAxisProps,
   Layout,
   LegendPosition,
-  MIN_SYMBOL_WIDTH_FOR_TICK_LABEL,
-  processBarChartOrder,
   renderChartElement,
 } from './utils';
 import { useCurrentData } from './state';
@@ -53,6 +48,7 @@ type EventData = {
   type: LegendType;
   value: string;
 };
+
 type ComposedChartStylesProps = {
   height: number;
   width: number;
@@ -98,8 +94,9 @@ export type ComposedChartProps = {
 };
 
 const Styles = styled.div<ComposedChartStylesProps>`
-  height: ${({ height }) => height};
-  width: ${({ width }) => width};
+  position: relative;
+  height: ${({ height }) => height}px;
+  width: ${({ width }) => width}px;
   overflow: auto;
 
   & .recharts-legend-item {
@@ -107,6 +104,24 @@ const Styles = styled.div<ComposedChartStylesProps>`
     white-space: nowrap;
   }
 `;
+
+const XAxisLabel = styled.div<{ xAxisClientRect?: ClientRect; rootClientRect?: ClientRect; visible: boolean }>`
+  position: absolute;
+  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
+  top: ${({ rootClientRect, xAxisClientRect }) => xAxisClientRect?.bottom - rootClientRect?.top + 10}px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
 
 export default function ComposedChart(props: ComposedChartProps) {
   const {
@@ -138,12 +153,13 @@ export default function ComposedChart(props: ComposedChartProps) {
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
   const [legendWidth, setLegendWidth] = useState<number>(0);
   const [updater, setUpdater] = useState<number>(0);
+  const [visible, setVisible] = useState<boolean>(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const isSideLegend =
     showLegend && (legendPosition === LegendPosition.right || legendPosition === LegendPosition.left);
 
   useEffect(() => {
-    if (rootRef.current && !legendWidth) {
+    if (rootRef.current && !legendWidth && showLegend) {
       const legend = rootRef.current.querySelector('.recharts-legend-wrapper');
       const currentWidth = legend?.getBoundingClientRect()?.width || 0;
       if (currentWidth !== legendWidth) {
@@ -160,9 +176,36 @@ export default function ComposedChart(props: ComposedChartProps) {
 
   const forceUpdate = useCallback(() => setUpdater(Math.random()), []);
 
+  const xAxisClientRect = rootRef.current
+    ?.querySelector('.xAxis .recharts-cartesian-axis-ticks')
+    ?.getBoundingClientRect();
+  const xAxisHeight = Math.ceil(xAxisClientRect?.height ?? 1);
+  const xAxisWidth = Math.ceil(xAxisClientRect?.width ?? 1);
+
+  const yAxisClientRect = rootRef.current
+    ?.querySelector('.yAxis .recharts-cartesian-axis-ticks')
+    ?.getBoundingClientRect();
+  const yAxisHeight = Math.ceil(yAxisClientRect?.height ?? 1);
+  const yAxisWidth = Math.ceil(yAxisClientRect?.width ?? 1);
+
+  const updateVisibility = useCallback(
+    debounce(() => {
+      forceUpdate();
+      setVisible(true);
+    }, 5),
+    [],
+  );
+  const updateUI = useCallback(
+    debounce(() => {
+      forceUpdate();
+      updateVisibility();
+    }, 1),
+    [],
+  );
+  const rootClientRect = rootRef?.current?.getBoundingClientRect();
   useEffect(() => {
-    forceUpdate();
-  }, [forceUpdate, props]);
+    updateUI();
+  }, [props, forceUpdate, JSON.stringify(xAxisClientRect), JSON.stringify(yAxisClientRect)]);
 
   const currentData = useCurrentData(
     data,
@@ -173,11 +216,6 @@ export default function ComposedChart(props: ComposedChartProps) {
     orderByTypeMetric,
     showTotals,
   );
-
-  const dataKeyLength = getMaxLengthOfDataKey(currentData) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
-
-  const metricLength =
-    getMaxLengthOfMetric(currentData, metrics, getNumberFormatter(numbersFormat)) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL;
 
   const handleLegendClick = ({ id }: EventData) => {
     let resultKeys;
@@ -190,6 +228,16 @@ export default function ComposedChart(props: ComposedChartProps) {
     setDisabledDataKeys(resultKeys);
   };
 
+  const xMarginLeft =
+    xAxis.tickLabelAngle === -45 &&
+    layout === Layout.horizontal &&
+    showLegend &&
+    legendPosition !== LegendPosition.left &&
+    !yAxis.label
+      ? xAxisWidth / currentData.length
+      : 0;
+  const yMarginBottom = yAxis.tickLabelAngle === -45 && layout === Layout.vertical ? yAxisWidth : xAxisHeight;
+
   return (
     <Styles key={updater} height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
       <RechartsComposedChart
@@ -197,7 +245,12 @@ export default function ComposedChart(props: ComposedChartProps) {
         width={width}
         height={height}
         layout={layout}
-        margin={{ left: 10, right: 10, top: 15 }}
+        style={{ visibility: visible ? 'visible' : 'hidden' }}
+        margin={{
+          left: xMarginLeft,
+          top: 15,
+          bottom: showLegend && legendPosition === LegendPosition.bottom ? 0 : yMarginBottom,
+        }}
         data={currentData}
       >
         {showLegend && (
@@ -212,6 +265,7 @@ export default function ComposedChart(props: ComposedChartProps) {
               disabledDataKeys,
               colorScheme,
               metrics,
+              xAxisHeight,
             )}
             iconType="circle"
             iconSize={10}
@@ -220,37 +274,42 @@ export default function ComposedChart(props: ComposedChartProps) {
         <CartesianGrid {...getCartesianGridProps({ layout })} />
         <XAxis
           {...getXAxisProps({
-            dataKeyLength,
-            metricLength,
             numbersFormat,
             layout,
+            currentDataSize: currentData.length,
             tickLabelAngle: xAxis.tickLabelAngle,
-            label: xAxis.label,
+            axisHeight: xAxisHeight,
+            axisWidth: xAxisWidth,
+            xAxisClientRect,
           })}
         />
         <YAxis
           {...getYAxisProps({
-            dataKeyLength,
-            metricLength,
+            rootRef,
             numbersFormat,
+            currentDataSize: currentData.length,
             layout,
             tickLabelAngle: yAxis.tickLabelAngle,
             labelAngle: yAxis.labelAngle,
             label: yAxis.label,
+            axisHeight: yAxisHeight,
+            axisWidth: yAxisWidth,
           })}
         />
         {hasY2Axis && (
           <YAxis
             {...getYAxisProps({
-              dataKeyLength,
-              metricLength,
+              rootRef,
               numbersFormat,
               layout,
+              currentDataSize: currentData.length,
               isSecondAxis: true,
               dataKey: metrics[metrics.length - 1],
               tickLabelAngle: yAxis.tickLabelAngle2,
               label: yAxis.label2,
               labelAngle: yAxis.labelAngle2,
+              axisHeight: yAxisHeight,
+              axisWidth: yAxisWidth,
             })}
           />
         )}
@@ -270,7 +329,7 @@ export default function ComposedChart(props: ComposedChartProps) {
               numbersFormat,
               hasY2Axis,
               labelsColor,
-              isAnimationActive,
+              isAnimationActive: isAnimationActive && visible,
               updater,
               index,
               chartSubType,
@@ -284,6 +343,9 @@ export default function ComposedChart(props: ComposedChartProps) {
             }),
           )}
       </RechartsComposedChart>
+      <XAxisLabel xAxisClientRect={xAxisClientRect} rootClientRect={rootClientRect} visible={visible}>
+        {xAxis.label}
+      </XAxisLabel>
     </Styles>
   );
 }
