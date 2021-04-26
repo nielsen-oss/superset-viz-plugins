@@ -54,7 +54,7 @@ const commonProps = {
 };
 
 export default {
-  title: 'Plugins/Composed Chart',
+  title: 'Plugins/Composed Chart/Playground',
   component: ComposedChart,
   parameters: {
     chromatic: { delay: 2000 },

@@ -20,7 +20,12 @@ import React from 'react';
 import { ChartProps, styled, supersetTheme, ThemeProvider } from '@superset-ui/core';
 import { D3_FORMAT_OPTIONS } from '@superset-ui/chart-controls';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
-import { CHART_SUB_TYPES, CHART_TYPES, Layout } from '../../plugins/plugin-chart-composed/src/components/utils';
+import {
+  CHART_SUB_TYPES,
+  CHART_TYPES,
+  Layout,
+  LegendPosition,
+} from '../../plugins/plugin-chart-composed/src/components/utils';
 import transformProps from '../../plugins/plugin-chart-composed/src/plugin/transformProps';
 import { barsHorizontalLegendTop } from '../../plugins/plugin-chart-composed/test/__mocks__/composedProps';
 
@@ -48,12 +53,14 @@ const commonProps = {
   yAxisTickLabelAngle: '0',
   y2AxisTickLabelAngle: '0',
   useCategoryFormattingGroupBy0: true,
+  XAxisLabel: 'X Axis Label',
+  yAxisLabel: 'Y Axis Label',
   width: 350,
   height: 400,
 };
 
 export default {
-  title: 'Plugins/Composed Chart/Bars',
+  title: 'Plugins/Composed Chart/Combinations',
   component: ComposedChart,
   parameters: {
     chromatic: { delay: 2000 },
@@ -151,6 +158,10 @@ export default {
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  & > * {
+    border: 1px black dashed;
+  }
 `;
 
 const TicksTemplate = args => {
@@ -179,7 +190,15 @@ const TicksTemplate = args => {
             } as unknown) as ChartProps).data
           }
           {...applyCommonLogic(args)}
-          xAxis={{ ...args.xAxis, tickLabelAngle: 0 }}
+          xAxis={{ ...args.xAxis, tickLabelAngle: 0, label: 'X Axis Label' }}
+          yAxis={{
+            ...args.yAxis,
+            tickLabelAngle2: -45,
+            labelAngle2: -90,
+            label: 'Y Axis Label',
+            label2: 'Y2 Axis Label',
+          }}
+          hasY2Axis
         />
         <ComposedChart
           chartType={CHART_TYPES.BAR_CHART}
@@ -194,7 +213,10 @@ const TicksTemplate = args => {
             } as unknown) as ChartProps).data
           }
           {...applyCommonLogic(args)}
-          xAxis={{ ...args.xAxis, tickLabelAngle: -45 }}
+          hasY2Axis
+          xAxis={{ ...args.xAxis, tickLabelAngle: -45, label: 'X Axis Label' }}
+          yAxis={{ ...args.yAxis, tickLabelAngle2: 0, labelAngle: 90, label: 'Y Axis Label', label2: 'Y2 Axis Label' }}
+          legendPosition={LegendPosition.bottom}
         />
         <ComposedChart
           chartType={CHART_TYPES.BAR_CHART}
@@ -209,7 +231,15 @@ const TicksTemplate = args => {
             } as unknown) as ChartProps).data
           }
           {...applyCommonLogic(args)}
-          xAxis={{ ...args.xAxis, tickLabelAngle: -90 }}
+          hasY2Axis
+          xAxis={{ ...args.xAxis, tickLabelAngle: -90, label: 'X Axis Label' }}
+          yAxis={{
+            ...args.yAxis,
+            tickLabelAngle2: -90,
+            labelAngle: -270,
+            label: 'Y Axis Label',
+            label2: 'Y2 Axis Label',
+          }}
         />
         <ComposedChart
           chartType={CHART_TYPES.BAR_CHART}
@@ -225,7 +255,8 @@ const TicksTemplate = args => {
           }
           {...applyCommonLogic(args)}
           layout={Layout.vertical}
-          yAxis={{ ...args.yAxis, tickLabelAngle: 0 }}
+          xAxis={{ ...args.xAxis, label: 'X Axis Label' }}
+          yAxis={{ ...args.yAxis, tickLabelAngle: 0, label: 'Y Axis Label' }}
         />
         <ComposedChart
           chartType={CHART_TYPES.BAR_CHART}
@@ -241,7 +272,8 @@ const TicksTemplate = args => {
           }
           {...applyCommonLogic(args)}
           layout={Layout.vertical}
-          yAxis={{ ...args.yAxis, tickLabelAngle: -45 }}
+          xAxis={{ ...args.xAxis, label: 'X Axis Label' }}
+          yAxis={{ ...args.yAxis, tickLabelAngle: -45, label: 'Y Axis Label', labelAngle: -270 }}
         />
         <ComposedChart
           chartType={CHART_TYPES.BAR_CHART}
@@ -257,7 +289,9 @@ const TicksTemplate = args => {
           }
           {...applyCommonLogic(args)}
           layout={Layout.vertical}
-          yAxis={{ ...args.yAxis, tickLabelAngle: -270 }}
+          xAxis={{ ...args.xAxis, label: 'X Axis Label' }}
+          yAxis={{ ...args.yAxis, tickLabelAngle: -270, label: 'Y Axis Label', labelAngle: -90 }}
+          legendPosition={LegendPosition.bottom}
         />
       </Container>
     </ThemeProvider>

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { Ref } from 'react';
+import React, { Ref, RefObject } from 'react';
 import {
   Area,
   Bar,
@@ -293,7 +293,7 @@ type AxisProps = {
   axisHeight: number;
   axisWidth: number;
   xAxisClientRect?: ClientRect;
-  rootRef?: Ref<HTMLElement>;
+  rootRef?: RefObject<HTMLDivElement>;
 };
 
 const getActualXAxisSize = (
@@ -350,12 +350,20 @@ export const getXAxisProps = ({
   currentDataSize,
   axisHeight,
   axisWidth,
+  label,
 }: AxisProps) => {
   const textAnchor = tickLabelAngle === 0 ? 'middle' : 'end';
   const verticalAnchor = tickLabelAngle === 0 ? 'start' : 'middle';
+  const labelProps: LabelProps = {
+    value: label,
+    position: 'insideBottom',
+    dy: axisHeight,
+  };
+
   const params: XAxisProps = {
     dy: tickLabelAngle === -45 ? 15 : 5,
     angle: tickLabelAngle,
+    label: labelProps,
   };
 
   switch (layout) {
@@ -409,18 +417,21 @@ export const getYAxisProps = ({
   const verticalAnchor = tickLabelAngle === -270 ? 'start' : 'middle';
 
   const labelProps: LabelProps = {
-    offset: 0,
     value: label,
     angle: labelAngle,
     position: isSecondAxis ? 'insideRight' : 'insideLeft',
   };
 
-  const labelWidth = label?.length
-    ? Number(rootRef?.current?.querySelector('.recharts-label')?.getBoundingClientRect()?.width ?? 0) + 10
-    : 0;
+  const labelPerAngle =
+    labelAngle === 0
+      ? Number(
+          rootRef?.current?.querySelectorAll('.yAxis .recharts-label')?.[isSecondAxis ? 1 : 0]?.getBoundingClientRect()
+            ?.width ?? 0,
+        ) + 10
+      : 15;
+  const labelWidth = label?.length ? labelPerAngle : 0;
 
   const params = {
-    dx: -5,
     width: axisWidth + labelWidth,
     angle: tickLabelAngle,
     orientation: isSecondAxis ? ('right' as const) : ('left' as const),
@@ -684,9 +695,10 @@ export const addTotalValues = (breakdowns: string[], resultData: ResultData[], h
   }));
 
 export function debounce(func: Function, timeout = 300) {
-  let timer: NodeJS.Timeout;
+  let timer: number;
   return (...args: any[]) => {
     clearTimeout(timer);
+    // @ts-ignore
     timer = setTimeout(() => {
       // @ts-ignore
       func.apply(this, args);

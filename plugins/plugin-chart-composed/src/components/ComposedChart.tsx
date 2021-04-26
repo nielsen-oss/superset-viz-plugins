@@ -106,14 +106,6 @@ const Styles = styled.div<ComposedChartStylesProps>`
   }
 `;
 
-const XAxisLabel = styled.div<{ xAxisClientRect?: ClientRect; rootClientRect?: ClientRect; visible: boolean }>`
-  position: absolute;
-  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
-  top: ${({ rootClientRect, xAxisClientRect }) => (xAxisClientRect?.bottom ?? 0) - (rootClientRect?.top ?? 0) + 10}px;
-  left: 50%;
-  transform: translateX(-50%);
-`;
-
 const ComposedChart: FC<ComposedChartProps> = props => {
   const {
     orderByTypeMetric,
@@ -145,13 +137,13 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   const [legendWidth, setLegendWidth] = useState<number>(0);
   const [updater, setUpdater] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
-  const rootRef = useRef<HTMLElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
   const isSideLegend =
     showLegend && (legendPosition === LegendPosition.right || legendPosition === LegendPosition.left);
 
   useEffect(() => {
     if (rootRef.current && !legendWidth && showLegend) {
-      const legend = rootRef.current.querySelector('.recharts-legend-wrapper');
+      const legend = rootRef?.current?.querySelector('.recharts-legend-wrapper');
       const currentWidth = legend?.getBoundingClientRect()?.width || 0;
       if (currentWidth !== legendWidth) {
         setLegendWidth(currentWidth ? currentWidth + 20 : currentWidth);
@@ -179,6 +171,12 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   const yAxisHeight = Math.ceil(yAxisClientRect?.height ?? 1);
   const yAxisWidth = Math.ceil(yAxisClientRect?.width ?? 1);
 
+  const y2AxisClientRect = rootRef.current
+    ?.querySelectorAll('.yAxis .recharts-cartesian-axis-ticks')[1]
+    ?.getBoundingClientRect();
+  const y2AxisHeight = Math.ceil(y2AxisClientRect?.height ?? 1);
+  const y2AxisWidth = Math.ceil(y2AxisClientRect?.width ?? 1);
+
   const updateVisibility = useCallback(
     debounce(() => {
       forceUpdate();
@@ -193,7 +191,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     }, 1),
     [],
   );
-  const rootClientRect = rootRef?.current?.getBoundingClientRect();
+
   useEffect(() => {
     updateUI();
   }, [props, forceUpdate]);
@@ -272,6 +270,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             axisHeight: xAxisHeight,
             axisWidth: xAxisWidth,
             xAxisClientRect,
+            label: xAxis.label,
           })}
         />
         <YAxis
@@ -299,8 +298,8 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               tickLabelAngle: yAxis.tickLabelAngle2,
               label: yAxis.label2,
               labelAngle: yAxis.labelAngle2,
-              axisHeight: yAxisHeight,
-              axisWidth: yAxisWidth,
+              axisHeight: y2AxisHeight,
+              axisWidth: y2AxisWidth,
             })}
           />
         )}
@@ -334,9 +333,6 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             }),
           )}
       </RechartsComposedChart>
-      <XAxisLabel xAxisClientRect={xAxisClientRect} rootClientRect={rootClientRect} visible={visible}>
-        {xAxis.label}
-      </XAxisLabel>
     </Styles>
   );
 };
