@@ -10,17 +10,17 @@ const queriesDataMetrics2 = {
   annotation_data: [],
   data: [
     {
-      group_type: 'DirectDueToGroup',
+      group_type: 'Direct Due To Group',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 7,
     },
     {
-      group_type: 'DueToGroup',
+      group_type: 'Due To Group',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 7,
     },
     {
-      group_type: 'SummaryGroup',
+      group_type: 'Summary Group',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 3,
     },
@@ -51,37 +51,37 @@ const queriesDataMetrics2Breakdowns = {
       'COUNT_DISTINCT(group_name)': 31,
     },
     {
-      group_type: 'DirectDueToGroup',
+      group_type: 'Direct Due To Group',
       period_type: 'Custom',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 7,
     },
     {
-      group_type: 'DueToGroup',
+      group_type: 'Due To Group',
       period_type: 'Custom',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 7,
     },
     {
-      group_type: 'SummaryGroup',
+      group_type: 'Summary Group',
       period_type: 'Custom',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 3,
     },
     {
-      group_type: 'SummaryGroup',
+      group_type: 'Summary Group',
       period_type: 'Standard',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 3,
     },
     {
-      group_type: 'DirectDueToGroup',
+      group_type: 'Direct Due To Group',
       period_type: 'Standard',
       'COUNT_DISTINCT(period)': 3,
       'COUNT_DISTINCT(group_name)': 6,
     },
     {
-      group_type: 'DueToGroup',
+      group_type: 'Due To Group',
       period_type: 'Standard',
       'COUNT_DISTINCT(period)': 3,
       'COUNT_DISTINCT(group_name)': 6,
@@ -116,7 +116,7 @@ const queriesDataForAllCharts = {
       'COUNT_DISTINCT(efficiency)': 3,
     },
     {
-      group_type: 'DirectDueToGroup',
+      group_type: 'Direct Due To Group',
       period_type: 'Custom',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 7,
@@ -124,7 +124,7 @@ const queriesDataForAllCharts = {
       'COUNT_DISTINCT(efficiency)': 2,
     },
     {
-      group_type: 'DueToGroup',
+      group_type: 'Due To Group',
       period_type: 'Custom',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 7,
@@ -132,7 +132,7 @@ const queriesDataForAllCharts = {
       'COUNT_DISTINCT(efficiency)': 2,
     },
     {
-      group_type: 'SummaryGroup',
+      group_type: 'Summary Group',
       period_type: 'Custom',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 3,
@@ -140,7 +140,7 @@ const queriesDataForAllCharts = {
       'COUNT_DISTINCT(efficiency)': 6,
     },
     {
-      group_type: 'SummaryGroup',
+      group_type: 'Summary Group',
       period_type: 'Standard',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 3,
@@ -148,7 +148,7 @@ const queriesDataForAllCharts = {
       'COUNT_DISTINCT(efficiency)': 6,
     },
     {
-      group_type: 'DirectDueToGroup',
+      group_type: 'Direct Due To Group',
       period_type: 'Standard',
       'COUNT_DISTINCT(period)': 3,
       'COUNT_DISTINCT(group_name)': 6,
@@ -156,7 +156,7 @@ const queriesDataForAllCharts = {
       'COUNT_DISTINCT(efficiency)': 2,
     },
     {
-      group_type: 'DueToGroup',
+      group_type: 'Due To Group',
       period_type: 'Standard',
       'COUNT_DISTINCT(period)': 3,
       'COUNT_DISTINCT(group_name)': 6,

@@ -405,8 +405,8 @@ export const getYAxisProps = ({
   rootRef,
 }: AxisProps) => {
   const textAnchorPerAxis = isSecondAxis ? 'start' : 'end';
-  const textAnchor = tickLabelAngle === -90 ? 'middle' : textAnchorPerAxis;
-  const verticalAnchor = tickLabelAngle === -90 ? 'end' : 'middle';
+  const textAnchor = tickLabelAngle === -90 ? 'start' : textAnchorPerAxis;
+  const verticalAnchor = 'middle';
 
   const labelProps: LabelProps = {
     offset: 0,
@@ -684,7 +684,7 @@ export const addTotalValues = (breakdowns: string[], resultData: ResultData[], h
   }));
 
 export function debounce(func: Function, timeout = 300) {
-  let timer: NodeJS.Timer;
+  let timer: NodeJS.Timeout;
   return (...args: any[]) => {
     clearTimeout(timer);
     timer = setTimeout(() => {

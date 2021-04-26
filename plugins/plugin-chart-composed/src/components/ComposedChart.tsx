@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import {
   CartesianGrid,
   ComposedChart as RechartsComposedChart,
@@ -109,12 +109,12 @@ const Styles = styled.div<ComposedChartStylesProps>`
 const XAxisLabel = styled.div<{ xAxisClientRect?: ClientRect; rootClientRect?: ClientRect; visible: boolean }>`
   position: absolute;
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
-  top: ${({ rootClientRect, xAxisClientRect }) => xAxisClientRect?.bottom - rootClientRect?.top + 10}px;
+  top: ${({ rootClientRect, xAxisClientRect }) => (xAxisClientRect?.bottom ?? 0) - (rootClientRect?.top ?? 0) + 10}px;
   left: 50%;
   transform: translateX(-50%);
 `;
 
-export default function ComposedChart(props: ComposedChartProps) {
+const ComposedChart: FC<ComposedChartProps> = props => {
   const {
     orderByTypeMetric,
     hasOrderedBars,
@@ -145,7 +145,7 @@ export default function ComposedChart(props: ComposedChartProps) {
   const [legendWidth, setLegendWidth] = useState<number>(0);
   const [updater, setUpdater] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
-  const rootRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLElement>(null);
   const isSideLegend =
     showLegend && (legendPosition === LegendPosition.right || legendPosition === LegendPosition.left);
 
@@ -339,4 +339,5 @@ export default function ComposedChart(props: ComposedChartProps) {
       </XAxisLabel>
     </Styles>
   );
-}
+};
+export default ComposedChart;
