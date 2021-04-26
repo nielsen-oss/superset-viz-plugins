@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { Ref, RefObject } from 'react';
+import React, { RefObject } from 'react';
 import {
   Area,
   Bar,
@@ -29,7 +29,6 @@ import {
   LabelList,
   LabelListProps,
   Cell,
-  BarChart,
   XAxisProps,
 } from 'recharts';
 import { CategoricalColorNamespace, getNumberFormatter } from '@superset-ui/core';
@@ -361,7 +360,6 @@ export const getXAxisProps = ({
   };
 
   const params: XAxisProps = {
-    dy: tickLabelAngle === -45 ? 15 : 5,
     angle: tickLabelAngle,
     label: labelProps,
   };
@@ -385,6 +383,7 @@ export const getXAxisProps = ({
     default:
       return {
         ...params,
+        dy: tickLabelAngle === -45 ? 15 : 5,
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick
             {...props}
@@ -413,8 +412,9 @@ export const getYAxisProps = ({
   rootRef,
 }: AxisProps) => {
   const textAnchorPerAxis = isSecondAxis ? 'start' : 'end';
-  const textAnchor = tickLabelAngle === -270 ? 'middle' : textAnchorPerAxis;
-  const verticalAnchor = tickLabelAngle === -270 ? 'start' : 'middle';
+  const textAnchor = tickLabelAngle === -90 ? 'middle' : textAnchorPerAxis;
+  const verticalAnchor = tickLabelAngle === -90 ? 'end' : 'middle';
+  const axisInverseSign = isSecondAxis ? 1 : -1;
 
   const labelProps: LabelProps = {
     value: label,
@@ -432,6 +432,7 @@ export const getYAxisProps = ({
   const labelWidth = label?.length ? labelPerAngle : 0;
 
   const params = {
+    dx: tickLabelAngle === -90 ? axisInverseSign * 5 : 0,
     width: axisWidth + labelWidth,
     angle: tickLabelAngle,
     orientation: isSecondAxis ? ('right' as const) : ('left' as const),

@@ -18,7 +18,6 @@
  */
 import React from 'react';
 import { ChartProps, styled, supersetTheme, ThemeProvider } from '@superset-ui/core';
-import { D3_FORMAT_OPTIONS } from '@superset-ui/chart-controls';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
 import {
   CHART_SUB_TYPES,
@@ -28,25 +27,7 @@ import {
 } from '../../plugins/plugin-chart-composed/src/components/utils';
 import transformProps from '../../plugins/plugin-chart-composed/src/plugin/transformProps';
 import { barsHorizontalLegendTop } from '../../plugins/plugin-chart-composed/test/__mocks__/composedProps';
-
-const applyCommonLogic = initArgs => {
-  const args = { ...initArgs };
-  delete args.data;
-  if (args.layout !== Layout.horizontal) {
-    args.useY2Axis = false;
-  }
-  args.xAxis = {
-    label: args.xAxisLabel,
-    tickLabelAngle: -Number(args.xAxisTickLabelAngle),
-  };
-  args.yAxis = {
-    label: args.yAxisLabel,
-    tickLabelAngle: -Number(args.yAxisTickLabelAngle),
-    label2: args.y2AxisLabel,
-    tickLabelAngle2: -Number(args.y2AxisTickLabelAngle),
-  };
-  return args;
-};
+import { applyCommonLogic, commonConfig } from './utils';
 
 const commonProps = {
   xAxisTickLabelAngle: '45',
@@ -61,98 +42,7 @@ const commonProps = {
 
 export default {
   title: 'Plugins/Composed Chart/Combinations',
-  component: ComposedChart,
-  parameters: {
-    chromatic: { delay: 2000 },
-  },
-  argTypes: {
-    data: { table: { disable: true } },
-    metrics: { table: { disable: true } },
-    colorScheme: { table: { disable: true } },
-    isAnimationActive: { table: { disable: true } },
-    useCustomTypeMetrics: { table: { disable: true } },
-    chartTypeMetrics: { table: { disable: true } },
-    chartSubTypeMetrics: { table: { disable: true } },
-    chartType: { table: { disable: true } },
-    xAxis: { table: { disable: true } },
-    yAxis: { table: { disable: true } },
-    useCategoryFormattingGroupBy0: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    xAxisLabel: {
-      table: {
-        category: 'X Axis',
-      },
-      control: {
-        type: 'text',
-      },
-    },
-    xAxisTickLabelAngle: {
-      table: {
-        category: 'X Axis',
-      },
-      control: {
-        type: 'select',
-        options: ['0', '45', '90'],
-      },
-    },
-    yAxisLabel: {
-      table: {
-        category: 'Y Axis',
-      },
-      control: {
-        type: 'text',
-      },
-    },
-    yAxisTickLabelAngle: {
-      table: {
-        category: 'Y Axis',
-      },
-      control: {
-        type: 'select',
-        options: ['0', '45', '90'],
-      },
-    },
-    chartSubType: {
-      control: {
-        type: 'select',
-        options: Object.values(CHART_SUB_TYPES),
-      },
-    },
-    useY2Axis: {
-      table: {
-        category: 'Y2 Axis',
-      },
-      control: {
-        type: 'boolean',
-      },
-    },
-    y2AxisLabel: {
-      table: {
-        category: 'Y2 Axis',
-      },
-      control: {
-        type: 'text',
-      },
-    },
-    y2AxisTickLabelAngle: {
-      table: {
-        category: 'Y2 Axis',
-      },
-      control: {
-        type: 'select',
-        options: ['0', '45', '90'],
-      },
-    },
-    numbersFormat: {
-      control: {
-        type: 'select',
-        options: D3_FORMAT_OPTIONS.map(([option]) => option),
-      },
-    },
-  },
+  ...commonConfig,
 };
 
 const Container = styled.div`
@@ -235,6 +125,7 @@ const TicksTemplate = args => {
           xAxis={{ ...args.xAxis, tickLabelAngle: -90, label: 'X Axis Label' }}
           yAxis={{
             ...args.yAxis,
+            tickLabelAngle: -90,
             tickLabelAngle2: -90,
             labelAngle: -270,
             label: 'Y Axis Label',
@@ -272,7 +163,7 @@ const TicksTemplate = args => {
           }
           {...applyCommonLogic(args)}
           layout={Layout.vertical}
-          xAxis={{ ...args.xAxis, label: 'X Axis Label' }}
+          xAxis={{ ...args.xAxis, label: 'X Axis Label', tickLabelAngle: -90 }}
           yAxis={{ ...args.yAxis, tickLabelAngle: -45, label: 'Y Axis Label', labelAngle: -270 }}
         />
         <ComposedChart
@@ -289,8 +180,8 @@ const TicksTemplate = args => {
           }
           {...applyCommonLogic(args)}
           layout={Layout.vertical}
-          xAxis={{ ...args.xAxis, label: 'X Axis Label' }}
-          yAxis={{ ...args.yAxis, tickLabelAngle: -270, label: 'Y Axis Label', labelAngle: -90 }}
+          xAxis={{ ...args.xAxis, label: 'X Axis Label', tickLabelAngle: 0 }}
+          yAxis={{ ...args.yAxis, tickLabelAngle: -90, label: 'Y Axis Label', labelAngle: -270 }}
           legendPosition={LegendPosition.bottom}
         />
       </Container>
