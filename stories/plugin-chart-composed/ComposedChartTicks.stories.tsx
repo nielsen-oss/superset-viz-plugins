@@ -48,12 +48,12 @@ const commonProps = {
   yAxisTickLabelAngle: '0',
   y2AxisTickLabelAngle: '0',
   useCategoryFormattingGroupBy0: true,
-  width: 300,
-  height: 200,
+  width: 400,
+  height: 400,
 };
 
 export default {
-  title: 'Plugins/Composed Chart/Ticks',
+  title: 'Plugins/Composed Chart/Bars',
   component: ComposedChart,
   parameters: {
     chromatic: { delay: 2000 },
@@ -150,10 +150,10 @@ export default {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 `;
 
-const BarsTemplate = args => {
+const TicksTemplate = args => {
   if (args.chartSubType !== CHART_SUB_TYPES.DEFAULT && args.chartSubType !== CHART_SUB_TYPES.STACKED) {
     return (
       <>
@@ -230,8 +230,8 @@ const BarsTemplate = args => {
   );
 };
 
-export const Bars = BarsTemplate.bind({});
-Bars.args = {
+export const Ticks = TicksTemplate.bind({});
+Ticks.args = {
   ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
   ...commonProps,
   queriesData: barsHorizontalLegendTop.queriesData,

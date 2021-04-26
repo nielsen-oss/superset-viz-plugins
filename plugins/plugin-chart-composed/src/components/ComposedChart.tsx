@@ -32,6 +32,7 @@ import { LabelColors, ResultData, SortingType } from '../plugin/utils';
 import {
   CHART_SUB_TYPES,
   CHART_TYPES,
+  debounce,
   getCartesianGridProps,
   getLegendProps,
   getXAxisProps,
@@ -112,16 +113,6 @@ const XAxisLabel = styled.div<{ xAxisClientRect?: ClientRect; rootClientRect?: C
   left: 50%;
   transform: translateX(-50%);
 `;
-
-function debounce(func, timeout = 300) {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, args);
-    }, timeout);
-  };
-}
 
 export default function ComposedChart(props: ComposedChartProps) {
   const {
@@ -205,7 +196,7 @@ export default function ComposedChart(props: ComposedChartProps) {
   const rootClientRect = rootRef?.current?.getBoundingClientRect();
   useEffect(() => {
     updateUI();
-  }, [props, forceUpdate, JSON.stringify(xAxisClientRect), JSON.stringify(yAxisClientRect)]);
+  }, [props, forceUpdate]);
 
   const currentData = useCurrentData(
     data,
