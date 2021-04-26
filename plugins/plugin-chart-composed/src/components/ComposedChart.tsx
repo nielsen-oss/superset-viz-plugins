@@ -236,6 +236,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
         layout={layout}
         style={{ visibility: visible ? 'visible' : 'hidden' }}
         margin={{
+          right: layout === Layout.vertical ? 10 : 0,
           left: xMarginLeft,
           top: 15,
           bottom: showLegend && legendPosition === LegendPosition.bottom ? 0 : yMarginBottom,
