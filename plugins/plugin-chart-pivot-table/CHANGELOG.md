@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.10.2 (2021-04-27)
+
+**Note:** Version bump only for package @superset-viz-plugins/plugin-chart-pivot-table
+
+
+
+
+
 ## 0.10.1 (2021-03-21)
 
 
