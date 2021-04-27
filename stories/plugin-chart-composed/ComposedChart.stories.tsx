@@ -18,31 +18,18 @@
  */
 import React from 'react';
 import { ChartProps, supersetTheme, ThemeProvider } from '@superset-ui/core';
-import { D3_FORMAT_OPTIONS } from '@superset-ui/chart-controls';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
-import { CHART_SUB_TYPES, CHART_TYPES, Layout } from '../../plugins/plugin-chart-composed/src/components/utils';
+import { CHART_SUB_TYPES, CHART_TYPES } from '../../plugins/plugin-chart-composed/src/components/utils';
 import transformProps from '../../plugins/plugin-chart-composed/src/plugin/transformProps';
 import {
   allChatsLegendBottomBreakdowns,
   barsHorizontalLegendTop,
 } from '../../plugins/plugin-chart-composed/test/__mocks__/composedProps';
+import { applyCommonLogic, commonConfig } from './utils';
 
-const applyCommonLogic = initArgs => {
-  const args = { ...initArgs };
-  if (args.layout !== Layout.horizontal) {
-    args.useY2Axis = false;
-  }
-  args.xAxis = {
-    label: args.xAxisLabel,
-    tickLabelAngle: -Number(args.xAxisTickLabelAngle),
-  };
-  args.yAxis = {
-    label: args.yAxisLabel,
-    tickLabelAngle: -Number(args.yAxisTickLabelAngle),
-    label2: args.y2AxisLabel,
-    tickLabelAngle2: -Number(args.y2AxisTickLabelAngle),
-  };
-  return args;
+export default {
+  title: 'Plugins/Composed Chart/Playground',
+  ...commonConfig,
 };
 
 const commonProps = {
@@ -50,102 +37,6 @@ const commonProps = {
   yAxisTickLabelAngle: '0',
   y2AxisTickLabelAngle: '0',
   useCategoryFormattingGroupBy0: true,
-};
-
-export default {
-  title: 'Plugins/Composed Chart',
-  component: ComposedChart,
-  parameters: {
-    chromatic: { delay: 2000 },
-  },
-  argTypes: {
-    data: { table: { disable: true } },
-    metrics: { table: { disable: true } },
-    colorScheme: { table: { disable: true } },
-    isAnimationActive: { table: { disable: true } },
-    useCustomTypeMetrics: { table: { disable: true } },
-    chartTypeMetrics: { table: { disable: true } },
-    chartSubTypeMetrics: { table: { disable: true } },
-    chartType: { table: { disable: true } },
-    xAxis: { table: { disable: true } },
-    yAxis: { table: { disable: true } },
-    useCategoryFormattingGroupBy0: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    xAxisLabel: {
-      table: {
-        category: 'X Axis',
-      },
-      control: {
-        type: 'text',
-      },
-    },
-    xAxisTickLabelAngle: {
-      table: {
-        category: 'X Axis',
-      },
-      control: {
-        type: 'select',
-        options: ['0', '45', '90'],
-      },
-    },
-    yAxisLabel: {
-      table: {
-        category: 'Y Axis',
-      },
-      control: {
-        type: 'text',
-      },
-    },
-    yAxisTickLabelAngle: {
-      table: {
-        category: 'Y Axis',
-      },
-      control: {
-        type: 'select',
-        options: ['0', '45', '90'],
-      },
-    },
-    chartSubType: {
-      control: {
-        type: 'select',
-        options: Object.values(CHART_SUB_TYPES),
-      },
-    },
-    useY2Axis: {
-      table: {
-        category: 'Y2 Axis',
-      },
-      control: {
-        type: 'boolean',
-      },
-    },
-    y2AxisLabel: {
-      table: {
-        category: 'Y2 Axis',
-      },
-      control: {
-        type: 'text',
-      },
-    },
-    y2AxisTickLabelAngle: {
-      table: {
-        category: 'Y2 Axis',
-      },
-      control: {
-        type: 'select',
-        options: ['0', '45', '90'],
-      },
-    },
-    numbersFormat: {
-      control: {
-        type: 'select',
-        options: D3_FORMAT_OPTIONS.map(([option]) => option),
-      },
-    },
-  },
 };
 
 const BarsTemplate = args => {
@@ -158,11 +49,9 @@ const BarsTemplate = args => {
       </>
     );
   }
-  applyCommonLogic(args);
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        {...args}
         chartType={CHART_TYPES.BAR_CHART}
         data={
           transformProps(({
@@ -174,6 +63,7 @@ const BarsTemplate = args => {
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
         }
+        {...applyCommonLogic(args)}
       />
     </ThemeProvider>
   );
@@ -198,11 +88,9 @@ const LinesTemplate = args => {
       </>
     );
   }
-  applyCommonLogic(args);
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        {...args}
         chartType={CHART_TYPES.LINE_CHART}
         data={
           transformProps(({
@@ -214,6 +102,7 @@ const LinesTemplate = args => {
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
         }
+        {...applyCommonLogic(args)}
       />
     </ThemeProvider>
   );
@@ -238,11 +127,9 @@ const AreaTemplate = args => {
       </>
     );
   }
-  applyCommonLogic(args);
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        {...args}
         chartType={CHART_TYPES.AREA_CHART}
         data={
           transformProps(({
@@ -254,6 +141,7 @@ const AreaTemplate = args => {
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
         }
+        {...applyCommonLogic(args)}
       />
     </ThemeProvider>
   );
@@ -276,11 +164,9 @@ const ScatterTemplate = args => {
       </>
     );
   }
-  applyCommonLogic(args);
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        {...args}
         chartType={CHART_TYPES.SCATTER_CHART}
         data={
           transformProps(({
@@ -292,31 +178,29 @@ const ScatterTemplate = args => {
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
         }
+        {...applyCommonLogic(args)}
       />
     </ThemeProvider>
   );
 };
 
-const AllTypesTemplate = args => {
-  applyCommonLogic(args);
-  return (
-    <ThemeProvider theme={supersetTheme}>
-      <ComposedChart
-        {...args}
-        data={
-          transformProps(({
-            ...allChatsLegendBottomBreakdowns,
-            formData: {
-              ...allChatsLegendBottomBreakdowns.formData,
-              useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
-            },
-            queriesData: args.queriesData,
-          } as unknown) as ChartProps).data
-        }
-      />
-    </ThemeProvider>
-  );
-};
+const AllTypesTemplate = args => (
+  <ThemeProvider theme={supersetTheme}>
+    <ComposedChart
+      data={
+        transformProps(({
+          ...allChatsLegendBottomBreakdowns,
+          formData: {
+            ...allChatsLegendBottomBreakdowns.formData,
+            useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
+          },
+          queriesData: args.queriesData,
+        } as unknown) as ChartProps).data
+      }
+      {...applyCommonLogic(args)}
+    />
+  </ThemeProvider>
+);
 
 export const Bars = BarsTemplate.bind({});
 Bars.args = {

@@ -104,11 +104,11 @@ export const y2AxisLabelAngle = {
     freeForm: true,
     type: 'SelectControl',
     clearable: false,
-    label: t('Y axis label angle'),
+    label: t('Second Y axis label angle'),
     renderTrigger: true,
     choices: formatSelectOptions(['0', '90', '270']),
     default: '0',
-    description: t('Set Y axis label angle in the chart'),
+    description: t('Set Second Y axis label angle in the chart'),
     visibility: ({ form_data }: ControlPanelsContainerProps) =>
       // @ts-ignore (update in package)
       form_data.use_y2_axis && form_data?.metrics?.length > 1 && form_data.layout === Layout.horizontal,

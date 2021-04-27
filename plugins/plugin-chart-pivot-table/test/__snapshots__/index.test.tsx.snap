@@ -373,21 +373,21 @@ exports[`plugin-chart-table-pivot CompactView: Table with no totals 1`] = `
               class="emotion-10"
             >
               <div>
-                DirectDueToGroup
+                Direct Due To Group
               </div>
             </div>
             <div
               class="emotion-10"
             >
               <div>
-                DueToGroup
+                Due To Group
               </div>
             </div>
             <div
               class="emotion-10"
             >
               <div>
-                SummaryGroup
+                Summary Group
               </div>
             </div>
             <div
@@ -1642,21 +1642,21 @@ exports[`plugin-chart-table-pivot CompactView: Table with totals 1`] = `
               class="emotion-10"
             >
               <div>
-                DirectDueToGroup
+                Direct Due To Group
               </div>
             </div>
             <div
               class="emotion-10"
             >
               <div>
-                DueToGroup
+                Due To Group
               </div>
             </div>
             <div
               class="emotion-10"
             >
               <div>
-                SummaryGroup
+                Summary Group
               </div>
             </div>
             <div
@@ -3155,21 +3155,21 @@ exports[`plugin-chart-table-pivot Table with all totals 1`] = `
               class="emotion-10"
             >
               <div>
-                DirectDueToGroup
+                Direct Due To Group
               </div>
             </div>
             <div
               class="emotion-10"
             >
               <div>
-                DueToGroup
+                Due To Group
               </div>
             </div>
             <div
               class="emotion-10"
             >
               <div>
-                SummaryGroup
+                Summary Group
               </div>
             </div>
             <div
@@ -4713,21 +4713,21 @@ exports[`plugin-chart-table-pivot Table with no totals 1`] = `
               class="emotion-10"
             >
               <div>
-                DirectDueToGroup
+                Direct Due To Group
               </div>
             </div>
             <div
               class="emotion-10"
             >
               <div>
-                DueToGroup
+                Due To Group
               </div>
             </div>
             <div
               class="emotion-10"
             >
               <div>
-                SummaryGroup
+                Summary Group
               </div>
             </div>
             <div
