@@ -130,19 +130,6 @@ export const numbersFormat = {
   },
 };
 
-export const numbersFormatDigits = {
-  name: 'numbers_format_digits',
-  config: {
-    label: t('Numbers Format Digits'),
-    type: 'SelectControl',
-    clearable: true,
-    choices: ['0', '1', '2', '3', '4', '5'],
-    renderTrigger: true,
-    description: t('Number of digits after point'),
-    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.numbers_format === 'SMART_NUMBER',
-  },
-};
-
 export const layout = {
   name: 'layout',
   config: {
@@ -192,9 +179,9 @@ const config: ControlPanelConfig = {
       controlSetRows: [
         ['color_scheme', layout],
         [showLegend, legendPosition],
-        [numbersFormat, numbersFormatDigits],
+        [numbersFormat, labelsColor],
         [chartType, barChartSubType, lineChartSubType, areaChartSubType, scatterChartSubType],
-        [labelsColor, showTotals],
+        [showTotals],
       ],
     },
     {

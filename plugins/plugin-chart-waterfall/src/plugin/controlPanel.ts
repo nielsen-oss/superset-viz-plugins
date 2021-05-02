@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { validateNonEmpty, t, QueryFormData } from '@superset-ui/core';
+import { validateNonEmpty, t } from '@superset-ui/core';
 import {
   ControlPanelConfig,
   D3_FORMAT_DOCS,
@@ -49,19 +49,6 @@ export const numbersFormat = {
     default: D3_FORMAT_OPTIONS[0][0],
     choices: D3_FORMAT_OPTIONS,
     renderTrigger: true,
-  },
-};
-
-export const numbersFormatDigits = {
-  name: 'numbers_format_digits',
-  config: {
-    label: t('Numbers Format Digits'),
-    type: 'SelectControl',
-    clearable: true,
-    choices: ['0', '1', '2', '3', '4', '5'],
-    renderTrigger: true,
-    description: t('Number of digits after point'),
-    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.numbers_format === 'SMART_NUMBER',
   },
 };
 
@@ -158,7 +145,7 @@ const config: ControlPanelConfig = {
     {
       label: t('Chart Options'),
       expanded: true,
-      controlSetRows: [[numbersFormat, numbersFormatDigits], [legendPosition]],
+      controlSetRows: [[numbersFormat], [legendPosition]],
     },
     {
       label: t('X Axis'),

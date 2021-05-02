@@ -17,9 +17,13 @@
  * under the License.
  */
 import { ChartProps } from '@superset-ui/core';
-import { processNumbers, convertDataForRecharts, createReChartsBarValues, SortingType, Metric } from './utils';
 import { WaterfallChartProps } from '../components/WaterfallChart';
+import { convertDataForRecharts, createReChartsBarValues, SortingType } from './utils';
 import { LegendPosition } from '../components/utils';
+
+type Metric = {
+  label: string;
+};
 
 export type QueryData = {
   [key: string]: number | string;
@@ -64,8 +68,7 @@ export default function transformProps(chartProps: ChartProps): WaterfallChartPr
     useOrderByChange,
   );
 
-  let resultData = createReChartsBarValues(rechartsData, valueColumn, periodColumn);
-  resultData = processNumbers(resultData, metric.label, formData.numbersFormat, formData.numbersFormatDigits);
+  const resultData = createReChartsBarValues(rechartsData, valueColumn, periodColumn);
 
   return {
     dataKey: valueColumn,
