@@ -19,7 +19,7 @@
 
 import { supersetTheme, t } from '@superset-ui/core';
 import { LegendPayload } from 'recharts';
-import { BarValue, WaterfallChartData } from './WaterfallChart';
+import { BarValue } from './WaterfallChart';
 
 export const MIN_LABEL_MARGIN = 20;
 export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 7;
@@ -38,51 +38,21 @@ export enum LegendPosition {
 export const renderLabel = (formatter: Function) => ({ value }: { value: BarValue }) =>
   `${formatter(value?.[1] - value?.[0])}`;
 
-export const tooltipFormatter = (formatter: Function) => (value: BarValue) =>
-  `${formatter(value?.[0])} - ${formatter(value?.[1])}`;
+export const BOTTOM_PADDING = 25;
 
-export const BOTTOM_PADDING = 60;
-
-export const getChartStyles = (legendPosition: LegendPosition) => {
+export const getChartStyles = (legendPosition: LegendPosition, yAxisWidth: number) => {
   let legendStyle: object = {
     paddingBottom: 20,
   };
-  let chartMargin: object = { bottom: BOTTOM_PADDING, left: 10 };
+  let chartMargin: object = { bottom: BOTTOM_PADDING, left: yAxisWidth + 10 };
   if (legendPosition === LegendPosition.BOTTOM) {
     legendStyle = {
       paddingTop: BOTTOM_PADDING,
     };
-    chartMargin = { left: 10, top: 20 };
+    chartMargin = { left: yAxisWidth + 10, top: 20 };
   }
   return {
     legendStyle,
     chartMargin,
   };
 };
-
-export const AXIS_OFFSET = 20;
-export const getLabelSize = (
-  angle: number,
-  dataKeyLength: number,
-  angleMin: number | number[],
-  angleMax: number,
-): number => {
-  if (!Array.isArray(angleMin)) {
-    // eslint-disable-next-line no-param-reassign
-    angleMin = [angleMin];
-  }
-  return angleMin.includes(angle)
-    ? MIN_LABEL_MARGIN
-    : dataKeyLength + (angle === angleMax ? MIN_SYMBOL_WIDTH_FOR_TICK_LABEL * 6 : 0);
-};
-
-export const getMaxLengthOfMetric = (
-  data: WaterfallChartData[],
-  metrics: string[],
-  formatter = (value: any) => `${value}`,
-) =>
-  Math.max(
-    ...data.map(
-      item => (formatter(Math.abs(metrics.reduce(total => total + (item.thisPeriod as number), 0))) as string).length,
-    ),
-  );
