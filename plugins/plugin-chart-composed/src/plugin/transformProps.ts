@@ -27,8 +27,8 @@ import {
   Data,
   FormData,
   SortingType,
+  processNumbers,
 } from './utils';
-import { yAxisLabelAngle } from './configs/axis';
 
 export default function transformProps(chartProps: ChartProps) {
   const { width, height, queriesData } = chartProps;
@@ -81,6 +81,7 @@ export default function transformProps(chartProps: ChartProps) {
   }
 
   const hasOrderedBars = formData.chartType === CHART_TYPES.BAR_CHART && formData.useOrderByMetric0;
+  resultData = processNumbers(resultData, breakdowns, formData.numbersFormat, formData.numbersFormatDigits);
 
   const result: ComposedChartProps = {
     orderByTypeMetric: formData.orderByTypeMetric0 as SortingType,

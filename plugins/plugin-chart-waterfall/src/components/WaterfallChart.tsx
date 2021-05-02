@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { getNumberFormatter, styled, t } from '@superset-ui/core';
 import {
   Bar,
@@ -34,16 +34,7 @@ import {
   YAxisProps,
 } from 'recharts';
 import WaterfallTick from './WaterfallTick';
-import {
-  AXIS_OFFSET,
-  getChartStyles,
-  getLabelSize,
-  getMaxLengthOfMetric,
-  LEGEND,
-  LegendPosition,
-  MIN_SYMBOL_WIDTH_FOR_TICK_LABEL,
-  renderLabel,
-} from './utils';
+import { getChartStyles, LEGEND, LegendPosition, renderLabel } from './utils';
 import WaterfallBar from './WaterfallBar';
 import WaterfallTooltip from './WaterfallTooltip';
 
@@ -117,10 +108,12 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
     xAxisLabel,
     yAxisLabel,
   } = props;
+  const rootRef = useRef<HTMLDivElement>(null);
   const [notification, setNotification] = useState<string | null>(null);
   const [updater, setUpdater] = useState<number>(0);
 
   const forceUpdate = useCallback(() => setUpdater(Math.random()), []);
+
   useEffect(() => {
     forceUpdate();
   }, [forceUpdate, props]);
@@ -133,17 +126,16 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
   };
   const closeNotification = () => setNotification(null);
   const formatter = getNumberFormatter(numbersFormat);
-  const { chartMargin, legendStyle } = getChartStyles(legendPosition);
 
-  const yMetricLength =
-    getMaxLengthOfMetric(data, [dataKey], getNumberFormatter(numbersFormat)) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL ?? 0;
+  const xAxisClientRect = rootRef.current
+    ?.querySelector('.xAxis .recharts-cartesian-axis-ticks')
+    ?.getBoundingClientRect();
+  const xAxisHeight = Math.ceil(xAxisClientRect?.height ?? 1);
 
-  const yLabelWidth = getLabelSize(
-    yAxisLabelAngle,
-    (yAxisLabel.length ?? 0) * MIN_SYMBOL_WIDTH_FOR_TICK_LABEL,
-    [-90, -270],
-    0,
-  );
+  const yAxisClientRect = rootRef.current?.querySelector('.yAxis .recharts-label')?.getBoundingClientRect();
+  const yAxisWidth = Math.ceil(yAxisClientRect?.width ?? 1);
+
+  const { chartMargin, legendStyle } = getChartStyles(legendPosition, yAxisWidth);
 
   const xAxisProps: XAxisProps = {};
   if (xAxisLabel) {
@@ -151,23 +143,20 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
       position: 'bottom',
       value: xAxisLabel,
     };
-    xAxisProps.height = 120;
   }
+  xAxisProps.height = xAxisHeight;
 
-  const yAxisProps: YAxisProps = {
-    width: AXIS_OFFSET + yMetricLength,
-  };
+  const yAxisProps: YAxisProps = {};
   if (yAxisLabel) {
     yAxisProps.label = {
       value: yAxisLabel,
       angle: yAxisLabelAngle,
-      position: 'insideLeft',
+      position: 'left',
     };
-    yAxisProps.width = AXIS_OFFSET + yLabelWidth + yMetricLength;
   }
 
   return (
-    <Styles height={height} width={width}>
+    <Styles height={height} width={width} ref={rootRef}>
       {notification && <Notification onClick={closeNotification}>{notification}</Notification>}
       {error ? (
         <Error>{error}</Error>

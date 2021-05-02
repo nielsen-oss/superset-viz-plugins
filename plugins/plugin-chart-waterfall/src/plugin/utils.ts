@@ -25,6 +25,10 @@ export enum SortingType {
   DESC = 'DESC',
 }
 
+export type Metric = {
+  label: string;
+};
+
 const groupDataByPeriod = (data: QueryData[], periodColumn: string) =>
   data.reduce((acc, cur) => {
     const period = cur[periodColumn] as string;
@@ -156,4 +160,28 @@ export const MAX_FORM_CONTROLS = 50;
 export const SortingTypeNames = {
   [SortingType.ASC]: t('Ascending'),
   [SortingType.DESC]: t('Descending'),
+};
+
+export const processNumbers = (
+  resultData: WaterfallChartData[],
+  metric: string,
+  numbersFormat: string,
+  numbersFormatDigits: string,
+) => {
+  const digits = Number(numbersFormatDigits);
+  if (numbersFormat === 'SMART_NUMBER' && numbersFormatDigits && !Number.isNaN(digits)) {
+    // eslint-disable-next-line no-param-reassign
+    return resultData.map(item => ({
+      ...item,
+      [metric]: item[metric]?.map((value: number) =>
+        Number(
+          value.toLocaleString('en-US', {
+            minimumFractionDigits: digits,
+            maximumFractionDigits: digits,
+          }),
+        ),
+      ),
+    }));
+  }
+  return resultData;
 };
