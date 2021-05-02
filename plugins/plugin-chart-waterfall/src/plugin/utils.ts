@@ -175,10 +175,12 @@ export const processNumbers = (
       ...item,
       [metric]: (item[metric] as BarValue)?.map((value: number) =>
         Number(
-          value.toLocaleString('en-US', {
-            minimumFractionDigits: digits,
-            maximumFractionDigits: digits,
-          }),
+          value
+            .toLocaleString('en-US', {
+              minimumFractionDigits: digits,
+              maximumFractionDigits: digits,
+            })
+            .replace(',', ''),
         ),
       ),
     })) as WaterfallChartData[];
