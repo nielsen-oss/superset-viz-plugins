@@ -17,7 +17,7 @@
  * under the License.
  */
 import { t } from '@superset-ui/core';
-import { WaterfallChartData } from '../components/WaterfallChart';
+import { BarValue, WaterfallChartData } from '../components/WaterfallChart';
 import { QueryData } from './transformProps';
 
 export enum SortingType {
@@ -173,7 +173,7 @@ export const processNumbers = (
     // eslint-disable-next-line no-param-reassign
     return resultData.map(item => ({
       ...item,
-      [metric]: item[metric]?.map((value: number) =>
+      [metric]: (item[metric] as BarValue)?.map((value: number) =>
         Number(
           value.toLocaleString('en-US', {
             minimumFractionDigits: digits,
