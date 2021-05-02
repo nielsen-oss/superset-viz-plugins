@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.11.3...@superset-viz-plugins/plugin-chart-composed@0.14.0) (2021-05-02)
+
+
+### Features
+
+* add adaptive format percision / fix charts alignments ([#46](https://github.com/nielsen-oss/superset-viz-plugins/issues/46)) ([9d2908b](https://github.com/nielsen-oss/superset-viz-plugins/commit/9d2908b99b4e738090ad587808cb3950eba473b5))
+
+
+
+
+
 ## [0.11.3](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.12.0...@superset-viz-plugins/plugin-chart-composed@0.11.3) (2021-05-02)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-composed
