@@ -45,12 +45,12 @@ Object {
           angle={-45}
           dataKey="period_type"
           dy={10}
+          height={1}
           interval={0}
           tick={[Function]}
         />,
         <mockConstructor
           tickFormatter={[Function]}
-          width={41}
         />,
         <mockConstructor
           content={
@@ -222,8 +222,8 @@ Object {
       ],
       "height": 400,
       "margin": Object {
-        "bottom": 60,
-        "left": 10,
+        "bottom": 25,
+        "left": 11,
       },
       "width": 800,
     },
@@ -293,6 +293,7 @@ Object {
       "angle": -45,
       "dataKey": "period_type",
       "dy": 10,
+      "height": 1,
       "interval": 0,
       "tick": [Function],
     },
@@ -301,7 +302,6 @@ Object {
   "YAxisProps": Array [
     Object {
       "tickFormatter": [Function],
-      "width": 41,
     },
     Object {},
   ],
