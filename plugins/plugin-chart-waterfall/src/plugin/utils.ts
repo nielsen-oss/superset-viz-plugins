@@ -167,7 +167,7 @@ export const processNumbers = (
   metric: string,
   numbersFormat: string,
   numbersFormatDigits: string,
-) => {
+): WaterfallChartData[] => {
   const digits = Number(numbersFormatDigits);
   if (numbersFormat === 'SMART_NUMBER' && numbersFormatDigits && !Number.isNaN(digits)) {
     // eslint-disable-next-line no-param-reassign
@@ -181,7 +181,7 @@ export const processNumbers = (
           }),
         ),
       ),
-    }));
+    })) as WaterfallChartData[];
   }
   return resultData;
 };
