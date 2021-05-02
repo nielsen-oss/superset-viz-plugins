@@ -156,10 +156,12 @@ export const processNumbers = (
         (prevBreakdown, nextBreakdown) => ({
           ...prevBreakdown,
           [nextBreakdown]: Number(
-            Number(item[nextBreakdown]).toLocaleString('en-US', {
-              minimumFractionDigits: digits,
-              maximumFractionDigits: digits,
-            }),
+            Number(item[nextBreakdown])
+              .toLocaleString('en-US', {
+                minimumFractionDigits: digits,
+                maximumFractionDigits: digits,
+              })
+              .replace(',', ''),
           ),
         }),
         {},
