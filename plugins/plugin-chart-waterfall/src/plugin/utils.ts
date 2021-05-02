@@ -17,13 +17,17 @@
  * under the License.
  */
 import { t } from '@superset-ui/core';
-import { WaterfallChartData } from '../components/WaterfallChart';
+import { BarValue, WaterfallChartData } from '../components/WaterfallChart';
 import { QueryData } from './transformProps';
 
 export enum SortingType {
   ASC = 'ASC',
   DESC = 'DESC',
 }
+
+export type Metric = {
+  label: string;
+};
 
 const groupDataByPeriod = (data: QueryData[], periodColumn: string) =>
   data.reduce((acc, cur) => {
@@ -156,4 +160,28 @@ export const MAX_FORM_CONTROLS = 50;
 export const SortingTypeNames = {
   [SortingType.ASC]: t('Ascending'),
   [SortingType.DESC]: t('Descending'),
+};
+
+export const processNumbers = (
+  resultData: WaterfallChartData[],
+  metric: string,
+  numbersFormat: string,
+  numbersFormatDigits: string,
+): WaterfallChartData[] => {
+  const digits = Number(numbersFormatDigits);
+  if (numbersFormat === 'SMART_NUMBER' && numbersFormatDigits && !Number.isNaN(digits)) {
+    // eslint-disable-next-line no-param-reassign
+    return resultData.map(item => ({
+      ...item,
+      [metric]: (item[metric] as BarValue)?.map((value: number) =>
+        Number(
+          value.toLocaleString('en-US', {
+            minimumFractionDigits: digits,
+            maximumFractionDigits: digits,
+          }),
+        ),
+      ),
+    })) as WaterfallChartData[];
+  }
+  return resultData;
 };

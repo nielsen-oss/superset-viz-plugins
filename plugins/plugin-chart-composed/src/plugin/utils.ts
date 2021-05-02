@@ -50,6 +50,7 @@ export type FormData = {
   xAxisTickLabelAngle: string;
   yAxisTickLabelAngle: string;
   y2AxisTickLabelAngle: string;
+  numbersFormatDigits: string;
   useY2Axis: boolean;
   metrics: Metric[];
   groupby: string[];
@@ -139,3 +140,31 @@ export const addBreakdownMetricsAndGetBreakdownValues = (
       ...item,
     };
   });
+
+export const processNumbers = (
+  resultData: ResultData[],
+  breakdowns: string[],
+  numbersFormat: string,
+  numbersFormatDigits: string,
+) => {
+  const digits = Number(numbersFormatDigits);
+  if (numbersFormat === 'SMART_NUMBER' && numbersFormatDigits && !Number.isNaN(digits)) {
+    // eslint-disable-next-line no-param-reassign
+    return resultData.map(item => ({
+      ...item,
+      ...breakdowns.reduce(
+        (prevBreakdown, nextBreakdown) => ({
+          ...prevBreakdown,
+          [nextBreakdown]: Number(
+            Number(item[nextBreakdown]).toLocaleString('en-US', {
+              minimumFractionDigits: digits,
+              maximumFractionDigits: digits,
+            }),
+          ),
+        }),
+        {},
+      ),
+    }));
+  }
+  return resultData;
+};
