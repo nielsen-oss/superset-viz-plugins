@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.8.0 (2021-05-02)
+
+
+### Features
+
+* add adaptive format percision / fix charts alignments ([157ce5a](https://github.com/nielsen-oss/superset-viz-plugins/commit/157ce5af8cd0d50a2629f18a6e0626a2a62659fc))
+
+
+
+
+
 ## 0.7.9 (2021-04-20)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-waterfall
