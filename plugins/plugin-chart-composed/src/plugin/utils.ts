@@ -161,7 +161,7 @@ export const processNumbers = (
                 minimumFractionDigits: digits,
                 maximumFractionDigits: digits,
               })
-              .replace(',', ''),
+              .replace(/,/g, ''),
           ),
         }),
         {},
