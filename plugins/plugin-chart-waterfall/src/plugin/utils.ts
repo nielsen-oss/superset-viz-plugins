@@ -166,7 +166,7 @@ export const processNumbers = (
   resultData: WaterfallChartData[],
   metric: string,
   numbersFormat: string,
-  numbersFormatDigits: string,
+  numbersFormatDigits?: string,
 ): WaterfallChartData[] => {
   const digits = Number(numbersFormatDigits);
   if (numbersFormat === 'SMART_NUMBER' && numbersFormatDigits && !Number.isNaN(digits)) {
@@ -180,7 +180,7 @@ export const processNumbers = (
               minimumFractionDigits: digits,
               maximumFractionDigits: digits,
             })
-            .replace(',', ''),
+            .replace(/,/g, ''),
         ),
       ),
     })) as WaterfallChartData[];

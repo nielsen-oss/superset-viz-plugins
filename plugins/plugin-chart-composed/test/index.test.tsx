@@ -20,6 +20,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import * as recharts from 'recharts';
 import { supersetTheme, ThemeProvider } from '@superset-ui/core';
+import { processNumbers, ResultData } from '../src/plugin/utils';
 import ComposedChart from '../src/components/ComposedChart';
 import ComposedChartPlugin from '../src';
 import {
@@ -139,5 +140,35 @@ describe('plugin-chart-composed', () => {
       LineProps: Line.mock.calls[1],
       ScatterProps: Scatter.mock.calls[1],
     }).toMatchSnapshot();
+  });
+  describe('processNumbers', () => {
+    const mockData = ([
+      { metric: -0.1114 },
+      { metric: -0.1115 },
+      { metric: -0.1116 },
+      { metric: -0.1 },
+      { metric: 0 },
+      { metric: 0.1 },
+      { metric: 0.1114 },
+      { metric: 0.1115 },
+      { metric: 0.1116 },
+      { metric: 0.123 },
+      { metric: 0.123456 },
+      { metric: 123 },
+      { metric: 123456 },
+      { metric: 123456789 },
+      { metric: 1234567891011121314151617181920 },
+    ] as unknown) as ResultData[];
+    it('non-adaptive', () => {
+      expect(processNumbers(([{ metric: 123 }] as unknown) as ResultData[], ['metric'], 'SOME_FORMAT', '3')).toEqual([
+        { metric: 123 },
+      ]);
+    });
+    it('adaptive with digits for different numbers', () => {
+      expect(processNumbers(mockData, ['metric'], 'SMART_NUMBER', '3')).toMatchSnapshot();
+    });
+    it('adaptive with digits without precision', () => {
+      expect(processNumbers(mockData, ['metric'], 'SMART_NUMBER')).toMatchSnapshot();
+    });
   });
 });

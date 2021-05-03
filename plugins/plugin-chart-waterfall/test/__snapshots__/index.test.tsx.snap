@@ -307,3 +307,193 @@ Object {
   ],
 }
 `;
+
+exports[`plugin-chart-waterfall processNumbers adaptive with digits for different numbers 1`] = `
+Array [
+  Object {
+    "metric": Array [
+      -0.111,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      -0.112,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      -0.112,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      -0.1,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0.1,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0.111,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0.112,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0.112,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0.123,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0.123,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      123,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      123456,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      123456789,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      1.2345678910111213e+30,
+      0,
+    ],
+  },
+]
+`;
+
+exports[`plugin-chart-waterfall processNumbers adaptive with digits without precision 1`] = `
+Array [
+  Object {
+    "metric": Array [
+      -0.1114,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      -0.1115,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      -0.1116,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      -0.1,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0.1,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0.1114,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0.1115,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0.1116,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0.123,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      0.123456,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      123,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      123456,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      123456789,
+      0,
+    ],
+  },
+  Object {
+    "metric": Array [
+      1.2345678910111213e+30,
+      0,
+    ],
+  },
+]
+`;

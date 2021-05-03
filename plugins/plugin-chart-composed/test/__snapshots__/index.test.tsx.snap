@@ -562,3 +562,103 @@ Object {
   "YAxisProps": undefined,
 }
 `;
+
+exports[`plugin-chart-composed processNumbers adaptive with digits for different numbers 1`] = `
+Array [
+  Object {
+    "metric": -0.111,
+  },
+  Object {
+    "metric": -0.112,
+  },
+  Object {
+    "metric": -0.112,
+  },
+  Object {
+    "metric": -0.1,
+  },
+  Object {
+    "metric": 0,
+  },
+  Object {
+    "metric": 0.1,
+  },
+  Object {
+    "metric": 0.111,
+  },
+  Object {
+    "metric": 0.112,
+  },
+  Object {
+    "metric": 0.112,
+  },
+  Object {
+    "metric": 0.123,
+  },
+  Object {
+    "metric": 0.123,
+  },
+  Object {
+    "metric": 123,
+  },
+  Object {
+    "metric": 123456,
+  },
+  Object {
+    "metric": 123456789,
+  },
+  Object {
+    "metric": 1.2345678910111213e+30,
+  },
+]
+`;
+
+exports[`plugin-chart-composed processNumbers adaptive with digits without precision 1`] = `
+Array [
+  Object {
+    "metric": -0.1114,
+  },
+  Object {
+    "metric": -0.1115,
+  },
+  Object {
+    "metric": -0.1116,
+  },
+  Object {
+    "metric": -0.1,
+  },
+  Object {
+    "metric": 0,
+  },
+  Object {
+    "metric": 0.1,
+  },
+  Object {
+    "metric": 0.1114,
+  },
+  Object {
+    "metric": 0.1115,
+  },
+  Object {
+    "metric": 0.1116,
+  },
+  Object {
+    "metric": 0.123,
+  },
+  Object {
+    "metric": 0.123456,
+  },
+  Object {
+    "metric": 123,
+  },
+  Object {
+    "metric": 123456,
+  },
+  Object {
+    "metric": 123456789,
+  },
+  Object {
+    "metric": 1.2345678910111213e+30,
+  },
+]
+`;
