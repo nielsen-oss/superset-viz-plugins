@@ -20,10 +20,11 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import * as recharts from 'recharts';
 import { supersetTheme, ThemeProvider } from '@superset-ui/core';
+import { processNumbers } from '../src/plugin/utils';
 import WaterfallChartPlugin from '../src';
 import transformProps from '../src/plugin/transformProps';
 import { legendTop } from './__mocks__/waterfallProps';
-import WaterfallChart from '../src/components/WaterfallChart';
+import WaterfallChart, { WaterfallChartData } from '../src/components/WaterfallChart';
 
 jest.mock('recharts');
 
@@ -81,5 +82,36 @@ describe('plugin-chart-waterfall', () => {
       YAxisProps: YAxis.mock.calls[0],
       BarProps: Bar.mock.calls[0],
     }).toMatchSnapshot();
+  });
+
+  describe('processNumbers', () => {
+    const mockData = ([
+      { metric: [-0.1114, 0] },
+      { metric: [-0.1115, 0] },
+      { metric: [-0.1116, 0] },
+      { metric: [-0.1, 0] },
+      { metric: [0, 0] },
+      { metric: [0.1, 0] },
+      { metric: [0.1114, 0] },
+      { metric: [0.1115, 0] },
+      { metric: [0.1116, 0] },
+      { metric: [0.123, 0] },
+      { metric: [0.123456, 0] },
+      { metric: [123, 0] },
+      { metric: [123456, 0] },
+      { metric: [123456789, 0] },
+      { metric: [1234567891011121314151617181920, 0] },
+    ] as unknown) as WaterfallChartData[];
+    it('non-adaptive', () => {
+      expect(
+        processNumbers(([{ metric: [123, 456] }] as unknown) as WaterfallChartData[], 'metric', 'SOME_FORMAT', '3'),
+      ).toEqual([{ metric: [123, 456] }]);
+    });
+    it('adaptive with digits for different numbers', () => {
+      expect(processNumbers(mockData, 'metric', 'SMART_NUMBER', '3')).toMatchSnapshot();
+    });
+    it('adaptive with digits without precision', () => {
+      expect(processNumbers(mockData, 'metric', 'SMART_NUMBER')).toMatchSnapshot();
+    });
   });
 });

@@ -145,7 +145,7 @@ export const processNumbers = (
   resultData: ResultData[],
   breakdowns: string[],
   numbersFormat: string,
-  numbersFormatDigits: string,
+  numbersFormatDigits?: string,
 ) => {
   const digits = Number(numbersFormatDigits);
   if (numbersFormat === 'SMART_NUMBER' && numbersFormatDigits && !Number.isNaN(digits)) {
