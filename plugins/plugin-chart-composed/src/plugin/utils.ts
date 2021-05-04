@@ -145,7 +145,7 @@ export const processNumbers = (
   resultData: ResultData[],
   breakdowns: string[],
   numbersFormat: string,
-  numbersFormatDigits: string,
+  numbersFormatDigits?: string,
 ) => {
   const digits = Number(numbersFormatDigits);
   if (numbersFormat === 'SMART_NUMBER' && numbersFormatDigits && !Number.isNaN(digits)) {
@@ -161,7 +161,7 @@ export const processNumbers = (
                 minimumFractionDigits: digits,
                 maximumFractionDigits: digits,
               })
-              .replace(',', ''),
+              .replace(/,/g, ''),
           ),
         }),
         {},
