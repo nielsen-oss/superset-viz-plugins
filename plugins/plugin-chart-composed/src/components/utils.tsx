@@ -673,7 +673,7 @@ export const processBarChartOrder = (
 
       // Sorting bars according order
       const sortSign = orderByTypeMetric === SortingType.ASC ? 1 : -1;
-      tempSortedArray.sort((a, b) => sortSign * (a.value - b.value));
+      tempSortedArray.sort((a, b) => sortSign * (a?.value - b?.value));
 
       return fillBarsDataByOrder(breakdowns, sortedData, tempSortedArray, barChartColorsMap);
     });
@@ -689,7 +689,7 @@ export const addTotalValues = (breakdowns: string[], resultData: ResultData[], h
         total +
         (((hasOrderedBars
           ? (Object.values(item).find(itemValue => (itemValue as BarChartValue)?.id === breakdown) as BarChartValue)
-              .value ?? 0
+              ?.value ?? 0
           : item[breakdown]) as number) ?? 0),
       0,
     ),

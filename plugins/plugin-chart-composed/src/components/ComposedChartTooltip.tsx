@@ -63,7 +63,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
           const name = getMetricName(item.name, metrics);
           return (
             <Line key={name} color={item.color}>{`${name}: ${
-              isNaN(item.value as number) ? '-' : formatter(item.value as number)
+              isNaN(item?.value as number) ? '-' : formatter(item?.value as number)
             }`}</Line>
           );
         })}
