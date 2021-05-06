@@ -148,7 +148,7 @@ export const getLegendProps = (
   const payload: LegendPayload[] = breakdowns.map((breakdown, index) => ({
     value: getMetricName(breakdown, metrics),
     id: breakdown,
-    type: disabledDataKeys.includes(breakdown) ? 'line' : 'circle',
+    type: disabledDataKeys.includes(breakdown) ? 'line' : 'square',
     color: CategoricalColorNamespace.getScale(colorScheme)(index),
   }));
   let result = {
@@ -368,6 +368,7 @@ export const getXAxisProps = ({
     case Layout.vertical:
       return {
         ...params,
+        axisLine: false,
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick
             {...props}
@@ -459,6 +460,7 @@ export const getYAxisProps = ({
     default:
       return {
         ...params,
+        axisLine: false,
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick
             {...props}

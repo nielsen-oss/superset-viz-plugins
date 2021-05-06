@@ -441,6 +441,7 @@ Object {
   "YAxisProps": Array [
     Object {
       "angle": -0,
+      "axisLine": false,
       "dx": 0,
       "label": Object {
         "angle": -0,
@@ -468,6 +469,7 @@ Object {
   "YAxisProps": Array [
     Object {
       "angle": -0,
+      "axisLine": false,
       "dx": 0,
       "label": Object {
         "angle": -0,

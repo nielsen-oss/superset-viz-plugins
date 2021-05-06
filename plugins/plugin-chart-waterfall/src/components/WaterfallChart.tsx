@@ -166,7 +166,7 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
             <Legend
               wrapperStyle={legendStyle}
               verticalAlign={legendPosition as LegendProps['verticalAlign']}
-              iconType="circle"
+              iconType="square"
               iconSize={10}
               payload={LEGEND}
             />

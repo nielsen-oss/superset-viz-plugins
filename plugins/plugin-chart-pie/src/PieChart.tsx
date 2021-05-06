@@ -192,7 +192,7 @@ const PieChart: FC<PieProps<string, string>> = memo(props => {
           <Legend
             onClick={handleLegendClick}
             {...getLegendProps(legendPosition, height, legendWidth)}
-            iconType="circle"
+            iconType="square"
             iconSize={10}
             payload={data.map(item => ({
               value: item[groupBy],

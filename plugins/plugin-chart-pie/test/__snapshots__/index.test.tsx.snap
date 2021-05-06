@@ -125,7 +125,7 @@ Object {
     Object {
       "align": "left",
       "iconSize": 10,
-      "iconType": "circle",
+      "iconType": "square",
       "layout": "vertical",
       "onClick": [Function],
       "payload": Array [
@@ -194,7 +194,7 @@ Object {
         <mockConstructor
           align="left"
           iconSize={10}
-          iconType="circle"
+          iconType="square"
           layout="vertical"
           onClick={[Function]}
           payload={
@@ -276,7 +276,7 @@ Object {
     Object {
       "align": "center",
       "iconSize": 10,
-      "iconType": "circle",
+      "iconType": "square",
       "layout": "horizontal",
       "onClick": [Function],
       "payload": Array [
@@ -344,7 +344,7 @@ Object {
         <mockConstructor
           align="center"
           iconSize={10}
-          iconType="circle"
+          iconType="square"
           layout="horizontal"
           onClick={[Function]}
           payload={

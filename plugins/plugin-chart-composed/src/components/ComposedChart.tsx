@@ -100,6 +100,10 @@ const Styles = styled.div<ComposedChartStylesProps>`
   width: ${({ width }) => width}px;
   overflow: auto;
 
+  & .recharts-cartesian-axis-tick-line {
+    display: none;
+  }
+
   & .recharts-legend-item {
     cursor: pointer;
     white-space: nowrap;
@@ -149,7 +153,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
         setLegendWidth(currentWidth ? currentWidth + 20 : currentWidth);
       }
     }
-  }, [legendWidth, updater]);
+  }, [legendWidth, showLegend]);
 
   useEffect(() => {
     if (isSideLegend) {
@@ -177,6 +181,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   const y2AxisHeight = Math.ceil(y2AxisClientRect?.height ?? 1);
   const y2AxisWidth = Math.ceil(y2AxisClientRect?.width ?? 1);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateVisibility = useCallback(
     debounce(() => {
       forceUpdate();
@@ -184,6 +189,8 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     }, 5),
     [],
   );
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateUI = useCallback(
     debounce(() => {
       forceUpdate();
@@ -194,7 +201,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
 
   useEffect(() => {
     updateUI();
-  }, [props, forceUpdate]);
+  }, [props, forceUpdate, updateUI]);
 
   const currentData = useCurrentData(
     data,
@@ -224,7 +231,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     legendPosition !== LegendPosition.left &&
     !yAxis.label
       ? xAxisHeight / 2 - yAxisWidth - 10
-      : 0;
+      : 10;
   const yMarginBottom =
     yAxis.tickLabelAngle === -45 && layout === Layout.vertical ? yAxisWidth - xAxisHeight - 10 : xAxisHeight;
 
@@ -238,7 +245,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
         style={{ visibility: visible ? 'visible' : 'hidden' }}
         margin={{
           right: layout === Layout.vertical ? 10 : 0,
-          left: xMarginLeft > 0 ? xMarginLeft : 0,
+          left: xMarginLeft > 0 ? xMarginLeft : 10,
           top: 15,
           bottom: showLegend && legendPosition === LegendPosition.bottom ? 0 : yMarginBottom,
         }}
