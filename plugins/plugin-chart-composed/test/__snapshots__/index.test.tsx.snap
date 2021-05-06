@@ -442,7 +442,7 @@ Object {
     Object {
       "angle": -0,
       "axisLine": false,
-      "dx": 5,
+      "dx": -5,
       "label": Object {
         "angle": -0,
         "position": "insideRight",
@@ -470,7 +470,7 @@ Object {
     Object {
       "angle": -0,
       "axisLine": false,
-      "dx": 5,
+      "dx": -5,
       "label": Object {
         "angle": -0,
         "position": "insideRight",
