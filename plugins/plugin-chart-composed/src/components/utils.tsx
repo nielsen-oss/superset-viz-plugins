@@ -434,7 +434,7 @@ export const getYAxisProps = ({
 
   const dxPerAxis = isSecondAxis ? -5 : 5;
   const params = {
-    dx: tickLabelAngle === -90 ? axisInverseSign * 5 : dxPerAxis,
+    dx: isSecondAxis && tickLabelAngle === -90 ? axisInverseSign * 5 : dxPerAxis,
     width: axisWidth + labelWidth,
     angle: tickLabelAngle,
     orientation: isSecondAxis ? ('right' as const) : ('left' as const),
