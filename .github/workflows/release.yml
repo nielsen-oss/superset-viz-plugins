@@ -86,6 +86,6 @@ jobs:
         DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         REPOSITORY_NAME: 'nielsenoss/apache-superset'
       run: |
-        chmod +x $GITHUB_WORKSPACE/$PROJECT_WORKING_DIRECTOR/.github/workflows/docker_build_push.sh
+        chmod +x $GITHUB_WORKSPACE/$PROJECT_WORKING_DIRECTORY/.github/workflows/docker_build_push.sh
         $GITHUB_WORKSPACE/$PROJECT_WORKING_DIRECTORY/.github/workflows/docker_build_push.sh $GITHUB_WORKSPACE/superset
       working-directory: .
