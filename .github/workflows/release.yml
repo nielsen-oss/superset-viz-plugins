@@ -13,6 +13,7 @@ jobs:
     env:
       SUPERSET_VERSION: '1.2'
       PRESET_NAME: Nielsen
+      PROJECT_WORKING_DIRECTORY: superset-viz-plugins
     steps:
     - name: Use Node.js
       uses: actions/setup-node@v1
@@ -21,21 +22,21 @@ jobs:
     - name: Checkout viz plugins repo
       uses: actions/checkout@v2
       with:
-        path: superset-viz-plugins
+        path: ${{ env.PROJECT_WORKING_DIRECTORY }}
         # pulls all commits (needed for lerna / semantic release to correctly version)
         fetch-depth: 0
     - name: Get tags and filter trigger tags
       run: |
         git fetch --depth=1 origin "+refs/tags/*:refs/tags/*"
         git fetch --prune
-      working-directory: ./superset-viz-plugins
+      working-directory: ./${{ env.PROJECT_WORKING_DIRECTORY }}
 
     - name: Install dependencies
       run: yarn install --frozen-lockfile
-      working-directory: ./superset-viz-plugins
+      working-directory: ./${{ env.PROJECT_WORKING_DIRECTORY }}
     - name: Build packages
       run: yarn build
-      working-directory: ./superset-viz-plugins
+      working-directory: ./${{ env.PROJECT_WORKING_DIRECTORY }}
 
     - name: Configure npm and git
       run: |
@@ -46,8 +47,8 @@ jobs:
         npm whoami
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git remote set-url origin "https://${GITHUB_TOKEN}@github.com/nielsen-oss/superset-viz-plugins.git" > /dev/null 2>&1
-      working-directory: ./superset-viz-plugins
+        git remote set-url origin "https://${GITHUB_TOKEN}@github.com/nielsen-oss/${PROJECT_WORKING_DIRECTORY}.git" > /dev/null 2>&1
+      working-directory: ./${{ env.PROJECT_WORKING_DIRECTORY }}
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -57,7 +58,7 @@ jobs:
         npm whoami
         yarn prerelease
         yarn ci:release-from-tag
-      working-directory: ./superset-viz-plugins
+      working-directory: ./${{ env.PROJECT_WORKING_DIRECTORY }}
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -73,7 +74,7 @@ jobs:
     - name: Prepare superset build
       run: |
         sh ./scripts/prepare_build.sh
-      working-directory: ./superset-viz-plugins
+      working-directory: ./${{ env.PROJECT_WORKING_DIRECTORY }}
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         PLUGINS_EXTRA_FILENAME: 'setupPluginsExtra.ts'
@@ -85,6 +86,6 @@ jobs:
         DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         REPOSITORY_NAME: 'nielsenoss/apache-superset'
       run: |
-        chmod +x $GITHUB_WORKSPACE/superset-viz-plugins/.github/workflows/docker_build_push.sh
-        $GITHUB_WORKSPACE/superset-viz-plugins/.github/workflows/docker_build_push.sh $GITHUB_WORKSPACE/superset
+        chmod +x $GITHUB_WORKSPACE/$PROJECT_WORKING_DIRECTOR/.github/workflows/docker_build_push.sh
+        $GITHUB_WORKSPACE/$PROJECT_WORKING_DIRECTORY/.github/workflows/docker_build_push.sh $GITHUB_WORKSPACE/superset
       working-directory: .
