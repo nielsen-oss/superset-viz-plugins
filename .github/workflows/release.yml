@@ -31,7 +31,7 @@ jobs:
         git fetch --depth=1 origin "+refs/tags/*:refs/tags/*"
         git fetch --prune
       working-directory: ./${{ env.PROJECT_WORKING_DIRECTORY }}
-      if: ${{ always() }}
+      continue-on-error: true
 
     - name: Install dependencies
       run: yarn install --frozen-lockfile
