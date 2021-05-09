@@ -512,7 +512,7 @@ export const renderLabel = ({
 }) => {
   let formattedValue = `${formatter(currentData[index][breakdown] as number)}`;
   if (hasOrderedBars) {
-    formattedValue = `${findBarItem(currentData, index, breakdowns, breakdown)?.value ?? ''}`;
+    formattedValue = `${formatter(findBarItem(currentData, index, breakdowns, breakdown)?.value) ?? ''}`;
   }
   if (
     Math.abs(labelHeight) < MIN_BAR_SIZE_FOR_LABEL ||
