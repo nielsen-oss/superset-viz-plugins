@@ -24,6 +24,7 @@ import transformProps from '../../plugins/plugin-chart-composed/src/plugin/trans
 import {
   allChatsLegendBottomBreakdowns,
   barsHorizontalLegendTop,
+  timeSeries,
 } from '../../plugins/plugin-chart-composed/test/__mocks__/composedProps';
 import { applyCommonLogic, commonConfig } from './utils';
 
@@ -59,6 +60,36 @@ const BarsTemplate = args => {
             formData: {
               ...barsHorizontalLegendTop.formData,
               useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
+            },
+            queriesData: args.queriesData,
+          } as unknown) as ChartProps).data
+        }
+        {...applyCommonLogic(args)}
+      />
+    </ThemeProvider>
+  );
+};
+
+const TimeSeriesTemplate = args => {
+  if (args.chartSubType !== CHART_SUB_TYPES.DEFAULT && args.chartSubType !== CHART_SUB_TYPES.STACKED) {
+    return (
+      <>
+        {`SubType "${args.chartSubType}" is not applied for Bars Chart, please change "chartSubType" property to:`}
+        <li>{CHART_SUB_TYPES.DEFAULT}</li>
+        <li>{CHART_SUB_TYPES.STACKED}</li>
+      </>
+    );
+  }
+  return (
+    <ThemeProvider theme={supersetTheme}>
+      <ComposedChart
+        chartType={CHART_TYPES.BAR_CHART}
+        data={
+          transformProps(({
+            ...timeSeries,
+            formData: {
+              ...timeSeries.formData,
+              useCategoryFormattingGroupBy0: false,
             },
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
@@ -204,40 +235,52 @@ const AllTypesTemplate = args => (
 
 export const Bars = BarsTemplate.bind({});
 Bars.args = {
-  ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
   ...commonProps,
+  ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
   queriesData: barsHorizontalLegendTop.queriesData,
   chartSubType: CHART_SUB_TYPES.DEFAULT,
 };
 
+export const TimeSeries = TimeSeriesTemplate.bind({});
+TimeSeries.args = {
+  ...commonProps,
+  ...transformProps((timeSeries as unknown) as ChartProps),
+  queriesData: timeSeries.queriesData,
+  chartSubType: CHART_SUB_TYPES.STACKED,
+  xAxisTickLabelAngle: '0',
+};
+
 export const Lines = LinesTemplate.bind({});
 Lines.args = {
-  ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
   ...commonProps,
+  ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
   queriesData: barsHorizontalLegendTop.queriesData,
   chartSubType: CHART_SUB_TYPES.BASIS,
+  chartType: CHART_TYPES.LINE_CHART,
   xAxisTickLabelAngle: '45',
 };
 
 export const Area = AreaTemplate.bind({});
 Area.args = {
-  ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
   ...commonProps,
+  ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
   queriesData: barsHorizontalLegendTop.queriesData,
+  chartType: CHART_TYPES.AREA_CHART,
   chartSubType: CHART_SUB_TYPES.BASIS,
 };
 
 export const Scatter = ScatterTemplate.bind({});
 Scatter.args = {
-  ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
   ...commonProps,
+  ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
   queriesData: barsHorizontalLegendTop.queriesData,
+  chartType: CHART_TYPES.SCATTER_CHART,
   chartSubType: CHART_SUB_TYPES.CIRCLE,
 };
 
 export const AllTypes = AllTypesTemplate.bind({});
 AllTypes.args = {
-  ...transformProps((allChatsLegendBottomBreakdowns as unknown) as ChartProps),
   ...commonProps,
+  ...transformProps((allChatsLegendBottomBreakdowns as unknown) as ChartProps),
   queriesData: allChatsLegendBottomBreakdowns.queriesData,
 };

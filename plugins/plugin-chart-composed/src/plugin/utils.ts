@@ -32,6 +32,7 @@ export type FormData = {
   [key: string]: string | string[] | Metric[] | boolean;
   layout: Layout;
   colorScheme: string;
+  minBarWidth: string;
   useOrderByMetric0: boolean;
   chartType: keyof typeof CHART_TYPES;
   lineChartSubType: keyof typeof CHART_SUB_TYPES;
@@ -54,6 +55,7 @@ export type FormData = {
   useY2Axis: boolean;
   metrics: Metric[];
   groupby: string[];
+  granularitySqla: string;
 };
 
 export type Data = { [key: string]: string | number };
@@ -104,13 +106,20 @@ const getGroupByValues = (field: string, item: Record<string, string | number>, 
   return item[field];
 };
 
-export const addRechartsKeyAndGetGroupByValues = (formData: FormData, data: Data[], groupByValues: string[]) =>
+export const addRechartsKeyAndGetGroupByValues = (
+  formData: FormData,
+  data: Data[],
+  groupByValues: string[],
+  isTimeSeries: boolean,
+) =>
   data.map(item => {
     const dataKey = formData.groupby.map(field => getGroupByValues(field, item, groupByValues));
     return {
       ...item,
       rechartsDataKey: dataKey.join(', '),
-      rechartsDataKeyUI: dataKey.filter((value, index) => formData[`useCategoryFormattingGroupBy${index}`]).join(', '),
+      rechartsDataKeyUI: dataKey
+        .filter((value, index) => isTimeSeries || formData[`useCategoryFormattingGroupBy${index}`])
+        .join(', '),
     };
   });
 
@@ -170,3 +179,6 @@ export const processNumbers = (
   }
   return resultData;
 };
+
+export const checkTimeSeries = (groupBy?: string[], granularitySqla?: string, layout?: Layout) =>
+  groupBy?.length === 1 && groupBy?.[0] === granularitySqla && layout === Layout.horizontal;

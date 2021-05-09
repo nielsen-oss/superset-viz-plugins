@@ -24,6 +24,7 @@ import {
   CustomControlItem,
   DatasourceMeta,
   ControlConfig,
+  sections,
   sharedControls,
 } from '@superset-ui/chart-controls';
 import { CHART_TYPES, CHART_TYPE_NAMES, LegendPosition, CHART_SUB_TYPES } from '../components/utils';
@@ -72,6 +73,18 @@ export const showTotals = {
     ),
     visibility: ({ form_data }: { form_data: QueryFormData }) =>
       form_data.bar_chart_sub_type === CHART_SUB_TYPES.STACKED,
+  },
+};
+
+export const minBarWidth = {
+  name: 'min_bar_width',
+  config: {
+    type: 'TextControl',
+    label: t('Min Bar Width'),
+    renderTrigger: true,
+    default: '',
+    description: t('Minimal bar width'),
+    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.chart_type === CHART_TYPES.BAR_CHART,
   },
 };
 
@@ -181,6 +194,7 @@ const groupBy: { name: string; config: ControlConfig<'SelectControl'> } = {
 
 const config: ControlPanelConfig = {
   controlPanelSections: [
+    sections.legacyTimeseriesTime,
     {
       label: t('Query'),
       expanded: true,
@@ -194,7 +208,8 @@ const config: ControlPanelConfig = {
         [showLegend, legendPosition],
         [numbersFormat, numbersFormatDigits],
         [chartType, barChartSubType, lineChartSubType, areaChartSubType, scatterChartSubType],
-        [labelsColor, showTotals],
+        [labelsColor],
+        [minBarWidth, showTotals],
       ],
     },
     {

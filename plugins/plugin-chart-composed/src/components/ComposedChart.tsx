@@ -70,6 +70,7 @@ export type YAxisProps = XAxisProps & {
 
 export type ComposedChartProps = {
   orderByTypeMetric: SortingType;
+  isTimeSeries: boolean;
   height: number;
   width: number;
   hasOrderedBars: boolean;
@@ -80,6 +81,8 @@ export type ComposedChartProps = {
   layout: Layout;
   metrics: string[];
   breakdowns: string[];
+  groupBy: string[];
+  minBarWidth: string;
   colorScheme: string;
   hasY2Axis?: boolean;
   chartSubType: keyof typeof CHART_SUB_TYPES;
@@ -135,6 +138,9 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     showTotals,
     legendPosition,
     hasCustomTypeMetrics,
+    isTimeSeries,
+    groupBy,
+    minBarWidth,
   } = props;
 
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
@@ -235,11 +241,14 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   const yMarginBottom =
     yAxis.tickLabelAngle === -45 && layout === Layout.vertical ? yAxisWidth - xAxisHeight - 10 : xAxisHeight;
 
+  let newWidth = minBarWidth ? currentData.length * (Number(minBarWidth) + 4) : width;
+  newWidth = width > newWidth ? width : newWidth;
+
   return (
     <Styles key={updater} height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
       <RechartsComposedChart
         key={updater}
-        width={width}
+        width={newWidth}
         height={height}
         layout={layout}
         style={{ visibility: visible ? 'visible' : 'hidden' }}
@@ -257,7 +266,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             {...getLegendProps(
               legendPosition,
               height,
-              width,
+              newWidth,
               legendWidth,
               breakdowns,
               disabledDataKeys,
@@ -272,21 +281,24 @@ const ComposedChart: FC<ComposedChartProps> = props => {
         <CartesianGrid {...getCartesianGridProps({ layout })} />
         <XAxis
           {...getXAxisProps({
+            minBarWidth,
             numbersFormat,
             layout,
-            currentDataSize: currentData.length,
+            currentData,
             tickLabelAngle: xAxis.tickLabelAngle,
             axisHeight: xAxisHeight,
             axisWidth: xAxisWidth,
             xAxisClientRect,
             label: xAxis.label,
+            isTimeSeries,
+            groupBy,
           })}
         />
         <YAxis
           {...getYAxisProps({
             rootRef,
             numbersFormat,
-            currentDataSize: currentData.length,
+            currentData,
             layout,
             tickLabelAngle: yAxis.tickLabelAngle,
             labelAngle: yAxis.labelAngle,
@@ -301,7 +313,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               rootRef,
               numbersFormat,
               layout,
-              currentDataSize: currentData.length,
+              currentData,
               isSecondAxis: true,
               dataKey: metrics[metrics.length - 1],
               tickLabelAngle: yAxis.tickLabelAngle2,
@@ -314,7 +326,12 @@ const ComposedChart: FC<ComposedChartProps> = props => {
         )}
         <Tooltip
           content={
-            <ComposedChartTooltip numbersFormat={numbersFormat} metrics={metrics} hasOrderedBars={hasOrderedBars} />
+            <ComposedChartTooltip
+              numbersFormat={numbersFormat}
+              metrics={metrics}
+              hasOrderedBars={hasOrderedBars}
+              isTimeSeries={isTimeSeries}
+            />
           }
         />
         {((isSideLegend && legendWidth) || !isSideLegend) &&

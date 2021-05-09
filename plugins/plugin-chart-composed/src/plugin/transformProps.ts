@@ -28,6 +28,7 @@ import {
   FormData,
   SortingType,
   processNumbers,
+  checkTimeSeries,
 } from './utils';
 
 export default function transformProps(chartProps: ChartProps) {
@@ -37,7 +38,15 @@ export default function transformProps(chartProps: ChartProps) {
   const metrics = formData.metrics.map(metric => metric.label);
 
   const groupByValues: string[] = [];
-  let resultData: ResultData[] = addRechartsKeyAndGetGroupByValues(formData, data, groupByValues);
+  const isTimeSeries = checkTimeSeries(formData.groupby, formData.granularitySqla, formData.layout);
+  let resultData: ResultData[] = addRechartsKeyAndGetGroupByValues(formData, data, groupByValues, isTimeSeries);
+
+  if (isTimeSeries) {
+    resultData.sort(
+      ({ __timestamp: __timestamp2 }, { __timestamp: __timestamp1 }) =>
+        (__timestamp2 as number) - (__timestamp1 as number),
+    );
+  }
 
   const breakdowns: string[] = [];
   resultData = addBreakdownMetricsAndGetBreakdownValues(resultData, metrics, formData, breakdowns);
@@ -86,9 +95,12 @@ export default function transformProps(chartProps: ChartProps) {
   const result: ComposedChartProps = {
     orderByTypeMetric: formData.orderByTypeMetric0 as SortingType,
     hasOrderedBars,
+    minBarWidth: formData.minBarWidth,
     breakdowns,
     width,
     height,
+    isTimeSeries,
+    groupBy: formData.groupby,
     chartTypeMetrics,
     chartSubTypeMetrics,
     hasCustomTypeMetrics: useCustomTypeMetrics,

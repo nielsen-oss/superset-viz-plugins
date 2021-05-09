@@ -17,7 +17,7 @@
  * under the License.
  */
 import { useMemo } from 'react';
-import { addTotalValues, processBarChartOrder } from './utils';
+import { BarChartValue, processBarChartOrder } from './utils';
 import { ResultData, SortingType } from '../plugin/utils';
 
 export const useCurrentData = (
@@ -44,9 +44,25 @@ export const useCurrentData = (
     [breakdowns, colorScheme, currentData, hasOrderedBars, orderByTypeMetric],
   );
 
-  if (showTotals) {
-    currentData = addTotalValues(breakdowns, currentData, hasOrderedBars);
-  }
+  currentData = useMemo(
+    () =>
+      currentData.map(item => ({
+        ...item,
+        rechartsTotal: showTotals
+          ? breakdowns.reduce(
+              (total, breakdown) =>
+                total +
+                (((hasOrderedBars
+                  ? (Object.values(item).find(
+                      itemValue => (itemValue as BarChartValue)?.id === breakdown,
+                    ) as BarChartValue)?.value ?? 0
+                  : item[breakdown]) as number) ?? 0),
+              0,
+            )
+          : undefined,
+      })),
+    [breakdowns, currentData, hasOrderedBars, showTotals],
+  );
 
   return currentData;
 };

@@ -18,7 +18,7 @@
  */
 import React, { FC } from 'react';
 import { Text } from 'recharts';
-import { NumberFormatter } from '@superset-ui/core';
+import { JsonObject, NumberFormatter } from '@superset-ui/core';
 
 export type ComposedChartTickProps = {
   x: number;
@@ -31,27 +31,40 @@ export type ComposedChartTickProps = {
   payload: {
     value: number;
   };
-  dy?: number;
-  dx?: number;
+  dy: number;
+  dx: number;
+  index: number;
+  visibleTicksCount: number;
   actualWidth?: number;
   actualHeight: number;
+  isTimeSeries?: boolean;
+  times?: JsonObject;
+  minBarWidth?: string;
 };
 
 const ComposedChartTick: FC<ComposedChartTickProps> = ({
+  times,
+  isTimeSeries,
   x,
   y,
   angle,
   payload,
-  dy,
-  dx,
+  index,
+  dy = 0,
+  dx = 0,
   textAnchor = 'end',
   verticalAnchor = 'start',
   tickFormatter = value => value,
   actualHeight,
+  width,
   actualWidth,
+  visibleTicksCount,
 }) => {
   let text;
-  if (!isNaN(payload.value)) {
+  if (isTimeSeries) {
+    const date = new Date(Number(payload.value));
+    text = date.getDate();
+  } else if (!isNaN(payload.value)) {
     text = `${tickFormatter(payload.value)}`;
   } else {
     text = `${payload.value}`;
@@ -63,12 +76,14 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
   if (actualWidth) {
     otherProps.width = actualWidth;
   }
+  const tickWidth = width / visibleTicksCount;
+
   return (
     <g transform={`translate(${x},${y})`} data-test-id={`tick-${text}`}>
       <Text
         angle={angle}
-        dy={dy}
         dx={dx}
+        dy={dy}
         fontSize={12}
         verticalAnchor={verticalAnchor}
         textAnchor={textAnchor}
@@ -76,6 +91,31 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
       >
         {text}
       </Text>
+      {isTimeSeries && times?.[index] && (
+        <>
+          {index !== 0 && (
+            <line
+              x1={-(tickWidth ?? 0) / 2}
+              y1={dy - 5}
+              x2={-(tickWidth ?? 0) / 2}
+              y2={dy + 35}
+              style={{ stroke: 'black', strokeWidth: 1 }}
+            />
+          )}
+          <Text
+            angle={angle}
+            dx={dx + (times?.[index]?.long * (tickWidth ?? 0)) / 2 - (tickWidth ?? 0) / 2}
+            dy={dy + 20}
+            fontSize={12}
+            verticalAnchor={verticalAnchor}
+            textAnchor={textAnchor}
+            {...otherProps}
+            width={tickWidth ? times?.[index]?.long * tickWidth : undefined}
+          >
+            {times?.[index]?.text}
+          </Text>
+        </>
+      )}
     </g>
   );
 };
