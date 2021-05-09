@@ -24,6 +24,7 @@ import {
   CustomControlItem,
   DatasourceMeta,
   ControlConfig,
+  sections,
   sharedControls,
 } from '@superset-ui/chart-controls';
 import { CHART_TYPES, CHART_TYPE_NAMES, LegendPosition, CHART_SUB_TYPES } from '../components/utils';
@@ -181,6 +182,7 @@ const groupBy: { name: string; config: ControlConfig<'SelectControl'> } = {
 
 const config: ControlPanelConfig = {
   controlPanelSections: [
+    sections.legacyTimeseriesTime,
     {
       label: t('Query'),
       expanded: true,

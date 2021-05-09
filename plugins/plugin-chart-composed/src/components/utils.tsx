@@ -31,7 +31,7 @@ import {
   Cell,
   XAxisProps,
 } from 'recharts';
-import { CategoricalColorNamespace, getNumberFormatter } from '@superset-ui/core';
+import { CategoricalColorNamespace, getNumberFormatter, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ColorsMap, LabelColors, ResultData, SortingType } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 
@@ -288,9 +288,11 @@ type AxisProps = {
   isSecondAxis?: boolean;
   dataKey?: string;
   numbersFormat: string;
-  currentDataSize: number;
+  currentData: ResultData[];
   axisHeight: number;
   axisWidth: number;
+  isTimeSeries?: boolean;
+  groupBy?: string[];
   xAxisClientRect?: ClientRect;
   rootRef?: RefObject<HTMLDivElement>;
 };
@@ -346,10 +348,12 @@ export const getXAxisProps = ({
   layout,
   tickLabelAngle = 0,
   numbersFormat,
-  currentDataSize,
+  currentData,
   axisHeight,
   axisWidth,
   label,
+  isTimeSeries,
+  groupBy,
 }: AxisProps) => {
   const textAnchor = tickLabelAngle === 0 ? 'middle' : 'end';
   const verticalAnchor = tickLabelAngle === 0 ? 'start' : 'middle';
@@ -363,6 +367,17 @@ export const getXAxisProps = ({
     angle: tickLabelAngle,
     label: labelProps,
   };
+
+  const times: JsonObject = {};
+  if (isTimeSeries) {
+    currentData.forEach((item, index) => {
+      const prev = new Date(Number(currentData[index - 1]?.[groupBy?.[0] as string])).getMonth();
+      const currentDate = new Date(Number(currentData[index]?.[groupBy?.[0] as string]));
+      if (currentDate.getMonth() !== prev) {
+        times[index] = `${currentDate.toLocaleString('default', { month: 'long' })} ${currentDate.getFullYear()}`;
+      }
+    });
+  }
 
   switch (layout) {
     case Layout.vertical:
@@ -387,9 +402,11 @@ export const getXAxisProps = ({
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick
             {...props}
+            isTimeSeries={isTimeSeries}
+            times={times}
             textAnchor={textAnchor}
             verticalAnchor={verticalAnchor}
-            {...getActualXAxisSize(axisWidth, currentDataSize, axisHeight, tickLabelAngle)}
+            {...getActualXAxisSize(axisWidth, currentData.length, axisHeight, tickLabelAngle)}
           />
         ),
         interval: 0,
@@ -406,7 +423,7 @@ export const getYAxisProps = ({
   isSecondAxis,
   labelAngle = 90,
   numbersFormat,
-  currentDataSize,
+  currentData,
   axisHeight,
   axisWidth,
   rootRef,
@@ -449,7 +466,7 @@ export const getYAxisProps = ({
             {...props}
             verticalAnchor={verticalAnchor}
             textAnchor={textAnchor}
-            {...getActualYAxisSize(axisWidth, currentDataSize, axisHeight, tickLabelAngle)}
+            {...getActualYAxisSize(axisWidth, currentData.length, axisHeight, tickLabelAngle)}
           />
         ),
         dataKey: isSecondAxis ? dataKey : 'rechartsDataKeyUI',

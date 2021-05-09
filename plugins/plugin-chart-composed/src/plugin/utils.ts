@@ -54,6 +54,7 @@ export type FormData = {
   useY2Axis: boolean;
   metrics: Metric[];
   groupby: string[];
+  granularitySqla: string;
 };
 
 export type Data = { [key: string]: string | number };
@@ -170,3 +171,6 @@ export const processNumbers = (
   }
   return resultData;
 };
+
+export const checkTimeSeries = (groupBy?: string[], granularitySqla?: string, layout?: Layout) =>
+  groupBy?.length === 1 && groupBy?.[0] === granularitySqla && layout === Layout.horizontal;

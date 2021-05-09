@@ -18,7 +18,7 @@
  */
 import { AdhocMetric, buildQueryContext, QueryFormData } from '@superset-ui/core';
 import { BinaryOperator, SetOperator } from '@superset-ui/core/lib/query/types/Operator';
-import { MAX_FORM_CONTROLS, SortingType } from './utils';
+import { checkTimeSeries, MAX_FORM_CONTROLS, SortingType } from './utils';
 
 // Not correctly imported form node_modules, so add it here
 export type QueryFormExtraFilter = {
@@ -51,6 +51,7 @@ export default function buildQuery(formData: QueryFormData) {
       {
         ...baseQueryObject,
         orderby,
+        is_timeseries: checkTimeSeries(formData.groupby, formData.granularity_sqla, formData.layout),
         columns: [],
         groupby: [...(formData.groupby || []), ...(formData.columns || [])],
       },

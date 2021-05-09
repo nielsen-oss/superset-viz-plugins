@@ -18,8 +18,7 @@
  */
 import React, { FC } from 'react';
 import { Text } from 'recharts';
-import { NumberFormatter } from '@superset-ui/core';
-import { MAX_SYMBOLS_IN_TICK_LABEL } from './utils';
+import { JsonObject, NumberFormatter } from '@superset-ui/core';
 
 export type ComposedChartTickProps = {
   x: number;
@@ -32,17 +31,23 @@ export type ComposedChartTickProps = {
   payload: {
     value: number;
   };
-  dy?: number;
-  dx?: number;
+  dy: number;
+  dx: number;
+  index: number;
   actualWidth?: number;
   actualHeight: number;
+  isTimeSeries?: boolean;
+  times?: JsonObject;
 };
 
 const ComposedChartTick: FC<ComposedChartTickProps> = ({
+  times,
+  isTimeSeries,
   x,
   y,
   angle,
   payload,
+  index,
   dy,
   dx,
   textAnchor = 'end',
@@ -52,7 +57,10 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
   actualWidth,
 }) => {
   let text;
-  if (!isNaN(payload.value)) {
+  if (isTimeSeries) {
+    const date = new Date(Number(payload.value));
+    text = date.getDate();
+  } else if (!isNaN(payload.value)) {
     text = `${tickFormatter(payload.value)}`;
   } else {
     text = `${payload.value}`;
@@ -77,6 +85,19 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
       >
         {text}
       </Text>
+      {isTimeSeries && (
+        <Text
+          angle={angle}
+          dy={dy + 20}
+          dx={dx}
+          fontSize={12}
+          verticalAnchor={verticalAnchor}
+          textAnchor={textAnchor}
+          {...otherProps}
+        >
+          {times?.[index]}
+        </Text>
+      )}
     </g>
   );
 };

@@ -70,6 +70,7 @@ export type YAxisProps = XAxisProps & {
 
 export type ComposedChartProps = {
   orderByTypeMetric: SortingType;
+  isTimeSeries: boolean;
   height: number;
   width: number;
   hasOrderedBars: boolean;
@@ -80,6 +81,7 @@ export type ComposedChartProps = {
   layout: Layout;
   metrics: string[];
   breakdowns: string[];
+  groupBy: string[];
   colorScheme: string;
   hasY2Axis?: boolean;
   chartSubType: keyof typeof CHART_SUB_TYPES;
@@ -131,6 +133,8 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     showTotals,
     legendPosition,
     hasCustomTypeMetrics,
+    isTimeSeries,
+    groupBy,
   } = props;
 
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
@@ -267,19 +271,21 @@ const ComposedChart: FC<ComposedChartProps> = props => {
           {...getXAxisProps({
             numbersFormat,
             layout,
-            currentDataSize: currentData.length,
+            currentData,
             tickLabelAngle: xAxis.tickLabelAngle,
             axisHeight: xAxisHeight,
             axisWidth: xAxisWidth,
             xAxisClientRect,
             label: xAxis.label,
+            isTimeSeries,
+            groupBy,
           })}
         />
         <YAxis
           {...getYAxisProps({
             rootRef,
             numbersFormat,
-            currentDataSize: currentData.length,
+            currentData,
             layout,
             tickLabelAngle: yAxis.tickLabelAngle,
             labelAngle: yAxis.labelAngle,
