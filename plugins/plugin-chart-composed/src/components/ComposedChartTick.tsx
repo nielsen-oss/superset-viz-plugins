@@ -34,6 +34,7 @@ export type ComposedChartTickProps = {
   dy: number;
   dx: number;
   index: number;
+  visibleTicksCount: number;
   actualWidth?: number;
   actualHeight: number;
   isTimeSeries?: boolean;
@@ -55,7 +56,9 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
   verticalAnchor = 'start',
   tickFormatter = value => value,
   actualHeight,
+  width,
   actualWidth,
+  visibleTicksCount,
 }) => {
   let text;
   if (isTimeSeries) {
@@ -73,6 +76,7 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
   if (actualWidth) {
     otherProps.width = actualWidth;
   }
+  const tickWidth = width / visibleTicksCount;
 
   return (
     <g transform={`translate(${x},${y})`} data-test-id={`tick-${text}`}>
@@ -91,22 +95,22 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
         <>
           {index !== 0 && (
             <line
-              x1={-(actualWidth ?? 0) / 2}
+              x1={-(tickWidth ?? 0) / 2}
               y1={dy - 5}
-              x2={-(actualWidth ?? 0) / 2}
+              x2={-(tickWidth ?? 0) / 2}
               y2={dy + 35}
               style={{ stroke: 'black', strokeWidth: 1 }}
             />
           )}
           <Text
             angle={angle}
-            dx={dx + (times?.[index]?.long * (actualWidth ?? 0)) / 2 - (actualWidth ?? 0) / 2}
+            dx={dx + (times?.[index]?.long * (tickWidth ?? 0)) / 2 - (tickWidth ?? 0) / 2}
             dy={dy + 20}
             fontSize={12}
             verticalAnchor={verticalAnchor}
             textAnchor={textAnchor}
             {...otherProps}
-            width={actualWidth ? times?.[index]?.long * actualWidth : undefined}
+            width={tickWidth ? times?.[index]?.long * tickWidth : undefined}
           >
             {times?.[index]?.text}
           </Text>

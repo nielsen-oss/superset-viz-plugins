@@ -355,7 +355,6 @@ export const getXAxisProps = ({
   label,
   isTimeSeries,
   groupBy,
-  minBarWidth,
 }: AxisProps) => {
   const textAnchor = tickLabelAngle === 0 ? 'middle' : 'end';
   const verticalAnchor = tickLabelAngle === 0 ? 'start' : 'middle';
@@ -710,20 +709,6 @@ export const processBarChartOrder = (
   }
   return resultData;
 };
-
-export const addTotalValues = (breakdowns: string[], resultData: ResultData[], hasOrderedBars: boolean) =>
-  resultData.map(item => ({
-    ...item,
-    rechartsTotal: breakdowns.reduce(
-      (total, breakdown) =>
-        total +
-        (((hasOrderedBars
-          ? (Object.values(item).find(itemValue => (itemValue as BarChartValue)?.id === breakdown) as BarChartValue)
-              ?.value ?? 0
-          : item[breakdown]) as number) ?? 0),
-      0,
-    ),
-  }));
 
 export function debounce(func: Function, timeout = 300) {
   let timer: number;
