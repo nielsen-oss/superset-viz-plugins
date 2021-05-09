@@ -412,7 +412,6 @@ export const getXAxisProps = ({
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick
             {...props}
-            minBarWidth={minBarWidth}
             isTimeSeries={isTimeSeries}
             times={times}
             textAnchor={textAnchor}
