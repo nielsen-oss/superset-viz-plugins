@@ -42,7 +42,10 @@ export default function transformProps(chartProps: ChartProps) {
   let resultData: ResultData[] = addRechartsKeyAndGetGroupByValues(formData, data, groupByValues);
 
   if (isTimeSeries) {
-    resultData.sort(({ _timestamp1 }, { _timestamp2 }) => _timestamp2 - _timestamp1);
+    resultData.sort(
+      ({ __timestamp: __timestamp2 }, { __timestamp: __timestamp1 }) =>
+        (__timestamp2 as number) - (__timestamp1 as number),
+    );
   }
 
   const breakdowns: string[] = [];
@@ -92,6 +95,7 @@ export default function transformProps(chartProps: ChartProps) {
   const result: ComposedChartProps = {
     orderByTypeMetric: formData.orderByTypeMetric0 as SortingType,
     hasOrderedBars,
+    minBarWidth: formData.minBarWidth,
     breakdowns,
     width,
     height,

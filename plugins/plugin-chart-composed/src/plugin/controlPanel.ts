@@ -76,6 +76,18 @@ export const showTotals = {
   },
 };
 
+export const minBarWidth = {
+  name: 'min_bar_width',
+  config: {
+    type: 'TextControl',
+    label: t('Min Bar Width'),
+    renderTrigger: true,
+    default: '',
+    description: t('Minimal bar width'),
+    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.chart_type === CHART_TYPES.BAR_CHART,
+  },
+};
+
 export const legendPosition = {
   name: 'legend_position',
   config: {
@@ -196,7 +208,8 @@ const config: ControlPanelConfig = {
         [showLegend, legendPosition],
         [numbersFormat, numbersFormatDigits],
         [chartType, barChartSubType, lineChartSubType, areaChartSubType, scatterChartSubType],
-        [labelsColor, showTotals],
+        [labelsColor],
+        [minBarWidth, showTotals],
       ],
     },
     {

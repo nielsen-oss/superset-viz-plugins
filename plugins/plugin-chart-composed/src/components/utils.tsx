@@ -293,6 +293,7 @@ type AxisProps = {
   axisWidth: number;
   isTimeSeries?: boolean;
   groupBy?: string[];
+  minBarWidth?: string;
   xAxisClientRect?: ClientRect;
   rootRef?: RefObject<HTMLDivElement>;
 };
@@ -354,6 +355,7 @@ export const getXAxisProps = ({
   label,
   isTimeSeries,
   groupBy,
+  minBarWidth,
 }: AxisProps) => {
   const textAnchor = tickLabelAngle === 0 ? 'middle' : 'end';
   const verticalAnchor = tickLabelAngle === 0 ? 'start' : 'middle';
@@ -370,11 +372,18 @@ export const getXAxisProps = ({
 
   const times: JsonObject = {};
   if (isTimeSeries) {
-    currentData.forEach((item, index) => {
+    let prevIt = 0;
+    [...currentData, {}].forEach((item, index) => {
       const prev = new Date(Number(currentData[index - 1]?.[groupBy?.[0] as string])).getMonth();
       const currentDate = new Date(Number(currentData[index]?.[groupBy?.[0] as string]));
       if (currentDate.getMonth() !== prev) {
-        times[index] = `${currentDate.toLocaleString('default', { month: 'long' })} ${currentDate.getFullYear()}`;
+        times[index] = {
+          text: `${currentDate.toLocaleString('default', { month: 'long' })} ${currentDate.getFullYear()}`,
+        };
+        if (times[prevIt]) {
+          times[prevIt].long = index - prevIt;
+        }
+        prevIt = index;
       }
     });
   }
@@ -402,6 +411,7 @@ export const getXAxisProps = ({
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick
             {...props}
+            minBarWidth={minBarWidth}
             isTimeSeries={isTimeSeries}
             times={times}
             textAnchor={textAnchor}

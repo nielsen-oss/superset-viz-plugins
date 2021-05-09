@@ -38,6 +38,7 @@ export type ComposedChartTickProps = {
   actualHeight: number;
   isTimeSeries?: boolean;
   times?: JsonObject;
+  minBarWidth?: string;
 };
 
 const ComposedChartTick: FC<ComposedChartTickProps> = ({
@@ -48,8 +49,8 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
   angle,
   payload,
   index,
-  dy,
-  dx,
+  dy = 0,
+  dx = 0,
   textAnchor = 'end',
   verticalAnchor = 'start',
   tickFormatter = value => value,
@@ -72,12 +73,13 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
   if (actualWidth) {
     otherProps.width = actualWidth;
   }
+
   return (
     <g transform={`translate(${x},${y})`} data-test-id={`tick-${text}`}>
       <Text
         angle={angle}
-        dy={dy}
         dx={dx}
+        dy={dy}
         fontSize={12}
         verticalAnchor={verticalAnchor}
         textAnchor={textAnchor}
@@ -85,18 +87,30 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
       >
         {text}
       </Text>
-      {isTimeSeries && (
-        <Text
-          angle={angle}
-          dy={dy + 20}
-          dx={dx}
-          fontSize={12}
-          verticalAnchor={verticalAnchor}
-          textAnchor={textAnchor}
-          {...otherProps}
-        >
-          {times?.[index]}
-        </Text>
+      {isTimeSeries && times?.[index] && (
+        <>
+          {index !== 0 && (
+            <line
+              x1={-(actualWidth ?? 0) / 2}
+              y1={dy - 5}
+              x2={-(actualWidth ?? 0) / 2}
+              y2={dy + 35}
+              style={{ stroke: 'black', strokeWidth: 1 }}
+            />
+          )}
+          <Text
+            angle={angle}
+            dx={dx + (times?.[index]?.long * (actualWidth ?? 0)) / 2 - (actualWidth ?? 0) / 2}
+            dy={dy + 20}
+            fontSize={12}
+            verticalAnchor={verticalAnchor}
+            textAnchor={textAnchor}
+            {...otherProps}
+            width={actualWidth ? times?.[index]?.long * actualWidth : undefined}
+          >
+            {times?.[index]?.text}
+          </Text>
+        </>
       )}
     </g>
   );

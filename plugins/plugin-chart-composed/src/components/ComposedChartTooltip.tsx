@@ -41,9 +41,18 @@ type ComposedChartTooltipProps = TooltipProps & {
   numbersFormat: string;
   metrics: string[];
   hasOrderedBars: boolean;
+  isTimeSeries: boolean;
+};
+
+const getFormattedDate = (value: string) => {
+  const dateValue = new Date(Number(value));
+  return `${dateValue.getDate()} ${dateValue.toLocaleString('default', {
+    month: 'short',
+  })}, ${dateValue.getFullYear()}`;
 };
 
 const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
+  isTimeSeries,
   active,
   numbersFormat,
   metrics,
@@ -57,15 +66,13 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
     const formatter = getNumberFormatter(numbersFormat);
     return (
       <Container>
-        <p>{label}</p>
+        <p>{isTimeSeries ? getFormattedDate(label as string) : label}</p>
         {payload.map((initItem, index) => {
           const item = hasOrderedBars ? initItem.payload[index] : initItem;
           const name = getMetricName(item.name, metrics);
-          return (
-            <Line key={name} color={item.color}>{`${name}: ${
-              isNaN(item?.value as number) ? '-' : formatter(item?.value as number)
-            }`}</Line>
-          );
+          const value = item?.value as number;
+          const resultValue = isNaN(value) ? '-' : formatter(value);
+          return <Line key={name} color={item.color}>{`${name}: ${resultValue}`}</Line>;
         })}
         {total && <Line color="black">{`${t('Total')}: ${isNaN(total) ? '-' : formatter(total)}`}</Line>}
       </Container>

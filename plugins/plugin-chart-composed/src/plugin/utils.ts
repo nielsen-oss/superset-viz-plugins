@@ -32,6 +32,7 @@ export type FormData = {
   [key: string]: string | string[] | Metric[] | boolean;
   layout: Layout;
   colorScheme: string;
+  minBarWidth: string;
   useOrderByMetric0: boolean;
   chartType: keyof typeof CHART_TYPES;
   lineChartSubType: keyof typeof CHART_SUB_TYPES;
