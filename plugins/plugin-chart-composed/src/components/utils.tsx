@@ -666,6 +666,7 @@ export const processBarChartOrder = (
 ): ResultData[] => {
   if (hasOrderedBars) {
     const barChartColorsMap: ColorsMap = {};
+
     // Build this model: https://mabdelsattar.medium.com/recharts-stack-order-bf22c245d0be
     breakdowns.forEach((breakdown, index) => {
       barChartColorsMap[breakdown] = CategoricalColorNamespace.getScale(colorScheme)(index);
