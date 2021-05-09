@@ -15,7 +15,7 @@ async function getDependenciesList(packages) {
 }
 
 const pkgGlob = process.argv[2] || '*';
-const packages = fg.sync([`${process.env.GITHUB_WORKSPACE}/superset-viz-plugins/plugins/${pkgGlob}`], {
+const packages = fg.sync([`${process.env.GITHUB_WORKSPACE}/${process.env.PROJECT_WORKING_DIRECTORY}/plugins/${pkgGlob}`], {
   onlyDirectories: true,
 });
 

@@ -1,6 +1,6 @@
 {
   "name": "@superset-viz-plugins/plugin-chart-pie",
-  "version": "0.7.2",
+  "version": "0.7.4",
   "description": "Superset Chart - Pie",
   "pluginName": "PieChartPlugin",
   "sideEffects": false,

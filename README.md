@@ -16,9 +16,9 @@ This repository is using a monorepo strategy which lets us have one source of tr
 - Docker Image is deployed [here](https://hub.docker.com/r/nielsenoss/apache-superset)
 
   
-### Connection to superset-incubator
+### Connection to superset
 
-1. Replace `incubator-superset/superset-frontend/webpack.config.js` with [webpack.config.js](./docs/webpack.config.js)
+1. Replace `superset/superset-frontend/webpack.config.js` with [webpack.config.js](./docs/webpack.config.js)
 2. Use [this](https://preset.io/blog/2020-07-02-hello-world/) tutorial to connect plugins to superset
 
 

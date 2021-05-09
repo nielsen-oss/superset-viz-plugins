@@ -148,7 +148,7 @@ export const getLegendProps = (
   const payload: LegendPayload[] = breakdowns.map((breakdown, index) => ({
     value: getMetricName(breakdown, metrics),
     id: breakdown,
-    type: disabledDataKeys.includes(breakdown) ? 'line' : 'circle',
+    type: disabledDataKeys.includes(breakdown) ? 'line' : 'square',
     color: CategoricalColorNamespace.getScale(colorScheme)(index),
   }));
   let result = {
@@ -392,6 +392,7 @@ export const getXAxisProps = ({
     case Layout.vertical:
       return {
         ...params,
+        axisLine: false,
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick
             {...props}
@@ -458,8 +459,9 @@ export const getYAxisProps = ({
       : 15;
   const labelWidth = label?.length ? labelPerAngle : 0;
 
+  const dxPerAxis = isSecondAxis ? -5 : 5;
   const params = {
-    dx: tickLabelAngle === -90 ? axisInverseSign * 5 : 0,
+    dx: isSecondAxis && tickLabelAngle === -90 ? axisInverseSign * 5 : dxPerAxis,
     width: axisWidth + labelWidth,
     angle: tickLabelAngle,
     orientation: isSecondAxis ? ('right' as const) : ('left' as const),
@@ -486,6 +488,7 @@ export const getYAxisProps = ({
     default:
       return {
         ...params,
+        axisLine: false,
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick
             {...props}
@@ -536,7 +539,7 @@ export const renderLabel = ({
 }) => {
   let formattedValue = `${formatter(currentData[index][breakdown] as number)}`;
   if (hasOrderedBars) {
-    formattedValue = `${findBarItem(currentData, index, breakdowns, breakdown)?.value ?? ''}`;
+    formattedValue = `${formatter(findBarItem(currentData, index, breakdowns, breakdown)?.value) ?? ''}`;
   }
   if (
     Math.abs(labelHeight) < MIN_BAR_SIZE_FOR_LABEL ||
@@ -690,6 +693,7 @@ export const processBarChartOrder = (
 ): ResultData[] => {
   if (hasOrderedBars) {
     const barChartColorsMap: ColorsMap = {};
+
     // Build this model: https://mabdelsattar.medium.com/recharts-stack-order-bf22c245d0be
     breakdowns.forEach((breakdown, index) => {
       barChartColorsMap[breakdown] = CategoricalColorNamespace.getScale(colorScheme)(index);

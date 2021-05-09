@@ -8,7 +8,7 @@ Object {
       "children": Array [
         <mockConstructor
           iconSize={10}
-          iconType="circle"
+          iconType="square"
           payload={
             Array [
               Object {
@@ -252,7 +252,7 @@ Object {
   "LegendProps": Array [
     Object {
       "iconSize": 10,
-      "iconType": "circle",
+      "iconType": "square",
       "payload": Array [
         Object {
           "color": "#5AC189",
