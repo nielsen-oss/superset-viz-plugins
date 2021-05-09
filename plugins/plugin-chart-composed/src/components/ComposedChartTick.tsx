@@ -19,7 +19,6 @@
 import React, { FC } from 'react';
 import { Text } from 'recharts';
 import { NumberFormatter } from '@superset-ui/core';
-import { MAX_SYMBOLS_IN_TICK_LABEL } from './utils';
 
 export type ComposedChartTickProps = {
   x: number;
