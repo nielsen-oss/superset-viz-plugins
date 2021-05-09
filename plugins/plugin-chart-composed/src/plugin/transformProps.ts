@@ -39,7 +39,7 @@ export default function transformProps(chartProps: ChartProps) {
 
   const groupByValues: string[] = [];
   const isTimeSeries = checkTimeSeries(formData.groupby, formData.granularitySqla, formData.layout);
-  let resultData: ResultData[] = addRechartsKeyAndGetGroupByValues(formData, data, groupByValues);
+  let resultData: ResultData[] = addRechartsKeyAndGetGroupByValues(formData, data, groupByValues, isTimeSeries);
 
   if (isTimeSeries) {
     resultData.sort(

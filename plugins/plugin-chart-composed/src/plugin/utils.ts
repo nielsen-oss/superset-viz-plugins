@@ -106,13 +106,20 @@ const getGroupByValues = (field: string, item: Record<string, string | number>, 
   return item[field];
 };
 
-export const addRechartsKeyAndGetGroupByValues = (formData: FormData, data: Data[], groupByValues: string[]) =>
+export const addRechartsKeyAndGetGroupByValues = (
+  formData: FormData,
+  data: Data[],
+  groupByValues: string[],
+  isTimeSeries: boolean,
+) =>
   data.map(item => {
     const dataKey = formData.groupby.map(field => getGroupByValues(field, item, groupByValues));
     return {
       ...item,
       rechartsDataKey: dataKey.join(', '),
-      rechartsDataKeyUI: dataKey.filter((value, index) => formData[`useCategoryFormattingGroupBy${index}`]).join(', '),
+      rechartsDataKeyUI: dataKey
+        .filter((value, index) => isTimeSeries || formData[`useCategoryFormattingGroupBy${index}`])
+        .join(', '),
     };
   });
 

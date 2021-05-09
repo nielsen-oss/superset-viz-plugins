@@ -200,7 +200,7 @@ export const getLegendProps = (
         verticalAlign: legendPosition as LegendVerticalAlign,
         wrapperStyle: {
           ...result.wrapperStyle,
-          paddingBottom: 10,
+          paddingBottom: 15,
           width,
         },
       };

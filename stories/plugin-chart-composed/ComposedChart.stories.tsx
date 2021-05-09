@@ -89,7 +89,7 @@ const TimeSeriesTemplate = args => {
             ...timeSeries,
             formData: {
               ...timeSeries.formData,
-              useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
+              useCategoryFormattingGroupBy0: false,
             },
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
