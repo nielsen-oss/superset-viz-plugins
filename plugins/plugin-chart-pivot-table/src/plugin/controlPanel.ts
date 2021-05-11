@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { t, validateNonEmpty } from '@superset-ui/core';
+import { QueryFormData, t, validateNonEmpty } from '@superset-ui/core';
 
 import {
   ControlConfig,
@@ -44,6 +44,19 @@ const transpose: { name: string; config: ControlConfig<'CheckboxControl'> } = {
     label: t('Transpose'),
     default: false,
     description: t('Swap Rows and Columns'),
+  },
+};
+
+export const numbersFormatDigits = {
+  name: 'numbers_format_digits',
+  config: {
+    label: t('Numbers Format Digits'),
+    type: 'SelectControl',
+    clearable: true,
+    choices: ['0', '1', '2', '3', '4', '5'],
+    renderTrigger: true,
+    description: t('Number of digits after point'),
+    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.numbers_format === 'SMART_NUMBER',
   },
 };
 
@@ -111,10 +124,7 @@ const config: ControlPanelConfig = {
     {
       label: t('Table Options'),
       expanded: true,
-      controlSetRows: [
-        [numbersFormat, showTotal],
-        [compactView, emptyValuePlaceholder],
-      ],
+      controlSetRows: [[numbersFormat, numbersFormatDigits], [showTotal], [compactView, emptyValuePlaceholder]],
     },
   ],
 

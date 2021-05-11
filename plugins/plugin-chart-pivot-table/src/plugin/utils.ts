@@ -295,3 +295,33 @@ export const applyDatasourceLabels = <R extends string, C extends string, M exte
       {} as Record<R, R> & Record<C, R> & Record<M, number>,
     ),
   );
+
+export const processNumbers = <R extends string, C extends string, M extends string>(
+  resultData: QueryData<R, C, M>[],
+  metrics: M[],
+  numbersFormat: string,
+  numbersFormatDigits?: string,
+) => {
+  const digits = Number(numbersFormatDigits);
+  if (numbersFormat === 'SMART_NUMBER' && numbersFormatDigits && !Number.isNaN(digits)) {
+    // eslint-disable-next-line no-param-reassign
+    return resultData.map(item => ({
+      ...item,
+      ...metrics.reduce(
+        (prevBreakdown, nextMetric) => ({
+          ...prevBreakdown,
+          [nextMetric]: Number(
+            Number(item[nextMetric])
+              .toLocaleString('en-US', {
+                minimumFractionDigits: digits,
+                maximumFractionDigits: digits,
+              })
+              .replace(/,/g, ''),
+          ),
+        }),
+        {},
+      ),
+    }));
+  }
+  return resultData;
+};

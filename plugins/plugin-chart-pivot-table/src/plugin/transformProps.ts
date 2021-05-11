@@ -16,7 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { applyDatasourceLabels, extractUniqueData, getOneDimensionData, getUnits, makeDataUnique } from './utils';
+import {
+  applyDatasourceLabels,
+  extractUniqueData,
+  getOneDimensionData,
+  getUnits,
+  makeDataUnique,
+  processNumbers,
+} from './utils';
 import { ShowTotal } from '../types';
 
 type MetricObject<M extends string> = {
@@ -27,8 +34,8 @@ type MetricObject<M extends string> = {
 };
 
 type FormData<R extends string, C extends string, M extends string> = {
-  numberFormat: string;
   numbersFormat: string;
+  numbersFormatDigits: string;
   emptyValuePlaceholder: string;
   compactView: boolean;
   transpose: boolean;
@@ -58,6 +65,7 @@ export default function transformProps<R extends string = string, C extends stri
   const { width, height, formData, queriesData, datasource } = chartProps;
   let { data } = queriesData[0];
   const metrics = formData.metrics.map(({ label }) => label).sort();
+  data = processNumbers<R, C, M>(data, metrics, formData.numbersFormat, formData.numbersFormatDigits);
   data = applyDatasourceLabels<R, C, M>(data, datasource);
   data = makeDataUnique<R, C, M>(data, metrics);
   const {
@@ -65,12 +73,10 @@ export default function transformProps<R extends string = string, C extends stri
     rows: tempRows,
     columns: tempColumns,
     compactView,
-    numberFormat,
-    numbersFormat: tempNumbersFormat,
+    numbersFormat,
     showTotal = ShowTotal.noTotal,
     emptyValuePlaceholder,
   } = formData;
-  const numbersFormat = tempNumbersFormat || numberFormat;
   let rows: R[] = (tempRows ?? []).map(row => datasource.verboseMap[row] ?? row) as R[];
   let columns: C[] = (tempColumns ?? []).map(column => datasource.verboseMap[column] ?? column) as C[];
   if (transpose) {
