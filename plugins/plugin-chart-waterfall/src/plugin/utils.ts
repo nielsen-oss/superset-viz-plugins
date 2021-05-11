@@ -65,16 +65,21 @@ const findDiffOfPeriodsValue = (
   keys: string[],
   periodCounter: number,
   xAxisColumn: string,
-): QueryData => ({
-  ...valueOfPeriod,
-  [valueColumn]:
-    (valueOfPeriod[valueColumn] as number) -
-    ((groupedData
+): QueryData => {
+  const lastPeriodValue =
+    (groupedData
       ?.get(keys[periodCounter - 1])
       ?.find(prevPeriodValue => prevPeriodValue[xAxisColumn] === valueOfPeriod[xAxisColumn])?.[
       valueColumn
-    ] as number) ?? 0),
-});
+    ] as number) ?? 0;
+  const thisPeriodValue = valueOfPeriod[valueColumn] as number;
+  return {
+    ...valueOfPeriod,
+    thisPeriodValue,
+    lastPeriodValue,
+    [valueColumn]: thisPeriodValue - lastPeriodValue,
+  };
+};
 
 export const convertDataForRecharts = (
   periodColumn: string,
@@ -138,6 +143,7 @@ export const createReChartsBarValues = (
       return {
         ...cur,
         thisPeriod,
+        change,
         __TOTAL__: true,
         [valueColumn]: [0, totalSumUpToCur || cur[valueColumn]],
       } as WaterfallChartData;
