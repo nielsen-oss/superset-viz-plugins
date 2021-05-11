@@ -452,6 +452,7 @@ export const getYAxisProps = ({
     value: label,
     angle: labelAngle,
     position: isSecondAxis ? 'insideRight' : 'insideLeft',
+    dx: isSecondAxis ? 5 : -5,
   };
 
   const labelPerAngle =

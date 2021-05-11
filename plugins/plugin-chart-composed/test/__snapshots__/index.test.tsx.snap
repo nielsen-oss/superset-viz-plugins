@@ -326,6 +326,7 @@ Object {
           label={
             Object {
               "angle": -0,
+              "dx": -5,
               "position": "insideLeft",
               "value": "QWEr",
             }
@@ -342,6 +343,7 @@ Object {
           label={
             Object {
               "angle": -0,
+              "dx": 5,
               "position": "insideRight",
               "value": undefined,
             }
@@ -1637,6 +1639,7 @@ Object {
       "dx": -5,
       "label": Object {
         "angle": -0,
+        "dx": 5,
         "position": "insideRight",
         "value": undefined,
       },
@@ -1784,6 +1787,7 @@ Object {
           label={
             Object {
               "angle": -0,
+              "dx": -5,
               "position": "insideLeft",
               "value": undefined,
             }
@@ -1800,6 +1804,7 @@ Object {
           label={
             Object {
               "angle": -0,
+              "dx": 5,
               "position": "insideRight",
               "value": "Label 2",
             }
@@ -2065,6 +2070,7 @@ Object {
       "dx": -5,
       "label": Object {
         "angle": -0,
+        "dx": 5,
         "position": "insideRight",
         "value": "Label 2",
       },
@@ -2142,6 +2148,7 @@ Object {
           label={
             Object {
               "angle": -0,
+              "dx": -5,
               "position": "insideLeft",
               "value": "YLabel",
             }
@@ -2406,6 +2413,7 @@ Object {
       "dx": 5,
       "label": Object {
         "angle": -0,
+        "dx": -5,
         "position": "insideLeft",
         "value": "YLabel",
       },
@@ -2547,6 +2555,7 @@ Object {
           label={
             Object {
               "angle": -0,
+              "dx": -5,
               "position": "insideLeft",
               "value": undefined,
             }
@@ -2800,6 +2809,7 @@ Object {
       "dx": 5,
       "label": Object {
         "angle": -0,
+        "dx": -5,
         "position": "insideLeft",
         "value": undefined,
       },
