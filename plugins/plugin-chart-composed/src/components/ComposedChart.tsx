@@ -237,7 +237,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
           right: layout === Layout.vertical ? 10 : 5,
           left: xMarginLeft > 0 ? xMarginLeft : 5,
           top: 15,
-          bottom: showLegend && legendPosition === LegendPosition.bottom ? 0 : yMarginBottom,
+          bottom: (showLegend && legendPosition === LegendPosition.bottom ? 0 : yMarginBottom) + 16,
         }}
         data={currentData}
       >
