@@ -39,7 +39,6 @@ export type ComposedChartTickProps = {
   actualHeight: number;
   isTimeSeries?: boolean;
   times?: JsonObject;
-  minBarWidth?: string;
 };
 
 const ComposedChartTick: FC<ComposedChartTickProps> = ({
@@ -77,6 +76,7 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
     otherProps.width = actualWidth;
   }
   const tickWidth = width / visibleTicksCount;
+  const timeSeriesWidth = tickWidth ? times?.[index]?.long * tickWidth : undefined;
 
   return (
     <g transform={`translate(${x},${y})`} data-test-id={`tick-${text}`}>
@@ -103,6 +103,7 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
             />
           )}
           <Text
+            className="composed-chart-tick-time-text"
             angle={angle}
             dx={dx + (times?.[index]?.long * (tickWidth ?? 0)) / 2 - (tickWidth ?? 0) / 2}
             dy={dy + 20}
@@ -110,7 +111,7 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
             verticalAnchor={verticalAnchor}
             textAnchor={textAnchor}
             {...otherProps}
-            width={tickWidth ? times?.[index]?.long * tickWidth : undefined}
+            width={times?.[index]?.isBreakText ? 1 : timeSeriesWidth}
           >
             {times?.[index]?.text}
           </Text>
