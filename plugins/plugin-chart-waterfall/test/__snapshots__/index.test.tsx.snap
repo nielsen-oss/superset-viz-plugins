@@ -14,19 +14,19 @@ Object {
               Object {
                 "color": "#5AC189",
                 "id": "increase",
-                "type": "circle",
+                "type": "square",
                 "value": "Increase",
               },
               Object {
                 "color": "#E04355",
                 "id": "decrease",
-                "type": "circle",
+                "type": "square",
                 "value": "Decrease",
               },
               Object {
                 "color": "#66BCFE",
                 "id": "total",
-                "type": "circle",
+                "type": "square",
                 "value": "Total",
               },
             ]
@@ -79,6 +79,7 @@ Object {
             122,
           ],
           "__TOTAL__": true,
+          "change": 122,
           "period": "__TOTAL__",
           "period_type": "Total Period",
           "thisPeriod": 122,
@@ -91,9 +92,11 @@ Object {
           "change": -17,
           "changePercentage": -13.934426229508196,
           "lastPeriod": 122,
+          "lastPeriodValue": 61,
           "period": "2018",
           "period_type": "Custom",
           "thisPeriod": 105,
+          "thisPeriodValue": 44,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
@@ -103,9 +106,11 @@ Object {
           "change": -19,
           "changePercentage": -18.095238095238095,
           "lastPeriod": 105,
+          "lastPeriodValue": 61,
           "period": "2018",
           "period_type": "Standard",
           "thisPeriod": 86,
+          "thisPeriodValue": 42,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
@@ -113,6 +118,7 @@ Object {
             86,
           ],
           "__TOTAL__": true,
+          "change": -36,
           "period": "__TOTAL__",
           "period_type": "2018",
           "thisPeriod": 50,
@@ -125,9 +131,11 @@ Object {
           "change": 0,
           "changePercentage": 0,
           "lastPeriod": 86,
+          "lastPeriodValue": 44,
           "period": "2017",
           "period_type": "Custom",
           "thisPeriod": 86,
+          "thisPeriodValue": 44,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
@@ -137,9 +145,11 @@ Object {
           "change": 0,
           "changePercentage": 0,
           "lastPeriod": 86,
+          "lastPeriodValue": 42,
           "period": "2017",
           "period_type": "Standard",
           "thisPeriod": 86,
+          "thisPeriodValue": 42,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
@@ -147,6 +157,7 @@ Object {
             86,
           ],
           "__TOTAL__": true,
+          "change": 0,
           "period": "__TOTAL__",
           "period_type": "2017",
           "thisPeriod": 86,
@@ -159,9 +170,11 @@ Object {
           "change": -23,
           "changePercentage": -26.744186046511626,
           "lastPeriod": 86,
+          "lastPeriodValue": 44,
           "period": "2020",
           "period_type": "Custom",
           "thisPeriod": 63,
+          "thisPeriodValue": 21,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
@@ -171,9 +184,11 @@ Object {
           "change": -23,
           "changePercentage": -36.507936507936506,
           "lastPeriod": 63,
+          "lastPeriodValue": 42,
           "period": "2020",
           "period_type": "Standard",
           "thisPeriod": 40,
+          "thisPeriodValue": 19,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
@@ -181,6 +196,7 @@ Object {
             40,
           ],
           "__TOTAL__": true,
+          "change": -46,
           "period": "__TOTAL__",
           "period_type": "2020",
           "thisPeriod": -6,
@@ -193,9 +209,11 @@ Object {
           "change": -1,
           "changePercentage": -2.5,
           "lastPeriod": 40,
+          "lastPeriodValue": 21,
           "period": "2019",
           "period_type": "Custom",
           "thisPeriod": 39,
+          "thisPeriodValue": 20,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
@@ -205,9 +223,11 @@ Object {
           "change": 0,
           "changePercentage": 0,
           "lastPeriod": 39,
+          "lastPeriodValue": 19,
           "period": "2019",
           "period_type": "Standard",
           "thisPeriod": 39,
+          "thisPeriodValue": 19,
         },
         Object {
           "COUNT(volume_for_roi)": Array [
@@ -215,6 +235,7 @@ Object {
             39,
           ],
           "__TOTAL__": true,
+          "change": -1,
           "period": "__TOTAL__",
           "period_type": "2019",
           "thisPeriod": 38,
@@ -257,19 +278,19 @@ Object {
         Object {
           "color": "#5AC189",
           "id": "increase",
-          "type": "circle",
+          "type": "square",
           "value": "Increase",
         },
         Object {
           "color": "#E04355",
           "id": "decrease",
-          "type": "circle",
+          "type": "square",
           "value": "Decrease",
         },
         Object {
           "color": "#66BCFE",
           "id": "total",
-          "type": "circle",
+          "type": "square",
           "value": "Total",
         },
       ],

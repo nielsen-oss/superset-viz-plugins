@@ -138,12 +138,12 @@ export const getLegendProps = (
   legendPosition: LegendPosition,
   height: number,
   width: number,
-  legendWidth: number,
   breakdowns: string[],
   disabledDataKeys: string[],
   colorScheme: string,
   metrics: string[],
   xAxisHeight: number,
+  yAxisWidth: number,
 ): LegendProps => {
   const payload: LegendPayload[] = breakdowns.map((breakdown, index) => ({
     value: getMetricName(breakdown, metrics),
@@ -153,7 +153,6 @@ export const getLegendProps = (
   }));
   let result = {
     payload,
-    width: legendWidth,
     wrapperStyle: {
       maxHeight: height,
     },
@@ -171,6 +170,7 @@ export const getLegendProps = (
       return {
         ...result,
         layout: Layout.vertical,
+        margin: { right: yAxisWidth },
       };
     case LegendPosition.right:
       return {
@@ -452,7 +452,7 @@ export const getYAxisProps = ({
     labelAngle === 0
       ? Number(
           rootRef?.current?.querySelectorAll('.yAxis .recharts-label')?.[isSecondAxis ? 1 : 0]?.getBoundingClientRect()
-            ?.width ?? 0,
+            ?.width ?? 1,
         ) + 10
       : 15;
   const labelWidth = label?.length ? labelPerAngle : 0;
