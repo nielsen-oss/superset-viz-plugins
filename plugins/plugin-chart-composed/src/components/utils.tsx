@@ -34,6 +34,7 @@ import {
 import { CategoricalColorNamespace, getNumberFormatter, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ColorsMap, LabelColors, ResultData, SortingType } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
+import { ResetProps } from './ComposedChart';
 
 export type BarChartValue = { id: string; value: number; name: string; color: string };
 export type BarChartValueMap = { [key: string]: BarChartValue };
@@ -286,6 +287,7 @@ type AxisProps = {
   label?: string;
   labelAngle?: number;
   isSecondAxis?: boolean;
+  resetProps?: ResetProps;
   dataKey?: string;
   numbersFormat: string;
   currentData: ResultData[];
@@ -293,7 +295,6 @@ type AxisProps = {
   axisWidth: number;
   isTimeSeries?: boolean;
   groupBy?: string[];
-  minBarWidth?: string;
   xAxisClientRect?: ClientRect;
   rootRef?: RefObject<HTMLDivElement>;
 };
@@ -355,6 +356,8 @@ export const getXAxisProps = ({
   label,
   isTimeSeries,
   groupBy,
+  rootRef,
+  resetProps,
 }: AxisProps) => {
   const textAnchor = tickLabelAngle === 0 ? 'middle' : 'end';
   const verticalAnchor = tickLabelAngle === 0 ? 'start' : 'middle';
@@ -371,13 +374,16 @@ export const getXAxisProps = ({
 
   const times: JsonObject = {};
   if (isTimeSeries) {
+    const texts = [...(rootRef?.current?.querySelectorAll('.composed-chart-tick-time-text') ?? [])];
     let prevIt = 0;
     [...currentData, {}].forEach((item, index) => {
       const prev = new Date(Number(currentData[index - 1]?.[groupBy?.[0] as string])).getMonth();
       const currentDate = new Date(Number(currentData[index]?.[groupBy?.[0] as string]));
       if (currentDate.getMonth() !== prev) {
+        const isBreakText = !resetProps?.xAxisTicks && texts.some(el => el.childNodes.length > 1);
         times[index] = {
           text: `${currentDate.toLocaleString('default', { month: 'long' })} ${currentDate.getFullYear()}`,
+          isBreakText,
         };
         if (times[prevIt]) {
           times[prevIt].long = index - prevIt;
@@ -446,6 +452,7 @@ export const getYAxisProps = ({
     value: label,
     angle: labelAngle,
     position: isSecondAxis ? 'insideRight' : 'insideLeft',
+    dx: isSecondAxis ? 5 : -5,
   };
 
   const labelPerAngle =

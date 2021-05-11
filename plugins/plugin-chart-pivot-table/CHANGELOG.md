@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.11.0 (2021-05-11)
+
+
+### Features
+
+* add precision for the table ([#55](https://github.com/nielsen-oss/superset-viz-plugins/issues/55)) ([483cc90](https://github.com/nielsen-oss/superset-viz-plugins/commit/483cc9007235abb3d20abef441c66a615b555e30))
+
+
+
+
+
 ## 0.10.2 (2021-04-27)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-pivot-table
