@@ -97,6 +97,8 @@ export type ComposedChartProps = {
   hasCustomTypeMetrics: boolean[];
 };
 
+export type ResetProps = { xAxisTicks?: boolean };
+
 const Styles = styled.div<ComposedChartStylesProps>`
   position: relative;
   height: ${({ height }) => height}px;
@@ -146,6 +148,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
   const [updater, setUpdater] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
+  const [resetProps, setResetProps] = useState<ResetProps>({});
   const rootRef = useRef<HTMLDivElement>(null);
 
   const forceUpdate = useCallback(() => setUpdater(Math.random()), []);
@@ -183,6 +186,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     debounce(() => {
       forceUpdate();
       setVisible(true);
+      setResetProps({});
     }, 5),
     [],
   );
@@ -193,12 +197,13 @@ const ComposedChart: FC<ComposedChartProps> = props => {
       forceUpdate();
       updateVisibility();
     }, 1),
-    [currentData],
+    [],
   );
 
   useEffect(() => {
+    setResetProps({ xAxisTicks: true });
     updateUI();
-  }, [props, forceUpdate, updateUI]);
+  }, [props, forceUpdate, updateUI, currentData]);
 
   const handleLegendClick = ({ id }: EventData) => {
     let resultKeys;
@@ -222,15 +227,29 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   const yMarginBottom =
     yAxis.tickLabelAngle === -45 && layout === Layout.vertical ? yAxisWidth - xAxisHeight - 10 : xAxisHeight;
 
-  let newWidth = minBarWidth ? currentData.length * (Number(minBarWidth) + 4) : width;
-  newWidth = width > newWidth ? width : newWidth;
+  let newWidth = width;
+  let newHeight = height;
+  if (layout === Layout.horizontal) {
+    newWidth = minBarWidth ? currentData.length * (Number(minBarWidth) + 4) : width;
+    newWidth = width > newWidth ? width : newWidth;
+  } else if (layout === Layout.vertical) {
+    newHeight = minBarWidth ? currentData.length * (Number(minBarWidth) + 4) : height;
+    newHeight = width > newHeight ? width : newHeight;
+  }
 
   return (
-    <Styles key={updater} height={height} width={width} legendPosition={legendPosition} ref={rootRef}>
+    <Styles
+      key={updater}
+      height={height}
+      width={width}
+      legendPosition={legendPosition}
+      ref={rootRef}
+      style={{ overflowX: newWidth === width ? 'hidden' : 'auto', overflowY: newHeight === height ? 'hidden' : 'auto' }}
+    >
       <RechartsComposedChart
         key={updater}
         width={newWidth}
-        height={height}
+        height={newHeight}
         layout={layout}
         style={{ visibility: visible ? 'visible' : 'hidden' }}
         margin={{
@@ -262,7 +281,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
         <CartesianGrid {...getCartesianGridProps({ layout })} />
         <XAxis
           {...getXAxisProps({
-            minBarWidth,
+            resetProps,
             numbersFormat,
             layout,
             currentData,
@@ -273,6 +292,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             label: xAxis.label,
             isTimeSeries,
             groupBy,
+            rootRef,
           })}
         />
         <YAxis
