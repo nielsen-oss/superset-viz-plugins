@@ -144,48 +144,39 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   } = props;
 
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
-  const [legendWidth, setLegendWidth] = useState<number>(0);
   const [updater, setUpdater] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
   const rootRef = useRef<HTMLDivElement>(null);
-  const isSideLegend =
-    showLegend && (legendPosition === LegendPosition.right || legendPosition === LegendPosition.left);
-
-  useEffect(() => {
-    if (rootRef.current && !legendWidth && showLegend) {
-      const legend = rootRef?.current?.querySelector('.recharts-legend-wrapper');
-      const currentWidth = legend?.getBoundingClientRect()?.width || 0;
-      if (currentWidth !== legendWidth) {
-        setLegendWidth(currentWidth ? currentWidth + 20 : currentWidth);
-      }
-    }
-  }, [legendWidth, showLegend]);
-
-  useEffect(() => {
-    if (isSideLegend) {
-      setLegendWidth(0);
-    }
-  }, [isSideLegend, props]);
 
   const forceUpdate = useCallback(() => setUpdater(Math.random()), []);
 
   const xAxisClientRect = rootRef.current
     ?.querySelector('.xAxis .recharts-cartesian-axis-ticks')
     ?.getBoundingClientRect();
-  const xAxisHeight = Math.ceil(xAxisClientRect?.height ?? 1);
-  const xAxisWidth = Math.ceil(xAxisClientRect?.width ?? 1);
+  const xAxisHeight = Math.ceil(xAxisClientRect?.height || 1);
+  const xAxisWidth = Math.ceil(xAxisClientRect?.width || 1);
 
   const yAxisClientRect = rootRef.current
     ?.querySelector('.yAxis .recharts-cartesian-axis-ticks')
     ?.getBoundingClientRect();
-  const yAxisHeight = Math.ceil(yAxisClientRect?.height ?? 1);
-  const yAxisWidth = Math.ceil(yAxisClientRect?.width ?? 1);
+  const yAxisHeight = Math.ceil(yAxisClientRect?.height || 1);
+  const yAxisWidth = Math.ceil(yAxisClientRect?.width || 1);
 
   const y2AxisClientRect = rootRef.current
     ?.querySelectorAll('.yAxis .recharts-cartesian-axis-ticks')[1]
     ?.getBoundingClientRect();
-  const y2AxisHeight = Math.ceil(y2AxisClientRect?.height ?? 1);
-  const y2AxisWidth = Math.ceil(y2AxisClientRect?.width ?? 1);
+  const y2AxisHeight = Math.ceil(y2AxisClientRect?.height || 1);
+  const y2AxisWidth = Math.ceil(y2AxisClientRect?.width || 1);
+
+  const currentData = useCurrentData(
+    data,
+    disabledDataKeys,
+    colorScheme,
+    hasOrderedBars,
+    breakdowns,
+    orderByTypeMetric,
+    showTotals,
+  );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateVisibility = useCallback(
@@ -202,22 +193,12 @@ const ComposedChart: FC<ComposedChartProps> = props => {
       forceUpdate();
       updateVisibility();
     }, 1),
-    [],
+    [currentData],
   );
 
   useEffect(() => {
     updateUI();
   }, [props, forceUpdate, updateUI]);
-
-  const currentData = useCurrentData(
-    data,
-    disabledDataKeys,
-    colorScheme,
-    hasOrderedBars,
-    breakdowns,
-    orderByTypeMetric,
-    showTotals,
-  );
 
   const handleLegendClick = ({ id }: EventData) => {
     let resultKeys;
@@ -236,7 +217,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     showLegend &&
     legendPosition !== LegendPosition.left &&
     !yAxis.label
-      ? xAxisHeight / 2 - yAxisWidth - 10
+      ? xAxisHeight / 2 - yAxisWidth
       : 5;
   const yMarginBottom =
     yAxis.tickLabelAngle === -45 && layout === Layout.vertical ? yAxisWidth - xAxisHeight - 10 : xAxisHeight;
@@ -267,12 +248,12 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               legendPosition,
               height,
               newWidth,
-              legendWidth,
               breakdowns,
               disabledDataKeys,
               colorScheme,
               metrics,
               xAxisHeight,
+              yAxisWidth,
             )}
             iconType="circle"
             iconSize={10}
@@ -334,30 +315,29 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             />
           }
         />
-        {((isSideLegend && legendWidth) || !isSideLegend) &&
-          breakdowns.map((breakdown, index) =>
-            renderChartElement({
-              hasOrderedBars,
-              chartType,
-              metrics,
-              showTotals,
-              breakdown,
-              numbersFormat,
-              hasY2Axis,
-              labelsColor,
-              isAnimationActive: isAnimationActive && visible,
-              updater,
-              index,
-              chartSubType,
-              currentData,
-              hasCustomTypeMetrics,
-              chartTypeMetrics,
-              chartSubTypeMetrics,
-              colorScheme,
-              breakdowns,
-              numberOfRenderedItems: breakdowns.length - (hasOrderedBars ? disabledDataKeys.length : 0),
-            }),
-          )}
+        {breakdowns.map((breakdown, index) =>
+          renderChartElement({
+            hasOrderedBars,
+            chartType,
+            metrics,
+            showTotals,
+            breakdown,
+            numbersFormat,
+            hasY2Axis,
+            labelsColor,
+            isAnimationActive: isAnimationActive && visible,
+            updater,
+            index,
+            chartSubType,
+            currentData,
+            hasCustomTypeMetrics,
+            chartTypeMetrics,
+            chartSubTypeMetrics,
+            colorScheme,
+            breakdowns,
+            numberOfRenderedItems: breakdowns.length - (hasOrderedBars ? disabledDataKeys.length : 0),
+          }),
+        )}
       </RechartsComposedChart>
     </Styles>
   );
