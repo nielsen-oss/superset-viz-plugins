@@ -14,19 +14,19 @@ Object {
               Object {
                 "color": "#5AC189",
                 "id": "increase",
-                "type": "circle",
+                "type": "square",
                 "value": "Increase",
               },
               Object {
                 "color": "#E04355",
                 "id": "decrease",
-                "type": "circle",
+                "type": "square",
                 "value": "Decrease",
               },
               Object {
                 "color": "#66BCFE",
                 "id": "total",
-                "type": "circle",
+                "type": "square",
                 "value": "Total",
               },
             ]
@@ -257,19 +257,19 @@ Object {
         Object {
           "color": "#5AC189",
           "id": "increase",
-          "type": "circle",
+          "type": "square",
           "value": "Increase",
         },
         Object {
           "color": "#E04355",
           "id": "decrease",
-          "type": "circle",
+          "type": "square",
           "value": "Decrease",
         },
         Object {
           "color": "#66BCFE",
           "id": "total",
-          "type": "circle",
+          "type": "square",
           "value": "Total",
         },
       ],
