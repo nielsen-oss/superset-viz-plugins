@@ -12,7 +12,7 @@ This repository is using a monorepo strategy which lets us have one source of tr
 
 #### Artifacts Deployment
 
-- Npm pacakges are deployed [here](https://www.npmjs.com/search?q=%40superset-viz-plugins)
+- Npm packages are deployed [here](https://www.npmjs.com/search?q=%40superset-viz-plugins)
 - Docker Image is deployed [here](https://hub.docker.com/r/nielsenoss/apache-superset)
 
   
