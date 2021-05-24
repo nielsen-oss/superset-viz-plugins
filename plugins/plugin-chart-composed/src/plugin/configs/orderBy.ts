@@ -66,7 +66,7 @@ const getOrderByRow = (source: string, name: string, title: string, index?: numb
 
 orderByMetric.push(getOrderByRow('metrics', 'metric', t('"metric"')));
 
-for (let i = 0; i < MAX_FORM_CONTROLS / 2; i++) {
+for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
   orderByGroupBy.push(getOrderByRow('groupby', 'group_by', t('"group by"'), i));
 }
 

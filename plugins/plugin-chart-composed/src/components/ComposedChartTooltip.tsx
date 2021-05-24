@@ -67,13 +67,15 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
     return (
       <Container>
         <p>{isTimeSeries ? getFormattedDate(label as string) : label}</p>
-        {payload.map((initItem, index) => {
-          const item = hasOrderedBars ? initItem.payload[index] : initItem;
-          const name = getMetricName(item.name, metrics);
-          const value = item?.value as number;
-          const resultValue = isNaN(value) ? '-' : formatter(value);
-          return <Line key={name} color={item.color}>{`${name}: ${resultValue}`}</Line>;
-        })}
+        {payload
+          .filter((item, index) => (hasOrderedBars && item.payload[index]) || !hasOrderedBars)
+          .map((initItem, index) => {
+            const item = hasOrderedBars ? initItem.payload[index] : initItem;
+            const name = getMetricName(item?.name, metrics);
+            const value = item?.value as number;
+            const resultValue = isNaN(value) ? '-' : formatter(value);
+            return <Line key={name} color={item?.color}>{`${name}: ${resultValue}`}</Line>;
+          })}
         {total && <Line color="black">{`${t('Total')}: ${isNaN(total) ? '-' : formatter(total)}`}</Line>}
       </Container>
     );
