@@ -674,10 +674,19 @@ const fillBarsDataByOrder = (
   return newSortedData;
 };
 
-const buildSortedDataForBars = (dataItem: ResultData, tempSortedArray: BarChartValue[]) =>
+const buildSortedDataForBars = (
+  dataItem: ResultData,
+  tempSortedArray: BarChartValue[],
+  metrics: string[],
+  breakdowns: string[],
+) =>
   Object.entries(dataItem).reduce((prev, next) => {
     // If not metric/breakdown field just return it
-    if (!String(next[0]).includes(BREAKDOWN_SEPARATOR)) {
+    if (
+      !String(next[0]).includes(BREAKDOWN_SEPARATOR) &&
+      !metrics.includes(String(next[0])) &&
+      !breakdowns.includes(String(next[0]))
+    ) {
       return { ...prev, [next[0]]: next[1] };
     }
     // Build array with breakdowns to sort it next
@@ -688,6 +697,7 @@ const buildSortedDataForBars = (dataItem: ResultData, tempSortedArray: BarChartV
 export const processBarChartOrder = (
   hasOrderedBars: boolean,
   breakdowns: string[],
+  metrics: string[],
   resultData: ResultData[],
   colorScheme: string,
   orderByTypeMetric: SortingType,
@@ -701,7 +711,7 @@ export const processBarChartOrder = (
     });
     return resultData.map(dataItem => {
       const tempSortedArray: BarChartValue[] = [];
-      const sortedData: ResultData = buildSortedDataForBars(dataItem, tempSortedArray);
+      const sortedData: ResultData = buildSortedDataForBars(dataItem, tempSortedArray, metrics, breakdowns);
 
       // Sorting bars according order
       const sortSign = orderByTypeMetric === SortingType.ASC ? 1 : -1;
