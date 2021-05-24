@@ -18,7 +18,7 @@
  */
 import React from 'react';
 import { D3_FORMAT_OPTIONS } from '@superset-ui/chart-controls';
-import { ChartProps } from '@superset-ui/core';
+import { ChartProps, supersetTheme, ThemeProvider } from '@superset-ui/core';
 import WaterfallChart from '../../plugins/plugin-chart-waterfall/src/components/WaterfallChart';
 import transformProps from '../../plugins/plugin-chart-waterfall/src/plugin/transformProps';
 import { legendTop } from '../../plugins/plugin-chart-waterfall/test/__mocks__/waterfallProps';
@@ -43,7 +43,11 @@ export default {
   },
 };
 
-const Template = args => <WaterfallChart {...extractTransformProps({ args, props: legendTop, transformProps })} />;
+const Template = args => (
+  <ThemeProvider theme={supersetTheme}>
+    <WaterfallChart {...extractTransformProps({ args, props: legendTop, transformProps })} />
+  </ThemeProvider>
+);
 
 export const Default = Template.bind({});
 Default.args = {

@@ -19,7 +19,7 @@
 import { t } from '@superset-ui/core';
 import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/utils';
 
-export const MAX_FORM_CONTROLS = 50;
+export const MAX_FORM_CONTROLS = 10;
 export const BREAKDOWN_SEPARATOR = '_$_';
 
 type Metric = {
