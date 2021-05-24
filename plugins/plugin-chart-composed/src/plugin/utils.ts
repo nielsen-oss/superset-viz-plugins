@@ -161,8 +161,11 @@ export const processNumbers = (
     // eslint-disable-next-line no-param-reassign
     return resultData.map(item => ({
       ...item,
-      ...breakdowns.reduce(
-        (prevBreakdown, nextBreakdown) => ({
+      ...breakdowns.reduce((prevBreakdown, nextBreakdown) => {
+        if (item[nextBreakdown] === undefined) {
+          return prevBreakdown;
+        }
+        return {
           ...prevBreakdown,
           [nextBreakdown]: Number(
             Number(item[nextBreakdown])
@@ -172,9 +175,8 @@ export const processNumbers = (
               })
               .replace(/,/g, ''),
           ),
-        }),
-        {},
-      ),
+        };
+      }, {}),
     }));
   }
   return resultData;

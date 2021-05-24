@@ -29,11 +29,21 @@ import {
   SortingType,
   processNumbers,
   checkTimeSeries,
+  MAX_FORM_CONTROLS,
 } from './utils';
 
 export default function transformProps(chartProps: ChartProps) {
   const { width, height, queriesData } = chartProps;
-  const data = queriesData[0].data as Data[];
+  let data = queriesData[0].data as Data[];
+  data = data.filter(
+    it =>
+      !(
+        (it.duetogroup === 'Over the Top' && it.timeperiod === '2019') ||
+        (it.duetogroup === 'TV' && it.timeperiod === '2019') ||
+        (it.duetogroup === 'Over the Top' && it.timeperiod === '2018') ||
+        (it.duetogroup === 'TV' && it.timeperiod === '2018')
+      ),
+  );
   const formData = chartProps.formData as FormData;
   const metrics = formData.metrics.map(metric => metric.label);
 
@@ -89,9 +99,11 @@ export default function transformProps(chartProps: ChartProps) {
     resultShowTotals = formData.showTotals;
   }
 
-  const hasOrderedBars = formData.chartType === CHART_TYPES.BAR_CHART && formData.useOrderByMetric0;
-  resultData = processNumbers(resultData, breakdowns, formData.numbersFormat, formData.numbersFormatDigits);
+  const hasOrderedBars = Array.from({ length: MAX_FORM_CONTROLS }).some(
+    (_, i) => formData.chartType === CHART_TYPES.BAR_CHART && formData[`useOrderByGroupBy${i}`],
+  );
 
+  resultData = processNumbers(resultData, breakdowns, formData.numbersFormat, formData.numbersFormatDigits);
   const result: ComposedChartProps = {
     orderByTypeMetric: formData.orderByTypeMetric0 as SortingType,
     hasOrderedBars,

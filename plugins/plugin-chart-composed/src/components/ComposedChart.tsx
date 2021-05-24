@@ -234,7 +234,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     newWidth = width > newWidth ? width : newWidth;
   } else if (layout === Layout.vertical) {
     newHeight = minBarWidth ? currentData.length * (Number(minBarWidth) + 4) : height;
-    newHeight = width > newHeight ? width : newHeight;
+    newHeight = height > newHeight ? height : newHeight;
   }
 
   return (
@@ -339,6 +339,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
           renderChartElement({
             hasOrderedBars,
             chartType,
+            layout,
             metrics,
             showTotals,
             breakdown,
