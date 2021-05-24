@@ -34,16 +34,7 @@ import {
 
 export default function transformProps(chartProps: ChartProps) {
   const { width, height, queriesData } = chartProps;
-  let data = queriesData[0].data as Data[];
-  data = data.filter(
-    it =>
-      !(
-        (it.duetogroup === 'Over the Top' && it.timeperiod === '2019') ||
-        (it.duetogroup === 'TV' && it.timeperiod === '2019') ||
-        (it.duetogroup === 'Over the Top' && it.timeperiod === '2018') ||
-        (it.duetogroup === 'TV' && it.timeperiod === '2018')
-      ),
-  );
+  const data = queriesData[0].data as Data[];
   const formData = chartProps.formData as FormData;
   const metrics = formData.metrics.map(metric => metric.label);
 
