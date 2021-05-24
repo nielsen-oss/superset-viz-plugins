@@ -179,6 +179,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     breakdowns,
     orderByTypeMetric,
     showTotals,
+    metrics,
   );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
