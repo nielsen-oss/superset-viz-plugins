@@ -101,7 +101,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "hasOrderedBars": false,
+        "hasOrderedBars": undefined,
         "position": "center",
       },
       "opacity": 0.8,
@@ -211,7 +211,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "hasOrderedBars": false,
+        "hasOrderedBars": undefined,
         "position": "center",
       },
       "opacity": 0.6,
@@ -350,7 +350,6 @@ Object {
         <mockConstructor
           content={
             <ComposedChartTooltip
-              hasOrderedBars={false}
               isTimeSeries={false}
               metrics={
                 Array [
@@ -462,7 +461,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -568,7 +567,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -675,7 +674,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -780,7 +779,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -885,7 +884,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -991,7 +990,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -1098,7 +1097,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -1203,7 +1202,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -1470,7 +1469,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "hasOrderedBars": false,
+        "hasOrderedBars": undefined,
         "position": "center",
       },
       "opacity": 0.8,
@@ -1580,7 +1579,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "hasOrderedBars": false,
+        "hasOrderedBars": undefined,
         "position": "center",
       },
       "opacity": 0.8,
@@ -1592,7 +1591,6 @@ Object {
   "TooltipProps": Array [
     Object {
       "content": <ComposedChartTooltip
-        hasOrderedBars={false}
         isTimeSeries={false}
         metrics={
           Array [
@@ -1698,7 +1696,7 @@ Object {
         ],
         "fill": "white",
         "formatter": [Function],
-        "hasOrderedBars": false,
+        "hasOrderedBars": undefined,
         "position": "center",
       },
       "opacity": 1,
@@ -1804,7 +1802,6 @@ Object {
         <mockConstructor
           content={
             <ComposedChartTooltip
-              hasOrderedBars={false}
               isTimeSeries={false}
               metrics={
                 Array [
@@ -1868,7 +1865,7 @@ Object {
                 ],
                 "fill": "white",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -1927,7 +1924,7 @@ Object {
                 ],
                 "fill": "white",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -2024,7 +2021,6 @@ Object {
   "TooltipProps": Array [
     Object {
       "content": <ComposedChartTooltip
-        hasOrderedBars={false}
         isTimeSeries={false}
         metrics={
           Array [
@@ -2152,7 +2148,6 @@ Object {
         <mockConstructor
           content={
             <ComposedChartTooltip
-              hasOrderedBars={false}
               isTimeSeries={false}
               metrics={
                 Array [
@@ -2216,7 +2211,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -2275,7 +2270,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -2370,7 +2365,6 @@ Object {
   "TooltipProps": Array [
     Object {
       "content": <ComposedChartTooltip
-        hasOrderedBars={false}
         isTimeSeries={false}
         metrics={
           Array [
@@ -2470,7 +2464,7 @@ Object {
         ],
         "fill": "white",
         "formatter": [Function],
-        "hasOrderedBars": false,
+        "hasOrderedBars": undefined,
         "position": "center",
       },
       "opacity": 1,
@@ -2557,7 +2551,6 @@ Object {
         <mockConstructor
           content={
             <ComposedChartTooltip
-              hasOrderedBars={false}
               isTimeSeries={false}
               metrics={
                 Array [
@@ -2617,7 +2610,7 @@ Object {
                 ],
                 "fill": "white",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -2672,7 +2665,7 @@ Object {
                 ],
                 "fill": "white",
                 "formatter": [Function],
-                "hasOrderedBars": false,
+                "hasOrderedBars": undefined,
                 "position": "center",
               }
             }
@@ -2764,7 +2757,6 @@ Object {
   "TooltipProps": Array [
     Object {
       "content": <ComposedChartTooltip
-        hasOrderedBars={false}
         isTimeSeries={false}
         metrics={
           Array [

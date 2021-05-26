@@ -91,7 +91,6 @@ export default function transformProps(chartProps: ChartProps) {
   }
 
   const hasOrderedBars = formData.chartType === CHART_TYPES.BAR_CHART && formData.useOrderByMetric0;
-
   if (hasOrderedBars) {
     sortOrderedBars(resultData, groupByValues, formData);
   }
