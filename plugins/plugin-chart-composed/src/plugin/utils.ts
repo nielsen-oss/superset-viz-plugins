@@ -184,3 +184,23 @@ export const processNumbers = (
 
 export const checkTimeSeries = (groupBy?: string[], granularitySqla?: string, layout?: Layout) =>
   groupBy?.length === 1 && groupBy?.[0] === granularitySqla && layout === Layout.horizontal;
+
+export const sortOrderedBars = (resultData: ResultData[], groupByValues: string[], formData: FormData) => {
+  // @ts-ignore
+  resultData.sort((a, b) => {
+    for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
+      if (formData[`useOrderByGroupBy${i}`]) {
+        if (a[groupByValues[i]] === b[groupByValues[i]]) {
+          continue;
+        }
+        const sign = formData[`orderByTypeGroupBy${i}`];
+        return ((a[groupByValues[i]] ?? '') > (b[groupByValues[i]] ?? '') && sign === SortingType.ASC) ||
+          ((a[groupByValues[i]] ?? '') < (b[groupByValues[i]] ?? '') && sign === SortingType.DESC)
+          ? 1
+          : -1;
+      }
+      return 0;
+    }
+    return 0;
+  });
+};

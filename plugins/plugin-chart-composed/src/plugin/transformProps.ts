@@ -29,7 +29,7 @@ import {
   SortingType,
   processNumbers,
   checkTimeSeries,
-  MAX_FORM_CONTROLS,
+  sortOrderedBars,
 } from './utils';
 
 export default function transformProps(chartProps: ChartProps) {
@@ -90,9 +90,11 @@ export default function transformProps(chartProps: ChartProps) {
     resultShowTotals = formData.showTotals;
   }
 
-  const hasOrderedBars = Array.from({ length: MAX_FORM_CONTROLS }).some(
-    (_, i) => formData.chartType === CHART_TYPES.BAR_CHART && formData[`useOrderByGroupBy${i}`],
-  );
+  const hasOrderedBars = formData.chartType === CHART_TYPES.BAR_CHART && formData.useOrderByMetric0;
+
+  if (hasOrderedBars) {
+    sortOrderedBars(resultData, groupByValues, formData);
+  }
 
   resultData = processNumbers(resultData, breakdowns, formData.numbersFormat, formData.numbersFormatDigits);
   const result: ComposedChartProps = {
