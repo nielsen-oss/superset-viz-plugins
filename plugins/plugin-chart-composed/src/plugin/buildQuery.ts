@@ -41,7 +41,7 @@ export default function buildQuery(formData: QueryFormData) {
     if (formData.use_order_by_metric_0 && metric) {
       orderby.push([metric as string, formData.order_by_type_metric_0 === SortingType.ASC]);
     }
-    for (let i = 0; i < MAX_FORM_CONTROLS / 2; i++) {
+    for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
       const groupBy = formData.groupby?.[i] as string;
       if (formData[`use_order_by_group_by_${i}`] && groupBy) {
         orderby.push([groupBy, formData[`order_by_type_group_by_${i}`] === SortingType.ASC]);

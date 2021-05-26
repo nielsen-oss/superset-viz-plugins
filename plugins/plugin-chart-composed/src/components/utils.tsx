@@ -28,7 +28,6 @@ import {
   Scatter,
   LabelList,
   LabelListProps,
-  Cell,
   XAxisProps,
 } from 'recharts';
 import { CategoricalColorNamespace, getNumberFormatter, JsonObject } from '@superset-ui/core';
@@ -558,6 +557,7 @@ export const renderLabel = ({
 type ChartElementProps = {
   hasOrderedBars: boolean;
   breakdown: string;
+  layout: Layout;
   breakdowns: string[];
   colorScheme: string;
   hasY2Axis?: boolean;
@@ -599,6 +599,7 @@ export const renderChartElement = ({
   showTotals,
   colorScheme,
   numberOfRenderedItems,
+  layout,
 }: ChartElementProps) => {
   let customChartType = chartType;
   let customChartSubType = chartSubType;
@@ -620,7 +621,7 @@ export const renderChartElement = ({
   const labelListExtraProps: LabelListProps & { fill: string } = {
     fill: 'black',
     dataKey: 'rechartsTotal',
-    position: 'top',
+    position: layout === Layout.horizontal ? 'top' : 'right',
     formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
   };
   if (index !== numberOfRenderedItems - 1) {
@@ -628,7 +629,7 @@ export const renderChartElement = ({
   }
   let dataKey: string | Function = breakdown;
   if (hasOrderedBars) {
-    dataKey = (val: BarChartValueMap) => getValueForBarChart(val, String(index));
+    dataKey = (val: BarChartValueMap) => getValueForBarChart(val, String(index)) ?? 0; // Not sure why but it works;
   }
 
   return (
@@ -649,11 +650,6 @@ export const renderChartElement = ({
       dataKey={dataKey}
       {...elementProps}
     >
-      {hasOrderedBars &&
-        currentData.map(dataItem => {
-          const otherProps = dataItem[index] ? { fill: (dataItem[index] as BarChartValue)?.color } : { fillOpacity: 0 };
-          return <Cell {...otherProps} />;
-        })}
       {showTotals && <LabelList {...labelListExtraProps} />}
     </Element>
   );
@@ -678,10 +674,19 @@ const fillBarsDataByOrder = (
   return newSortedData;
 };
 
-const buildSortedDataForBars = (dataItem: ResultData, tempSortedArray: BarChartValue[]) =>
+const buildSortedDataForBars = (
+  dataItem: ResultData,
+  tempSortedArray: BarChartValue[],
+  metrics: string[],
+  breakdowns: string[],
+) =>
   Object.entries(dataItem).reduce((prev, next) => {
     // If not metric/breakdown field just return it
-    if (!String(next[0]).includes(BREAKDOWN_SEPARATOR)) {
+    if (
+      !String(next[0]).includes(BREAKDOWN_SEPARATOR) &&
+      !metrics.includes(String(next[0])) &&
+      !breakdowns.includes(String(next[0]))
+    ) {
       return { ...prev, [next[0]]: next[1] };
     }
     // Build array with breakdowns to sort it next
@@ -692,6 +697,7 @@ const buildSortedDataForBars = (dataItem: ResultData, tempSortedArray: BarChartV
 export const processBarChartOrder = (
   hasOrderedBars: boolean,
   breakdowns: string[],
+  metrics: string[],
   resultData: ResultData[],
   colorScheme: string,
   orderByTypeMetric: SortingType,
@@ -705,7 +711,7 @@ export const processBarChartOrder = (
     });
     return resultData.map(dataItem => {
       const tempSortedArray: BarChartValue[] = [];
-      const sortedData: ResultData = buildSortedDataForBars(dataItem, tempSortedArray);
+      const sortedData: ResultData = buildSortedDataForBars(dataItem, tempSortedArray, metrics, breakdowns);
 
       // Sorting bars according order
       const sortSign = orderByTypeMetric === SortingType.ASC ? 1 : -1;
