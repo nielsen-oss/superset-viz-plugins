@@ -49,6 +49,7 @@ import {
 import { chartTypeMetrics } from './configs/chartTypeMetrics';
 import { orderByGroupBy, orderByMetric } from './configs/orderBy';
 import { categoryFormatting } from './configs/categoryFormatting';
+import { getQueryMode, isAggMode, isRawMode, QueryMode } from './utils';
 
 export const showLegend = {
   name: 'show_legend',
@@ -110,7 +111,8 @@ const metrics: { name: string; config: ControlConfig<'MetricsControl'> } = {
     label: t('Metrics'),
     description: t('One or many metrics to display'),
     multi: true,
-    validators: [validateNonEmpty],
+    // @ts-ignore
+    visibility: isAggMode,
     // @ts-ignore
     mapStateToProps: ({ datasource }: { datasource: DatasourceMeta; controls: CustomControlItem }) => ({
       columns: datasource?.columns || [],
@@ -183,12 +185,50 @@ export const labelsColor = {
     description: t('Color of the labels inside of bars'),
   },
 };
+
 const groupBy: { name: string; config: ControlConfig<'SelectControl'> } = {
   name: 'groupby',
   // @ts-ignore
   config: {
     ...sharedControls.groupby,
-    validators: [validateNonEmpty],
+    // @ts-ignore
+    visibility: isAggMode,
+  },
+};
+
+const xAxisColumn: { name: string; config: ControlConfig<'SelectControl'> } = {
+  name: 'x_axis_column',
+  // @ts-ignore
+  config: {
+    ...sharedControls.groupby,
+    label: t('X Axis Column'),
+    visibility: isRawMode,
+    multi: false,
+  },
+};
+
+const yAxisColumn: { name: string; config: ControlConfig<'SelectControl'> } = {
+  name: 'y_axis_column',
+  // @ts-ignore
+  config: {
+    ...sharedControls.groupby,
+    label: t('Y Axis Column'),
+    visibility: isRawMode,
+    multi: false,
+  },
+};
+
+const queryMode: { name: string; config: ControlConfig<'RadioButtonControl'> } = {
+  name: 'query_mode',
+  config: {
+    type: 'RadioButtonControl',
+    label: t('Query mode'),
+    default: null,
+    options: [
+      [QueryMode.aggregate, t('Aggregate')],
+      [QueryMode.raw, t('Raw Records')],
+    ],
+    mapStateToProps: ({ controls }) => ({ value: getQueryMode(controls) }),
   },
 };
 
@@ -198,7 +238,16 @@ const config: ControlPanelConfig = {
     {
       label: t('Query'),
       expanded: true,
-      controlSetRows: [[groupBy], [metrics], ['columns'], ['adhoc_filters'], ['row_limit', null]],
+      controlSetRows: [
+        [queryMode],
+        [xAxisColumn],
+        [yAxisColumn],
+        [groupBy],
+        [metrics],
+        ['columns'],
+        ['adhoc_filters'],
+        ['row_limit', null],
+      ],
     },
     {
       label: t('Chart Options'),

@@ -39,7 +39,7 @@ type Payload = {
 
 type ComposedChartTooltipProps = TooltipProps & {
   numbersFormat: string;
-  metrics: string[];
+  yColumns: string[];
   hasOrderedBars: boolean;
   isTimeSeries: boolean;
 };
@@ -55,7 +55,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
   isTimeSeries,
   active,
   numbersFormat,
-  metrics,
+  yColumns,
   payload = [],
   label,
   hasOrderedBars,
@@ -71,7 +71,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
           .filter((item, index) => (hasOrderedBars && item.payload[index]) || !hasOrderedBars)
           .map((initItem, index) => {
             const item = hasOrderedBars ? initItem.payload[index] : initItem;
-            const name = getMetricName(item?.name, metrics);
+            const name = getMetricName(item?.name, yColumns);
             const value = item?.value as number;
             const resultValue = isNaN(value) ? '-' : formatter(value);
             return <Line key={name} color={item?.color}>{`${name}: ${resultValue}`}</Line>;

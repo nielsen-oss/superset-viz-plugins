@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`buildQuery aggregate mode 1`] = `
+Object {
+  "annotation_layers": Array [],
+  "applied_time_extras": Object {},
+  "columns": Array [],
+  "extras": Object {
+    "having": "",
+    "having_druid": Array [],
+    "time_grain_sqla": undefined,
+    "where": undefined,
+  },
+  "filters": Array [],
+  "granularity": undefined,
+  "groupby": Array [
+    "timeperiod",
+    "duetogroup",
+  ],
+  "is_timeseries": false,
+  "metrics": Array [
+    Object {
+      "aggregate": "SUM",
+      "column": Object {
+        "column_name": "spend",
+        "id": 1043,
+      },
+      "label": "SUM(spend)",
+    },
+  ],
+  "order_desc": true,
+  "orderby": Array [
+    Array [
+      Object {
+        "aggregate": "SUM",
+        "column": Object {
+          "column_name": "spend",
+          "id": 1043,
+        },
+        "label": "SUM(spend)",
+      },
+      true,
+    ],
+    Array [
+      "timeperiod",
+      true,
+    ],
+  ],
+  "row_limit": undefined,
+  "row_offset": undefined,
+  "since": undefined,
+  "time_range": undefined,
+  "timeseries_limit": 0,
+  "timeseries_limit_metric": undefined,
+  "until": undefined,
+  "url_params": Object {},
+}
+`;
+
+exports[`buildQuery raw mode 1`] = `
+Object {
+  "annotation_layers": Array [],
+  "applied_time_extras": Object {},
+  "columns": Array [
+    "timeperiod",
+    "spend",
+    "duetogroup",
+  ],
+  "extras": Object {
+    "having": "",
+    "having_druid": Array [],
+    "time_grain_sqla": undefined,
+    "where": undefined,
+  },
+  "filters": Array [],
+  "granularity": undefined,
+  "groupby": Array [],
+  "is_timeseries": false,
+  "metrics": Array [
+    Object {
+      "aggregate": "SUM",
+      "column": Object {
+        "column_name": "spend",
+        "id": 1043,
+      },
+      "label": "SUM(spend)",
+    },
+  ],
+  "order_desc": true,
+  "orderby": Array [
+    Array [
+      "spend",
+      false,
+    ],
+    Array [
+      "timeperiod",
+      true,
+    ],
+  ],
+  "row_limit": undefined,
+  "row_offset": undefined,
+  "since": undefined,
+  "time_range": undefined,
+  "timeseries_limit": 0,
+  "timeseries_limit_metric": undefined,
+  "until": undefined,
+  "url_params": Object {},
+}
+`;

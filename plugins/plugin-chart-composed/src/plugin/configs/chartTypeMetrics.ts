@@ -18,11 +18,13 @@
  */
 import { QueryFormData, t } from '@superset-ui/core';
 import { CHART_SUB_TYPE_NAMES, CHART_SUB_TYPES, CHART_TYPE_NAMES, CHART_TYPES } from '../../components/utils';
-import { MAX_FORM_CONTROLS } from '../utils';
+import { isRawMode, MAX_FORM_CONTROLS } from '../utils';
 
 const chartTypeMetricsInit = [];
 for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
-  chartTypeMetricsInit.push(i + 1);
+  if (!isRawMode) {
+    chartTypeMetricsInit.push(i + 1);
+  }
 }
 
 export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {

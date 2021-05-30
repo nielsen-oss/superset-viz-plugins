@@ -19,6 +19,7 @@
 import { t } from '@superset-ui/core';
 import { ControlPanelsContainerProps, formatSelectOptions } from '@superset-ui/chart-controls';
 import { Layout } from '../../components/utils';
+import { QueryMode } from '../utils';
 
 export const xAxisLabel = {
   name: 'x_axis_label',
@@ -52,7 +53,11 @@ export const y2AxisLabel = {
     description: t('Show second Y Axis Label in the chart'),
     visibility: ({ form_data }: ControlPanelsContainerProps) =>
       // @ts-ignore (update in package)
-      form_data.use_y2_axis && form_data?.metrics?.length > 1 && form_data.layout === Layout.horizontal,
+      form_data.use_y2_axis &&
+      // @ts-ignore
+      form_data?.metrics?.length > 1 &&
+      form_data.layout === Layout.horizontal &&
+      form_data.query_mode !== QueryMode.raw,
   },
 };
 
