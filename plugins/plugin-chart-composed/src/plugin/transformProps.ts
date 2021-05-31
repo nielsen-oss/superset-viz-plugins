@@ -42,8 +42,8 @@ export default function transformProps(chartProps: ChartProps) {
   let yColumns: string[] = formData.metrics.map(metric => metric.label);
 
   if (formData.queryMode === QueryMode.raw) {
-    xColumns = [formData.xAxisColumn];
-    yColumns = [formData.yAxisColumn];
+    xColumns = [formData.xColumn];
+    yColumns = [formData.yColumn];
   }
 
   const xColumnValues: string[] = [];

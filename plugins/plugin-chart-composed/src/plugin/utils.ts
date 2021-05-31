@@ -40,8 +40,8 @@ export type FormData = {
   colorScheme: string;
   minBarWidth: string;
   queryMode: QueryMode;
-  xAxisColumn: string;
-  yAxisColumn: string;
+  xColumn: string;
+  yColumn: string;
   useOrderByMetric0: boolean;
   chartType: keyof typeof CHART_TYPES;
   lineChartSubType: keyof typeof CHART_SUB_TYPES;

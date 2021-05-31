@@ -38,18 +38,16 @@ export default function buildQuery(formData: QueryFormData) {
   return buildQueryContext(formData, baseQueryObject => {
     const orderby: [string, boolean][] = [];
 
-    const prefixYColumn = formData.query_mode === QueryMode.raw ? 'y_axis_column' : 'metric';
-    const prefixXColumn = formData.query_mode === QueryMode.raw ? 'x_axis_column' : 'group_by';
+    const prefixYColumn = formData.query_mode === QueryMode.raw ? 'y_column' : 'metric';
+    const prefixXColumn = formData.query_mode === QueryMode.raw ? 'x_column' : 'group_by';
 
     for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
-      const yColumn =
-        formData.query_mode === QueryMode.raw ? formData.y_axis_column : (formData.metrics?.[i] as string);
+      const yColumn = formData.query_mode === QueryMode.raw ? formData.y_column : (formData.metrics?.[i] as string);
       if (formData[`use_order_by_${prefixYColumn}_${i}`] && yColumn) {
         orderby.push([yColumn, formData[`order_by_type_${prefixYColumn}_${i}`] === SortingType.ASC]);
       }
 
-      const xColumn =
-        formData.query_mode === QueryMode.raw ? formData.x_axis_column : (formData.groupby?.[i] as string);
+      const xColumn = formData.query_mode === QueryMode.raw ? formData.x_column : (formData.groupby?.[i] as string);
       if (formData[`use_order_by_${prefixXColumn}_${i}`] && xColumn) {
         orderby.push([xColumn, formData[`order_by_type_${prefixXColumn}_${i}`] === SortingType.ASC]);
       }
@@ -58,7 +56,7 @@ export default function buildQuery(formData: QueryFormData) {
     let columns: string[] = [];
     let groupby = [...(formData.groupby ?? []), ...(formData.columns ?? [])];
     if (formData.query_mode === QueryMode.raw) {
-      columns = [formData.x_axis_column, formData.y_axis_column, ...(formData.columns ?? [])];
+      columns = [formData.x_column, formData.y_column, ...(formData.columns ?? [])];
       groupby = [];
     }
 
@@ -67,7 +65,7 @@ export default function buildQuery(formData: QueryFormData) {
         ...baseQueryObject,
         orderby,
         is_timeseries: checkTimeSeries(
-          formData.query_mode === QueryMode.raw ? formData.x_axis_column : formData.groupby,
+          formData.query_mode === QueryMode.raw ? formData.x_column : formData.groupby,
           formData.granularity_sqla,
           formData.layout,
         ),

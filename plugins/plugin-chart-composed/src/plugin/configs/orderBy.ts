@@ -27,6 +27,7 @@ type Sorting = [
 
 const orderByMetric: Sorting[] = [];
 const orderByGroupBy: Sorting[] = [];
+const orderByColumns: Sorting[] = [];
 
 const getOrderByRow = (source: string, name: string, title: string, index?: number): Sorting => [
   {
@@ -44,7 +45,7 @@ const getOrderByRow = (source: string, name: string, title: string, index?: numb
       ),
       visibility: ({ form_data }: { form_data: QueryFormData }) =>
         ((form_data.query_mode === QueryMode.aggregate && (source === 'metrics' || source === 'groupby')) ||
-          (form_data.query_mode === QueryMode.raw && (source === 'y_axis_column' || source === 'x_axis_column'))) &&
+          (form_data.query_mode === QueryMode.raw && (source === 'y_column' || source === 'x_column'))) &&
         (index === undefined || !!form_data[source]?.[index]),
     },
   },
@@ -60,7 +61,7 @@ const getOrderByRow = (source: string, name: string, title: string, index?: numb
       })),
       visibility: ({ form_data }: { form_data: QueryFormData }) =>
         ((form_data.query_mode === QueryMode.aggregate && (source === 'metrics' || source === 'groupby')) ||
-          (form_data.query_mode === QueryMode.raw && (source === 'y_axis_column' || source === 'x_axis_column'))) &&
+          (form_data.query_mode === QueryMode.raw && (source === 'y_column' || source === 'x_column'))) &&
         !!(form_data[`use_order_by_${name}_${index ?? 0}`] && (index === undefined || form_data[source]?.[index])),
       default: SortingType.ASC,
       description: t(`Set Ascending / Descending sorting for ${title} ${index === undefined ? '' : index + 1}`),
@@ -73,10 +74,10 @@ for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
 }
 
 for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
-  orderByGroupBy.push(getOrderByRow('metrics', 'metric', t('"metric"'), i));
+  orderByMetric.push(getOrderByRow('metrics', 'metric', t('"metric"'), i));
 }
 
-orderByMetric.push(getOrderByRow('x_axis_column', 'x_axis_column', t('"X Axis Column"')));
-orderByMetric.push(getOrderByRow('y_axis_column', 'y_axis_column', t('"Y Axis Column"')));
+orderByColumns.push(getOrderByRow('x_column', 'x_column', t('"X Column"')));
+orderByColumns.push(getOrderByRow('y_column', 'y_column', t('"Y Column"')));
 
-export { orderByMetric, orderByGroupBy };
+export { orderByMetric, orderByGroupBy, orderByColumns };
