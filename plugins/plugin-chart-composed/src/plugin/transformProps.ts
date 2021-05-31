@@ -38,12 +38,15 @@ export default function transformProps(chartProps: ChartProps) {
   const data = queriesData[0].data as Data[];
   const formData = chartProps.formData as FormData;
 
-  let xColumns: string[] = formData.groupby;
-  let yColumns: string[] = formData.metrics.map(metric => metric.label);
+  let xColumns: string[];
+  let yColumns: string[];
 
   if (formData.queryMode === QueryMode.raw) {
-    xColumns = [formData.xColumn];
+    xColumns = formData.groupby;
     yColumns = [formData.yColumn];
+  } else {
+    xColumns = [formData.xColumn];
+    yColumns = formData.metrics?.map(metric => metric.label);
   }
 
   const xColumnValues: string[] = [];
