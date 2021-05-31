@@ -42,10 +42,10 @@ export default function transformProps(chartProps: ChartProps) {
   let yColumns: string[];
 
   if (formData.queryMode === QueryMode.raw) {
-    xColumns = formData.groupby;
+    xColumns = [formData.xColumn];
     yColumns = [formData.yColumn];
   } else {
-    xColumns = [formData.xColumn];
+    xColumns = formData.groupby;
     yColumns = formData.metrics?.map(metric => metric.label);
   }
 
