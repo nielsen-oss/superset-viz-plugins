@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'raw_composed'
 
 jobs:
   main:
