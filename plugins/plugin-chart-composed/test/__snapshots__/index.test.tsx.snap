@@ -2120,6 +2120,7 @@ Object {
         <mockConstructor
           angle={-0}
           axisLine={false}
+          interval={0}
           label={
             Object {
               "dy": 1,
@@ -2387,6 +2388,7 @@ Object {
     Object {
       "angle": -0,
       "axisLine": false,
+      "interval": 0,
       "label": Object {
         "dy": 1,
         "position": "insideBottom",
@@ -2720,7 +2722,7 @@ Object {
       "layout": "horizontal",
       "margin": Object {
         "bottom": 17,
-        "left": 5,
+        "left": 4.5,
         "right": 5,
         "top": 15,
       },

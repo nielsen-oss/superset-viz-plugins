@@ -18,6 +18,7 @@
  */
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import {
+  AxisInterval,
   CartesianGrid,
   ComposedChart as RechartsComposedChart,
   Legend,
@@ -59,9 +60,12 @@ type ComposedChartStylesProps = {
 type XAxisProps = {
   label: string;
   tickLabelAngle: number;
+  interval: AxisInterval;
 };
 
-export type YAxisProps = XAxisProps & {
+export type YAxisProps = {
+  label: string;
+  tickLabelAngle: number;
   label2?: string;
   tickLabelAngle2?: number;
   labelAngle?: number;
@@ -223,7 +227,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     showLegend &&
     legendPosition !== LegendPosition.left &&
     !yAxis.label
-      ? xAxisHeight / 2 - yAxisWidth
+      ? xAxisHeight / 2 - yAxisWidth + 5
       : 5;
   const yMarginBottom =
     yAxis.tickLabelAngle === -45 && layout === Layout.vertical ? yAxisWidth - xAxisHeight - 10 : xAxisHeight;
@@ -286,6 +290,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             numbersFormat,
             layout,
             currentData,
+            interval: xAxis.interval,
             tickLabelAngle: xAxis.tickLabelAngle,
             axisHeight: xAxisHeight,
             axisWidth: xAxisWidth,

@@ -17,6 +17,7 @@
  * under the License.
  */
 import { ChartProps } from '@superset-ui/core';
+import { AxisInterval } from 'recharts';
 import { CHART_SUB_TYPES, CHART_TYPES, Layout, mergeBy } from '../components/utils';
 import { ComposedChartProps } from '../components/ComposedChart';
 import {
@@ -148,6 +149,7 @@ export default function transformProps(chartProps: ChartProps) {
     numbersFormat: formData.numbersFormat,
     labelsColor: formData.labelsColor,
     xAxis: {
+      interval: formData.xAxisInterval as AxisInterval,
       label: formData.xAxisLabel,
       tickLabelAngle: -Number(formData.xAxisTickLabelAngle),
     },

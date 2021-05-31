@@ -30,6 +30,7 @@ import {
 import { CHART_TYPES, CHART_TYPE_NAMES, LegendPosition, CHART_SUB_TYPES } from '../components/utils';
 import {
   useSecondYAxis,
+  xAxisInterval,
   xAxisLabel,
   xAxisTickLabelAngle,
   y2AxisLabel,
@@ -264,7 +265,7 @@ const config: ControlPanelConfig = {
     {
       label: t('X Axis'),
       expanded: true,
-      controlSetRows: [[xAxisLabel, xAxisTickLabelAngle]],
+      controlSetRows: [[xAxisLabel, xAxisTickLabelAngle], [xAxisInterval]],
     },
     {
       label: t('Y Axis'),

@@ -29,6 +29,7 @@ import {
   LabelList,
   LabelListProps,
   XAxisProps,
+  AxisInterval,
 } from 'recharts';
 import { CategoricalColorNamespace, getNumberFormatter, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ColorsMap, LabelColors, ResultData, SortingType } from '../plugin/utils';
@@ -285,6 +286,7 @@ type AxisProps = {
   tickLabelAngle?: number;
   label?: string;
   labelAngle?: number;
+  interval?: AxisInterval;
   isSecondAxis?: boolean;
   resetProps?: ResetProps;
   dataKey?: string;
@@ -356,6 +358,7 @@ export const getXAxisProps = ({
   isTimeSeries,
   xColumns,
   rootRef,
+  interval,
   resetProps,
 }: AxisProps) => {
   const textAnchor = tickLabelAngle === 0 ? 'middle' : 'end';
@@ -369,6 +372,7 @@ export const getXAxisProps = ({
   const params: XAxisProps = {
     angle: tickLabelAngle,
     label: labelProps,
+    interval: interval ?? 0,
   };
 
   const times: JsonObject = {};
@@ -423,7 +427,6 @@ export const getXAxisProps = ({
             {...getActualXAxisSize(axisWidth, currentData.length, axisHeight, tickLabelAngle)}
           />
         ),
-        interval: 0,
         dataKey: 'rechartsDataKeyUI',
       };
   }
