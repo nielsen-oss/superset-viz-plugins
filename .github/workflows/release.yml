@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'master'
-      - 'raw_composed'
 
 jobs:
   main:
@@ -88,7 +87,7 @@ jobs:
         DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         REPOSITORY_NAME: 'nielsenoss/apache-superset'
-        TAG_NAME: 'raw_composed'
+        TAG_NAME: '1.2'
       run: |
         chmod +x $GITHUB_WORKSPACE/$PROJECT_WORKING_DIRECTORY/.github/workflows/docker_build_push.sh
         $GITHUB_WORKSPACE/$PROJECT_WORKING_DIRECTORY/.github/workflows/docker_build_push.sh $GITHUB_WORKSPACE/superset
