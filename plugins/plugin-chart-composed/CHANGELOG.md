@@ -3,6 +3,92 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.21.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.20.0...@superset-viz-plugins/plugin-chart-composed@0.21.0) (2021-05-31)
+
+
+### Bug Fixes
+
+* fix CR notes ([f4354bb](https://github.com/nielsen-oss/superset-viz-plugins/commit/f4354bb9dfc2deebf0ee52de166b2df9dc2fae89))
+* fix metrics missed ([c338f80](https://github.com/nielsen-oss/superset-viz-plugins/commit/c338f80c9e8be038769944b881fe9c1f2a17d1aa))
+* fix xColumn ([3b67205](https://github.com/nielsen-oss/superset-viz-plugins/commit/3b6720557d31a966f26a160736267393b94990f0))
+
+
+### Features
+
+* add xAxis Interval ([4d07ad0](https://github.com/nielsen-oss/superset-viz-plugins/commit/4d07ad0788f79368bc63fb914f148df8ebc35df5))
+* columns in composed chart ([889db28](https://github.com/nielsen-oss/superset-viz-plugins/commit/889db28a1ab018b20d45ac757e3fc9816055fb83))
+
+
+
+
+
+# [0.20.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.19.0...@superset-viz-plugins/plugin-chart-composed@0.20.0) (2021-05-31)
+
+
+### Bug Fixes
+
+* fix CR notes ([f4354bb](https://github.com/nielsen-oss/superset-viz-plugins/commit/f4354bb9dfc2deebf0ee52de166b2df9dc2fae89))
+* fix metrics missed ([c338f80](https://github.com/nielsen-oss/superset-viz-plugins/commit/c338f80c9e8be038769944b881fe9c1f2a17d1aa))
+* fix xColumn ([3b67205](https://github.com/nielsen-oss/superset-viz-plugins/commit/3b6720557d31a966f26a160736267393b94990f0))
+
+
+### Features
+
+* columns in composed chart ([889db28](https://github.com/nielsen-oss/superset-viz-plugins/commit/889db28a1ab018b20d45ac757e3fc9816055fb83))
+
+
+
+
+
+# [0.19.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.18.0...@superset-viz-plugins/plugin-chart-composed@0.19.0) (2021-05-31)
+
+
+### Bug Fixes
+
+* fix CR notes ([f4354bb](https://github.com/nielsen-oss/superset-viz-plugins/commit/f4354bb9dfc2deebf0ee52de166b2df9dc2fae89))
+* fix metrics missed ([c338f80](https://github.com/nielsen-oss/superset-viz-plugins/commit/c338f80c9e8be038769944b881fe9c1f2a17d1aa))
+
+
+### Features
+
+* columns in composed chart ([889db28](https://github.com/nielsen-oss/superset-viz-plugins/commit/889db28a1ab018b20d45ac757e3fc9816055fb83))
+
+
+
+
+
+# [0.18.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.17.0...@superset-viz-plugins/plugin-chart-composed@0.18.0) (2021-05-31)
+
+
+### Bug Fixes
+
+* fix CR notes ([f4354bb](https://github.com/nielsen-oss/superset-viz-plugins/commit/f4354bb9dfc2deebf0ee52de166b2df9dc2fae89))
+
+
+### Features
+
+* columns in composed chart ([889db28](https://github.com/nielsen-oss/superset-viz-plugins/commit/889db28a1ab018b20d45ac757e3fc9816055fb83))
+
+
+
+
+
+# [0.17.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.16.0...@superset-viz-plugins/plugin-chart-composed@0.17.0) (2021-05-31)
+
+
+### Bug Fixes
+
+* fix CR notes ([f4354bb](https://github.com/nielsen-oss/superset-viz-plugins/commit/f4354bb9dfc2deebf0ee52de166b2df9dc2fae89))
+
+
+### Features
+
+* columns in composed chart ([889db28](https://github.com/nielsen-oss/superset-viz-plugins/commit/889db28a1ab018b20d45ac757e3fc9816055fb83))
+
+
+
+
+
 # [0.16.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.15.0...@superset-viz-plugins/plugin-chart-composed@0.16.0) (2021-05-26)
 
 

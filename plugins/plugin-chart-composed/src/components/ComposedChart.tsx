@@ -18,6 +18,7 @@
  */
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import {
+  AxisInterval,
   CartesianGrid,
   ComposedChart as RechartsComposedChart,
   Legend,
@@ -59,9 +60,12 @@ type ComposedChartStylesProps = {
 type XAxisProps = {
   label: string;
   tickLabelAngle: number;
+  interval: AxisInterval;
 };
 
-export type YAxisProps = XAxisProps & {
+export type YAxisProps = {
+  label: string;
+  tickLabelAngle: number;
   label2?: string;
   tickLabelAngle2?: number;
   labelAngle?: number;
@@ -69,7 +73,7 @@ export type YAxisProps = XAxisProps & {
 };
 
 export type ComposedChartProps = {
-  orderByTypeMetric: SortingType;
+  orderByYColumn: SortingType;
   isTimeSeries: boolean;
   height: number;
   width: number;
@@ -79,9 +83,9 @@ export type ComposedChartProps = {
   legendPosition: LegendPosition;
   data: ResultData[];
   layout: Layout;
-  metrics: string[];
+  yColumns: string[];
   breakdowns: string[];
-  groupBy: string[];
+  xColumns: string[];
   minBarWidth: string;
   colorScheme: string;
   hasY2Axis?: boolean;
@@ -117,13 +121,13 @@ const Styles = styled.div<ComposedChartStylesProps>`
 
 const ComposedChart: FC<ComposedChartProps> = props => {
   const {
-    orderByTypeMetric,
+    orderByYColumn,
     hasOrderedBars,
     data,
     height,
     width,
     layout,
-    metrics,
+    yColumns,
     colorScheme,
     chartType,
     xAxis,
@@ -141,7 +145,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     legendPosition,
     hasCustomTypeMetrics,
     isTimeSeries,
-    groupBy,
+    xColumns,
     minBarWidth,
   } = props;
 
@@ -177,9 +181,9 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     colorScheme,
     hasOrderedBars,
     breakdowns,
-    orderByTypeMetric,
+    orderByYColumn,
     showTotals,
-    metrics,
+    yColumns,
   );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -223,7 +227,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     showLegend &&
     legendPosition !== LegendPosition.left &&
     !yAxis.label
-      ? xAxisHeight / 2 - yAxisWidth
+      ? xAxisHeight / 2 - yAxisWidth + 5
       : 5;
   const yMarginBottom =
     yAxis.tickLabelAngle === -45 && layout === Layout.vertical ? yAxisWidth - xAxisHeight - 10 : xAxisHeight;
@@ -271,7 +275,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               breakdowns,
               disabledDataKeys,
               colorScheme,
-              metrics,
+              yColumns,
               xAxisHeight,
               yAxisWidth,
             )}
@@ -286,13 +290,14 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             numbersFormat,
             layout,
             currentData,
+            interval: xAxis.interval,
             tickLabelAngle: xAxis.tickLabelAngle,
             axisHeight: xAxisHeight,
             axisWidth: xAxisWidth,
             xAxisClientRect,
             label: xAxis.label,
             isTimeSeries,
-            groupBy,
+            xColumns,
             rootRef,
           })}
         />
@@ -317,7 +322,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               layout,
               currentData,
               isSecondAxis: true,
-              dataKey: metrics[metrics.length - 1],
+              dataKey: yColumns[yColumns.length - 1],
               tickLabelAngle: yAxis.tickLabelAngle2,
               label: yAxis.label2,
               labelAngle: yAxis.labelAngle2,
@@ -330,7 +335,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
           content={
             <ComposedChartTooltip
               numbersFormat={numbersFormat}
-              metrics={metrics}
+              yColumns={yColumns}
               hasOrderedBars={hasOrderedBars}
               isTimeSeries={isTimeSeries}
             />
@@ -341,7 +346,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             hasOrderedBars,
             chartType,
             layout,
-            metrics,
+            yColumns,
             showTotals,
             breakdown,
             numbersFormat,

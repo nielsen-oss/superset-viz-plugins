@@ -16,9 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { AdhocMetric, buildQueryContext, QueryFormData } from '@superset-ui/core';
+import { buildQueryContext, QueryFormData } from '@superset-ui/core';
 import { BinaryOperator, SetOperator } from '@superset-ui/core/lib/query/types/Operator';
-import { checkTimeSeries, MAX_FORM_CONTROLS, SortingType } from './utils';
+import { checkTimeSeries, MAX_FORM_CONTROLS, QueryMode, SortingType } from './utils';
 
 // Not correctly imported form node_modules, so add it here
 export type QueryFormExtraFilter = {
@@ -37,23 +37,40 @@ export type QueryFormExtraFilter = {
 export default function buildQuery(formData: QueryFormData) {
   return buildQueryContext(formData, baseQueryObject => {
     const orderby: [string, boolean][] = [];
-    const metric = (formData?.metrics as AdhocMetric[])?.[0]?.label;
-    if (formData.use_order_by_metric_0 && metric) {
-      orderby.push([metric as string, formData.order_by_type_metric_0 === SortingType.ASC]);
-    }
+
+    const prefixYColumn = formData.query_mode === QueryMode.raw ? 'y_column' : 'metric';
+    const prefixXColumn = formData.query_mode === QueryMode.raw ? 'x_column' : 'group_by';
+
     for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
-      const groupBy = formData.groupby?.[i] as string;
-      if (formData[`use_order_by_group_by_${i}`] && groupBy) {
-        orderby.push([groupBy, formData[`order_by_type_group_by_${i}`] === SortingType.ASC]);
+      const yColumn = formData.query_mode === QueryMode.raw ? formData.y_column : (formData.metrics?.[i] as string);
+      if (formData[`use_order_by_${prefixYColumn}_${i}`] && yColumn) {
+        orderby.push([yColumn, formData[`order_by_type_${prefixYColumn}_${i}`] === SortingType.ASC]);
+      }
+
+      const xColumn = formData.query_mode === QueryMode.raw ? formData.x_column : (formData.groupby?.[i] as string);
+      if (formData[`use_order_by_${prefixXColumn}_${i}`] && xColumn) {
+        orderby.push([xColumn, formData[`order_by_type_${prefixXColumn}_${i}`] === SortingType.ASC]);
       }
     }
+
+    let columns: string[] = [];
+    let groupby = [...(formData.groupby ?? []), ...(formData.columns ?? [])];
+    if (formData.query_mode === QueryMode.raw) {
+      columns = [formData.x_column, formData.y_column, ...(formData.columns ?? [])];
+      groupby = [];
+    }
+
     return [
       {
         ...baseQueryObject,
         orderby,
-        is_timeseries: checkTimeSeries(formData.groupby, formData.granularity_sqla, formData.layout),
-        columns: [],
-        groupby: [...(formData.groupby || []), ...(formData.columns || [])],
+        is_timeseries: checkTimeSeries(
+          formData.query_mode === QueryMode.raw ? formData.x_column : formData.groupby,
+          formData.granularity_sqla,
+          formData.layout,
+        ),
+        columns,
+        groupby,
       },
     ];
   });

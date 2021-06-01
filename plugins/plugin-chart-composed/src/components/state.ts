@@ -26,9 +26,9 @@ export const useCurrentData = (
   colorScheme: string,
   hasOrderedBars: boolean,
   breakdowns: string[],
-  orderByTypeMetric: SortingType,
+  orderByYColumn: SortingType,
   showTotals: boolean,
-  metrics: string[],
+  yColumns: string[],
 ): ResultData[] => {
   let currentData = useMemo(
     () =>
@@ -41,8 +41,8 @@ export const useCurrentData = (
   );
 
   currentData = useMemo(
-    () => processBarChartOrder(hasOrderedBars, breakdowns, metrics, currentData, colorScheme, orderByTypeMetric),
-    [breakdowns, colorScheme, currentData, hasOrderedBars, metrics, orderByTypeMetric],
+    () => processBarChartOrder(hasOrderedBars, breakdowns, yColumns, currentData, colorScheme, orderByYColumn),
+    [breakdowns, colorScheme, currentData, hasOrderedBars, yColumns, orderByYColumn],
   );
 
   currentData = useMemo(

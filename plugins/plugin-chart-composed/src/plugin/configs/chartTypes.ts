@@ -63,7 +63,7 @@ export const lineChartSubType = {
       label: CHART_SUB_TYPE_NAMES[key],
     })),
     visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.chart_type === CHART_TYPES.LINE_CHART,
-    default: CHART_SUB_TYPES.BASIS,
+    default: CHART_SUB_TYPES.NATURAL,
     description: t('Set subtype of chart'),
   },
 };

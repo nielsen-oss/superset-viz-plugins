@@ -14,7 +14,7 @@ cd $1
 #
 
 docker build \
-  -t "${REPOSITORY_NAME}:${SUPERSET_VERSION}" \
+  -t "${REPOSITORY_NAME}:${TAG_NAME}" \
   --label "built_at=$(date)" \
   --label "build_actor=${GITHUB_ACTOR}" \
   .
@@ -26,5 +26,5 @@ else
   # Login and push
   docker logout
   docker login --username "${DOCKERHUB_USER}" --password "${DOCKERHUB_TOKEN}"
-  docker push "${REPOSITORY_NAME}:${SUPERSET_VERSION}"
+  docker push "${REPOSITORY_NAME}:${TAG_NAME}"
 fi

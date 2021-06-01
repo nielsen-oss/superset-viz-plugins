@@ -29,6 +29,7 @@ import {
   LabelList,
   LabelListProps,
   XAxisProps,
+  AxisInterval,
 } from 'recharts';
 import { CategoricalColorNamespace, getNumberFormatter, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ColorsMap, LabelColors, ResultData, SortingType } from '../plugin/utils';
@@ -131,8 +132,8 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   return result;
 }
 
-export const getMetricName = (name: string, metrics: string[]) =>
-  metrics.length === 1 ? name?.split(BREAKDOWN_SEPARATOR).pop() : name?.split(BREAKDOWN_SEPARATOR).join(', ');
+export const getMetricName = (name: string, yColumns: string[]) =>
+  yColumns.length === 1 ? name?.split(BREAKDOWN_SEPARATOR).pop() : name?.split(BREAKDOWN_SEPARATOR).join(', ');
 
 export const getLegendProps = (
   legendPosition: LegendPosition,
@@ -141,12 +142,12 @@ export const getLegendProps = (
   breakdowns: string[],
   disabledDataKeys: string[],
   colorScheme: string,
-  metrics: string[],
+  yColumns: string[],
   xAxisHeight: number,
   yAxisWidth: number,
 ): LegendProps => {
   const payload: LegendPayload[] = breakdowns.map((breakdown, index) => ({
-    value: getMetricName(breakdown, metrics),
+    value: getMetricName(breakdown, yColumns),
     id: breakdown,
     type: disabledDataKeys.includes(breakdown) ? 'line' : 'square',
     color: CategoricalColorNamespace.getScale(colorScheme)(index),
@@ -285,6 +286,7 @@ type AxisProps = {
   tickLabelAngle?: number;
   label?: string;
   labelAngle?: number;
+  interval?: AxisInterval;
   isSecondAxis?: boolean;
   resetProps?: ResetProps;
   dataKey?: string;
@@ -293,7 +295,7 @@ type AxisProps = {
   axisHeight: number;
   axisWidth: number;
   isTimeSeries?: boolean;
-  groupBy?: string[];
+  xColumns?: string[];
   xAxisClientRect?: ClientRect;
   rootRef?: RefObject<HTMLDivElement>;
 };
@@ -354,8 +356,9 @@ export const getXAxisProps = ({
   axisWidth,
   label,
   isTimeSeries,
-  groupBy,
+  xColumns,
   rootRef,
+  interval,
   resetProps,
 }: AxisProps) => {
   const textAnchor = tickLabelAngle === 0 ? 'middle' : 'end';
@@ -369,6 +372,7 @@ export const getXAxisProps = ({
   const params: XAxisProps = {
     angle: tickLabelAngle,
     label: labelProps,
+    interval: interval ?? 0,
   };
 
   const times: JsonObject = {};
@@ -376,8 +380,8 @@ export const getXAxisProps = ({
     const texts = [...(rootRef?.current?.querySelectorAll('.composed-chart-tick-time-text') ?? [])];
     let prevIt = 0;
     [...currentData, {}].forEach((item, index) => {
-      const prev = new Date(Number(currentData[index - 1]?.[groupBy?.[0] as string])).getMonth();
-      const currentDate = new Date(Number(currentData[index]?.[groupBy?.[0] as string]));
+      const prev = new Date(Number(currentData[index - 1]?.[xColumns?.[0] as string])).getMonth();
+      const currentDate = new Date(Number(currentData[index]?.[xColumns?.[0] as string]));
       if (currentDate.getMonth() !== prev) {
         const isBreakText = !resetProps?.xAxisTicks && texts.some(el => el.childNodes.length > 1);
         times[index] = {
@@ -423,7 +427,6 @@ export const getXAxisProps = ({
             {...getActualXAxisSize(axisWidth, currentData.length, axisHeight, tickLabelAngle)}
           />
         ),
-        interval: 0,
         dataKey: 'rechartsDataKeyUI',
       };
   }
@@ -565,7 +568,7 @@ type ChartElementProps = {
   chartSubType: keyof typeof CHART_SUB_TYPES;
   isAnimationActive?: boolean;
   chartType: keyof typeof CHART_TYPES;
-  metrics: string[];
+  yColumns: string[];
   labelsColor: LabelColors;
   chartTypeMetrics: (keyof typeof CHART_TYPES)[];
   chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[];
@@ -585,7 +588,7 @@ export const renderChartElement = ({
   breakdowns,
   chartType,
   currentData,
-  metrics,
+  yColumns,
   numbersFormat,
   hasY2Axis,
   labelsColor,
@@ -603,7 +606,7 @@ export const renderChartElement = ({
 }: ChartElementProps) => {
   let customChartType = chartType;
   let customChartSubType = chartSubType;
-  const actualMetricIndex = metrics.findIndex(metric => metric === breakdown?.split(BREAKDOWN_SEPARATOR)[0]);
+  const actualMetricIndex = yColumns.findIndex(metric => metric === breakdown?.split(BREAKDOWN_SEPARATOR)[0]);
   if (hasCustomTypeMetrics[actualMetricIndex]) {
     customChartType = chartTypeMetrics[actualMetricIndex];
     customChartSubType = chartSubTypeMetrics[actualMetricIndex];
@@ -646,7 +649,9 @@ export const renderChartElement = ({
         breakdowns,
         hasOrderedBars,
       }}
-      yAxisId={hasY2Axis && breakdown?.split(BREAKDOWN_SEPARATOR)[0] === metrics[metrics.length - 1] ? 'right' : 'left'}
+      yAxisId={
+        hasY2Axis && breakdown?.split(BREAKDOWN_SEPARATOR)[0] === yColumns[yColumns.length - 1] ? 'right' : 'left'
+      }
       dataKey={dataKey}
       {...elementProps}
     >
@@ -677,14 +682,14 @@ const fillBarsDataByOrder = (
 const buildSortedDataForBars = (
   dataItem: ResultData,
   tempSortedArray: BarChartValue[],
-  metrics: string[],
+  yColumns: string[],
   breakdowns: string[],
 ) =>
   Object.entries(dataItem).reduce((prev, next) => {
     // If not metric/breakdown field just return it
     if (
       !String(next[0]).includes(BREAKDOWN_SEPARATOR) &&
-      !metrics.includes(String(next[0])) &&
+      !yColumns.includes(String(next[0])) &&
       !breakdowns.includes(String(next[0]))
     ) {
       return { ...prev, [next[0]]: next[1] };
@@ -697,10 +702,10 @@ const buildSortedDataForBars = (
 export const processBarChartOrder = (
   hasOrderedBars: boolean,
   breakdowns: string[],
-  metrics: string[],
+  yColumns: string[],
   resultData: ResultData[],
   colorScheme: string,
-  orderByTypeMetric: SortingType,
+  orderByYColumn: SortingType,
 ): ResultData[] => {
   if (hasOrderedBars) {
     const barChartColorsMap: ColorsMap = {};
@@ -711,10 +716,10 @@ export const processBarChartOrder = (
     });
     return resultData.map(dataItem => {
       const tempSortedArray: BarChartValue[] = [];
-      const sortedData: ResultData = buildSortedDataForBars(dataItem, tempSortedArray, metrics, breakdowns);
+      const sortedData: ResultData = buildSortedDataForBars(dataItem, tempSortedArray, yColumns, breakdowns);
 
       // Sorting bars according order
-      const sortSign = orderByTypeMetric === SortingType.ASC ? 1 : -1;
+      const sortSign = orderByYColumn === SortingType.ASC ? 1 : -1;
       tempSortedArray.sort((a, b) => sortSign * (a?.value - b?.value));
 
       return fillBarsDataByOrder(breakdowns, sortedData, tempSortedArray, barChartColorsMap);

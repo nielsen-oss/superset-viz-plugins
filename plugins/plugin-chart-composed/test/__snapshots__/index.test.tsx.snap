@@ -101,7 +101,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "hasOrderedBars": undefined,
+        "hasOrderedBars": false,
         "position": "center",
       },
       "opacity": 0.8,
@@ -211,7 +211,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "hasOrderedBars": undefined,
+        "hasOrderedBars": false,
         "position": "center",
       },
       "opacity": 0.6,
@@ -350,8 +350,10 @@ Object {
         <mockConstructor
           content={
             <ComposedChartTooltip
+              hasOrderedBars={false}
               isTimeSeries={false}
-              metrics={
+              numbersFormat="SMART_NUMBER"
+              yColumns={
                 Array [
                   "COUNT_DISTINCT(period)",
                   "COUNT_DISTINCT(group_name)",
@@ -359,7 +361,6 @@ Object {
                   "COUNT_DISTINCT(efficiency)",
                 ]
               }
-              numbersFormat="SMART_NUMBER"
             />
           }
         />,
@@ -461,7 +462,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -567,7 +568,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -674,7 +675,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -779,7 +780,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -884,7 +885,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -990,7 +991,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -1097,7 +1098,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -1202,7 +1203,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -1469,7 +1470,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "hasOrderedBars": undefined,
+        "hasOrderedBars": false,
         "position": "center",
       },
       "opacity": 0.8,
@@ -1579,7 +1580,7 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "hasOrderedBars": undefined,
+        "hasOrderedBars": false,
         "position": "center",
       },
       "opacity": 0.8,
@@ -1591,8 +1592,10 @@ Object {
   "TooltipProps": Array [
     Object {
       "content": <ComposedChartTooltip
+        hasOrderedBars={false}
         isTimeSeries={false}
-        metrics={
+        numbersFormat="SMART_NUMBER"
+        yColumns={
           Array [
             "COUNT_DISTINCT(period)",
             "COUNT_DISTINCT(group_name)",
@@ -1600,7 +1603,6 @@ Object {
             "COUNT_DISTINCT(efficiency)",
           ]
         }
-        numbersFormat="SMART_NUMBER"
       />,
     },
     Object {},
@@ -1696,7 +1698,7 @@ Object {
         ],
         "fill": "white",
         "formatter": [Function],
-        "hasOrderedBars": undefined,
+        "hasOrderedBars": false,
         "position": "center",
       },
       "opacity": 1,
@@ -1802,14 +1804,15 @@ Object {
         <mockConstructor
           content={
             <ComposedChartTooltip
+              hasOrderedBars={false}
               isTimeSeries={false}
-              metrics={
+              numbersFormat="SMART_NUMBER"
+              yColumns={
                 Array [
                   "COUNT_DISTINCT(period)",
                   "COUNT_DISTINCT(group_name)",
                 ]
               }
-              numbersFormat="SMART_NUMBER"
             />
           }
         />,
@@ -1865,7 +1868,7 @@ Object {
                 ],
                 "fill": "white",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -1924,7 +1927,7 @@ Object {
                 ],
                 "fill": "white",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -2021,14 +2024,15 @@ Object {
   "TooltipProps": Array [
     Object {
       "content": <ComposedChartTooltip
+        hasOrderedBars={false}
         isTimeSeries={false}
-        metrics={
+        numbersFormat="SMART_NUMBER"
+        yColumns={
           Array [
             "COUNT_DISTINCT(period)",
             "COUNT_DISTINCT(group_name)",
           ]
         }
-        numbersFormat="SMART_NUMBER"
       />,
     },
     Object {},
@@ -2116,6 +2120,7 @@ Object {
         <mockConstructor
           angle={-0}
           axisLine={false}
+          interval={0}
           label={
             Object {
               "dy": 1,
@@ -2148,14 +2153,15 @@ Object {
         <mockConstructor
           content={
             <ComposedChartTooltip
+              hasOrderedBars={false}
               isTimeSeries={false}
-              metrics={
+              numbersFormat="SMART_NUMBER"
+              yColumns={
                 Array [
                   "COUNT_DISTINCT(period)",
                   "COUNT_DISTINCT(group_name)",
                 ]
               }
-              numbersFormat="SMART_NUMBER"
             />
           }
         />,
@@ -2211,7 +2217,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -2270,7 +2276,7 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -2365,14 +2371,15 @@ Object {
   "TooltipProps": Array [
     Object {
       "content": <ComposedChartTooltip
+        hasOrderedBars={false}
         isTimeSeries={false}
-        metrics={
+        numbersFormat="SMART_NUMBER"
+        yColumns={
           Array [
             "COUNT_DISTINCT(period)",
             "COUNT_DISTINCT(group_name)",
           ]
         }
-        numbersFormat="SMART_NUMBER"
       />,
     },
     Object {},
@@ -2381,6 +2388,7 @@ Object {
     Object {
       "angle": -0,
       "axisLine": false,
+      "interval": 0,
       "label": Object {
         "dy": 1,
         "position": "insideBottom",
@@ -2464,7 +2472,7 @@ Object {
         ],
         "fill": "white",
         "formatter": [Function],
-        "hasOrderedBars": undefined,
+        "hasOrderedBars": false,
         "position": "center",
       },
       "opacity": 1,
@@ -2551,14 +2559,15 @@ Object {
         <mockConstructor
           content={
             <ComposedChartTooltip
+              hasOrderedBars={false}
               isTimeSeries={false}
-              metrics={
+              numbersFormat="SMART_NUMBER"
+              yColumns={
                 Array [
                   "COUNT_DISTINCT(period)",
                   "COUNT_DISTINCT(group_name)",
                 ]
               }
-              numbersFormat="SMART_NUMBER"
             />
           }
         />,
@@ -2610,7 +2619,7 @@ Object {
                 ],
                 "fill": "white",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -2665,7 +2674,7 @@ Object {
                 ],
                 "fill": "white",
                 "formatter": [Function],
-                "hasOrderedBars": undefined,
+                "hasOrderedBars": false,
                 "position": "center",
               }
             }
@@ -2713,7 +2722,7 @@ Object {
       "layout": "horizontal",
       "margin": Object {
         "bottom": 17,
-        "left": 5,
+        "left": 4.5,
         "right": 5,
         "top": 15,
       },
@@ -2757,14 +2766,15 @@ Object {
   "TooltipProps": Array [
     Object {
       "content": <ComposedChartTooltip
+        hasOrderedBars={false}
         isTimeSeries={false}
-        metrics={
+        numbersFormat="SMART_NUMBER"
+        yColumns={
           Array [
             "COUNT_DISTINCT(period)",
             "COUNT_DISTINCT(group_name)",
           ]
         }
-        numbersFormat="SMART_NUMBER"
       />,
     },
     Object {},

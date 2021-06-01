@@ -11,7 +11,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      SUPERSET_VERSION: '1.2'
+      SUPERSET_CHECKOUT_BRANCH: '1.2'
       PRESET_NAME: Nielsen
       PROJECT_WORKING_DIRECTORY: superset-viz-plugins
       REPOSITORY_OWNER: nielsen-oss
@@ -71,7 +71,7 @@ jobs:
       with:
         repository: apache/superset
         path: superset
-        ref: ${{ env.SUPERSET_VERSION }}
+        ref: ${{ env.SUPERSET_CHECKOUT_BRANCH }}
 
     - name: Prepare superset build
       run: |
@@ -87,6 +87,7 @@ jobs:
         DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         REPOSITORY_NAME: 'nielsenoss/apache-superset'
+        TAG_NAME: '1.2'
       run: |
         chmod +x $GITHUB_WORKSPACE/$PROJECT_WORKING_DIRECTORY/.github/workflows/docker_build_push.sh
         $GITHUB_WORKSPACE/$PROJECT_WORKING_DIRECTORY/.github/workflows/docker_build_push.sh $GITHUB_WORKSPACE/superset

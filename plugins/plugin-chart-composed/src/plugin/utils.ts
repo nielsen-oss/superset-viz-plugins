@@ -16,11 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { t } from '@superset-ui/core';
+import { QueryFormColumn, t } from '@superset-ui/core';
+import { ControlPanelsContainerProps, ControlStateMapping } from '@superset-ui/chart-controls';
+import { AxisInterval } from 'recharts';
 import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/utils';
 
 export const MAX_FORM_CONTROLS = 10;
 export const BREAKDOWN_SEPARATOR = '_$_';
+
+export enum QueryMode {
+  aggregate = 'aggregate',
+  raw = 'raw',
+}
 
 type Metric = {
   label: string;
@@ -33,6 +40,10 @@ export type FormData = {
   layout: Layout;
   colorScheme: string;
   minBarWidth: string;
+  xAxisInterval: string;
+  queryMode: QueryMode;
+  xColumn: string;
+  yColumn: string;
   useOrderByMetric0: boolean;
   chartType: keyof typeof CHART_TYPES;
   lineChartSubType: keyof typeof CHART_SUB_TYPES;
@@ -99,21 +110,22 @@ export const getChartSubType = (
   }
 };
 
-const getGroupByValues = (field: string, item: Record<string, string | number>, groupByValues: string[]) => {
-  if (!groupByValues.includes(field)) {
-    groupByValues.push(field); // Small mutation in map, but better then one more iteration
+const getXColumnValues = (field: string, item: Record<string, string | number>, xColumnValues: string[]) => {
+  if (!xColumnValues.includes(field)) {
+    xColumnValues.push(field); // Small mutation in map, but better then one more iteration
   }
   return item[field];
 };
 
-export const addRechartsKeyAndGetGroupByValues = (
+export const addRechartsKeyAndGetXColumnValues = (
   formData: FormData,
   data: Data[],
-  groupByValues: string[],
+  xColumnValues: string[],
   isTimeSeries: boolean,
+  xColumns: string[],
 ) =>
   data.map(item => {
-    const dataKey = formData.groupby.map(field => getGroupByValues(field, item, groupByValues));
+    const dataKey = xColumns.map(field => getXColumnValues(field, item, xColumnValues));
     return {
       ...item,
       rechartsDataKey: dataKey.join(', '),
@@ -123,14 +135,14 @@ export const addRechartsKeyAndGetGroupByValues = (
     };
   });
 
-export const addBreakdownMetricsAndGetBreakdownValues = (
+export const addBreakdownYColumnsAndGetBreakdownValues = (
   resultData: ResultData[],
-  metrics: string[],
+  yColumns: string[],
   formData: FormData,
   breakdowns: string[],
 ) =>
   resultData.map(item => {
-    metrics.forEach(metric => {
+    yColumns.forEach(metric => {
       const breakdown = (formData.columns || []).reduce(
         (acc, column) => `${acc}${BREAKDOWN_SEPARATOR}${item[column]}`,
         '',
@@ -185,17 +197,22 @@ export const processNumbers = (
 export const checkTimeSeries = (groupBy?: string[], granularitySqla?: string, layout?: Layout) =>
   groupBy?.length === 1 && groupBy?.[0] === granularitySqla && layout === Layout.horizontal;
 
-export const sortOrderedBars = (resultData: ResultData[], groupByValues: string[], formData: FormData) => {
+export const sortOrderedBars = (
+  resultData: ResultData[],
+  yColumnValues: string[],
+  formData: FormData,
+  prefix = 'string',
+) => {
   // @ts-ignore
   resultData.sort((a, b) => {
     for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
-      if (formData[`useOrderByGroupBy${i}`]) {
-        if (a[groupByValues[i]] === b[groupByValues[i]]) {
+      if (formData[`useOrderBy${prefix}${i}`]) {
+        if (a[yColumnValues[i]] === b[yColumnValues[i]]) {
           continue;
         }
-        const sign = formData[`orderByTypeGroupBy${i}`];
-        return ((a[groupByValues[i]] ?? '') > (b[groupByValues[i]] ?? '') && sign === SortingType.ASC) ||
-          ((a[groupByValues[i]] ?? '') < (b[groupByValues[i]] ?? '') && sign === SortingType.DESC)
+        const sign = formData[`orderByType${prefix}${i}`];
+        return ((a[yColumnValues[i]] ?? '') > (b[yColumnValues[i]] ?? '') && sign === SortingType.ASC) ||
+          ((a[yColumnValues[i]] ?? '') < (b[yColumnValues[i]] ?? '') && sign === SortingType.DESC)
           ? 1
           : -1;
       }
@@ -204,3 +221,18 @@ export const sortOrderedBars = (resultData: ResultData[], groupByValues: string[
     return 0;
   });
 };
+
+export const getQueryMode = (controls: ControlStateMapping): QueryMode => {
+  const mode = controls?.query_mode?.value;
+  if (mode === QueryMode.aggregate || mode === QueryMode.raw) {
+    return mode as QueryMode;
+  }
+  const rawColumns = controls?.all_columns?.value as QueryFormColumn[] | undefined;
+  const hasRawColumns = rawColumns && rawColumns.length > 0;
+  return hasRawColumns ? QueryMode.raw : QueryMode.aggregate;
+};
+
+export const isQueryMode = (mode: QueryMode) => ({ controls }: ControlPanelsContainerProps) =>
+  getQueryMode(controls) === mode;
+export const isAggMode = isQueryMode(QueryMode.aggregate);
+export const isRawMode = isQueryMode(QueryMode.raw);

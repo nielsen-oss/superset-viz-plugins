@@ -49,6 +49,7 @@ describe('plugin-chart-composed', () => {
     jest.spyOn(console, 'warn').mockImplementation(() => null);
 
     jest.clearAllMocks();
+    jest.resetModules();
 
     // @ts-ignore
     recharts.CartesianGrid = CartesianGrid;
@@ -141,6 +142,7 @@ describe('plugin-chart-composed', () => {
       ScatterProps: Scatter.mock.calls[1],
     }).toMatchSnapshot();
   });
+
   describe('processNumbers', () => {
     const mockData = ([
       { metric: -0.1114 },

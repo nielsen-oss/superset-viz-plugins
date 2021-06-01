@@ -17,18 +17,20 @@
  * under the License.
  */
 import { ChartProps } from '@superset-ui/core';
-import { CHART_SUB_TYPES, CHART_TYPES, mergeBy, Layout } from '../components/utils';
+import { AxisInterval } from 'recharts';
+import { CHART_SUB_TYPES, CHART_TYPES, Layout, mergeBy } from '../components/utils';
 import { ComposedChartProps } from '../components/ComposedChart';
 import {
-  addBreakdownMetricsAndGetBreakdownValues,
-  addRechartsKeyAndGetGroupByValues,
-  getChartSubType,
-  ResultData,
+  addBreakdownYColumnsAndGetBreakdownValues,
+  addRechartsKeyAndGetXColumnValues,
+  checkTimeSeries,
   Data,
   FormData,
-  SortingType,
+  getChartSubType,
   processNumbers,
-  checkTimeSeries,
+  QueryMode,
+  ResultData,
+  SortingType,
   sortOrderedBars,
 } from './utils';
 
@@ -36,11 +38,27 @@ export default function transformProps(chartProps: ChartProps) {
   const { width, height, queriesData } = chartProps;
   const data = queriesData[0].data as Data[];
   const formData = chartProps.formData as FormData;
-  const metrics = formData.metrics.map(metric => metric.label);
 
-  const groupByValues: string[] = [];
-  const isTimeSeries = checkTimeSeries(formData.groupby, formData.granularitySqla, formData.layout);
-  let resultData: ResultData[] = addRechartsKeyAndGetGroupByValues(formData, data, groupByValues, isTimeSeries);
+  let xColumns: string[];
+  let yColumns: string[];
+
+  if (formData.queryMode === QueryMode.raw) {
+    xColumns = [formData.xColumn];
+    yColumns = [formData.yColumn];
+  } else {
+    xColumns = formData.groupby;
+    yColumns = formData.metrics?.map(metric => metric.label);
+  }
+
+  const xColumnValues: string[] = [];
+  const isTimeSeries = checkTimeSeries(xColumns, formData.granularitySqla, formData.layout);
+  let resultData: ResultData[] = addRechartsKeyAndGetXColumnValues(
+    formData,
+    data,
+    xColumnValues,
+    isTimeSeries,
+    xColumns,
+  );
 
   if (isTimeSeries) {
     resultData.sort(
@@ -50,7 +68,7 @@ export default function transformProps(chartProps: ChartProps) {
   }
 
   const breakdowns: string[] = [];
-  resultData = addBreakdownMetricsAndGetBreakdownValues(resultData, metrics, formData, breakdowns);
+  resultData = addBreakdownYColumnsAndGetBreakdownValues(resultData, yColumns, formData, breakdowns);
 
   // Unit data elements by groupBy values
   resultData = mergeBy(resultData, 'rechartsDataKey');
@@ -67,19 +85,21 @@ export default function transformProps(chartProps: ChartProps) {
   const chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[] = [];
   const useCustomTypeMetrics: boolean[] = [];
 
-  metrics.forEach((metric, index) => {
-    useCustomTypeMetrics.push(formData[`useCustomTypeMetric${index}`] as boolean);
-    chartTypeMetrics.push(formData[`chartTypeMetric${index}`] as keyof typeof CHART_TYPES);
-    chartSubTypeMetrics.push(
-      getChartSubType(
-        formData[`chartTypeMetric${index}`] as keyof typeof CHART_TYPES,
-        formData[`barChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
-        formData[`lineChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
-        formData[`areaChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
-        formData[`scatterChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
-      ),
-    );
-  });
+  if (formData.queryMode !== QueryMode.raw) {
+    yColumns.forEach((yColumn, index) => {
+      useCustomTypeMetrics.push(formData[`useCustomTypeMetric${index}`] as boolean);
+      chartTypeMetrics.push(formData[`chartTypeMetric${index}`] as keyof typeof CHART_TYPES);
+      chartSubTypeMetrics.push(
+        getChartSubType(
+          formData[`chartTypeMetric${index}`] as keyof typeof CHART_TYPES,
+          formData[`barChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
+          formData[`lineChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
+          formData[`areaChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
+          formData[`scatterChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
+        ),
+      );
+    });
+  }
 
   let resultShowTotals = false;
   if (
@@ -90,21 +110,32 @@ export default function transformProps(chartProps: ChartProps) {
     resultShowTotals = formData.showTotals;
   }
 
-  const hasOrderedBars = formData.chartType === CHART_TYPES.BAR_CHART && formData.useOrderByMetric0;
+  const orderByYColumn =
+    (formData.queryMode !== QueryMode.raw && formData.useOrderByMetric0) ||
+    (formData.queryMode === QueryMode.raw && formData.useOrderByYAxisColumn0);
+
+  const hasOrderedBars = formData.chartType === CHART_TYPES.BAR_CHART && !!orderByYColumn;
+
   if (hasOrderedBars) {
-    sortOrderedBars(resultData, groupByValues, formData);
+    sortOrderedBars(
+      resultData,
+      xColumnValues,
+      formData,
+      formData.queryMode === QueryMode.raw ? 'XAxisColumn' : 'GroupBy',
+    );
   }
 
   resultData = processNumbers(resultData, breakdowns, formData.numbersFormat, formData.numbersFormatDigits);
   const result: ComposedChartProps = {
-    orderByTypeMetric: formData.orderByTypeMetric0 as SortingType,
+    orderByYColumn: orderByYColumn as SortingType,
     hasOrderedBars,
     minBarWidth: formData.minBarWidth,
     breakdowns,
     width,
     height,
     isTimeSeries,
-    groupBy: formData.groupby,
+    xColumns,
+    yColumns,
     chartTypeMetrics,
     chartSubTypeMetrics,
     hasCustomTypeMetrics: useCustomTypeMetrics,
@@ -118,10 +149,15 @@ export default function transformProps(chartProps: ChartProps) {
     numbersFormat: formData.numbersFormat,
     labelsColor: formData.labelsColor,
     xAxis: {
+      interval: formData.xAxisInterval as AxisInterval,
       label: formData.xAxisLabel,
       tickLabelAngle: -Number(formData.xAxisTickLabelAngle),
     },
-    hasY2Axis: metrics.length > 1 && formData.useY2Axis && formData.layout === Layout.horizontal,
+    hasY2Axis:
+      yColumns.length > 1 &&
+      formData.useY2Axis &&
+      formData.layout === Layout.horizontal &&
+      formData.queryMode !== QueryMode.raw,
     yAxis: {
       labelAngle: -Number(formData.yAxisLabelAngle ?? 0),
       labelAngle2: -Number(formData.y2AxisLabelAngle ?? 0),
@@ -131,7 +167,6 @@ export default function transformProps(chartProps: ChartProps) {
       tickLabelAngle2: -Number(formData.y2AxisTickLabelAngle),
     },
     data: resultData,
-    metrics,
   };
   return result;
 }
