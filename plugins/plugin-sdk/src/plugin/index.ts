@@ -11,8 +11,8 @@ export default class SdkPlugin extends ChartPlugin {
           'is an SDK that expose chart common actions to the parent ',
 
 
-      name: t('SDK plugin'),
-      behaviors: [Behavior.INTERACTIVE_CHART, Behavior.NATIVE_FILTER],
+      name: t('SDK'),
+      // behaviors: [Behavior.INTERACTIVE_CHART, Behavior.NATIVE_FILTER],
       thumbnail,
     })
 

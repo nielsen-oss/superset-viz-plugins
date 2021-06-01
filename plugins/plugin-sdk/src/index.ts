@@ -1,1 +1,1 @@
-export { default as SdkPluginRoot } from './plugin'
+export { default } from './plugin'
