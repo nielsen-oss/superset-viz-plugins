@@ -1,19 +1,22 @@
-import { ExtraFormData } from '@superset-ui/core'
-import { ControlPanelTypes, PluginState } from '../types'
+import {ExtraFormData} from '@superset-ui/core'
+import {ControlPanelTypes, PluginState} from '../types'
 
 
-export const getExtraFormData = (selectedItems: PluginState) => {
-  if (selectedItems) {
-    const {
-      [ControlPanelTypes.GROUP_BY]: groupBy,
-      [ControlPanelTypes.DATE_RANGE]: dateRange,
-    } = selectedItems
-    const extra: ExtraFormData = {
-      ...(groupBy ? { interactive_groupby: groupBy } : {}),
-      ...(dateRange ? { time_range: dateRange } : {}),
+export const getExtraFormData = (pluginState: PluginState) => {
+    if (pluginState) {
+        const {
+            [ControlPanelTypes.GROUP_BY]: groupBy,
+            [ControlPanelTypes.DATE_RANGE]: dateRange,
+        } = pluginState
+        const extra: ExtraFormData = {
+            ...(groupBy ? {interactive_groupby: groupBy} : {}),
+            ...(dateRange ? {time_range: dateRange} : {}),
+        }
+
+
+        extra.filters = pluginState.data
+        return extra
     }
-    return extra
-  }
 
-  return {}
+    return {}
 }

@@ -6,6 +6,7 @@ export const sdkMessageHandler = (dispatch: Dispatch<SdkAction>) => {
   useEffect(() => {
     const handleMessages = (event: MessageEvent) => {
       if (event?.data?.__superSetMessage) {
+        console.log(event.data.__superSetMessage)
         const widgetType = event.data.__superSetMessage.payload.type
 
         if (widgetType === ControlPanelTypes.ALL) {
