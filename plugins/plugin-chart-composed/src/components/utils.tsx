@@ -222,6 +222,7 @@ export type ChartLineItem = {
   strokeOpacity?: string;
   stroke?: string;
   strokeWidth?: number;
+  connectNulls?: boolean;
 };
 
 export type ChartBarItem = {
@@ -248,6 +249,7 @@ export const getChartElement = (
         stroke: color,
         opacity: 0.8,
         type: chartSubType,
+        connectNulls: true,
       };
       break;
     case CHART_TYPES.AREA_CHART:
