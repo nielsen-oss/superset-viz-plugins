@@ -473,6 +473,7 @@ Object {
             yAxisId="left"
           />,
           <mockConstructor
+            connectNulls={true}
             dataKey="COUNT_DISTINCT(group_name)_$_Standard"
             label={
               Object {
@@ -896,6 +897,7 @@ Object {
             yAxisId="left"
           />,
           <mockConstructor
+            connectNulls={true}
             dataKey="COUNT_DISTINCT(group_name)_$_Custom"
             label={
               Object {
@@ -1375,6 +1377,7 @@ Object {
   "LineProps": Array [
     Object {
       "children": false,
+      "connectNulls": true,
       "dataKey": "COUNT_DISTINCT(group_name)_$_Custom",
       "isAnimationActive": undefined,
       "label": Object {
