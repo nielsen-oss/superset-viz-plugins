@@ -17,14 +17,13 @@
  * under the License.
  */
 import { QueryFormData, t } from '@superset-ui/core';
+import { ControlPanelsContainerProps } from '@superset-ui/chart-controls';
 import { CHART_SUB_TYPE_NAMES, CHART_SUB_TYPES, CHART_TYPE_NAMES, CHART_TYPES } from '../../components/utils';
-import { isRawMode, MAX_FORM_CONTROLS } from '../utils';
+import { isQueryMode, MAX_FORM_CONTROLS, QueryMode } from '../utils';
 
 const chartTypeMetricsInit = [];
 for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
-  if (!isRawMode) {
-    chartTypeMetricsInit.push(i + 1);
-  }
+  chartTypeMetricsInit.push(i + 1);
 }
 
 export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
@@ -39,8 +38,9 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
         value: key,
         label: CHART_SUB_TYPE_NAMES[key],
       })),
-      visibility: ({ form_data }: { form_data: QueryFormData }) =>
+      visibility: ({ form_data, ...otherControls }: { form_data: QueryFormData }) =>
         !!(
+          !isQueryMode(QueryMode.raw)(otherControls as ControlPanelsContainerProps) &&
           form_data[`use_custom_type_metric_${index}`] &&
           form_data?.metrics?.[index] &&
           form_data[`chart_type_metric_${index}`] === CHART_TYPES.BAR_CHART
@@ -61,8 +61,9 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
         value: key,
         label: CHART_SUB_TYPE_NAMES[key],
       })),
-      visibility: ({ form_data }: { form_data: QueryFormData }) =>
+      visibility: ({ form_data, ...otherControls }: { form_data: QueryFormData }) =>
         !!(
+          !isQueryMode(QueryMode.raw)(otherControls as ControlPanelsContainerProps) &&
           form_data[`use_custom_type_metric_${index}`] &&
           form_data?.metrics?.[index] &&
           form_data[`chart_type_metric_${index}`] === CHART_TYPES.LINE_CHART
@@ -83,8 +84,9 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
         value: key,
         label: CHART_SUB_TYPE_NAMES[key],
       })),
-      visibility: ({ form_data }: { form_data: QueryFormData }) =>
+      visibility: ({ form_data, ...otherControls }: { form_data: QueryFormData }) =>
         !!(
+          !isQueryMode(QueryMode.raw)(otherControls as ControlPanelsContainerProps) &&
           form_data[`use_custom_type_metric_${index}`] &&
           form_data[`chart_type_metric_${index}`] === CHART_TYPES.AREA_CHART
         ),
@@ -104,8 +106,9 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
         value: key,
         label: CHART_SUB_TYPE_NAMES[key],
       })),
-      visibility: ({ form_data }: { form_data: QueryFormData }) =>
+      visibility: ({ form_data, ...otherControls }: { form_data: QueryFormData }) =>
         !!(
+          !isQueryMode(QueryMode.raw)(otherControls as ControlPanelsContainerProps) &&
           form_data[`use_custom_type_metric_${index}`] &&
           form_data?.metrics?.[index] &&
           form_data[`chart_type_metric_${index}`] === CHART_TYPES.SCATTER_CHART
@@ -123,7 +126,9 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
         renderTrigger: true,
         default: false,
         description: null,
-        visibility: ({ form_data }: { form_data: QueryFormData }) => !!form_data?.metrics?.[index],
+        // @ts-ignore
+        visibility: ({ form_data, ...otherControls }: { form_data: QueryFormData }) =>
+          !isQueryMode(QueryMode.raw)(otherControls as ControlPanelsContainerProps) && !!form_data?.metrics?.[index],
       },
     },
     {
@@ -139,8 +144,13 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
         })),
         default: CHART_TYPES.BAR_CHART,
         description: t(`Set type of chart for metric ${el}`),
-        visibility: ({ form_data }: { form_data: QueryFormData }) =>
-          !!(form_data[`use_custom_type_metric_${index}`] && form_data?.metrics?.[index]),
+        // @ts-ignore
+        visibility: ({ form_data, ...otherControls }: { form_data: QueryFormData }) =>
+          !!(
+            !isQueryMode(QueryMode.raw)(otherControls as ControlPanelsContainerProps) &&
+            form_data[`use_custom_type_metric_${index}`] &&
+            form_data?.metrics?.[index]
+          ),
       },
     },
     barChartSubTypeMetric,
