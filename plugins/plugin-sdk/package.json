@@ -1,0 +1,71 @@
+{
+  "name": "@superset-viz-plugins/plugin-sdk",
+  "version": "0.6.2",
+  "description": "'If you\\'re embedding superset dashboard this is the plugin for you .'+\n          'is an SDK that expose chart common actions to the parent ',\n",
+  "pluginName": "SupersetSdkPlugin",
+  "sideEffects": false,
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "files": [
+    "esm",
+    "lib"
+  ],
+  "scripts": {
+    "test": "jest --coverage --verbose",
+    "tdd": "NODE_ENV=test jest --watch",
+    "build": "NODE_ENV=development webpack --mode=development --colors",
+    "build:watch": "NODE_ENV=development webpack --mode=development --colors --watch",
+    "build:prod": "BABEL_ENV=production babel src -d dist --verbose --extensions \".ts,.tsx,.js,.jsx \" --ignore \"src/**/*.test.tsx\",\"src/*.test.js\",\"src/**/*.mock.js\",\"src/**/*.stories.tsx\",\"src/**/__stories__/*\",\"src/**/__mocks__/*\",\"src/**/__tests__/*\"",
+    "build:esm": "ESM=true BABEL_ENV=production babel src -d esm --verbose --extensions \".ts,.tsx,.js,.jsx \" --ignore \"src/**/*.test.tsx\",\"src/*.test.js\",\"src/**/*.mock.js\",\"src/**/*.stories.tsx\",\"src/**/__stories__/*\",\"src/**/__mocks__/*\",\"src/**/__tests__/*\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com:nielsen-oss/superset-viz-plugins.git"
+  },
+  "keywords": [
+    "superset"
+  ],
+  "author": "Nielsen",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/nielsen-oss/superset-viz-plugins/issues"
+  },
+  "homepage": "https://github.com/nielsen-oss/superset-viz-plugins#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2"
+  },
+  "peerDependencies": {
+    "@ant-design/icons": "^4.2.2",
+    "@superset-ui/chart-controls": "^0.17.40",
+    "@superset-ui/core": "^0.17.40",
+    "antd": "^4.9.1",
+    "moment": "^2.26.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-icons": "^4.2.0",
+    "react-select": "^3.1.0"
+  },
+  "devDependencies": {
+    "@ant-design/icons": "^4.2.2",
+    "@superset-ui/chart-controls": "^0.17.40",
+    "@superset-ui/core": "^0.17.40",
+    "@types/jest": "^26.0.0",
+    "@types/uuid": "^8.3.0",
+    "antd": "^4.9.1",
+    "moment": "^2.26.0",
+    "react": "^16.13.1",
+    "react-bootstrap": "^0.33.1",
+    "react-dom": "^16.13.1",
+    "react-icons": "^4.2.0",
+    "react-loadable": "^5.5.0",
+    "react-select": "^3.1.0"
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  }
+}
