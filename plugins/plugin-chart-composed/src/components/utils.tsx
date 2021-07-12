@@ -686,8 +686,13 @@ const buildSortedDataForBars = (
   tempSortedArray: BarChartValue[],
   yColumns: string[],
   breakdowns: string[],
-) =>
-  Object.entries(dataItem).reduce((prev, next) => {
+) => {
+  const hasBreakdowns = Object.keys(dataItem).some(item => item.includes(BREAKDOWN_SEPARATOR));
+  return Object.entries(dataItem).reduce((prev, next) => {
+    // If not not relevant field when use breakdowns
+    if (!String(next[0]).includes(BREAKDOWN_SEPARATOR) && hasBreakdowns) {
+      return prev;
+    }
     // If not metric/breakdown field just return it
     if (
       !String(next[0]).includes(BREAKDOWN_SEPARATOR) &&
@@ -700,6 +705,7 @@ const buildSortedDataForBars = (
     tempSortedArray.push({ id: next[0], value: next[1] as number, name: next[0], color: 'transparent' });
     return prev;
   }, {} as ResultData);
+};
 
 export const processBarChartOrder = (
   hasOrderedBars: boolean,
