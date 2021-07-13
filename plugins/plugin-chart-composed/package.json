@@ -33,7 +33,7 @@
     "access": "public"
   },
   "dependencies": {
-    "recharts": "^1.5.0"
+    "recharts": "^1.8.5"
   },
   "peerDependencies": {
     "@superset-ui/chart-controls": "0.16.9",
