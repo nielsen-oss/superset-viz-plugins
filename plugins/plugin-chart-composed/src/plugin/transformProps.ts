@@ -110,9 +110,7 @@ export default function transformProps(chartProps: ChartProps) {
     resultShowTotals = formData.showTotals;
   }
 
-  const orderByYColumn =
-    (formData.queryMode !== QueryMode.raw && formData.useOrderByMetric0) ||
-    (formData.queryMode === QueryMode.raw && formData.useOrderByYAxisColumn0);
+  const orderByYColumn = formData.useOrderByMetric0 && formData.orderByTypeMetric0;
 
   const hasOrderedBars = formData.chartType === CHART_TYPES.BAR_CHART && !!orderByYColumn;
 

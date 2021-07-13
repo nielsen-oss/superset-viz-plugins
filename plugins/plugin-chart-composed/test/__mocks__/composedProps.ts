@@ -27,6 +27,29 @@ const queriesDataMetrics2 = {
     { group_type: 'Variable', 'COUNT_DISTINCT(period)': 5, 'COUNT_DISTINCT(group_name)': 31 },
   ],
 };
+const queriesDataSortedBars = {
+  cache_key: 'bb08409c3c01818c025db286402da2ae',
+  cached_dttm: null,
+  cache_timeout: 86400,
+  error: null,
+  is_cached: true,
+  status: 'success',
+  stacktrace: null,
+  rowcount: 4,
+  annotation_data: [],
+  data: [
+    { country_name: 'United States', clinical_stage: '2. Phase II or Combined I/II', 'COUNT(country_name)': 1 },
+    { country_name: 'United States', clinical_stage: '4. Authorized', 'COUNT(country_name)': 1 },
+    { country_name: 'United States', clinical_stage: '3. Phase III', 'COUNT(country_name)': 2 },
+    { country_name: 'United States', clinical_stage: '1. Phase I', 'COUNT(country_name)': 5 },
+    { country_name: 'United States', clinical_stage: '0. Fills Good', 'COUNT(country_name)': 54 },
+    { country_name: 'Russia', clinical_stage: '2. Phase II or Combined I/II', 'COUNT(country_name)': 23 },
+    { country_name: 'Russia', clinical_stage: '4. Authorized', 'COUNT(country_name)': 50 },
+    { country_name: 'Russia', clinical_stage: '3. Phase III', 'COUNT(country_name)': 45 },
+    { country_name: 'Russia', clinical_stage: '1. Phase I', 'COUNT(country_name)': 21 },
+    { country_name: 'Russia', clinical_stage: '0. Fills Good', 'COUNT(country_name)': 1 },
+  ],
+};
 const queriesDataMetrics2Breakdowns = {
   cache_key: 'd2cb05cdf3e072a803c4d04040b12fd2',
   cached_dttm: null,
@@ -604,6 +627,7 @@ const queriesDataTimeSeries = {
     },
   ],
 };
+
 const formDataBarsHorizontalLegendTop = {
   queryFields: { groupby: 'groupby', columns: 'groupby' },
   datasource: '13__table',
@@ -683,6 +707,71 @@ const formDataBarsHorizontalLegendTop = {
   lineChartSubTypeMetric0: 'basis',
   areaChartSubTypeMetric0: 'basis',
   scatterChartSubTypeMetric0: 'circle',
+};
+const formDataSortedBars = {
+  ...formDataBarsHorizontalLegendTop,
+  vizType: 'composed',
+  datasource: '23__table',
+  urlParams: {},
+  timeRangeEndpoints: ['inclusive', 'exclusive'],
+  timeGrainSqla: 'P1D',
+  timeRange: 'No filter',
+  queryMode: 'aggregate',
+  xColumn: [],
+  yColumn: [],
+  groupby: ['country_name'],
+  metrics: [
+    {
+      expressionType: 'SIMPLE',
+      column: {
+        id: 560,
+        column_name: 'country_name',
+        verbose_name: null,
+        description: null,
+        expression: null,
+        filterable: true,
+        groupby: true,
+        is_dttm: false,
+        type: 'TEXT',
+        type_generic: 1,
+        python_date_format: null,
+      },
+      aggregate: 'COUNT',
+      sqlExpression: null,
+      isNew: false,
+      hasCustomLabel: false,
+      label: 'COUNT(country_name)',
+      optionName: 'metric_o23c4qyoy89_nv0nyvrztmq',
+    },
+  ],
+  columns: ['clinical_stage'],
+  adhocFilters: [],
+  rowLimit: 100,
+  layout: 'horizontal',
+  showLegend: true,
+  legendPosition: 'top',
+  numbersFormat: 'SMART_NUMBER',
+  chartType: 'BAR_CHART',
+  barChartSubType: 'stacked',
+  lineChartSubType: 'natural',
+  areaChartSubType: 'basis',
+  scatterChartSubType: 'circle',
+  labelsColor: 'white',
+  xAxisTickLabelAngle: '45',
+  yAxisLabelAngle: '0',
+  yAxisTickLabelAngle: '0',
+  y2AxisLabelAngle: '0',
+  y2AxisTickLabelAngle: '0',
+  useCategoryFormattingGroupBy0: true,
+  useOrderByMetric0: true,
+  useOrderByGroupBy0: true,
+  orderByTypeGroupBy0: 'ASC',
+  chartTypeMetric0: 'BAR_CHART',
+  barChartSubTypeMetric0: 'default',
+  lineChartSubTypeMetric0: 'basis',
+  areaChartSubTypeMetric0: 'basis',
+  scatterChartSubTypeMetric0: 'circle',
+  extraFormData: {},
 };
 const formDataBarsHorizontalLegendLeftY2Axis = {
   ...formDataBarsHorizontalLegendTop,
@@ -879,6 +968,13 @@ export const barsHorizontalLegendTop = {
   formData: formDataBarsHorizontalLegendTop,
   height: 400,
   queriesData: [queriesDataMetrics2],
+  width: 800,
+};
+
+export const barsHorizontalSorted = {
+  formData: formDataSortedBars,
+  height: 400,
+  queriesData: [queriesDataSortedBars],
   width: 800,
 };
 

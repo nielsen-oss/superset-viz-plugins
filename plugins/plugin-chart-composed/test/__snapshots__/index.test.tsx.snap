@@ -4,7 +4,10 @@ exports[`plugin-chart-composed All charts with breakdowns 1`] = `
 Object {
   "AreaProps": Array [
     Object {
-      "children": false,
+      "children": Array [
+        false,
+        false,
+      ],
       "dataKey": "COUNT_DISTINCT(period)_$_Custom",
       "fill": "#9467bd",
       "isAnimationActive": undefined,
@@ -114,7 +117,10 @@ Object {
   ],
   "BarProps": Array [
     Object {
-      "children": false,
+      "children": Array [
+        false,
+        false,
+      ],
       "dataKey": "COUNT_DISTINCT(efficiency)_$_Custom",
       "fill": "#7f7f7f",
       "isAnimationActive": undefined,
@@ -1376,7 +1382,10 @@ Object {
   ],
   "LineProps": Array [
     Object {
-      "children": false,
+      "children": Array [
+        false,
+        false,
+      ],
       "connectNulls": true,
       "dataKey": "COUNT_DISTINCT(group_name)_$_Custom",
       "isAnimationActive": undefined,
@@ -1486,7 +1495,10 @@ Object {
   ],
   "ScatterProps": Array [
     Object {
-      "children": false,
+      "children": Array [
+        false,
+        false,
+      ],
       "dataKey": "COUNT_DISTINCT(due_to_group)_$_Custom",
       "fill": "#e377c2",
       "isAnimationActive": undefined,
@@ -1650,7 +1662,10 @@ exports[`plugin-chart-composed Chart with default props (legend left / horizonta
 Object {
   "BarProps": Array [
     Object {
-      "children": false,
+      "children": Array [
+        false,
+        false,
+      ],
       "dataKey": "COUNT_DISTINCT(group_name)",
       "fill": "#ff7f0e",
       "isAnimationActive": undefined,
@@ -2428,7 +2443,10 @@ exports[`plugin-chart-composed Chart with default props (legend top / horizontal
 Object {
   "BarProps": Array [
     Object {
-      "children": false,
+      "children": Array [
+        false,
+        false,
+      ],
       "dataKey": "COUNT_DISTINCT(group_name)",
       "fill": "#ff7f0e",
       "isAnimationActive": undefined,
