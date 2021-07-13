@@ -30,6 +30,7 @@ import {
   LabelListProps,
   XAxisProps,
   AxisInterval,
+  Cell,
 } from 'recharts';
 import { CategoricalColorNamespace, getNumberFormatter, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ColorsMap, LabelColors, ResultData, SortingType } from '../plugin/utils';
@@ -657,6 +658,11 @@ export const renderChartElement = ({
       dataKey={dataKey}
       {...elementProps}
     >
+      {hasOrderedBars &&
+        currentData.map(entry => {
+          const foundColorIndex = breakdowns.findIndex(b => b === entry[index]?.id);
+          return <Cell fill={CategoricalColorNamespace.getScale(colorScheme)(foundColorIndex)} />;
+        })}
       {showTotals && <LabelList {...labelListExtraProps} />}
     </Element>
   );
@@ -682,17 +688,14 @@ const fillBarsDataByOrder = (
 };
 
 const buildSortedDataForBars = (
-  dataItem: ResultData,
+  initDataItem: ResultData,
   tempSortedArray: BarChartValue[],
   yColumns: string[],
   breakdowns: string[],
 ) => {
-  const hasBreakdowns = Object.keys(dataItem).some(item => item.includes(BREAKDOWN_SEPARATOR));
+  const hasBreakdowns = Object.keys(initDataItem).some(item => item.includes(BREAKDOWN_SEPARATOR));
+  const dataItem = { ...initDataItem };
   return Object.entries(dataItem).reduce((prev, next) => {
-    // If not not relevant field when use breakdowns
-    if (!String(next[0]).includes(BREAKDOWN_SEPARATOR) && hasBreakdowns) {
-      return prev;
-    }
     // If not metric/breakdown field just return it
     if (
       !String(next[0]).includes(BREAKDOWN_SEPARATOR) &&
@@ -701,8 +704,11 @@ const buildSortedDataForBars = (
     ) {
       return { ...prev, [next[0]]: next[1] };
     }
-    // Build array with breakdowns to sort it next
-    tempSortedArray.push({ id: next[0], value: next[1] as number, name: next[0], color: 'transparent' });
+    // If not not relevant field when use breakdowns
+    if (!(!String(next[0]).includes(BREAKDOWN_SEPARATOR) && hasBreakdowns)) {
+      // Build array with breakdowns to sort it next
+      tempSortedArray.push({ id: next[0], value: next[1] as number, name: next[0], color: 'transparent' });
+    }
     return prev;
   }, {} as ResultData);
 };
