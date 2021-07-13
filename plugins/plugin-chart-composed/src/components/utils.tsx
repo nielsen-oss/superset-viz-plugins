@@ -660,6 +660,7 @@ export const renderChartElement = ({
     >
       {hasOrderedBars &&
         currentData.map(entry => {
+          // @ts-ignore
           const foundColorIndex = breakdowns.findIndex(b => b === entry[index]?.id);
           return <Cell fill={CategoricalColorNamespace.getScale(colorScheme)(foundColorIndex)} />;
         })}
