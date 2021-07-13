@@ -688,13 +688,12 @@ const fillBarsDataByOrder = (
 };
 
 const buildSortedDataForBars = (
-  initDataItem: ResultData,
+  dataItem: ResultData,
   tempSortedArray: BarChartValue[],
   yColumns: string[],
   breakdowns: string[],
 ) => {
-  const hasBreakdowns = Object.keys(initDataItem).some(item => item.includes(BREAKDOWN_SEPARATOR));
-  const dataItem = { ...initDataItem };
+  const hasBreakdowns = Object.keys(dataItem).some(item => item.includes(BREAKDOWN_SEPARATOR));
   return Object.entries(dataItem).reduce((prev, next) => {
     // If not metric/breakdown field just return it
     if (
