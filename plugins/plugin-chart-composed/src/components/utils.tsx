@@ -455,10 +455,12 @@ export const getYAxisProps = ({
   const verticalAnchor = tickLabelAngle === -90 ? 'end' : 'middle';
   const axisInverseSign = isSecondAxis ? 1 : -1;
 
-  let dyLabel = 0;
-  if (labelAngle === -90) {
+  let dyLabel;
+  if (labelAngle === 0) {
+    dyLabel = 0;
+  } else if ((labelAngle === -90 && !isSecondAxis) || (labelAngle === -270 && isSecondAxis)) {
     dyLabel = -axisHeight / 2 + height / 2;
-  } else if (labelAngle === -270) {
+  } else {
     dyLabel = axisHeight / 4 - height / 4;
   }
   const labelProps: LabelProps = {
