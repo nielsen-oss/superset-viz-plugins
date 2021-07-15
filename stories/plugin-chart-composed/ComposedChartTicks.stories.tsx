@@ -85,6 +85,7 @@ const TicksTemplate = args => {
             ...args.yAxis,
             tickLabelAngle2: -45,
             labelAngle2: -90,
+            labelAngle: -90,
             label: 'Y Axis Label',
             label2: 'Y2 Axis Label',
           }}
@@ -127,7 +128,7 @@ const TicksTemplate = args => {
             ...args.yAxis,
             tickLabelAngle: -90,
             tickLabelAngle2: -90,
-            labelAngle: -270,
+            labelAngle: -90,
             label: 'Y Axis Label',
             label2: 'Y2 Axis Label',
           }}

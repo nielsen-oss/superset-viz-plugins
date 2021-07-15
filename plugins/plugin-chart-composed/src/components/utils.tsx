@@ -459,7 +459,7 @@ export const getYAxisProps = ({
   if (labelAngle === -90) {
     dyLabel = -axisHeight / 2 + height / 2;
   } else if (labelAngle === -270) {
-    dyLabel = axisHeight / 2 - height / 2;
+    dyLabel = axisHeight / 4 - height / 4;
   }
   const labelProps: LabelProps = {
     value: label,
