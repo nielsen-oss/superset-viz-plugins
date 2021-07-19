@@ -293,6 +293,7 @@ type AxisProps = {
   isSecondAxis?: boolean;
   resetProps?: ResetProps;
   dataKey?: string;
+  height?: number;
   numbersFormat: string;
   currentData: ResultData[];
   axisHeight: number;
@@ -443,6 +444,7 @@ export const getYAxisProps = ({
   isSecondAxis,
   labelAngle = 90,
   numbersFormat,
+  height = 0,
   currentData,
   axisHeight,
   axisWidth,
@@ -453,11 +455,20 @@ export const getYAxisProps = ({
   const verticalAnchor = tickLabelAngle === -90 ? 'end' : 'middle';
   const axisInverseSign = isSecondAxis ? 1 : -1;
 
+  let dyLabel;
+  if (labelAngle === 0) {
+    dyLabel = 0;
+  } else if ((labelAngle === -90 && !isSecondAxis) || (labelAngle === -270 && isSecondAxis)) {
+    dyLabel = -axisHeight / 2 + height / 2;
+  } else {
+    dyLabel = axisHeight / 4 - height / 4;
+  }
   const labelProps: LabelProps = {
     value: label,
     angle: labelAngle,
     position: isSecondAxis ? 'insideRight' : 'insideLeft',
     dx: isSecondAxis ? 5 : -5,
+    dy: dyLabel,
   };
 
   const labelPerAngle =
