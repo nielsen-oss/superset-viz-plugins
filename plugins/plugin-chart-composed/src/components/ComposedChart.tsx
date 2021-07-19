@@ -258,8 +258,8 @@ const ComposedChart: FC<ComposedChartProps> = props => {
         layout={layout}
         style={{ visibility: visible ? 'visible' : 'hidden' }}
         margin={{
-          right: layout === Layout.vertical ? 10 : 5,
-          left: xMarginLeft > 0 ? xMarginLeft : 5,
+          right: layout === Layout.vertical ? 10 : 10,
+          left: xMarginLeft > 0 ? xMarginLeft : 10,
           top: 15,
           bottom: (showLegend && legendPosition === LegendPosition.bottom ? 0 : yMarginBottom) + 16,
         }}
@@ -307,6 +307,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             numbersFormat,
             currentData,
             layout,
+            height: newHeight,
             tickLabelAngle: yAxis.tickLabelAngle,
             labelAngle: yAxis.labelAngle,
             label: yAxis.label,
@@ -321,6 +322,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               numbersFormat,
               layout,
               currentData,
+              height: newHeight,
               isSecondAxis: true,
               dataKey: yColumns[yColumns.length - 1],
               tickLabelAngle: yAxis.tickLabelAngle2,
