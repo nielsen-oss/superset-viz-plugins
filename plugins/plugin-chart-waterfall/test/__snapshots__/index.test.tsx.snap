@@ -52,8 +52,8 @@ Object {
         <mockConstructor
           domain={
             Array [
-              31.200000000000003,
-              158.6,
+              31,
+              158,
             ]
           }
           tickFormatter={[Function]}
@@ -82,7 +82,7 @@ Object {
       "data": Array [
         Object {
           "COUNT(volume_for_roi)": Array [
-            31.200000000000003,
+            31,
             122,
           ],
           "__TOTAL__": true,
@@ -121,7 +121,7 @@ Object {
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            31.200000000000003,
+            31,
             86,
           ],
           "__TOTAL__": true,
@@ -160,7 +160,7 @@ Object {
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            31.200000000000003,
+            31,
             86,
           ],
           "__TOTAL__": true,
@@ -199,7 +199,7 @@ Object {
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            31.200000000000003,
+            31,
             40,
           ],
           "__TOTAL__": true,
@@ -238,7 +238,7 @@ Object {
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            31.200000000000003,
+            31,
             39,
           ],
           "__TOTAL__": true,
@@ -330,8 +330,8 @@ Object {
   "YAxisProps": Array [
     Object {
       "domain": Array [
-        31.200000000000003,
-        158.6,
+        31,
+        158,
       ],
       "tickFormatter": [Function],
       "type": "number",

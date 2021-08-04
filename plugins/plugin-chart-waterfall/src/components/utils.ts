@@ -36,11 +36,18 @@ export enum LegendPosition {
   BOTTOM = 'bottom',
 }
 
-export const renderLabel = (formatter: Function, domain: [AxisDomain, AxisDomain]) => ({
-  value,
-}: {
-  value: BarValue;
-}) => `${formatter(value?.[1] - value?.[0] + (domain[0] as number))}`;
+export const renderLabel = (
+  formatter: Function,
+  domain: [AxisDomain, AxisDomain],
+  data: WaterfallChartData[],
+) => (item: { value: BarValue; index: number }) => {
+  let result = `${formatter(item.value?.[1] - item.value?.[0])}`;
+  // eslint-disable-next-line no-underscore-dangle
+  if (data[item.index].__TOTAL__ !== undefined) {
+    result = `${formatter(item.value?.[1] - item.value?.[0] + (domain[0] as number))}`;
+  }
+  return result;
+};
 
 export const BOTTOM_PADDING = 25;
 
@@ -78,12 +85,13 @@ export const useDomain = (
         domainMax = dataValue[1];
       }
     });
+    const minDomain = Math.floor(domainMin * 0.8);
     return {
-      domain: [domainMin * 0.8, domainMax * 1.3],
+      domain: [minDomain, Math.floor(domainMax * 1.3)],
       dataWithDomain: data.map(item => ({
         ...item,
         // eslint-disable-next-line no-underscore-dangle
-        [dataKey]: item.__TOTAL__ !== undefined ? [domainMin * 0.8, (item[dataKey] as BarValue)[1]] : item[dataKey],
+        [dataKey]: item.__TOTAL__ !== undefined ? [minDomain, (item[dataKey] as BarValue)[1]] : item[dataKey],
       })),
     };
   }, [data, dataKey]);
