@@ -1,6 +1,6 @@
 {
   "name": "@superset-viz-plugins/plugin-chart-waterfall",
-  "version": "0.10.5",
+  "version": "0.10.6",
   "description": "Superset Chart - Waterfall",
   "pluginName": "WaterfallChartPlugin",
   "sideEffects": false,
