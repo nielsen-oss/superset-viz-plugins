@@ -18,8 +18,9 @@
  */
 
 import { supersetTheme, t } from '@superset-ui/core';
-import { LegendPayload } from 'recharts';
-import { BarValue } from './WaterfallChart';
+import { AxisDomain, LegendPayload } from 'recharts';
+import { useMemo } from 'react';
+import { BarValue, WaterfallChartData } from './WaterfallChart';
 
 export const MIN_LABEL_MARGIN = 20;
 export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 7;
@@ -56,3 +57,30 @@ export const getChartStyles = (legendPosition: LegendPosition, yAxisWidth: numbe
     chartMargin,
   };
 };
+
+export const useDomain = (
+  data: WaterfallChartData[],
+  dataKey: string,
+): { domain: [AxisDomain, AxisDomain]; dataWithDomain: WaterfallChartData[] } =>
+  useMemo(() => {
+    let domainMin = Number.MAX_VALUE;
+    let domainMax = Number.MIN_VALUE;
+    data.forEach(item => {
+      const dataValue = item[dataKey] as BarValue;
+      // eslint-disable-next-line no-underscore-dangle
+      if (item.__TOTAL__ === undefined && (dataValue[0] as number) < domainMin) {
+        domainMin = dataValue[0];
+      }
+      if ((dataValue[1] as number) > domainMax) {
+        domainMax = dataValue[1];
+      }
+    });
+    return {
+      domain: [domainMin * 0.8, domainMax * 1.3],
+      dataWithDomain: data.map(item => ({
+        ...item,
+        // eslint-disable-next-line no-underscore-dangle
+        [dataKey]: item.__TOTAL__ !== undefined ? [domainMin * 0.8, (item[dataKey] as BarValue)[1]] : item[dataKey],
+      })),
+    };
+  }, [data, dataKey]);

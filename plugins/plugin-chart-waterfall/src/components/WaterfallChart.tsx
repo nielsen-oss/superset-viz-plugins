@@ -16,9 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getNumberFormatter, styled, t } from '@superset-ui/core';
 import {
+  AxisDomain,
   Bar,
   BarChart,
   CartesianGrid,
@@ -34,7 +35,7 @@ import {
   YAxisProps,
 } from 'recharts';
 import WaterfallTick from './WaterfallTick';
-import { getChartStyles, LEGEND, LegendPosition, renderLabel } from './utils';
+import { getChartStyles, LEGEND, LegendPosition, renderLabel, useDomain } from './utils';
 import WaterfallBar from './WaterfallBar';
 import WaterfallTooltip from './WaterfallTooltip';
 
@@ -155,6 +156,8 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
     };
   }
 
+  const { domain, dataWithDomain } = useDomain(data, dataKey);
+
   return (
     <Styles height={height} width={width} ref={rootRef}>
       {notification && <Notification onClick={closeNotification}>{notification}</Notification>}
@@ -162,7 +165,14 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
         <Error>{error}</Error>
       ) : (
         <div>
-          <BarChart width={width} height={height} margin={chartMargin} data={data} barCategoryGap={0} key={updater}>
+          <BarChart
+            width={width}
+            height={height}
+            margin={chartMargin}
+            data={dataWithDomain}
+            barCategoryGap={0}
+            key={updater}
+          >
             <Legend
               wrapperStyle={legendStyle}
               verticalAlign={legendPosition as LegendProps['verticalAlign']}
@@ -172,11 +182,11 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
             />
             <CartesianGrid vertical={false} />
             <XAxis dataKey={xAxisDataKey} dy={10} angle={-45} tick={WaterfallTick} interval={0} {...xAxisProps} />
-            <YAxis tickFormatter={formatter} {...yAxisProps} />
+            <YAxis type="number" domain={domain} tickFormatter={formatter} {...yAxisProps} />
             <Tooltip content={<WaterfallTooltip formatter={formatter} />} />
             <Bar
               dataKey={dataKey}
-              shape={props => <WaterfallBar {...props} numberOfBars={data?.length} />}
+              shape={props => <WaterfallBar {...props} numberOfBars={dataWithDomain?.length} />}
               onClick={handleBarClick}
             >
               <LabelList
