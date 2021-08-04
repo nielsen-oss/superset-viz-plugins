@@ -192,7 +192,7 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
               <LabelList
                 dataKey={dataKey}
                 position="top"
-                content={(renderLabel(formatter) as unknown) as ContentRenderer<LabelProps>}
+                content={(renderLabel(formatter, domain) as unknown) as ContentRenderer<LabelProps>}
               />
             </Bar>
           </BarChart>

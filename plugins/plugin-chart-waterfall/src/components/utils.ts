@@ -36,8 +36,11 @@ export enum LegendPosition {
   BOTTOM = 'bottom',
 }
 
-export const renderLabel = (formatter: Function) => ({ value }: { value: BarValue }) =>
-  `${formatter(value?.[1] - value?.[0])}`;
+export const renderLabel = (formatter: Function, domain: [AxisDomain, AxisDomain]) => ({
+  value,
+}: {
+  value: BarValue;
+}) => `${formatter(value?.[1] - value?.[0] + (domain[0] as number))}`;
 
 export const BOTTOM_PADDING = 25;
 
