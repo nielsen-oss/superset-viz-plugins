@@ -28,6 +28,7 @@ export const legendTop = {
     rowLimit: 100,
     numbersFormat: 'SMART_NUMBER',
     legendPosition: 'top',
+    showGridLines: false,
   },
   height: 400,
   queriesData: [

@@ -127,6 +127,17 @@ export const legendPosition = {
   },
 };
 
+export const showGridLines = {
+  name: 'show-grid-lines',
+  config: {
+    type: 'CheckboxControl',
+    label: t('Show Grid Lines'),
+    renderTrigger: true,
+    default: false,
+    description: t('Show/Hide grid lines'),
+  },
+};
+
 const config: ControlPanelConfig = {
   controlPanelSections: [
     {
@@ -158,7 +169,7 @@ const config: ControlPanelConfig = {
     {
       label: t('Chart Options'),
       expanded: true,
-      controlSetRows: [[numbersFormat, numbersFormatDigits], [legendPosition]],
+      controlSetRows: [[numbersFormat, numbersFormatDigits], [legendPosition], [showGridLines]],
     },
     {
       label: t('X Axis'),

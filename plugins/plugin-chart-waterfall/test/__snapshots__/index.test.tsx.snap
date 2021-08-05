@@ -39,6 +39,7 @@ Object {
           }
         />,
         <mockConstructor
+          horizontal={false}
           vertical={false}
         />,
         <mockConstructor
@@ -266,6 +267,7 @@ Object {
   ],
   "CartesianGridProps": Array [
     Object {
+      "horizontal": false,
       "vertical": false,
     },
     Object {},
