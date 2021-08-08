@@ -128,7 +128,7 @@ export const legendPosition = {
 };
 
 export const showGridLines = {
-  name: 'show-grid-lines',
+  name: 'show_horizontal_grid_lines',
   config: {
     type: 'CheckboxControl',
     label: t('Show Grid Lines'),
