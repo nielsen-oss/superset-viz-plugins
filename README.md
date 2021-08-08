@@ -3,7 +3,7 @@
 
 #### Guides
 If you're looking for the fastest way to develop your Apache Superset custom plugin you have found it, here are the guides that will help you achieve that :
-##### In short 
+#### In short 
 It is all about generating your own repository from this repository
 https://github.com/nielsen-oss/superset-viz-plugins
 
@@ -11,6 +11,7 @@ https://github.com/nielsen-oss/superset-viz-plugins
 https://www.youtube.com/watch?v=HNkPQtfzXK0
 
 https://medium.com/nmc-techblog/apache-superset-manage-custom-viz-plugins-in-production-9fde1a708e55
+
 evetually you’ll have your dockerFile automatically deployed to your dockerHub repository like this own
 
 [Nielsen-oss Apache superset + custom plugins in a docker-image](https://hub.docker.com/repository/docker/nielsenoss/apache-superset?ref=login)
