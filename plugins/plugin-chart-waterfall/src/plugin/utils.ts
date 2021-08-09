@@ -137,7 +137,7 @@ export const createReChartsBarValues = (
 
     const lastPeriod = totalSumUpToCur;
     const thisPeriod = totalSumUpToCur + (cur[valueColumn] as number);
-    const change = thisPeriod - lastPeriod;
+    const change = index === 0 ? 0 : thisPeriod - lastPeriod;
     const changePercentage = (change / lastPeriod) * 100;
     if (cur[periodColumn] === '__TOTAL__') {
       return {
