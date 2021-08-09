@@ -266,6 +266,7 @@ Object {
   ],
   "CartesianGridProps": Array [
     Object {
+      "horizontal": undefined,
       "vertical": false,
     },
     Object {},
