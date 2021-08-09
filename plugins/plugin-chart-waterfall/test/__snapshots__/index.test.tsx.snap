@@ -39,6 +39,7 @@ Object {
           }
         />,
         <mockConstructor
+          horizontal={true}
           vertical={false}
         />,
         <mockConstructor
@@ -50,7 +51,14 @@ Object {
           tick={[Function]}
         />,
         <mockConstructor
+          domain={
+            Array [
+              31,
+              158,
+            ]
+          }
           tickFormatter={[Function]}
+          type="number"
         />,
         <mockConstructor
           content={
@@ -75,11 +83,11 @@ Object {
       "data": Array [
         Object {
           "COUNT(volume_for_roi)": Array [
-            0,
+            31,
             122,
           ],
           "__TOTAL__": true,
-          "change": 122,
+          "change": 0,
           "period": "__TOTAL__",
           "period_type": "Total Period",
           "thisPeriod": 122,
@@ -114,7 +122,7 @@ Object {
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            0,
+            31,
             86,
           ],
           "__TOTAL__": true,
@@ -153,7 +161,7 @@ Object {
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            0,
+            31,
             86,
           ],
           "__TOTAL__": true,
@@ -192,7 +200,7 @@ Object {
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            0,
+            31,
             40,
           ],
           "__TOTAL__": true,
@@ -231,7 +239,7 @@ Object {
         },
         Object {
           "COUNT(volume_for_roi)": Array [
-            0,
+            31,
             39,
           ],
           "__TOTAL__": true,
@@ -266,6 +274,7 @@ Object {
   ],
   "CartesianGridProps": Array [
     Object {
+      "horizontal": true,
       "vertical": false,
     },
     Object {},
@@ -322,7 +331,12 @@ Object {
   ],
   "YAxisProps": Array [
     Object {
+      "domain": Array [
+        31,
+        158,
+      ],
       "tickFormatter": [Function],
+      "type": "number",
     },
     Object {},
   ],

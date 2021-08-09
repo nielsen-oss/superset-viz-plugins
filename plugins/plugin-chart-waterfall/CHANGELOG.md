@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-waterfall@0.10.7...@superset-viz-plugins/plugin-chart-waterfall@0.11.0) (2021-08-09)
+
+
+### Features
+
+* ability to show/hide grid lines in waterfall ([#70](https://github.com/nielsen-oss/superset-viz-plugins/issues/70)) ([5b4b477](https://github.com/nielsen-oss/superset-viz-plugins/commit/5b4b477e791484c087210eab303178208a9beb8f))
+
+
+
+
+
+## [0.10.7](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-waterfall@0.10.6...@superset-viz-plugins/plugin-chart-waterfall@0.10.7) (2021-08-04)
+
+**Note:** Version bump only for package @superset-viz-plugins/plugin-chart-waterfall
+
+
+
+
+
+## 0.10.6 (2021-08-04)
+
+**Note:** Version bump only for package @superset-viz-plugins/plugin-chart-waterfall
+
+
+
+
+
 ## 0.10.5 (2021-05-11)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-waterfall
