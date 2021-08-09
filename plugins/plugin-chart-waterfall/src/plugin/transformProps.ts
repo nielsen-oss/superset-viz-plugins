@@ -51,7 +51,7 @@ export default function transformProps(chartProps: ChartProps): WaterfallChartPr
     legendPosition,
     orderByChange,
     useOrderByChange,
-    showHorizontalGridLines,
+    showHorizontalGridLines = true,
   } = formData as FormData;
 
   const valueColumn = metric.label;
