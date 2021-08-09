@@ -63,7 +63,7 @@ export type WaterfallChartProps = {
   onBarClick?: Function;
   width: number;
   data: WaterfallChartData[];
-  showGridLines: boolean;
+  showHorizontalGridLines: boolean;
 };
 
 const Styles = styled.div<WaterfallStylesProps>`
@@ -108,7 +108,7 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
     yAxisLabelAngle,
     xAxisLabel,
     yAxisLabel,
-    showGridLines,
+    showHorizontalGridLines,
   } = props;
   const rootRef = useRef<HTMLDivElement>(null);
   const [notification, setNotification] = useState<string | null>(null);
@@ -172,7 +172,7 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
               iconSize={10}
               payload={LEGEND}
             />
-            <CartesianGrid vertical={false} horizontal={showGridLines} />
+            <CartesianGrid vertical={false} horizontal={showHorizontalGridLines} />
             <XAxis dataKey={xAxisDataKey} dy={10} angle={-45} tick={WaterfallTick} interval={0} {...xAxisProps} />
             <YAxis tickFormatter={formatter} {...yAxisProps} />
             <Tooltip content={<WaterfallTooltip formatter={formatter} />} />

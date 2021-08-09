@@ -37,7 +37,7 @@ type FormData = {
   legendPosition: LegendPosition;
   orderByChange: SortingType;
   useOrderByChange: boolean;
-  showGridLines: boolean;
+  showHorizontalGridLines: boolean;
 };
 
 export default function transformProps(chartProps: ChartProps): WaterfallChartProps {
@@ -51,7 +51,7 @@ export default function transformProps(chartProps: ChartProps): WaterfallChartPr
     legendPosition,
     orderByChange,
     useOrderByChange,
-    showGridLines,
+    showHorizontalGridLines,
   } = formData as FormData;
 
   const valueColumn = metric.label;
@@ -78,7 +78,7 @@ export default function transformProps(chartProps: ChartProps): WaterfallChartPr
     width,
     height,
     legendPosition,
-    showGridLines,
+    showHorizontalGridLines,
     numbersFormat,
     data: resultData,
     onBarClick: () => null,
