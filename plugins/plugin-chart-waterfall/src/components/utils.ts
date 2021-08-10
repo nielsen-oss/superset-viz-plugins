@@ -85,9 +85,9 @@ export const useDomain = (
         domainMax = dataValue[1];
       }
     });
-    const minDomain = Math.floor(domainMin * 0.8);
+    const minDomain = Math.floor(domainMin * 0.75);
     return {
-      domain: [minDomain, Math.floor(domainMax * 1.3)],
+      domain: [minDomain, Math.floor(domainMax * 1.1)],
       dataWithDomain: data.map(item => ({
         ...item,
         // eslint-disable-next-line no-underscore-dangle
