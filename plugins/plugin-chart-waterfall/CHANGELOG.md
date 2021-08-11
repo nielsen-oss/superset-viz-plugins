@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.2](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-waterfall@0.11.1...@superset-viz-plugins/plugin-chart-waterfall@0.11.2) (2021-08-11)
+
+
+### Bug Fixes
+
+* auto-scale-y-axis ([#72](https://github.com/nielsen-oss/superset-viz-plugins/issues/72)) ([a8843f3](https://github.com/nielsen-oss/superset-viz-plugins/commit/a8843f37089942fe33ceea70ad566f0d50f8d183))
+
+
+
+
+
 ## [0.11.1](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-waterfall@0.11.0...@superset-viz-plugins/plugin-chart-waterfall@0.11.1) (2021-08-09)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-waterfall
