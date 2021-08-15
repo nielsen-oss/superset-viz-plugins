@@ -43,7 +43,7 @@ Object {
           vertical={false}
         />,
         <mockConstructor
-          angle={NaN}
+          angle={-45}
           dataKey="period_type"
           dy={10}
           height={6}
@@ -320,7 +320,7 @@ Object {
   ],
   "XAxisProps": Array [
     Object {
-      "angle": NaN,
+      "angle": -45,
       "dataKey": "period_type",
       "dy": 10,
       "height": 6,

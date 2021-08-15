@@ -75,7 +75,7 @@ export default function transformProps(chartProps: ChartProps): WaterfallChartPr
     xAxisDataKey: xAxisColumn,
     xAxisLabel: formData.xAxisLabel ?? '',
     yAxisLabel: formData.yAxisLabel ?? '',
-    xAxisTickLabelAngle: -Number(formData.xAxisTickLabelAngle),
+    xAxisTickLabelAngle: -Number(formData.xAxisTickLabelAngle ?? 45),
     yAxisLabelAngle: -Number(formData.yAxisLabelAngle),
     width,
     height,
