@@ -28,6 +28,12 @@ export default {
   title: 'Plugins/Waterfall Chart',
   component: WaterfallChart,
   argTypes: {
+    xAxisTickLabelAngle: {
+      control: {
+        type: 'select',
+        options: ['0', '45', '90'],
+      },
+    },
     xAxisDataKey: { table: { disable: true } },
     dataKey: { table: { disable: true } },
     error: { table: { disable: true } },
@@ -51,6 +57,6 @@ const Template = args => (
 
 export const Default = Template.bind({});
 Default.args = {
-  ...transformProps((legendTop as unknown) as ChartProps),
+  ...legendTop,
   queriesData: legendTop.queriesData,
 };
