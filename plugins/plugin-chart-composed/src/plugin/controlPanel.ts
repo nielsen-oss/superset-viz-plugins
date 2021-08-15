@@ -27,7 +27,7 @@ import {
   sections,
   sharedControls,
 } from '@superset-ui/chart-controls';
-import { CHART_TYPES, CHART_TYPE_NAMES, LegendPosition, CHART_SUB_TYPES } from '../components/utils';
+import { CHART_TYPES, CHART_TYPE_NAMES, LegendPosition, CHART_SUB_TYPES } from '../components/types';
 import {
   useSecondYAxis,
   xAxisInterval,
@@ -46,6 +46,7 @@ import {
   chartType,
   lineChartSubType,
   scatterChartSubType,
+  bubbleChartSubType,
 } from './configs/chartTypes';
 import { chartTypeMetrics } from './configs/chartTypeMetrics';
 import { orderByColumns, orderByGroupBy, orderByMetric } from './configs/orderBy';
@@ -133,19 +134,45 @@ const metrics: { name: string; config: ControlConfig<'MetricsControl'> } = {
   },
 };
 
-export const numbersFormat = {
-  name: 'numbers_format',
+const zDimension: { name: string; config: ControlConfig<'MetricsControl'> } = {
+  name: 'z_dimension',
   config: {
-    label: t('Numbers Format'),
-    description: t('Choose the format for numbers in the chart'),
-    type: 'SelectControl',
-    clearable: false,
-    default: D3_FORMAT_OPTIONS[0][0],
-    choices: D3_FORMAT_OPTIONS,
-    renderTrigger: true,
+    type: 'MetricsControl',
+    label: t('Z Dimension'),
+    description: t('For charts that supports Z Dimension (like Bubble chart), choose column mapped to it'),
+    multi: false,
+    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.chart_type === CHART_TYPES.BUBBLE_CHART,
+    // @ts-ignore
+    mapStateToProps: ({ datasource }: { datasource: DatasourceMeta; controls: CustomControlItem }) => ({
+      columns: datasource?.columns || [],
+      savedMetrics: datasource?.metrics || [],
+      datasourceType: datasource?.type,
+      fields: [
+        {
+          type: 'SelectControl',
+          label: t('Chart type'),
+          options: Object.keys(CHART_TYPES).map(key => ({
+            value: key,
+            label: CHART_TYPE_NAMES[key],
+          })),
+        },
+      ],
+    }),
   },
 };
 
+export const bubbleSize = {
+  name: 'bubble_size',
+  config: {
+    label: t('Bubble size'),
+    type: 'SelectControl',
+    choices: formatSelectOptions([10, 20, 100, 200, 1000, 2000, 10000, 20000, 50000]),
+    default: 1000,
+    renderTrigger: true,
+    description: t('Max size of bubble'),
+    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.chart_type === CHART_TYPES.BUBBLE_CHART,
+  },
+};
 export const numbersFormatDigits = {
   name: 'numbers_format_digits',
   config: {
@@ -156,6 +183,19 @@ export const numbersFormatDigits = {
     renderTrigger: true,
     description: t('Number of digits after point'),
     visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.numbers_format === 'SMART_NUMBER',
+  },
+};
+
+export const numbersFormat = {
+  name: 'numbers_format',
+  config: {
+    label: t('Numbers Format'),
+    description: t('Choose the format for numbers in the chart'),
+    type: 'SelectControl',
+    clearable: false,
+    default: D3_FORMAT_OPTIONS[0][0],
+    choices: D3_FORMAT_OPTIONS,
+    renderTrigger: true,
   },
 };
 
@@ -245,6 +285,7 @@ const config: ControlPanelConfig = {
         [yAxisColumn],
         [groupBy],
         [metrics],
+        [zDimension],
         ['columns'],
         ['adhoc_filters'],
         ['row_limit', null],
@@ -257,9 +298,9 @@ const config: ControlPanelConfig = {
         ['color_scheme', layout],
         [showLegend, legendPosition],
         [numbersFormat, numbersFormatDigits],
-        [chartType, barChartSubType, lineChartSubType, areaChartSubType, scatterChartSubType],
-        [labelsColor],
-        [minBarWidth, showTotals],
+        [chartType, barChartSubType, lineChartSubType, areaChartSubType, scatterChartSubType, bubbleChartSubType],
+        [bubbleSize, minBarWidth],
+        [labelsColor, showTotals],
       ],
     },
     {

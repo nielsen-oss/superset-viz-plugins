@@ -20,6 +20,7 @@ import React, { FC } from 'react';
 import { getNumberFormatter, styled, t } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
 import { getMetricName } from './utils';
+import { Z_SEPARATOR } from '../plugin/utils';
 
 const Container = styled.div`
   border: 1px solid #cccccc;
@@ -42,6 +43,7 @@ type ComposedChartTooltipProps = TooltipProps & {
   yColumns: string[];
   hasOrderedBars: boolean;
   isTimeSeries: boolean;
+  zDimension?: string;
 };
 
 const getFormattedDate = (value: string) => {
@@ -59,6 +61,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
   payload = [],
   label,
   hasOrderedBars,
+  zDimension,
 }) => {
   if (active) {
     const firstPayload: Payload = payload[0]?.payload;
@@ -72,9 +75,16 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
           .map((initItem, index) => {
             const item = hasOrderedBars ? initItem.payload[index] : initItem;
             const name = getMetricName(item?.name, yColumns);
+            const zValue = item?.payload?.[`${Z_SEPARATOR}${name}`];
+            const zName = `${Z_SEPARATOR}${name}`;
             const value = item?.value as number;
             const resultValue = isNaN(value) ? '-' : formatter(value);
-            return <Line key={name} color={item?.color}>{`${name}: ${resultValue}`}</Line>;
+            return (
+              <>
+                <Line key={name} color={item?.color}>{`${name}: ${resultValue}`}</Line>
+                {zValue && <Line key={zName} color={item?.color}>{`${zDimension}: ${formatter(zValue)}`}</Line>}
+              </>
+            );
           })}
         {total && <Line color="black">{`${t('Total')}: ${isNaN(total) ? '-' : formatter(total)}`}</Line>}
       </Container>

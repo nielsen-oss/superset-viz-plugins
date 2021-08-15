@@ -19,6 +19,7 @@
 import { buildQueryContext, QueryFormData } from '@superset-ui/core';
 import { BinaryOperator, SetOperator } from '@superset-ui/core/lib/query/types/Operator';
 import { checkTimeSeries, MAX_FORM_CONTROLS, QueryMode, SortingType } from './utils';
+import { CHART_TYPES } from '../components/types';
 
 // Not correctly imported form node_modules, so add it here
 export type QueryFormExtraFilter = {
@@ -60,9 +61,15 @@ export default function buildQuery(formData: QueryFormData) {
       groupby = [];
     }
 
+    const metrics = [...baseQueryObject.metrics];
+    if (formData.z_dimension && formData.chart_type === CHART_TYPES.BUBBLE_CHART) {
+      metrics.push(formData.z_dimension);
+    }
+
     return [
       {
         ...baseQueryObject,
+        metrics,
         orderby,
         is_timeseries: checkTimeSeries(
           formData.query_mode === QueryMode.raw ? formData.x_column : formData.groupby,

@@ -66,48 +66,56 @@ const queriesDataMetrics2Breakdowns = {
       period_type: 'Standard',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 31,
+      'COUNT(willing_to_relocate)': 153,
     },
     {
       group_type: 'Variable',
       period_type: 'Custom',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 31,
+      'COUNT(willing_to_relocate)': 455,
     },
     {
       group_type: 'Direct Due To Group',
       period_type: 'Custom',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 7,
+      'COUNT(willing_to_relocate)': 231,
     },
     {
       group_type: 'Due To Group',
       period_type: 'Custom',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 7,
+      'COUNT(willing_to_relocate)': 1212,
     },
     {
       group_type: 'Summary Group',
       period_type: 'Custom',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 3,
+      'COUNT(willing_to_relocate)': 2,
     },
     {
       group_type: 'Summary Group',
       period_type: 'Standard',
       'COUNT_DISTINCT(period)': 5,
       'COUNT_DISTINCT(group_name)': 3,
+      'COUNT(willing_to_relocate)': 2342,
     },
     {
       group_type: 'Direct Due To Group',
       period_type: 'Standard',
       'COUNT_DISTINCT(period)': 3,
       'COUNT_DISTINCT(group_name)': 6,
+      'COUNT(willing_to_relocate)': 144,
     },
     {
       group_type: 'Due To Group',
       period_type: 'Standard',
       'COUNT_DISTINCT(period)': 3,
       'COUNT_DISTINCT(group_name)': 6,
+      'COUNT(willing_to_relocate)': 900,
     },
   ],
 };
@@ -708,6 +716,27 @@ const formDataBarsHorizontalLegendTop = {
   areaChartSubTypeMetric0: 'basis',
   scatterChartSubTypeMetric0: 'circle',
 };
+const formDataBubbleHorizontalLegendTop = {
+  ...formDataBarsHorizontalLegendTop,
+  chartType: 'BUBBLE_CHART',
+  columns: ['period_type'],
+  zDimension: {
+    aggregate: 'COUNT',
+    column: {
+      id: 633,
+      column_name: 'willing_to_relocate',
+      verbose_name: 'Willing To Relocate',
+      description: null,
+    },
+    expressionType: 'SIMPLE',
+    hasCustomLabel: false,
+    isNew: false,
+    label: 'COUNT(willing_to_relocate)',
+    optionName: 'metric_g5k1l2xm67f_apxgonu8pzd',
+    sqlExpression: null,
+    columns: [],
+  },
+};
 const formDataSortedBars = {
   ...formDataBarsHorizontalLegendTop,
   vizType: 'composed',
@@ -968,6 +997,13 @@ export const barsHorizontalLegendTop = {
   formData: formDataBarsHorizontalLegendTop,
   height: 400,
   queriesData: [queriesDataMetrics2],
+  width: 800,
+};
+
+export const bubbleHorizontalLegendTop = {
+  formData: formDataBubbleHorizontalLegendTop,
+  height: 400,
+  queriesData: [queriesDataMetrics2Breakdowns],
   width: 800,
 };
 

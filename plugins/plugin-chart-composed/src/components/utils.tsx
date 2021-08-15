@@ -33,90 +33,21 @@ import {
   Cell,
 } from 'recharts';
 import { CategoricalColorNamespace, getNumberFormatter, JsonObject } from '@superset-ui/core';
-import { BREAKDOWN_SEPARATOR, ColorsMap, LabelColors, ResultData, SortingType } from '../plugin/utils';
+import { BREAKDOWN_SEPARATOR, ColorsMap, LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 import { ResetProps } from './ComposedChart';
-
-export type BarChartValue = { id: string; value: number; name: string; color: string };
-export type BarChartValueMap = { [key: string]: BarChartValue };
-
-export enum Layout {
-  horizontal = 'horizontal',
-  vertical = 'vertical',
-}
-
-export enum LegendPosition {
-  top = 'top',
-  right = 'right',
-  bottom = 'bottom',
-  left = 'left',
-}
-
-type LegendAlign = 'left' | 'center' | 'right';
-type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
-
-export const MAX_SYMBOLS_IN_TICK_LABEL = 20;
-export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 7;
-export const MIN_BAR_SIZE_FOR_LABEL = 18;
-export const MIN_SYMBOL_WIDTH_FOR_LABEL = 14;
-export const MIN_LABEL_MARGIN = 20;
-
-export const CHART_TYPES = {
-  BAR_CHART: 'BAR_CHART',
-  LINE_CHART: 'LINE_CHART',
-  SCATTER_CHART: 'SCATTER_CHART',
-  AREA_CHART: 'AREA_CHART',
-};
-
-export const CHART_SUB_TYPES = {
-  CIRCLE: 'circle',
-  DIAMOND: 'diamond',
-  SQUARE: 'square',
-  WYE: 'wye',
-
-  BASIS: 'basis',
-  LINEAR: 'linear',
-  NATURAL: 'natural',
-  MONOTONE: 'monotone',
-  STEP: 'step',
-
-  DEFAULT: 'default',
-  STACKED: 'stacked',
-};
-
-export const CHART_TYPE_NAMES = {
-  [CHART_TYPES.BAR_CHART]: 'Bar Chart',
-  [CHART_TYPES.LINE_CHART]: 'Line Chart',
-  [CHART_TYPES.AREA_CHART]: 'Area Chart',
-  [CHART_TYPES.SCATTER_CHART]: 'Scatter Chart',
-};
-
-export const CHART_SUB_TYPE_NAMES = {
-  [CHART_TYPES.BAR_CHART]: {
-    [CHART_SUB_TYPES.DEFAULT]: 'Default Bar Chart',
-    [CHART_SUB_TYPES.STACKED]: 'Stacked Bar Chart',
-  },
-  [CHART_TYPES.SCATTER_CHART]: {
-    [CHART_SUB_TYPES.CIRCLE]: 'Circle Scatter Chart',
-    [CHART_SUB_TYPES.DIAMOND]: 'Diamond Scatter Chart',
-    [CHART_SUB_TYPES.SQUARE]: 'Square Scatter Chart',
-    [CHART_SUB_TYPES.WYE]: 'Wye Scatter Chart',
-  },
-  [CHART_TYPES.LINE_CHART]: {
-    [CHART_SUB_TYPES.BASIS]: 'Basis Line Chart',
-    [CHART_SUB_TYPES.LINEAR]: 'Linear Line Chart',
-    [CHART_SUB_TYPES.NATURAL]: 'Natural Line Chart',
-    [CHART_SUB_TYPES.MONOTONE]: 'Monotone Line Chart',
-    [CHART_SUB_TYPES.STEP]: 'Step Line Chart',
-  },
-  [CHART_TYPES.AREA_CHART]: {
-    [CHART_SUB_TYPES.BASIS]: 'Basis Area Chart',
-    [CHART_SUB_TYPES.LINEAR]: 'Linear Area Chart',
-    [CHART_SUB_TYPES.NATURAL]: 'Natural Area Chart',
-    [CHART_SUB_TYPES.MONOTONE]: 'Monotone Area Chart',
-    [CHART_SUB_TYPES.STEP]: 'Step Area Chart',
-  },
-};
+import {
+  BarChartValue,
+  BarChartValueMap,
+  CHART_SUB_TYPES,
+  CHART_TYPES,
+  Layout,
+  LegendAlign,
+  LegendPosition,
+  LegendVerticalAlign,
+  MIN_BAR_SIZE_FOR_LABEL,
+  MIN_SYMBOL_WIDTH_FOR_LABEL,
+} from './types';
 
 const emptyRender = () => null;
 
@@ -133,8 +64,12 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   return result;
 }
 
-export const getMetricName = (name: string, yColumns: string[]) =>
-  yColumns.length === 1 ? name?.split(BREAKDOWN_SEPARATOR).pop() : name?.split(BREAKDOWN_SEPARATOR).join(', ');
+export const getMetricName = (name: string, yColumns: string[], zDimension?: string) => {
+  if (name?.startsWith(Z_SEPARATOR)) {
+    return zDimension;
+  }
+  return yColumns.length === 1 ? name?.split(BREAKDOWN_SEPARATOR).pop() : name?.split(BREAKDOWN_SEPARATOR).join(', ');
+};
 
 export const getLegendProps = (
   legendPosition: LegendPosition,
@@ -215,6 +150,7 @@ export type ChartScatterItem = {
   Element: React.ElementType;
   opacity?: number;
   shape?: string;
+  zAxisId?: number;
 };
 
 export type ChartLineItem = {
@@ -239,6 +175,7 @@ export const getChartElement = (
   chartSubType: keyof typeof CHART_SUB_TYPES,
   color: string,
   hasDifferentTypes: boolean,
+  index: number,
 ): ChartsUIItem => {
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
 
@@ -268,6 +205,15 @@ export const getChartElement = (
         Element: Scatter,
         fill: color,
         opacity: 0.8,
+        shape: chartSubType,
+      };
+      break;
+    case CHART_TYPES.BUBBLE_CHART:
+      commonProps = {
+        Element: Scatter,
+        fill: color,
+        opacity: 0.8,
+        zAxisId: index,
         shape: chartSubType,
       };
       break;
@@ -302,6 +248,7 @@ type AxisProps = {
   xColumns?: string[];
   xAxisClientRect?: ClientRect;
   rootRef?: RefObject<HTMLDivElement>;
+  chartType?: keyof typeof CHART_TYPES;
 };
 
 const getActualXAxisSize = (
@@ -364,6 +311,7 @@ export const getXAxisProps = ({
   rootRef,
   interval,
   resetProps,
+  chartType,
 }: AxisProps) => {
   const textAnchor = tickLabelAngle === 0 ? 'middle' : 'end';
   const verticalAnchor = tickLabelAngle === 0 ? 'start' : 'middle';
@@ -404,7 +352,7 @@ export const getXAxisProps = ({
     case Layout.vertical:
       return {
         ...params,
-        axisLine: false,
+        axisLine: chartType === CHART_TYPES.BUBBLE_CHART,
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick
             {...props}
@@ -449,6 +397,7 @@ export const getYAxisProps = ({
   axisHeight,
   axisWidth,
   rootRef,
+  chartType,
 }: AxisProps) => {
   const textAnchorPerAxis = isSecondAxis ? 'start' : 'end';
   const textAnchor = tickLabelAngle === -90 ? 'middle' : textAnchorPerAxis;
@@ -509,7 +458,7 @@ export const getYAxisProps = ({
     default:
       return {
         ...params,
-        axisLine: false,
+        axisLine: chartType === CHART_TYPES.BUBBLE_CHART,
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick
             {...props}
@@ -523,7 +472,19 @@ export const getYAxisProps = ({
   }
 };
 
-export const getCartesianGridProps = ({ layout }: { layout: Layout }) => {
+export const getCartesianGridProps = ({
+  layout,
+  chartType,
+}: {
+  layout: Layout;
+  chartType: keyof typeof CHART_TYPES;
+}) => {
+  if (chartType === CHART_TYPES.BUBBLE_CHART) {
+    return {
+      horizontal: false,
+      vertical: false,
+    };
+  }
   switch (layout) {
     case Layout.vertical:
       return {
@@ -633,6 +594,7 @@ export const renderChartElement = ({
     customChartSubType,
     color,
     customChartType === CHART_TYPES.BAR_CHART && hasCustomTypeMetrics.some(el => el),
+    index,
   );
 
   const labelListExtraProps: LabelListProps & { fill: string } = {
@@ -649,20 +611,24 @@ export const renderChartElement = ({
     dataKey = (val: BarChartValueMap) => getValueForBarChart(val, String(index)) ?? 0; // Not sure why but it works;
   }
 
+  if (chartType !== CHART_TYPES.BUBBLE_CHART) {
+    // @ts-ignore
+    elementProps.label = {
+      fill: labelsColor,
+      position: 'center',
+      formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
+      content: renderLabel,
+      currentData,
+      breakdown,
+      breakdowns,
+      hasOrderedBars,
+    };
+  }
+
   return (
     <Element
       key={`${breakdown}${updater}`}
       isAnimationActive={isAnimationActive}
-      label={{
-        fill: labelsColor,
-        position: 'center',
-        formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
-        content: renderLabel,
-        currentData,
-        breakdown,
-        breakdowns,
-        hasOrderedBars,
-      }}
       yAxisId={
         hasY2Axis && breakdown?.split(BREAKDOWN_SEPARATOR)[0] === yColumns[yColumns.length - 1] ? 'right' : 'left'
       }

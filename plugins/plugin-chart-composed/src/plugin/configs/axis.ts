@@ -18,7 +18,7 @@
  */
 import { t } from '@superset-ui/core';
 import { ControlPanelsContainerProps, formatSelectOptions } from '@superset-ui/chart-controls';
-import { Layout } from '../../components/utils';
+import { Layout } from '../../components/types';
 import { QueryMode } from '../utils';
 
 export const xAxisLabel = {
