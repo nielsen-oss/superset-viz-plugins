@@ -30,6 +30,7 @@ type FormData = {
   xAxisLabel: string;
   yAxisLabel: string;
   yAxisLabelAngle: string;
+  xAxisTickLabelAngle: string;
   periodColumn: string;
   queryFields: { metric: string };
   metric: Metric;
@@ -74,6 +75,7 @@ export default function transformProps(chartProps: ChartProps): WaterfallChartPr
     xAxisDataKey: xAxisColumn,
     xAxisLabel: formData.xAxisLabel ?? '',
     yAxisLabel: formData.yAxisLabel ?? '',
+    xAxisTickLabelAngle: -Number(formData.xAxisTickLabelAngle),
     yAxisLabelAngle: -Number(formData.yAxisLabelAngle),
     width,
     height,

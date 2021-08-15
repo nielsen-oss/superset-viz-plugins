@@ -113,6 +113,20 @@ export const yAxisLabelAngle = {
   },
 };
 
+export const xAxisTickLabelAngle = {
+  name: 'x_axis_tick_label_angle',
+  config: {
+    freeForm: true,
+    label: t('X axis tick label angle'),
+    renderTrigger: true,
+    clearable: false,
+    type: 'SelectControl',
+    choices: formatSelectOptions(['0', '45', '90']),
+    default: '45',
+    description: t('Set X axis tick label angle in the chart'),
+  },
+};
+
 export const legendPosition = {
   name: 'legend_position',
   config: {
@@ -174,7 +188,7 @@ const config: ControlPanelConfig = {
     {
       label: t('X Axis'),
       expanded: true,
-      controlSetRows: [[xAxisLabel]],
+      controlSetRows: [[xAxisLabel], [xAxisTickLabelAngle]],
     },
     {
       label: t('Y Axis'),

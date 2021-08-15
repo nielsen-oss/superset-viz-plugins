@@ -120,6 +120,30 @@ export const convertDataForRecharts = (
   return resultData;
 };
 
+const getActualXAxisSize = (
+  axisWidth: number,
+  numberOfTicks: number,
+  axisHeight: number,
+  tickLabelAngle: number,
+): {
+  actualWidth?: number;
+  actualHeight?: number;
+} => {
+  const tickWidth = axisWidth / numberOfTicks;
+  switch (tickLabelAngle) {
+    case 0:
+      return { actualWidth: Number.isNaN(tickWidth) ? 1 : tickWidth };
+    case -45:
+      return { actualWidth: 1.5 * (Number.isNaN(tickWidth) ? 1 : tickWidth) };
+    case -90:
+    default:
+      return {
+        actualHeight: Number.isNaN(tickWidth) ? 1 : tickWidth,
+        actualWidth: axisHeight,
+      };
+  }
+};
+
 export const createReChartsBarValues = (
   rechartsData: QueryData[],
   valueColumn: keyof QueryData,
