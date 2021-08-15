@@ -18,10 +18,11 @@
  */
 import { QueryFormColumn, t } from '@superset-ui/core';
 import { ControlPanelsContainerProps, ControlStateMapping } from '@superset-ui/chart-controls';
-import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/utils';
+import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/types';
 
-export const MAX_FORM_CONTROLS = 10;
+export const MAX_FORM_CONTROLS = 5;
 export const BREAKDOWN_SEPARATOR = '_$_';
+export const Z_SEPARATOR = '_Z$_';
 
 export enum QueryMode {
   aggregate = 'aggregate',
@@ -35,7 +36,7 @@ type Metric = {
 export type LabelColors = 'black' | 'white';
 
 export type FormData = {
-  [key: string]: string | string[] | Metric[] | boolean;
+  [key: string]: string | string[] | Metric[] | Metric | boolean;
   layout: Layout;
   colorScheme: string;
   minBarWidth: string;
@@ -49,10 +50,12 @@ export type FormData = {
   areaChartSubType: keyof typeof CHART_SUB_TYPES;
   barChartSubType: keyof typeof CHART_SUB_TYPES;
   scatterChartSubType: keyof typeof CHART_SUB_TYPES;
+  bubbleChartSubType: keyof typeof CHART_SUB_TYPES;
   numbersFormat: string;
   columns: string[];
   labelsColor: LabelColors;
   xAxisLabel: string;
+  zDimension: Metric;
   showTotals: boolean;
   yAxisLabel: string;
   showLegend: boolean;
@@ -95,6 +98,7 @@ export const getChartSubType = (
   lineChartSubType: keyof typeof CHART_SUB_TYPES,
   areaChartSubType: keyof typeof CHART_SUB_TYPES,
   scatterChartSubType: keyof typeof CHART_SUB_TYPES,
+  bubbleChartSubType: keyof typeof CHART_SUB_TYPES,
 ) => {
   switch (chartType) {
     case CHART_TYPES.LINE_CHART:
@@ -103,6 +107,8 @@ export const getChartSubType = (
       return areaChartSubType;
     case CHART_TYPES.SCATTER_CHART:
       return scatterChartSubType;
+    case CHART_TYPES.BUBBLE_CHART:
+      return bubbleChartSubType;
     case CHART_TYPES.BAR_CHART:
     default:
       return barChartSubType;
@@ -148,6 +154,10 @@ export const addBreakdownYColumnsAndGetBreakdownValues = (
       );
       // Build metric name by breakdown
       const resultBreakdown = `${metric}${breakdown}`;
+      if (formData.chartType === CHART_TYPES.BUBBLE_CHART) {
+        // eslint-disable-next-line no-param-reassign
+        item[`${Z_SEPARATOR}${resultBreakdown}`] = item[formData.zDimension?.label];
+      }
       // mutation to save unnecessary loops
       // eslint-disable-next-line no-param-reassign
       item[resultBreakdown] = item[metric];

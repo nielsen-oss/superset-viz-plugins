@@ -16,33 +16,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   AxisInterval,
   CartesianGrid,
   ComposedChart as RechartsComposedChart,
   Legend,
   LegendType,
+  ScatterChart,
   Tooltip,
   XAxis,
   YAxis,
+  ZAxis,
 } from 'recharts';
 import { styled } from '@superset-ui/core';
 import ComposedChartTooltip from './ComposedChartTooltip';
-import { LabelColors, ResultData, SortingType } from '../plugin/utils';
+import { LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
 import {
-  CHART_SUB_TYPES,
-  CHART_TYPES,
   debounce,
   getCartesianGridProps,
   getLegendProps,
   getXAxisProps,
   getYAxisProps,
-  Layout,
-  LegendPosition,
   renderChartElement,
 } from './utils';
-import { useCurrentData } from './state';
+import { useCurrentData, useZAxisRange } from './state';
+import { CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from './types';
+import { chartType } from '../plugin/configs/chartTypes';
+import ScatterChartTooltip from './ScatterChartTooltip';
 
 type EventData = {
   color: string;
@@ -76,6 +77,7 @@ export type ComposedChartProps = {
   orderByYColumn: SortingType;
   isTimeSeries: boolean;
   height: number;
+  bubbleSize: number;
   width: number;
   hasOrderedBars: boolean;
   showTotals: boolean;
@@ -83,11 +85,13 @@ export type ComposedChartProps = {
   legendPosition: LegendPosition;
   data: ResultData[];
   layout: Layout;
+  metrics: string[];
   yColumns: string[];
   breakdowns: string[];
   xColumns: string[];
   minBarWidth: string;
   colorScheme: string;
+  zDimension?: string;
   hasY2Axis?: boolean;
   chartSubType: keyof typeof CHART_SUB_TYPES;
   isAnimationActive?: boolean;
@@ -147,6 +151,9 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     isTimeSeries,
     xColumns,
     minBarWidth,
+    bubbleSize,
+    metrics,
+    zDimension,
   } = props;
 
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
@@ -242,6 +249,31 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     newHeight = height > newHeight ? height : newHeight;
   }
 
+  const getZAxisRange = useZAxisRange(currentData, bubbleSize);
+
+  let ChartContainer = RechartsComposedChart;
+  let tooltipContent = (
+    <ComposedChartTooltip
+      numbersFormat={numbersFormat}
+      yColumns={yColumns}
+      hasOrderedBars={hasOrderedBars}
+      isTimeSeries={isTimeSeries}
+      zDimension={zDimension}
+    />
+  );
+  if (chartType === CHART_TYPES.BUBBLE_CHART && !hasCustomTypeMetrics.some(has => has)) {
+    ChartContainer = ScatterChart;
+    tooltipContent = (
+      <ScatterChartTooltip
+        breakdowns={breakdowns}
+        colorScheme={colorScheme}
+        numbersFormat={numbersFormat}
+        yColumns={yColumns}
+        zDimension={zDimension}
+      />
+    );
+  }
+
   return (
     <Styles
       key={updater}
@@ -251,7 +283,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
       ref={rootRef}
       style={{ overflowX: newWidth === width ? 'hidden' : 'auto', overflowY: newHeight === height ? 'hidden' : 'auto' }}
     >
-      <RechartsComposedChart
+      <ChartContainer
         key={updater}
         width={newWidth}
         height={newHeight}
@@ -283,7 +315,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             iconSize={10}
           />
         )}
-        <CartesianGrid {...getCartesianGridProps({ layout })} />
+        <CartesianGrid {...getCartesianGridProps({ layout, chartType })} />
         <XAxis
           {...getXAxisProps({
             resetProps,
@@ -299,6 +331,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             isTimeSeries,
             xColumns,
             rootRef,
+            chartType,
           })}
         />
         <YAxis
@@ -313,8 +346,14 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             label: yAxis.label,
             axisHeight: yAxisHeight,
             axisWidth: yAxisWidth,
+            chartType,
           })}
         />
+        {chartType === CHART_TYPES.BUBBLE_CHART &&
+          breakdowns.map((breakdown, i) => (
+            // eslint-disable-next-line no-underscore-dangle
+            <ZAxis type="number" zAxisId={i} range={getZAxisRange(breakdown)} dataKey={`${Z_SEPARATOR}${breakdown}`} />
+          ))}
         {hasY2Axis && (
           <YAxis
             {...getYAxisProps({
@@ -330,19 +369,11 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               labelAngle: yAxis.labelAngle2,
               axisHeight: y2AxisHeight,
               axisWidth: y2AxisWidth,
+              chartType,
             })}
           />
         )}
-        <Tooltip
-          content={
-            <ComposedChartTooltip
-              numbersFormat={numbersFormat}
-              yColumns={yColumns}
-              hasOrderedBars={hasOrderedBars}
-              isTimeSeries={isTimeSeries}
-            />
-          }
-        />
+        <Tooltip content={tooltipContent} />
         {breakdowns.map((breakdown, index) =>
           renderChartElement({
             hasOrderedBars,
@@ -367,7 +398,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             numberOfRenderedItems: breakdowns.length - (hasOrderedBars ? disabledDataKeys.length : 0),
           }),
         )}
-      </RechartsComposedChart>
+      </ChartContainer>
     </Styles>
   );
 };
