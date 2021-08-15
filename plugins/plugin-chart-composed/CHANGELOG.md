@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.24.0 (2021-08-15)
+
+
+### Features
+
+* Bubble Chart ([#73](https://github.com/nielsen-oss/superset-viz-plugins/issues/73)) ([84abdfb](https://github.com/nielsen-oss/superset-viz-plugins/commit/84abdfb1b0af8ae854a20422c561ae0a7bc85bd6))
+
+
+
+
+
 ## [0.23.3](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.23.2...@superset-viz-plugins/plugin-chart-composed@0.23.3) (2021-07-19)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-composed
