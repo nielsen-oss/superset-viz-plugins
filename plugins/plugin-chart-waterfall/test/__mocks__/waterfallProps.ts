@@ -26,6 +26,7 @@ export const legendTop = {
     },
     adhocFilters: [],
     rowLimit: 100,
+    xAxisTickLabelAngle: '45',
     numbersFormat: 'SMART_NUMBER',
     legendPosition: 'top',
     showGridLines: false,
