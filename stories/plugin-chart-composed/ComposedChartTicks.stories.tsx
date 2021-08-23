@@ -24,7 +24,7 @@ import {
   CHART_TYPES,
   Layout,
   LegendPosition,
-} from '../../plugins/plugin-chart-composed/src/components/utils';
+} from '../../plugins/plugin-chart-composed/src/components/types';
 import transformProps from '../../plugins/plugin-chart-composed/src/plugin/transformProps';
 import { barsHorizontalLegendTop } from '../../plugins/plugin-chart-composed/test/__mocks__/composedProps';
 import { applyCommonLogic, commonConfig } from './utils';

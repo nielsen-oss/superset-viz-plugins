@@ -16,9 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { useMemo } from 'react';
-import { BarChartValue, processBarChartOrder } from './utils';
-import { ResultData, SortingType } from '../plugin/utils';
+import { useCallback, useMemo } from 'react';
+import { processBarChartOrder } from './utils';
+import { ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
+import { BarChartValue } from './types';
 
 export const useCurrentData = (
   data: ResultData[],
@@ -67,3 +68,29 @@ export const useCurrentData = (
 
   return currentData;
 };
+export const useZAxisRange = (currentData: ResultData[], bubbleSize = 1000) =>
+  useCallback<(arg: string) => number[]>(
+    breakdown => {
+      const axisValues = [
+        ...currentData.map(item => item[`${Z_SEPARATOR}${breakdown}`]).filter(item => item !== undefined),
+      ] as number[];
+      const min = Math.min(...axisValues);
+      const max = Math.max(...axisValues);
+
+      const allAxisValues = [
+        ...currentData
+          .map(item =>
+            Object.keys(item)
+              .map(z => (z.startsWith(Z_SEPARATOR) ? item[z] : undefined))
+              .filter(u => u !== undefined),
+          )
+          .flat(),
+      ] as number[];
+      const allMax = Math.max(...allAxisValues);
+
+      const delta = bubbleSize / allMax;
+
+      return [min * delta, max * delta];
+    },
+    [bubbleSize, currentData],
+  );

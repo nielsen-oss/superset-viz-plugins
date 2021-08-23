@@ -18,7 +18,7 @@
  */
 import { QueryFormData, t } from '@superset-ui/core';
 import { ControlPanelsContainerProps } from '@superset-ui/chart-controls';
-import { CHART_SUB_TYPE_NAMES, CHART_SUB_TYPES, CHART_TYPE_NAMES, CHART_TYPES } from '../../components/utils';
+import { CHART_SUB_TYPE_NAMES, CHART_SUB_TYPES, CHART_TYPE_NAMES, CHART_TYPES } from '../../components/types';
 import { isQueryMode, MAX_FORM_CONTROLS, QueryMode } from '../utils';
 
 const chartTypeMetricsInit = [];
@@ -117,6 +117,7 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
       description: t(`Set subtype of chart for metric ${el}`),
     },
   };
+
   return [
     {
       name: `use_custom_type_metric_${index}`,

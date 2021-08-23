@@ -46,7 +46,7 @@ Object {
           angle={-45}
           dataKey="period_type"
           dy={10}
-          height={1}
+          height={6}
           interval={0}
           tick={[Function]}
         />,
@@ -323,7 +323,7 @@ Object {
       "angle": -45,
       "dataKey": "period_type",
       "dy": 10,
-      "height": 1,
+      "height": 6,
       "interval": 0,
       "tick": [Function],
     },

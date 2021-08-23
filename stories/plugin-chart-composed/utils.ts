@@ -17,7 +17,7 @@
  * under the License.
  */
 import { D3_FORMAT_OPTIONS } from '@superset-ui/chart-controls';
-import { CHART_SUB_TYPES, Layout } from '../../plugins/plugin-chart-composed/src/components/utils';
+import { CHART_SUB_TYPES, Layout } from '../../plugins/plugin-chart-composed/src/components/types';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
 
 export const applyCommonLogic = initArgs => {

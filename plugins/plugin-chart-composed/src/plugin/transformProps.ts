@@ -18,7 +18,8 @@
  */
 import { ChartProps } from '@superset-ui/core';
 import { AxisInterval } from 'recharts';
-import { CHART_SUB_TYPES, CHART_TYPES, Layout, mergeBy } from '../components/utils';
+import { mergeBy } from '../components/utils';
+import { CHART_SUB_TYPES, CHART_TYPES, Layout } from '../components/types';
 import { ComposedChartProps } from '../components/ComposedChart';
 import {
   addBreakdownYColumnsAndGetBreakdownValues,
@@ -38,7 +39,6 @@ export default function transformProps(chartProps: ChartProps) {
   const { width, height, queriesData } = chartProps;
   const data = queriesData[0].data as Data[];
   const formData = chartProps.formData as FormData;
-
   let xColumns: string[];
   let yColumns: string[];
 
@@ -79,6 +79,7 @@ export default function transformProps(chartProps: ChartProps) {
     formData.lineChartSubType,
     formData.areaChartSubType,
     formData.scatterChartSubType,
+    formData.bubbleChartSubType,
   );
 
   const chartTypeMetrics: (keyof typeof CHART_TYPES)[] = [];
@@ -96,6 +97,7 @@ export default function transformProps(chartProps: ChartProps) {
           formData[`lineChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
           formData[`areaChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
           formData[`scatterChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
+          formData[`bubbleChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
         ),
       );
     });
@@ -131,14 +133,17 @@ export default function transformProps(chartProps: ChartProps) {
     breakdowns,
     width,
     height,
+    metrics: formData.metrics.map(({ label }) => label),
     isTimeSeries,
     xColumns,
     yColumns,
     chartTypeMetrics,
+    zDimension: formData.zDimension?.label,
     chartSubTypeMetrics,
     hasCustomTypeMetrics: useCustomTypeMetrics,
     layout: formData.layout,
     colorScheme: formData.colorScheme,
+    bubbleSize: Number(formData.bubbleSize ?? 1000),
     chartType: formData.chartType,
     showLegend: formData.showLegend,
     legendPosition: formData.legendPosition,

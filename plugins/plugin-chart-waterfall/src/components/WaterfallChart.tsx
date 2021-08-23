@@ -16,10 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { getNumberFormatter, styled, t } from '@superset-ui/core';
 import {
-  AxisDomain,
   Bar,
   BarChart,
   CartesianGrid,
@@ -55,6 +54,7 @@ export type WaterfallChartProps = {
   dataKey: string;
   xAxisLabel: string;
   yAxisLabel: string;
+  xAxisTickLabelAngle: number;
   yAxisLabelAngle: number;
   legendPosition: LegendPosition;
   error?: string;
@@ -110,6 +110,7 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
     xAxisLabel,
     yAxisLabel,
     showHorizontalGridLines,
+    xAxisTickLabelAngle,
   } = props;
   const rootRef = useRef<HTMLDivElement>(null);
   const [notification, setNotification] = useState<string | null>(null);
@@ -133,7 +134,7 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
   const xAxisClientRect = rootRef.current
     ?.querySelector('.xAxis .recharts-cartesian-axis-ticks')
     ?.getBoundingClientRect();
-  const xAxisHeight = Math.ceil(xAxisClientRect?.height ?? 1);
+  const xAxisHeight = Math.ceil(xAxisClientRect?.height ?? 1) + 5;
 
   const yAxisClientRect = rootRef.current?.querySelector('.yAxis .recharts-label')?.getBoundingClientRect();
   const yAxisWidth = Math.ceil(yAxisClientRect?.width ?? 1);
@@ -183,7 +184,14 @@ const WaterfallChart: FC<WaterfallChartProps> = props => {
               payload={LEGEND}
             />
             <CartesianGrid vertical={false} horizontal={showHorizontalGridLines} />
-            <XAxis dataKey={xAxisDataKey} dy={10} angle={-45} tick={WaterfallTick} interval={0} {...xAxisProps} />
+            <XAxis
+              dataKey={xAxisDataKey}
+              dy={10}
+              angle={xAxisTickLabelAngle}
+              tick={WaterfallTick}
+              interval={0}
+              {...xAxisProps}
+            />
             <YAxis type="number" domain={domain} tickFormatter={formatter} {...yAxisProps} />
             <Tooltip content={<WaterfallTooltip formatter={formatter} />} />
             <Bar
