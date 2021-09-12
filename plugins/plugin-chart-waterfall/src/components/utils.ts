@@ -21,20 +21,13 @@ import { supersetTheme, t } from '@superset-ui/core';
 import { AxisDomain, LegendPayload } from 'recharts';
 import { useMemo } from 'react';
 import { BarValue, WaterfallChartData } from './WaterfallChart';
-
-export const MIN_LABEL_MARGIN = 20;
-export const MIN_SYMBOL_WIDTH_FOR_TICK_LABEL = 7;
+import { LegendPosition } from '../types';
 
 export const LEGEND: LegendPayload[] = [
   { value: t('Increase'), color: supersetTheme.colors.success.base, id: 'increase', type: 'square' },
   { value: t('Decrease'), color: supersetTheme.colors.error.base, id: 'decrease', type: 'square' },
   { value: t('Total'), color: supersetTheme.colors.info.base, id: 'total', type: 'square' },
 ];
-
-export enum LegendPosition {
-  TOP = 'top',
-  BOTTOM = 'bottom',
-}
 
 export const renderLabel = (
   formatter: Function,

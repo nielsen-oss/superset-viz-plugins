@@ -16,10 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { ChartProps } from '@superset-ui/core';
-import { processNumbers, convertDataForRecharts, createReChartsBarValues, SortingType, Metric } from './utils';
-import { WaterfallChartProps } from '../components/WaterfallChart';
-import { LegendPosition } from '../types';
+import { ChartProps, DataRecord } from '@superset-ui/core';
+import { Metric, SortingType } from '@superset-viz-plugins/plugin-chart-waterfall/src/plugin/utils';
+import { LegendPosition } from '@superset-viz-plugins/plugin-chart-waterfall/src/types';
 
 export type QueryData = {
   [key: string]: number | string;
@@ -31,47 +30,24 @@ type FormData = {
   yAxisLabel: string;
   yAxisLabelAngle: string;
   xAxisTickLabelAngle: string;
-  periodColumn: string;
-  queryFields: { metric: string };
-  metric: Metric;
   numbersFormat: string;
+  colorScheme: string;
   legendPosition: LegendPosition;
-  orderByChange: SortingType;
-  useOrderByChange: boolean;
-  showHorizontalGridLines: boolean;
+  bubbleSize: boolean;
+  entity: string;
+  series: string;
+  xAxis: { label: string } | string;
+  yAxis: { label: string } | string;
+  zAxis: { label: string } | string;
 };
 
-export default function transformProps(chartProps: ChartProps): WaterfallChartProps {
+export default function transformProps(chartProps: ChartProps) {
   const { width, height, formData, queriesData } = chartProps;
+  const data = queriesData[0].data as QueryData[];
 
-  const {
-    periodColumn,
-    xAxisColumn,
-    metric,
-    numbersFormat,
-    legendPosition,
-    orderByChange,
-    useOrderByChange,
-    showHorizontalGridLines = true,
-  } = formData as FormData;
-
-  const valueColumn = metric.label;
-  const data = queriesData?.[0]?.data as QueryData[];
-
-  const rechartsData = convertDataForRecharts(
-    periodColumn,
-    xAxisColumn,
-    valueColumn,
-    data,
-    orderByChange,
-    useOrderByChange,
-  );
-
-  let resultData = createReChartsBarValues(rechartsData, valueColumn, periodColumn);
-  resultData = processNumbers(resultData, metric.label, formData.numbersFormat, formData.numbersFormatDigits);
+  const { xAxisColumn, numbersFormat, legendPosition, bubbleSize, colorScheme, entity, series } = formData as FormData;
 
   return {
-    dataKey: valueColumn,
     xAxisDataKey: xAxisColumn,
     xAxisLabel: formData.xAxisLabel ?? '',
     yAxisLabel: formData.yAxisLabel ?? '',
@@ -79,11 +55,15 @@ export default function transformProps(chartProps: ChartProps): WaterfallChartPr
     yAxisLabelAngle: -Number(formData.yAxisLabelAngle),
     width,
     height,
+    bubbleSize: bubbleSize ?? 1000,
     legendPosition,
-    showHorizontalGridLines,
     numbersFormat,
-    data: resultData,
-    onBarClick: () => null,
-    resetFilters: () => null,
+    colorScheme,
+    data,
+    entity,
+    series,
+    xAxis: formData.xAxis?.label ?? formData.xAxis,
+    yAxis: formData.yAxis?.label ?? formData.yAxis,
+    zAxis: formData.zAxis?.label ?? formData.zAxis,
   };
 }
