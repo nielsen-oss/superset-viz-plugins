@@ -4,12 +4,9 @@ exports[`plugin-chart-composed All charts with breakdowns 1`] = `
 Object {
   "AreaProps": Array [
     Object {
-      "children": Array [
-        false,
-        false,
-      ],
+      "children": undefined,
       "dataKey": "COUNT_DISTINCT(period)_$_Custom",
-      "fill": "#9467bd",
+      "fill": "#e377c2",
       "isAnimationActive": undefined,
       "label": Object {
         "breakdown": "COUNT_DISTINCT(period)_$_Custom",
@@ -108,7 +105,7 @@ Object {
         "position": "center",
       },
       "opacity": 0.8,
-      "stroke": "#9467bd",
+      "stroke": "#e377c2",
       "strokeWidth": 2,
       "type": "basis",
       "yAxisId": "left",
@@ -117,12 +114,9 @@ Object {
   ],
   "BarProps": Array [
     Object {
-      "children": Array [
-        false,
-        false,
-      ],
+      "children": undefined,
       "dataKey": "COUNT_DISTINCT(efficiency)_$_Custom",
-      "fill": "#7f7f7f",
+      "fill": "#17becf",
       "isAnimationActive": undefined,
       "label": Object {
         "breakdown": "COUNT_DISTINCT(efficiency)_$_Custom",
@@ -244,49 +238,49 @@ Object {
           payload={
             Array [
               Object {
-                "color": "#1f77b4",
+                "color": "#2ca02c",
                 "id": "COUNT_DISTINCT(period)_$_Standard",
                 "type": "square",
                 "value": "COUNT_DISTINCT(period), Standard",
               },
               Object {
-                "color": "#ff7f0e",
+                "color": "#d62728",
                 "id": "COUNT_DISTINCT(group_name)_$_Standard",
                 "type": "square",
                 "value": "COUNT_DISTINCT(group_name), Standard",
               },
               Object {
-                "color": "#2ca02c",
+                "color": "#9467bd",
                 "id": "COUNT_DISTINCT(due_to_group)_$_Standard",
                 "type": "square",
                 "value": "COUNT_DISTINCT(due_to_group), Standard",
               },
               Object {
-                "color": "#d62728",
+                "color": "#8c564b",
                 "id": "COUNT_DISTINCT(efficiency)_$_Standard",
                 "type": "square",
                 "value": "COUNT_DISTINCT(efficiency), Standard",
               },
               Object {
-                "color": "#9467bd",
+                "color": "#e377c2",
                 "id": "COUNT_DISTINCT(period)_$_Custom",
                 "type": "square",
                 "value": "COUNT_DISTINCT(period), Custom",
               },
               Object {
-                "color": "#8c564b",
+                "color": "#7f7f7f",
                 "id": "COUNT_DISTINCT(group_name)_$_Custom",
                 "type": "square",
                 "value": "COUNT_DISTINCT(group_name), Custom",
               },
               Object {
-                "color": "#e377c2",
+                "color": "#bcbd22",
                 "id": "COUNT_DISTINCT(due_to_group)_$_Custom",
                 "type": "square",
                 "value": "COUNT_DISTINCT(due_to_group), Custom",
               },
               Object {
-                "color": "#7f7f7f",
+                "color": "#17becf",
                 "id": "COUNT_DISTINCT(efficiency)_$_Custom",
                 "type": "square",
                 "value": "COUNT_DISTINCT(efficiency), Custom",
@@ -359,6 +353,19 @@ Object {
         <mockConstructor
           content={
             <ComposedChartTooltip
+              breakdowns={
+                Array [
+                  "COUNT_DISTINCT(period)_$_Standard",
+                  "COUNT_DISTINCT(group_name)_$_Standard",
+                  "COUNT_DISTINCT(due_to_group)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(period)_$_Custom",
+                  "COUNT_DISTINCT(group_name)_$_Custom",
+                  "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
+                ]
+              }
+              hasExcludedBars={true}
               hasOrderedBars={false}
               isTimeSeries={false}
               numbersFormat="SMART_NUMBER"
@@ -376,7 +383,7 @@ Object {
         Array [
           <mockConstructor
             dataKey="COUNT_DISTINCT(period)_$_Standard"
-            fill="#1f77b4"
+            fill="#2ca02c"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(period)_$_Standard",
@@ -476,7 +483,7 @@ Object {
               }
             }
             opacity={0.8}
-            stroke="#1f77b4"
+            stroke="#2ca02c"
             strokeWidth={2}
             type="basis"
             yAxisId="left"
@@ -583,14 +590,14 @@ Object {
               }
             }
             opacity={0.8}
-            stroke="#ff7f0e"
+            stroke="#d62728"
             strokeWidth={2}
             type="linear"
             yAxisId="left"
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(due_to_group)_$_Standard"
-            fill="#2ca02c"
+            fill="#9467bd"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(due_to_group)_$_Standard",
@@ -695,7 +702,7 @@ Object {
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(efficiency)_$_Standard"
-            fill="#d62728"
+            fill="#8c564b"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(efficiency)_$_Standard",
@@ -800,7 +807,7 @@ Object {
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(period)_$_Custom"
-            fill="#9467bd"
+            fill="#e377c2"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(period)_$_Custom",
@@ -900,7 +907,7 @@ Object {
               }
             }
             opacity={0.8}
-            stroke="#9467bd"
+            stroke="#e377c2"
             strokeWidth={2}
             type="basis"
             yAxisId="left"
@@ -1007,14 +1014,14 @@ Object {
               }
             }
             opacity={0.8}
-            stroke="#8c564b"
+            stroke="#7f7f7f"
             strokeWidth={2}
             type="linear"
             yAxisId="left"
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(due_to_group)_$_Custom"
-            fill="#e377c2"
+            fill="#bcbd22"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(due_to_group)_$_Custom",
@@ -1119,7 +1126,7 @@ Object {
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(efficiency)_$_Custom"
-            fill="#7f7f7f"
+            fill="#17becf"
             label={
               Object {
                 "breakdown": "COUNT_DISTINCT(efficiency)_$_Custom",
@@ -1326,49 +1333,49 @@ Object {
       "onClick": [Function],
       "payload": Array [
         Object {
-          "color": "#1f77b4",
+          "color": "#2ca02c",
           "id": "COUNT_DISTINCT(period)_$_Standard",
           "type": "square",
           "value": "COUNT_DISTINCT(period), Standard",
         },
         Object {
-          "color": "#ff7f0e",
+          "color": "#d62728",
           "id": "COUNT_DISTINCT(group_name)_$_Standard",
           "type": "square",
           "value": "COUNT_DISTINCT(group_name), Standard",
         },
         Object {
-          "color": "#2ca02c",
+          "color": "#9467bd",
           "id": "COUNT_DISTINCT(due_to_group)_$_Standard",
           "type": "square",
           "value": "COUNT_DISTINCT(due_to_group), Standard",
         },
         Object {
-          "color": "#d62728",
+          "color": "#8c564b",
           "id": "COUNT_DISTINCT(efficiency)_$_Standard",
           "type": "square",
           "value": "COUNT_DISTINCT(efficiency), Standard",
         },
         Object {
-          "color": "#9467bd",
+          "color": "#e377c2",
           "id": "COUNT_DISTINCT(period)_$_Custom",
           "type": "square",
           "value": "COUNT_DISTINCT(period), Custom",
         },
         Object {
-          "color": "#8c564b",
+          "color": "#7f7f7f",
           "id": "COUNT_DISTINCT(group_name)_$_Custom",
           "type": "square",
           "value": "COUNT_DISTINCT(group_name), Custom",
         },
         Object {
-          "color": "#e377c2",
+          "color": "#bcbd22",
           "id": "COUNT_DISTINCT(due_to_group)_$_Custom",
           "type": "square",
           "value": "COUNT_DISTINCT(due_to_group), Custom",
         },
         Object {
-          "color": "#7f7f7f",
+          "color": "#17becf",
           "id": "COUNT_DISTINCT(efficiency)_$_Custom",
           "type": "square",
           "value": "COUNT_DISTINCT(efficiency), Custom",
@@ -1385,10 +1392,7 @@ Object {
   ],
   "LineProps": Array [
     Object {
-      "children": Array [
-        false,
-        false,
-      ],
+      "children": undefined,
       "connectNulls": true,
       "dataKey": "COUNT_DISTINCT(group_name)_$_Custom",
       "isAnimationActive": undefined,
@@ -1489,7 +1493,7 @@ Object {
         "position": "center",
       },
       "opacity": 0.8,
-      "stroke": "#8c564b",
+      "stroke": "#7f7f7f",
       "strokeWidth": 2,
       "type": "linear",
       "yAxisId": "left",
@@ -1498,12 +1502,9 @@ Object {
   ],
   "ScatterProps": Array [
     Object {
-      "children": Array [
-        false,
-        false,
-      ],
+      "children": undefined,
       "dataKey": "COUNT_DISTINCT(due_to_group)_$_Custom",
-      "fill": "#e377c2",
+      "fill": "#bcbd22",
       "isAnimationActive": undefined,
       "label": Object {
         "breakdown": "COUNT_DISTINCT(due_to_group)_$_Custom",
@@ -1610,6 +1611,19 @@ Object {
   "TooltipProps": Array [
     Object {
       "content": <ComposedChartTooltip
+        breakdowns={
+          Array [
+            "COUNT_DISTINCT(period)_$_Standard",
+            "COUNT_DISTINCT(group_name)_$_Standard",
+            "COUNT_DISTINCT(due_to_group)_$_Standard",
+            "COUNT_DISTINCT(efficiency)_$_Standard",
+            "COUNT_DISTINCT(period)_$_Custom",
+            "COUNT_DISTINCT(group_name)_$_Custom",
+            "COUNT_DISTINCT(due_to_group)_$_Custom",
+            "COUNT_DISTINCT(efficiency)_$_Custom",
+          ]
+        }
+        hasExcludedBars={true}
         hasOrderedBars={false}
         isTimeSeries={false}
         numbersFormat="SMART_NUMBER"
@@ -1666,10 +1680,7 @@ exports[`plugin-chart-composed Chart with default props (legend left / horizonta
 Object {
   "BarProps": Array [
     Object {
-      "children": Array [
-        false,
-        false,
-      ],
+      "children": undefined,
       "dataKey": "COUNT_DISTINCT(group_name)",
       "fill": "#ff7f0e",
       "isAnimationActive": undefined,
@@ -1833,6 +1844,13 @@ Object {
         <mockConstructor
           content={
             <ComposedChartTooltip
+              breakdowns={
+                Array [
+                  "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
+                ]
+              }
+              hasExcludedBars={false}
               hasOrderedBars={false}
               isTimeSeries={false}
               numbersFormat="SMART_NUMBER"
@@ -2065,6 +2083,13 @@ Object {
   "TooltipProps": Array [
     Object {
       "content": <ComposedChartTooltip
+        breakdowns={
+          Array [
+            "COUNT_DISTINCT(period)",
+            "COUNT_DISTINCT(group_name)",
+          ]
+        }
+        hasExcludedBars={false}
         hasOrderedBars={false}
         isTimeSeries={false}
         numbersFormat="SMART_NUMBER"
@@ -2197,6 +2222,13 @@ Object {
         <mockConstructor
           content={
             <ComposedChartTooltip
+              breakdowns={
+                Array [
+                  "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
+                ]
+              }
+              hasExcludedBars={false}
               hasOrderedBars={false}
               isTimeSeries={false}
               numbersFormat="SMART_NUMBER"
@@ -2427,6 +2459,13 @@ Object {
   "TooltipProps": Array [
     Object {
       "content": <ComposedChartTooltip
+        breakdowns={
+          Array [
+            "COUNT_DISTINCT(period)",
+            "COUNT_DISTINCT(group_name)",
+          ]
+        }
+        hasExcludedBars={false}
         hasOrderedBars={false}
         isTimeSeries={false}
         numbersFormat="SMART_NUMBER"
@@ -2482,10 +2521,7 @@ exports[`plugin-chart-composed Chart with default props (legend top / horizontal
 Object {
   "BarProps": Array [
     Object {
-      "children": Array [
-        false,
-        false,
-      ],
+      "children": undefined,
       "dataKey": "COUNT_DISTINCT(group_name)",
       "fill": "#ff7f0e",
       "isAnimationActive": undefined,
@@ -2621,6 +2657,13 @@ Object {
         <mockConstructor
           content={
             <ComposedChartTooltip
+              breakdowns={
+                Array [
+                  "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
+                ]
+              }
+              hasExcludedBars={false}
               hasOrderedBars={false}
               isTimeSeries={false}
               numbersFormat="SMART_NUMBER"
@@ -2828,6 +2871,13 @@ Object {
   "TooltipProps": Array [
     Object {
       "content": <ComposedChartTooltip
+        breakdowns={
+          Array [
+            "COUNT_DISTINCT(period)",
+            "COUNT_DISTINCT(group_name)",
+          ]
+        }
+        hasExcludedBars={false}
         hasOrderedBars={false}
         isTimeSeries={false}
         numbersFormat="SMART_NUMBER"

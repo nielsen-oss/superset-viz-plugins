@@ -17,9 +17,8 @@
  * under the License.
  */
 import { useCallback, useMemo } from 'react';
-import { processBarChartOrder } from './utils';
+import { checkIsMetricStacked, processBarChartOrder } from './utils';
 import { ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
-import { BarChartValue } from './types';
 
 export const useCurrentData = (
   data: ResultData[],
@@ -30,6 +29,9 @@ export const useCurrentData = (
   orderByYColumn: SortingType,
   showTotals: boolean,
   yColumns: string[],
+  excludedMetricsForStackedBars: string[],
+  includedMetricsForStackedBars: string[],
+  isMainChartStacked: boolean,
 ): ResultData[] => {
   let currentData = useMemo(
     () =>
@@ -42,8 +44,17 @@ export const useCurrentData = (
   );
 
   currentData = useMemo(
-    () => processBarChartOrder(hasOrderedBars, breakdowns, yColumns, currentData, colorScheme, orderByYColumn),
-    [breakdowns, colorScheme, currentData, hasOrderedBars, yColumns, orderByYColumn],
+    () =>
+      processBarChartOrder(
+        hasOrderedBars,
+        breakdowns,
+        yColumns,
+        currentData,
+        colorScheme,
+        orderByYColumn,
+        excludedMetricsForStackedBars,
+      ),
+    [breakdowns, colorScheme, currentData, hasOrderedBars, yColumns, orderByYColumn, excludedMetricsForStackedBars],
   );
 
   currentData = useMemo(
@@ -54,16 +65,26 @@ export const useCurrentData = (
           ? breakdowns.reduce(
               (total, breakdown) =>
                 total +
-                (((hasOrderedBars
-                  ? (Object.values(item).find(
-                      itemValue => (itemValue as BarChartValue)?.id === breakdown,
-                    ) as BarChartValue)?.value ?? 0
-                  : item[breakdown]) as number) ?? 0),
+                (checkIsMetricStacked(
+                  isMainChartStacked,
+                  breakdown,
+                  excludedMetricsForStackedBars,
+                  includedMetricsForStackedBars,
+                )
+                  ? (item[breakdown] as number) ?? 0
+                  : 0),
               0,
             )
           : undefined,
       })),
-    [breakdowns, currentData, hasOrderedBars, showTotals],
+    [
+      breakdowns,
+      currentData,
+      excludedMetricsForStackedBars,
+      includedMetricsForStackedBars,
+      isMainChartStacked,
+      showTotals,
+    ],
   );
 
   return currentData;

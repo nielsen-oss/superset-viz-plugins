@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { QueryFormColumn, t } from '@superset-ui/core';
+import { JsonObject, QueryFormColumn, t } from '@superset-ui/core';
 import { ControlPanelsContainerProps, ControlStateMapping } from '@superset-ui/chart-controls';
 import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/types';
 
@@ -77,7 +77,7 @@ export type ResultData = {
   rechartsDataKeyUI: string;
   rechartsTotal?: number;
   color?: string;
-  [key: string]: BarChartValue | string | number | undefined;
+  [key: string]: BarChartValue | string | number | undefined | JsonObject;
 };
 
 export type ColorsMap = { [key: string]: string };
