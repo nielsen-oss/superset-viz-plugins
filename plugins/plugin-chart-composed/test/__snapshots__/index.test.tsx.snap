@@ -4,7 +4,10 @@ exports[`plugin-chart-composed All charts with breakdowns 1`] = `
 Object {
   "AreaProps": Array [
     Object {
-      "children": undefined,
+      "children": Array [
+        false,
+        undefined,
+      ],
       "dataKey": "COUNT_DISTINCT(period)_$_Custom",
       "fill": "#e377c2",
       "isAnimationActive": undefined,
@@ -99,9 +102,18 @@ Object {
             "rechartsTotal": undefined,
           },
         ],
+        "excludedMetricsForStackedBars": Array [
+          "COUNT_DISTINCT(period)",
+          "COUNT_DISTINCT(group_name)",
+          "COUNT_DISTINCT(due_to_group)",
+          "COUNT_DISTINCT(efficiency)",
+        ],
         "fill": "black",
         "formatter": [Function],
         "hasOrderedBars": false,
+        "includedMetricsForStackedBars": Array [],
+        "isMainChartStacked": true,
+        "keyIndex": 4,
         "position": "center",
       },
       "opacity": 0.8,
@@ -114,7 +126,10 @@ Object {
   ],
   "BarProps": Array [
     Object {
-      "children": undefined,
+      "children": Array [
+        false,
+        undefined,
+      ],
       "dataKey": "COUNT_DISTINCT(efficiency)_$_Custom",
       "fill": "#17becf",
       "isAnimationActive": undefined,
@@ -209,9 +224,18 @@ Object {
             "rechartsTotal": undefined,
           },
         ],
+        "excludedMetricsForStackedBars": Array [
+          "COUNT_DISTINCT(period)",
+          "COUNT_DISTINCT(group_name)",
+          "COUNT_DISTINCT(due_to_group)",
+          "COUNT_DISTINCT(efficiency)",
+        ],
         "fill": "black",
         "formatter": [Function],
         "hasOrderedBars": false,
+        "includedMetricsForStackedBars": Array [],
+        "isMainChartStacked": true,
+        "keyIndex": 7,
         "position": "center",
       },
       "opacity": 0.6,
@@ -476,9 +500,18 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(due_to_group)",
+                  "COUNT_DISTINCT(efficiency)",
+                ],
                 "fill": "black",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": true,
+                "keyIndex": 0,
                 "position": "center",
               }
             }
@@ -583,9 +616,18 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(due_to_group)",
+                  "COUNT_DISTINCT(efficiency)",
+                ],
                 "fill": "black",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": true,
+                "keyIndex": 1,
                 "position": "center",
               }
             }
@@ -690,9 +732,18 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(due_to_group)",
+                  "COUNT_DISTINCT(efficiency)",
+                ],
                 "fill": "black",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": true,
+                "keyIndex": 2,
                 "position": "center",
               }
             }
@@ -795,9 +846,18 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(due_to_group)",
+                  "COUNT_DISTINCT(efficiency)",
+                ],
                 "fill": "black",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": true,
+                "keyIndex": 3,
                 "position": "center",
               }
             }
@@ -900,9 +960,18 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(due_to_group)",
+                  "COUNT_DISTINCT(efficiency)",
+                ],
                 "fill": "black",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": true,
+                "keyIndex": 4,
                 "position": "center",
               }
             }
@@ -1007,9 +1076,18 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(due_to_group)",
+                  "COUNT_DISTINCT(efficiency)",
+                ],
                 "fill": "black",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": true,
+                "keyIndex": 5,
                 "position": "center",
               }
             }
@@ -1114,9 +1192,18 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(due_to_group)",
+                  "COUNT_DISTINCT(efficiency)",
+                ],
                 "fill": "black",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": true,
+                "keyIndex": 6,
                 "position": "center",
               }
             }
@@ -1219,9 +1306,18 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(due_to_group)",
+                  "COUNT_DISTINCT(efficiency)",
+                ],
                 "fill": "black",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": true,
+                "keyIndex": 7,
                 "position": "center",
               }
             }
@@ -1392,7 +1488,10 @@ Object {
   ],
   "LineProps": Array [
     Object {
-      "children": undefined,
+      "children": Array [
+        false,
+        undefined,
+      ],
       "connectNulls": true,
       "dataKey": "COUNT_DISTINCT(group_name)_$_Custom",
       "isAnimationActive": undefined,
@@ -1487,9 +1586,18 @@ Object {
             "rechartsTotal": undefined,
           },
         ],
+        "excludedMetricsForStackedBars": Array [
+          "COUNT_DISTINCT(period)",
+          "COUNT_DISTINCT(group_name)",
+          "COUNT_DISTINCT(due_to_group)",
+          "COUNT_DISTINCT(efficiency)",
+        ],
         "fill": "black",
         "formatter": [Function],
         "hasOrderedBars": false,
+        "includedMetricsForStackedBars": Array [],
+        "isMainChartStacked": true,
+        "keyIndex": 5,
         "position": "center",
       },
       "opacity": 0.8,
@@ -1502,7 +1610,10 @@ Object {
   ],
   "ScatterProps": Array [
     Object {
-      "children": undefined,
+      "children": Array [
+        false,
+        undefined,
+      ],
       "dataKey": "COUNT_DISTINCT(due_to_group)_$_Custom",
       "fill": "#bcbd22",
       "isAnimationActive": undefined,
@@ -1597,9 +1708,18 @@ Object {
             "rechartsTotal": undefined,
           },
         ],
+        "excludedMetricsForStackedBars": Array [
+          "COUNT_DISTINCT(period)",
+          "COUNT_DISTINCT(group_name)",
+          "COUNT_DISTINCT(due_to_group)",
+          "COUNT_DISTINCT(efficiency)",
+        ],
         "fill": "black",
         "formatter": [Function],
         "hasOrderedBars": false,
+        "includedMetricsForStackedBars": Array [],
+        "isMainChartStacked": true,
+        "keyIndex": 6,
         "position": "center",
       },
       "opacity": 0.8,
@@ -1680,7 +1800,10 @@ exports[`plugin-chart-composed Chart with default props (legend left / horizonta
 Object {
   "BarProps": Array [
     Object {
-      "children": undefined,
+      "children": Array [
+        false,
+        undefined,
+      ],
       "dataKey": "COUNT_DISTINCT(group_name)",
       "fill": "#ff7f0e",
       "isAnimationActive": undefined,
@@ -1733,9 +1856,13 @@ Object {
             "rechartsTotal": undefined,
           },
         ],
+        "excludedMetricsForStackedBars": Array [],
         "fill": "white",
         "formatter": [Function],
         "hasOrderedBars": false,
+        "includedMetricsForStackedBars": Array [],
+        "isMainChartStacked": false,
+        "keyIndex": 1,
         "position": "center",
       },
       "opacity": 1,
@@ -1917,9 +2044,13 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [],
                 "fill": "white",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": false,
+                "keyIndex": 0,
                 "position": "center",
               }
             }
@@ -1980,9 +2111,13 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [],
                 "fill": "white",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": false,
+                "keyIndex": 1,
                 "position": "center",
               }
             }
@@ -2295,9 +2430,13 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [],
                 "fill": "black",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": true,
+                "keyIndex": 0,
                 "position": "center",
               }
             }
@@ -2358,9 +2497,13 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [],
                 "fill": "black",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": true,
+                "keyIndex": 1,
                 "position": "center",
               }
             }
@@ -2521,7 +2664,10 @@ exports[`plugin-chart-composed Chart with default props (legend top / horizontal
 Object {
   "BarProps": Array [
     Object {
-      "children": undefined,
+      "children": Array [
+        false,
+        undefined,
+      ],
       "dataKey": "COUNT_DISTINCT(group_name)",
       "fill": "#ff7f0e",
       "isAnimationActive": undefined,
@@ -2566,9 +2712,13 @@ Object {
             "rechartsTotal": undefined,
           },
         ],
+        "excludedMetricsForStackedBars": Array [],
         "fill": "white",
         "formatter": [Function],
         "hasOrderedBars": false,
+        "includedMetricsForStackedBars": Array [],
+        "isMainChartStacked": false,
+        "keyIndex": 1,
         "position": "center",
       },
       "opacity": 1,
@@ -2722,9 +2872,13 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [],
                 "fill": "white",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": false,
+                "keyIndex": 0,
                 "position": "center",
               }
             }
@@ -2777,9 +2931,13 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
+                "excludedMetricsForStackedBars": Array [],
                 "fill": "white",
                 "formatter": [Function],
                 "hasOrderedBars": false,
+                "includedMetricsForStackedBars": Array [],
+                "isMainChartStacked": false,
+                "keyIndex": 1,
                 "position": "center",
               }
             }
