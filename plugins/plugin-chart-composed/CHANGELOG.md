@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.25.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.24.1...@superset-viz-plugins/plugin-chart-composed@0.25.0) (2021-10-04)
+
+
+### Features
+
+* Support ordered bars with multi types for metrics ([#78](https://github.com/nielsen-oss/superset-viz-plugins/issues/78)) ([3ef0225](https://github.com/nielsen-oss/superset-viz-plugins/commit/3ef0225bbff0f78731447d24af5c8d8dee45dd54))
+
+
+
+
+
 ## [0.24.1](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.24.0...@superset-viz-plugins/plugin-chart-composed@0.24.1) (2021-08-23)
 
 
