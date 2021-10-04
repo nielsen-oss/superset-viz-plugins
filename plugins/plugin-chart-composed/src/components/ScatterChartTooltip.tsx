@@ -17,7 +17,7 @@
  * under the License.
  */
 import React, { FC } from 'react';
-import { CategoricalColorNamespace, getNumberFormatter, styled, t } from '@superset-ui/core';
+import { CategoricalColorNamespace, getNumberFormatter, styled } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
 import { getMetricName } from './utils';
 

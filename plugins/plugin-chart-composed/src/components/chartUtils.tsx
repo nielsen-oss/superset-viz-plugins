@@ -33,11 +33,10 @@ import {
   Cell,
 } from 'recharts';
 import { CategoricalColorNamespace, getNumberFormatter, JsonObject } from '@superset-ui/core';
-import { BREAKDOWN_SEPARATOR, ColorsMap, LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
+import { BREAKDOWN_SEPARATOR, LabelColors, ResultData, Z_SEPARATOR } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 import { ResetProps } from './ComposedChart';
 import {
-  BarChartValue,
   BarChartValueMap,
   CHART_SUB_TYPES,
   CHART_TYPES,
@@ -48,27 +47,56 @@ import {
   MIN_BAR_SIZE_FOR_LABEL,
   MIN_SYMBOL_WIDTH_FOR_LABEL,
 } from './types';
+import { checkIsMetricStacked, getValueForBarChart } from './utils';
 
 const emptyRender = () => null;
-
-export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[] {
-  const result: ResultData[] = [];
-  arrayOfObjects.forEach(item => {
-    const foundItem = result.find(resultItem => resultItem[key] === item[key]);
-    if (foundItem) {
-      Object.assign(foundItem, item);
-      return;
-    }
-    result.push(item);
-  });
-  return result;
-}
 
 export const getMetricName = (name: string, yColumns: string[], zDimension?: string) => {
   if (name?.startsWith(Z_SEPARATOR)) {
     return zDimension;
   }
   return yColumns.length === 1 ? name?.split(BREAKDOWN_SEPARATOR).pop() : name?.split(BREAKDOWN_SEPARATOR).join(', ');
+};
+
+export const renderLabel = ({
+  formatter = value => `${value}`,
+  width: labelWidth = 0,
+  height: labelHeight = 0,
+  currentData,
+  breakdown,
+  index,
+  isMainChartStacked,
+  excludedMetricsForStackedBars,
+  includedMetricsForStackedBars,
+  hasOrderedBars,
+  keyIndex,
+}: LabelProps & {
+  currentData: ResultData[];
+  breakdown: string;
+  index: number;
+  hasOrderedBars: boolean;
+  breakdowns: string[];
+  excludedMetricsForStackedBars: string[];
+  includedMetricsForStackedBars: string[];
+  isMainChartStacked: boolean;
+  keyIndex: number;
+}) => {
+  let formattedValue = `${formatter(currentData[index][breakdown] as number)}`;
+  if (
+    hasOrderedBars &&
+    checkIsMetricStacked(isMainChartStacked, breakdown, excludedMetricsForStackedBars, includedMetricsForStackedBars)
+  ) {
+    const item = currentData[index];
+    // @ts-ignore
+    formattedValue = `${formatter(item[item?.orderedBarsDataMap?.[keyIndex]]?.value) ?? ''}`;
+  }
+  if (
+    Math.abs(labelHeight) < MIN_BAR_SIZE_FOR_LABEL ||
+    Math.abs(labelWidth) < formattedValue.length * MIN_SYMBOL_WIDTH_FOR_LABEL
+  ) {
+    return '';
+  }
+  return formattedValue;
 };
 
 export const getLegendProps = (
@@ -82,11 +110,11 @@ export const getLegendProps = (
   xAxisHeight: number,
   yAxisWidth: number,
 ): LegendProps => {
-  const payload: LegendPayload[] = breakdowns.map((breakdown, index) => ({
+  const payload: LegendPayload[] = breakdowns.map(breakdown => ({
     value: getMetricName(breakdown, yColumns),
     id: breakdown,
     type: disabledDataKeys.includes(breakdown) ? 'line' : 'square',
-    color: CategoricalColorNamespace.getScale(colorScheme)(index),
+    color: CategoricalColorNamespace.getScale(colorScheme)(breakdown),
   }));
   let result = {
     payload,
@@ -498,40 +526,6 @@ export const getCartesianGridProps = ({
   }
 };
 
-const findBarItem = (currentData: ResultData[], index: number, breakdowns: string[], breakdown: string) => {
-  const foundItemIndex = breakdowns.findIndex(item => item === breakdown);
-  return Object.values(currentData[index])[foundItemIndex] as BarChartValue;
-};
-
-export const renderLabel = ({
-  formatter = value => `${value}`,
-  width: labelWidth = 0,
-  height: labelHeight = 0,
-  currentData,
-  breakdown,
-  index,
-  hasOrderedBars,
-  breakdowns,
-}: LabelProps & {
-  currentData: ResultData[];
-  breakdown: string;
-  index: number;
-  hasOrderedBars: boolean;
-  breakdowns: string[];
-}) => {
-  let formattedValue = `${formatter(currentData[index][breakdown] as number)}`;
-  if (hasOrderedBars) {
-    formattedValue = `${formatter(findBarItem(currentData, index, breakdowns, breakdown)?.value) ?? ''}`;
-  }
-  if (
-    Math.abs(labelHeight) < MIN_BAR_SIZE_FOR_LABEL ||
-    Math.abs(labelWidth) < formattedValue.length * MIN_SYMBOL_WIDTH_FOR_LABEL
-  ) {
-    return '';
-  }
-  return formattedValue;
-};
-
 type ChartElementProps = {
   hasOrderedBars: boolean;
   breakdown: string;
@@ -551,11 +545,11 @@ type ChartElementProps = {
   numbersFormat: string;
   updater: number;
   index: number;
-  numberOfRenderedItems: number;
   currentData: ResultData[];
+  includedMetricsForStackedBars: string[];
+  excludedMetricsForStackedBars: string[];
+  isMainChartStacked: boolean;
 };
-
-const getValueForBarChart = (obj: BarChartValueMap, key: string) => obj?.[key]?.value;
 
 export const renderChartElement = ({
   hasOrderedBars,
@@ -576,8 +570,10 @@ export const renderChartElement = ({
   chartSubTypeMetrics,
   showTotals,
   colorScheme,
-  numberOfRenderedItems,
   layout,
+  excludedMetricsForStackedBars,
+  includedMetricsForStackedBars,
+  isMainChartStacked,
 }: ChartElementProps) => {
   let customChartType = chartType;
   let customChartSubType = chartSubType;
@@ -586,8 +582,7 @@ export const renderChartElement = ({
     customChartType = chartTypeMetrics[actualMetricIndex];
     customChartSubType = chartSubTypeMetrics[actualMetricIndex];
   }
-
-  const color = CategoricalColorNamespace.getScale(colorScheme)(index);
+  const color = CategoricalColorNamespace.getScale(colorScheme)(breakdown);
   const { Element, ...elementProps } = getChartElement(
     breakdown,
     customChartType,
@@ -597,18 +592,33 @@ export const renderChartElement = ({
     index,
   );
 
-  const labelListExtraProps: LabelListProps & { fill: string } = {
+  const labelListExtraPropsWithTotal: LabelListProps & { fill: string } = {
     fill: 'black',
     dataKey: 'rechartsTotal',
     position: layout === Layout.horizontal ? 'top' : 'right',
     formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
   };
-  if (index !== numberOfRenderedItems - 1) {
-    labelListExtraProps.content = emptyRender;
+
+  const lastNotExcludedBarIndex =
+    breakdowns.length -
+    1 -
+    [...breakdowns]
+      .reverse()
+      .findIndex(b =>
+        checkIsMetricStacked(isMainChartStacked, b, excludedMetricsForStackedBars, includedMetricsForStackedBars),
+      );
+
+  if (index !== lastNotExcludedBarIndex) {
+    labelListExtraPropsWithTotal.content = emptyRender;
   }
   let dataKey: string | Function = breakdown;
-  if (hasOrderedBars) {
-    dataKey = (val: BarChartValueMap) => getValueForBarChart(val, String(index)) ?? 0; // Not sure why but it works;
+  if (
+    hasOrderedBars &&
+    checkIsMetricStacked(isMainChartStacked, breakdown, excludedMetricsForStackedBars, includedMetricsForStackedBars)
+  ) {
+    dataKey = (val: BarChartValueMap) =>
+      // @ts-ignore
+      getValueForBarChart(val, String(val?.orderedBarsDataMap?.[index])) ?? 0; // Not sure why but it works (about 0);
   }
 
   if (chartType !== CHART_TYPES.BUBBLE_CHART) {
@@ -618,10 +628,14 @@ export const renderChartElement = ({
       position: 'center',
       formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
       content: renderLabel,
+      keyIndex: index,
       currentData,
       breakdown,
       breakdowns,
       hasOrderedBars,
+      isMainChartStacked,
+      excludedMetricsForStackedBars,
+      includedMetricsForStackedBars,
     };
   }
 
@@ -636,97 +650,19 @@ export const renderChartElement = ({
       {...elementProps}
     >
       {hasOrderedBars &&
-        currentData.map(entry => {
-          // @ts-ignore
-          const foundColorIndex = breakdowns.findIndex(b => b === entry[index]?.id);
-          return <Cell fill={CategoricalColorNamespace.getScale(colorScheme)(foundColorIndex)} />;
-        })}
-      {showTotals && <LabelList {...labelListExtraProps} />}
+        checkIsMetricStacked(
+          isMainChartStacked,
+          breakdown,
+          excludedMetricsForStackedBars,
+          includedMetricsForStackedBars,
+        ) &&
+        currentData.map(entry => (
+          <Cell
+            // @ts-ignore
+            fill={CategoricalColorNamespace.getScale(colorScheme)(entry[entry?.orderedBarsDataMap?.[index]]?.id)}
+          />
+        ))}
+      {showTotals && <LabelList {...labelListExtraPropsWithTotal} />}
     </Element>
   );
 };
-
-const fillBarsDataByOrder = (
-  breakdowns: string[],
-  sortedData: ResultData,
-  tempSortedArray: BarChartValue[],
-  barChartColorsMap: ColorsMap,
-) => {
-  const newSortedData = { ...sortedData };
-  // Putting sorted bars back to result data by their index order
-  breakdowns.forEach((item, index) => {
-    if (tempSortedArray[index]) {
-      newSortedData[index] = {
-        ...tempSortedArray[index],
-        color: barChartColorsMap[tempSortedArray[index].id],
-      };
-    }
-  });
-  return newSortedData;
-};
-
-const buildSortedDataForBars = (
-  dataItem: ResultData,
-  tempSortedArray: BarChartValue[],
-  yColumns: string[],
-  breakdowns: string[],
-) => {
-  const hasBreakdowns = Object.keys(dataItem).some(item => item.includes(BREAKDOWN_SEPARATOR));
-  return Object.entries(dataItem).reduce((prev, next) => {
-    // If not metric/breakdown field just return it
-    if (
-      !String(next[0]).includes(BREAKDOWN_SEPARATOR) &&
-      !yColumns.includes(String(next[0])) &&
-      !breakdowns.includes(String(next[0]))
-    ) {
-      return { ...prev, [next[0]]: next[1] };
-    }
-    // If not not relevant field when use breakdowns
-    if (!(!String(next[0]).includes(BREAKDOWN_SEPARATOR) && hasBreakdowns)) {
-      // Build array with breakdowns to sort it next
-      tempSortedArray.push({ id: next[0], value: next[1] as number, name: next[0], color: 'transparent' });
-    }
-    return prev;
-  }, {} as ResultData);
-};
-
-export const processBarChartOrder = (
-  hasOrderedBars: boolean,
-  breakdowns: string[],
-  yColumns: string[],
-  resultData: ResultData[],
-  colorScheme: string,
-  orderByYColumn: SortingType,
-): ResultData[] => {
-  if (hasOrderedBars) {
-    const barChartColorsMap: ColorsMap = {};
-
-    // Build this model: https://mabdelsattar.medium.com/recharts-stack-order-bf22c245d0be
-    breakdowns.forEach((breakdown, index) => {
-      barChartColorsMap[breakdown] = CategoricalColorNamespace.getScale(colorScheme)(index);
-    });
-    return resultData.map(dataItem => {
-      const tempSortedArray: BarChartValue[] = [];
-      const sortedData: ResultData = buildSortedDataForBars(dataItem, tempSortedArray, yColumns, breakdowns);
-
-      // Sorting bars according order
-      const sortSign = orderByYColumn === SortingType.ASC ? 1 : -1;
-      tempSortedArray.sort((a, b) => sortSign * (a?.value - b?.value));
-
-      return fillBarsDataByOrder(breakdowns, sortedData, tempSortedArray, barChartColorsMap);
-    });
-  }
-  return resultData;
-};
-
-export function debounce(func: Function, timeout = 300) {
-  let timer: number;
-  return (...args: any[]) => {
-    clearTimeout(timer);
-    // @ts-ignore
-    timer = setTimeout(() => {
-      // @ts-ignore
-      func.apply(this, args);
-    }, timeout);
-  };
-}
