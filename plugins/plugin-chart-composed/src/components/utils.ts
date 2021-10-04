@@ -33,7 +33,10 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   return result;
 }
 
-export const getValueForBarChart = (obj: BarChartValueMap, key: string) => obj?.[key]?.value;
+export const getValueForBarChart = (obj: BarChartValueMap, key: string) => {
+  console.log(obj, key, obj?.[key]?.value);
+  return obj?.[key]?.value;
+};
 
 export const isStackedBar = (ct: keyof typeof CHART_TYPES, cst: keyof typeof CHART_SUB_TYPES) =>
   ct === CHART_TYPES.BAR_CHART && cst === CHART_SUB_TYPES.STACKED;
@@ -61,23 +64,29 @@ export const fillBarsDataByOrder = (
   sortedData: ResultData,
   tempSortedArray: BarChartValue[],
   excludedMetricsForStackedBars: string[],
+  includedMetricsForStackedBars: string[],
+  isMainChartStacked: boolean,
 ) => {
   const newSortedData = { ...sortedData };
   let iterator = 0;
-  const orderedBarsDataMap: JsonObject = {};
   // Putting sorted bars back to result data by their index order
   breakdowns.forEach((item, index) => {
     if (tempSortedArray[index]) {
-      if (!excludedMetricsForStackedBars.includes(tempSortedArray[index]?.id?.split(BREAKDOWN_SEPARATOR)[0])) {
+      if (
+        checkIsMetricStacked(
+          isMainChartStacked,
+          tempSortedArray[index]?.id,
+          excludedMetricsForStackedBars,
+          includedMetricsForStackedBars,
+        )
+      ) {
         newSortedData[iterator] = {
           ...tempSortedArray[index],
         };
-        orderedBarsDataMap[tempSortedArray[index].id] = iterator;
         iterator++;
       }
       // For other custom types if not bar
       newSortedData[tempSortedArray[index].id] = tempSortedArray[index].value;
-      newSortedData.orderedBarsDataMap = orderedBarsDataMap;
     }
   });
   return newSortedData;
@@ -88,30 +97,55 @@ export const buildSortedDataForBars = (
   tempSortedArray: BarChartValue[],
   yColumns: string[],
   breakdowns: string[],
+  isMainChartStacked: boolean,
+  excludedMetricsForStackedBars: string[],
+  includedMetricsForStackedBars: string[],
 ) => {
   const hasBreakdowns = Object.keys(dataItem).some(item => item.includes(BREAKDOWN_SEPARATOR));
-  return Object.entries(dataItem).reduce((prev, next) => {
-    if (
-      !String(next[0]).includes(BREAKDOWN_SEPARATOR) &&
-      !yColumns.includes(String(next[0])) &&
-      !breakdowns.includes(String(next[0]))
-    ) {
-      // If not metric/breakdown field just return it
-      return { ...prev, [next[0]]: next[1] };
-    }
 
-    // If not not relevant field when use breakdowns
-    if (!(!String(next[0]).includes(BREAKDOWN_SEPARATOR) && hasBreakdowns)) {
-      // Build array with breakdowns to sort it next
-      tempSortedArray.push({
-        id: next[0],
-        value: next[1] as number,
-        name: next[0],
-        color: 'transparent',
-      });
-    }
-    return prev;
-  }, {} as ResultData);
+  let iterator = 0;
+  let iteratorOfBreakdownProps = 0;
+  return Object.entries(dataItem).reduce(
+    (prev, next) => {
+      if (
+        !String(next[0]).includes(BREAKDOWN_SEPARATOR) &&
+        !yColumns.includes(String(next[0])) &&
+        !breakdowns.includes(String(next[0]))
+      ) {
+        // If not metric/breakdown field just return it
+        return { ...prev, [next[0]]: next[1] };
+      }
+      const orderedBarsDataMap: JsonObject = { ...prev.orderedBarsDataMap };
+
+      // If not not relevant field when use breakdowns
+      if (!(!String(next[0]).includes(BREAKDOWN_SEPARATOR) && hasBreakdowns)) {
+        orderedBarsDataMap[iteratorOfBreakdownProps] = iterator;
+        // Build array with breakdowns to sort it next
+        if (
+          checkIsMetricStacked(
+            isMainChartStacked,
+            next[0],
+            excludedMetricsForStackedBars,
+            includedMetricsForStackedBars,
+          )
+        ) {
+          iterator++;
+        }
+        tempSortedArray.push({
+          id: next[0],
+          value: next[1] as number,
+          name: next[0],
+          color: 'transparent',
+        });
+        iteratorOfBreakdownProps++;
+      }
+      return {
+        ...prev,
+        orderedBarsDataMap,
+      };
+    },
+    { orderedBarsDataMap: {} } as ResultData,
+  );
 };
 
 export const processBarChartOrder = (
@@ -122,16 +156,34 @@ export const processBarChartOrder = (
   colorScheme: string,
   orderByYColumn: SortingType,
   excludedMetricsForStackedBars: string[],
+  includedMetricsForStackedBars: string[],
+  isMainChartStacked: boolean,
 ): ResultData[] => {
   if (hasOrderedBars) {
     // Build this model: https://mabdelsattar.medium.com/recharts-stack-order-bf22c245d0be
     return resultData.map(dataItem => {
       const tempSortedArray: BarChartValue[] = [];
-      const sortedData: ResultData = buildSortedDataForBars(dataItem, tempSortedArray, yColumns, breakdowns);
+      const sortedData: ResultData = buildSortedDataForBars(
+        dataItem,
+        tempSortedArray,
+        yColumns,
+        breakdowns,
+        isMainChartStacked,
+        excludedMetricsForStackedBars,
+        includedMetricsForStackedBars,
+      );
       // Sorting bars according order
       const sortSign = orderByYColumn === SortingType.ASC ? 1 : -1;
       tempSortedArray.sort((a, b) => sortSign * (a?.value - b?.value));
-      return fillBarsDataByOrder(breakdowns, sortedData, tempSortedArray, excludedMetricsForStackedBars);
+      console.log(sortedData);
+      return fillBarsDataByOrder(
+        breakdowns,
+        sortedData,
+        tempSortedArray,
+        excludedMetricsForStackedBars,
+        includedMetricsForStackedBars,
+        isMainChartStacked,
+      );
     });
   }
   return resultData;

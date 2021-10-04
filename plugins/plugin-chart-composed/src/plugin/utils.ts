@@ -73,6 +73,7 @@ export type FormData = {
 
 export type Data = { [key: string]: string | number };
 export type ResultData = {
+  orderedBarsDataMap?: JsonObject;
   rechartsDataKey: string;
   rechartsDataKeyUI: string;
   rechartsTotal?: number;

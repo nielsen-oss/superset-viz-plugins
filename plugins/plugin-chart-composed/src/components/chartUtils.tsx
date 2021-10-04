@@ -30,6 +30,7 @@ import {
   LabelListProps,
   XAxisProps,
   AxisInterval,
+  Cell,
 } from 'recharts';
 import { CategoricalColorNamespace, getNumberFormatter, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, LabelColors, ResultData, Z_SEPARATOR } from '../plugin/utils';
@@ -64,14 +65,31 @@ export const renderLabel = ({
   currentData,
   breakdown,
   index,
+  isMainChartStacked,
+  excludedMetricsForStackedBars,
+  includedMetricsForStackedBars,
+  hasOrderedBars,
+  keyIndex,
 }: LabelProps & {
   currentData: ResultData[];
   breakdown: string;
   index: number;
   hasOrderedBars: boolean;
   breakdowns: string[];
+  excludedMetricsForStackedBars: string[];
+  includedMetricsForStackedBars: string[];
+  isMainChartStacked: boolean;
+  keyIndex: number;
 }) => {
-  const formattedValue = `${formatter(currentData[index][breakdown] as number)}`;
+  let formattedValue = `${formatter(currentData[index][breakdown] as number)}`;
+  if (
+    hasOrderedBars &&
+    checkIsMetricStacked(isMainChartStacked, breakdown, excludedMetricsForStackedBars, includedMetricsForStackedBars)
+  ) {
+    const item = currentData[index];
+    // @ts-ignore
+    formattedValue = `${formatter(item[item?.orderedBarsDataMap?.[keyIndex]]?.value) ?? ''}`;
+  }
   if (
     Math.abs(labelHeight) < MIN_BAR_SIZE_FOR_LABEL ||
     Math.abs(labelWidth) < formattedValue.length * MIN_SYMBOL_WIDTH_FOR_LABEL
@@ -586,13 +604,8 @@ export const renderChartElement = ({
     1 -
     [...breakdowns]
       .reverse()
-      .findIndex(breakdown =>
-        checkIsMetricStacked(
-          isMainChartStacked,
-          breakdown,
-          excludedMetricsForStackedBars,
-          includedMetricsForStackedBars,
-        ),
+      .findIndex(b =>
+        checkIsMetricStacked(isMainChartStacked, b, excludedMetricsForStackedBars, includedMetricsForStackedBars),
       );
 
   if (index !== lastNotExcludedBarIndex) {
@@ -605,7 +618,7 @@ export const renderChartElement = ({
   ) {
     dataKey = (val: BarChartValueMap) =>
       // @ts-ignore
-      getValueForBarChart(val, String(val?.orderedBarsDataMap?.[breakdown])) ?? 0; // Not sure why but it works (about 0);
+      getValueForBarChart(val, String(val?.orderedBarsDataMap?.[index])) ?? 0; // Not sure why but it works (about 0);
   }
 
   if (chartType !== CHART_TYPES.BUBBLE_CHART) {
@@ -615,10 +628,14 @@ export const renderChartElement = ({
       position: 'center',
       formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
       content: renderLabel,
+      keyIndex: index,
       currentData,
       breakdown,
       breakdowns,
       hasOrderedBars,
+      isMainChartStacked,
+      excludedMetricsForStackedBars,
+      includedMetricsForStackedBars,
     };
   }
 
@@ -632,6 +649,19 @@ export const renderChartElement = ({
       dataKey={dataKey}
       {...elementProps}
     >
+      {hasOrderedBars &&
+        checkIsMetricStacked(
+          isMainChartStacked,
+          breakdown,
+          excludedMetricsForStackedBars,
+          includedMetricsForStackedBars,
+        ) &&
+        currentData.map(entry => (
+          <Cell
+            // @ts-ignore
+            fill={CategoricalColorNamespace.getScale(colorScheme)(entry[entry?.orderedBarsDataMap?.[index]]?.id)}
+          />
+        ))}
       {showTotals && <LabelList {...labelListExtraPropsWithTotal} />}
     </Element>
   );

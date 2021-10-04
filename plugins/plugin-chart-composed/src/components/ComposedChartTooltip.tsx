@@ -87,7 +87,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
               </>
             );
           })}
-          {total && (
+          {!!total && (
             <Line color="black">{`${t(hasExcludedBars ? 'Total (only for stacked bars)' : 'Total')}: ${
               isNaN(total) ? '-' : formatter(total)
             }`}</Line>
@@ -112,7 +112,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
             </>
           );
         })}
-        {total && <Line color="black">{`${t('Total')}: ${isNaN(total) ? '-' : formatter(total)}`}</Line>}
+        {!!total && <Line color="black">{`${t('Total')}: ${isNaN(total) ? '-' : formatter(total)}`}</Line>}
       </Container>
     );
   }

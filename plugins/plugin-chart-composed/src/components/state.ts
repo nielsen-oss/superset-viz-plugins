@@ -53,8 +53,20 @@ export const useCurrentData = (
         colorScheme,
         orderByYColumn,
         excludedMetricsForStackedBars,
+        includedMetricsForStackedBars,
+        isMainChartStacked,
       ),
-    [breakdowns, colorScheme, currentData, hasOrderedBars, yColumns, orderByYColumn, excludedMetricsForStackedBars],
+    [
+      hasOrderedBars,
+      breakdowns,
+      yColumns,
+      currentData,
+      colorScheme,
+      orderByYColumn,
+      excludedMetricsForStackedBars,
+      includedMetricsForStackedBars,
+      isMainChartStacked,
+    ],
   );
 
   currentData = useMemo(
