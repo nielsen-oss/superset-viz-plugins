@@ -103,15 +103,6 @@ export default function transformProps(chartProps: ChartProps) {
     });
   }
 
-  let resultShowTotals = false;
-  if (
-    formData.barChartSubType === CHART_SUB_TYPES.STACKED &&
-    formData.chartType === CHART_TYPES.BAR_CHART &&
-    useCustomTypeMetrics.every(el => !el)
-  ) {
-    resultShowTotals = formData.showTotals;
-  }
-
   const orderByYColumn = formData.useOrderByMetric0 && formData.orderByTypeMetric0;
 
   const hasOrderedBars = formData.chartType === CHART_TYPES.BAR_CHART && !!orderByYColumn;
@@ -148,7 +139,7 @@ export default function transformProps(chartProps: ChartProps) {
     showLegend: formData.showLegend,
     legendPosition: formData.legendPosition,
     chartSubType,
-    showTotals: resultShowTotals,
+    showTotals: formData.showTotals,
     numbersFormat: formData.numbersFormat,
     labelsColor: formData.labelsColor,
     xAxis: {

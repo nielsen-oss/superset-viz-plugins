@@ -32,17 +32,10 @@ import {
 import { styled } from '@superset-ui/core';
 import ComposedChartTooltip from './ComposedChartTooltip';
 import { LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
-import {
-  debounce,
-  getCartesianGridProps,
-  getLegendProps,
-  getXAxisProps,
-  getYAxisProps,
-  renderChartElement,
-} from './utils';
+import { debounce, isStackedBar } from './utils';
+import { getCartesianGridProps, getLegendProps, getXAxisProps, getYAxisProps, renderChartElement } from './chartUtils';
 import { useCurrentData, useZAxisRange } from './state';
 import { CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from './types';
-import { chartType } from '../plugin/configs/chartTypes';
 import ScatterChartTooltip from './ScatterChartTooltip';
 
 type EventData = {
@@ -182,6 +175,20 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   const y2AxisHeight = Math.ceil(y2AxisClientRect?.height || 1);
   const y2AxisWidth = Math.ceil(y2AxisClientRect?.width || 1);
 
+  const { excludedMetricsForStackedBars, includedMetricsForStackedBars, isMainChartStacked } = useMemo(() => {
+    const excludedMetricsForStackedBars = metrics.filter(
+      (metric, i) => hasCustomTypeMetrics[i] && !isStackedBar(chartTypeMetrics[i], chartSubTypeMetrics[i]),
+    );
+    const includedMetricsForStackedBars = metrics.filter(
+      (metric, i) => hasCustomTypeMetrics[i] && isStackedBar(chartTypeMetrics[i], chartSubTypeMetrics[i]),
+    );
+    return {
+      excludedMetricsForStackedBars,
+      includedMetricsForStackedBars,
+      isMainChartStacked: isStackedBar(chartType, chartSubType),
+    };
+  }, [chartSubType, chartSubTypeMetrics, chartType, chartTypeMetrics, hasCustomTypeMetrics, metrics]);
+
   const currentData = useCurrentData(
     data,
     disabledDataKeys,
@@ -191,6 +198,9 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     orderByYColumn,
     showTotals,
     yColumns,
+    excludedMetricsForStackedBars,
+    includedMetricsForStackedBars,
+    isMainChartStacked,
   );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -259,6 +269,9 @@ const ComposedChart: FC<ComposedChartProps> = props => {
       hasOrderedBars={hasOrderedBars}
       isTimeSeries={isTimeSeries}
       zDimension={zDimension}
+      breakdowns={breakdowns}
+      colorScheme={colorScheme}
+      hasExcludedBars={!!excludedMetricsForStackedBars.length}
     />
   );
   if (chartType === CHART_TYPES.BUBBLE_CHART && !hasCustomTypeMetrics.some(has => has)) {
@@ -395,7 +408,9 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             chartSubTypeMetrics,
             colorScheme,
             breakdowns,
-            numberOfRenderedItems: breakdowns.length - (hasOrderedBars ? disabledDataKeys.length : 0),
+            excludedMetricsForStackedBars,
+            includedMetricsForStackedBars,
+            isMainChartStacked,
           }),
         )}
       </ChartContainer>
