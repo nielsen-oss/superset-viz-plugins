@@ -19,6 +19,7 @@
 import { JsonObject, QueryFormColumn, t } from '@superset-ui/core';
 import { ControlPanelsContainerProps, ControlStateMapping } from '@superset-ui/chart-controls';
 import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/types';
+import { hideLegendForMetric } from './configs/legend';
 
 export const MAX_FORM_CONTROLS = 5;
 export const BREAKDOWN_SEPARATOR = '_$_';
