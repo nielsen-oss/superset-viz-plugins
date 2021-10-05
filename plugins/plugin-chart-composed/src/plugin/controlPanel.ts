@@ -279,7 +279,7 @@ const config: ControlPanelConfig = {
     },
     {
       label: t('Legend'),
-      expanded: true,
+      expanded: false,
       controlSetRows: [[showLegend, legendPosition], ...hideLegendForMetric],
     },
     {
