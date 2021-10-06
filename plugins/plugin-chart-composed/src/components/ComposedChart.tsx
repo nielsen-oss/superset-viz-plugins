@@ -69,16 +69,23 @@ export type YAxisProps = {
 export type ComposedChartProps = {
   orderByYColumn: SortingType;
   isTimeSeries: boolean;
+  /**
+   * Height of chart */
   height: number;
   bubbleSize: number;
   width: number;
   hasOrderedBars: boolean;
   showTotals: boolean;
+  /**
+   * Show legend */
   showLegend: boolean;
   legendPosition: LegendPosition;
   data: ResultData[];
   layout: Layout;
+  /**
+   * List of metrics */
   metrics: string[];
+  hideLegendForMetrics: boolean[];
   yColumns: string[];
   breakdowns: string[];
   xColumns: string[];
@@ -139,6 +146,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     chartSubTypeMetrics,
     showLegend,
     showTotals,
+    hideLegendForMetrics,
     legendPosition,
     hasCustomTypeMetrics,
     isTimeSeries,
@@ -323,6 +331,8 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               yColumns,
               xAxisHeight,
               yAxisWidth,
+              hideLegendForMetrics,
+              metrics,
             )}
             iconType="circle"
             iconSize={10}

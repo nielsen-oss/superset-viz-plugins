@@ -84,11 +84,13 @@ export default function transformProps(chartProps: ChartProps) {
 
   const chartTypeMetrics: (keyof typeof CHART_TYPES)[] = [];
   const chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[] = [];
-  const useCustomTypeMetrics: boolean[] = [];
+  const hasCustomTypeMetrics: boolean[] = [];
+  const hideLegendForMetrics: boolean[] = [];
 
   if (formData.queryMode !== QueryMode.raw) {
     yColumns.forEach((yColumn, index) => {
-      useCustomTypeMetrics.push(formData[`useCustomTypeMetric${index}`] as boolean);
+      hasCustomTypeMetrics.push(formData[`useCustomTypeMetric${index}`] as boolean);
+      hideLegendForMetrics.push(formData[`hideLegendForMetric${index}`] as boolean);
       chartTypeMetrics.push(formData[`chartTypeMetric${index}`] as keyof typeof CHART_TYPES);
       chartSubTypeMetrics.push(
         getChartSubType(
@@ -128,10 +130,11 @@ export default function transformProps(chartProps: ChartProps) {
     isTimeSeries,
     xColumns,
     yColumns,
+    hideLegendForMetrics,
     chartTypeMetrics,
     zDimension: formData.zDimension?.label,
     chartSubTypeMetrics,
-    hasCustomTypeMetrics: useCustomTypeMetrics,
+    hasCustomTypeMetrics,
     layout: formData.layout,
     colorScheme: formData.colorScheme,
     bubbleSize: Number(formData.bubbleSize ?? 1000),

@@ -71,6 +71,25 @@ export const commonConfig = {
         type: 'text',
       },
     },
+    showLegend: {
+      table: {
+        category: 'Legend',
+      },
+    },
+    legendPosition: {
+      table: {
+        category: 'Legend',
+      },
+    },
+    hideLegendForMetrics: {
+      table: {
+        category: 'Legend',
+      },
+      control: {
+        type: 'multi-select',
+        options: [0, 1, 2, 3],
+      },
+    },
     xAxisTickLabelAngle: {
       table: {
         category: 'X Axis',
