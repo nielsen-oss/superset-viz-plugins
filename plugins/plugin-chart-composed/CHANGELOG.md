@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.26.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.25.0...@superset-viz-plugins/plugin-chart-composed@0.26.0) (2021-10-06)
+
+
+### Features
+
+* Legend hide composed ([#79](https://github.com/nielsen-oss/superset-viz-plugins/issues/79)) ([c5bbdeb](https://github.com/nielsen-oss/superset-viz-plugins/commit/c5bbdebb01b05923154c1640e28c494316b6acce))
+
+
+
+
+
 # [0.25.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.24.1...@superset-viz-plugins/plugin-chart-composed@0.25.0) (2021-10-04)
 
 
