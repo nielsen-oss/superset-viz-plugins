@@ -18,7 +18,7 @@
  */
 import { JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
-import { BarChartValue, BarChartValueMap, CHART_SUB_TYPES, CHART_TYPES } from './types';
+import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES } from './types';
 
 export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[] {
   const result: ResultData[] = [];
@@ -32,11 +32,6 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   });
   return result;
 }
-
-export const getValueForBarChart = (obj: BarChartValueMap, key: string) => {
-  console.log(obj, key, obj?.[key]?.value);
-  return obj?.[key]?.value;
-};
 
 export const isStackedBar = (ct: keyof typeof CHART_TYPES, cst: keyof typeof CHART_SUB_TYPES) =>
   ct === CHART_TYPES.BAR_CHART && cst === CHART_SUB_TYPES.STACKED;

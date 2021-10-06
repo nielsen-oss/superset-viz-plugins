@@ -47,15 +47,21 @@ import {
   MIN_BAR_SIZE_FOR_LABEL,
   MIN_SYMBOL_WIDTH_FOR_LABEL,
 } from './types';
-import { checkIsMetricStacked, getValueForBarChart } from './utils';
+import { checkIsMetricStacked } from './utils';
 
 const emptyRender = () => null;
 
-export const getMetricName = (name: string, yColumns: string[], zDimension?: string) => {
+export const getMetricName = (name: string, numberOfMetrics: number, zDimension?: string) => {
   if (name?.startsWith(Z_SEPARATOR)) {
     return zDimension;
   }
-  return yColumns.length === 1 ? name?.split(BREAKDOWN_SEPARATOR).pop() : name?.split(BREAKDOWN_SEPARATOR).join(', ');
+  if (numberOfMetrics === 1) {
+    return name
+      ?.split(BREAKDOWN_SEPARATOR)
+      .splice(1)
+      .join(', ');
+  }
+  return name?.split(BREAKDOWN_SEPARATOR).join(', ');
 };
 
 export const renderLabel = ({
@@ -109,9 +115,14 @@ export const getLegendProps = (
   yColumns: string[],
   xAxisHeight: number,
   yAxisWidth: number,
+  hideLegendForMetrics: boolean[],
+  metrics: string[],
 ): LegendProps => {
-  const payload: LegendPayload[] = breakdowns.map(breakdown => ({
-    value: getMetricName(breakdown, yColumns),
+  const resultBreakdowns = breakdowns.filter(
+    breakdown => !hideLegendForMetrics.find((hiddenMetric, i) => hiddenMetric && breakdown.startsWith(metrics[i])),
+  );
+  const payload: LegendPayload[] = resultBreakdowns.map(breakdown => ({
+    value: getMetricName(breakdown, yColumns.length - hideLegendForMetrics.filter(h => h).length),
     id: breakdown,
     type: disabledDataKeys.includes(breakdown) ? 'line' : 'square',
     color: CategoricalColorNamespace.getScale(colorScheme)(breakdown),
@@ -525,6 +536,8 @@ export const getCartesianGridProps = ({
       };
   }
 };
+
+export const getValueForBarChart = (obj: BarChartValueMap, key: string) => obj?.[key]?.value;
 
 type ChartElementProps = {
   hasOrderedBars: boolean;

@@ -27,7 +27,7 @@ import {
   sections,
   sharedControls,
 } from '@superset-ui/chart-controls';
-import { CHART_TYPES, CHART_TYPE_NAMES, LegendPosition, CHART_SUB_TYPES } from '../components/types';
+import { CHART_TYPES, CHART_TYPE_NAMES, CHART_SUB_TYPES } from '../components/types';
 import {
   useSecondYAxis,
   xAxisInterval,
@@ -52,17 +52,7 @@ import { chartTypeMetrics } from './configs/chartTypeMetrics';
 import { orderByColumns, orderByGroupBy, orderByMetric } from './configs/orderBy';
 import { categoryFormatting } from './configs/categoryFormatting';
 import { getQueryMode, isAggMode, isRawMode, QueryMode } from './utils';
-
-export const showLegend = {
-  name: 'show_legend',
-  config: {
-    type: 'CheckboxControl',
-    label: t('Legend'),
-    renderTrigger: true,
-    default: true,
-    description: t('Whether to display the legend (toggles)'),
-  },
-};
+import { hideLegendForMetric, legendPosition, showLegend } from './configs/legend';
 
 export const showTotals = {
   name: 'show_totals',
@@ -88,21 +78,6 @@ export const minBarWidth = {
     default: '',
     description: t('Minimal bar width'),
     visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.chart_type === CHART_TYPES.BAR_CHART,
-  },
-};
-
-export const legendPosition = {
-  name: 'legend_position',
-  config: {
-    freeForm: true,
-    type: 'SelectControl',
-    clearable: false,
-    label: t('Legend position'),
-    renderTrigger: true,
-    choices: formatSelectOptions(Object.keys(LegendPosition)),
-    default: 'top',
-    description: t('Set legend position'),
-    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.show_legend,
   },
 };
 
@@ -296,12 +271,16 @@ const config: ControlPanelConfig = {
       expanded: true,
       controlSetRows: [
         ['color_scheme', layout],
-        [showLegend, legendPosition],
         [numbersFormat, numbersFormatDigits],
         [chartType, barChartSubType, lineChartSubType, areaChartSubType, scatterChartSubType, bubbleChartSubType],
         [bubbleSize, minBarWidth],
         [labelsColor, showTotals],
       ],
+    },
+    {
+      label: t('Legend'),
+      expanded: false,
+      controlSetRows: [[showLegend, legendPosition], ...hideLegendForMetric],
     },
     {
       label: t('X Axis'),
