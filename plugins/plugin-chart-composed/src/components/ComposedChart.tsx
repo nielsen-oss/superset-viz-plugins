@@ -69,15 +69,21 @@ export type YAxisProps = {
 export type ComposedChartProps = {
   orderByYColumn: SortingType;
   isTimeSeries: boolean;
+  /**
+   * Height of chart */
   height: number;
   bubbleSize: number;
   width: number;
   hasOrderedBars: boolean;
   showTotals: boolean;
+  /**
+   * Show legend */
   showLegend: boolean;
   legendPosition: LegendPosition;
   data: ResultData[];
   layout: Layout;
+  /**
+   * List of metrics */
   metrics: string[];
   hideLegendForMetrics: boolean[];
   yColumns: string[];
