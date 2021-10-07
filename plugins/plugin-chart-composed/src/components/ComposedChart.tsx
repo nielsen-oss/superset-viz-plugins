@@ -35,7 +35,7 @@ import { LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/uti
 import { debounce, isStackedBar } from './utils';
 import { getCartesianGridProps, getLegendProps, getXAxisProps, getYAxisProps, renderChartElement } from './chartUtils';
 import { useCurrentData, useZAxisRange } from './state';
-import { CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from './types';
+import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeBy, Layout, LegendPosition } from './types';
 import ScatterChartTooltip from './ScatterChartTooltip';
 
 type EventData = {
@@ -85,12 +85,11 @@ export type ComposedChartProps = {
   /**
    * List of metrics */
   metrics: string[];
-  hideLegendForMetrics: boolean[];
+  hideLegendByMetric: boolean[];
   yColumns: string[];
   breakdowns: string[];
   xColumns: string[];
   minBarWidth: string;
-  colorScheme: string;
   zDimension?: string;
   hasY2Axis?: boolean;
   chartSubType: keyof typeof CHART_SUB_TYPES;
@@ -99,6 +98,7 @@ export type ComposedChartProps = {
   xAxis: XAxisProps;
   yAxis: YAxisProps;
   labelsColor: LabelColors;
+  colorSchemeBy: ColorSchemeBy;
   numbersFormat: string;
   chartTypeMetrics: (keyof typeof CHART_TYPES)[];
   chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[];
@@ -132,7 +132,6 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     width,
     layout,
     yColumns,
-    colorScheme,
     chartType,
     xAxis,
     chartSubType,
@@ -146,7 +145,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     chartSubTypeMetrics,
     showLegend,
     showTotals,
-    hideLegendForMetrics,
+    hideLegendByMetric,
     legendPosition,
     hasCustomTypeMetrics,
     isTimeSeries,
@@ -155,6 +154,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     bubbleSize,
     metrics,
     zDimension,
+    colorSchemeBy,
   } = props;
 
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
@@ -200,7 +200,6 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   const currentData = useCurrentData(
     data,
     disabledDataKeys,
-    colorScheme,
     hasOrderedBars,
     breakdowns,
     orderByYColumn,
@@ -278,7 +277,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
       isTimeSeries={isTimeSeries}
       zDimension={zDimension}
       breakdowns={breakdowns}
-      colorScheme={colorScheme}
+      colorSchemeBy={colorSchemeBy}
       hasExcludedBars={!!excludedMetricsForStackedBars.length}
     />
   );
@@ -287,10 +286,10 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     tooltipContent = (
       <ScatterChartTooltip
         breakdowns={breakdowns}
-        colorScheme={colorScheme}
         numbersFormat={numbersFormat}
         yColumns={yColumns}
         zDimension={zDimension}
+        colorSchemeBy={colorSchemeBy}
       />
     );
   }
@@ -327,12 +326,12 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               newWidth,
               breakdowns,
               disabledDataKeys,
-              colorScheme,
               yColumns,
               xAxisHeight,
               yAxisWidth,
-              hideLegendForMetrics,
+              hideLegendByMetric,
               metrics,
+              colorSchemeBy,
             )}
             iconType="circle"
             iconSize={10}
@@ -416,11 +415,11 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             hasCustomTypeMetrics,
             chartTypeMetrics,
             chartSubTypeMetrics,
-            colorScheme,
             breakdowns,
             excludedMetricsForStackedBars,
             includedMetricsForStackedBars,
             isMainChartStacked,
+            colorSchemeBy,
           }),
         )}
       </ChartContainer>

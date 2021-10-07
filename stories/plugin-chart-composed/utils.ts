@@ -81,7 +81,7 @@ export const commonConfig = {
         category: 'Legend',
       },
     },
-    hideLegendForMetrics: {
+    hideLegendByMetric: {
       table: {
         category: 'Legend',
       },

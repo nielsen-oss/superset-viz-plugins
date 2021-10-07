@@ -52,7 +52,8 @@ import { chartTypeMetrics } from './configs/chartTypeMetrics';
 import { orderByColumns, orderByGroupBy, orderByMetric } from './configs/orderBy';
 import { categoryFormatting } from './configs/categoryFormatting';
 import { getQueryMode, isAggMode, isRawMode, QueryMode } from './utils';
-import { hideLegendForMetric, legendPosition, showLegend } from './configs/legend';
+import { hideLegendByMetric, legendPosition, showLegend } from './configs/legend';
+import { colorSchemeByBreakdown, colorSchemeByMetric } from './configs/colorScheme';
 
 export const showTotals = {
   name: 'show_totals',
@@ -270,7 +271,7 @@ const config: ControlPanelConfig = {
       label: t('Chart Options'),
       expanded: true,
       controlSetRows: [
-        ['color_scheme', layout],
+        [layout],
         [numbersFormat, numbersFormatDigits],
         [chartType, barChartSubType, lineChartSubType, areaChartSubType, scatterChartSubType, bubbleChartSubType],
         [bubbleSize, minBarWidth],
@@ -278,9 +279,14 @@ const config: ControlPanelConfig = {
       ],
     },
     {
+      label: t('Color scheme'),
+      expanded: true,
+      controlSetRows: [['color_scheme'], ...colorSchemeByMetric, colorSchemeByBreakdown],
+    },
+    {
       label: t('Legend'),
-      expanded: false,
-      controlSetRows: [[showLegend, legendPosition], ...hideLegendForMetric],
+      expanded: true,
+      controlSetRows: [[showLegend, legendPosition], ...hideLegendByMetric],
     },
     {
       label: t('X Axis'),

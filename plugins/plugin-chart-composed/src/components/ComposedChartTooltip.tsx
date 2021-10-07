@@ -17,10 +17,11 @@
  * under the License.
  */
 import React, { FC } from 'react';
-import { CategoricalColorNamespace, getNumberFormatter, styled, t } from '@superset-ui/core';
+import { getNumberFormatter, styled, t } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
-import { getMetricName } from './utils';
+import { getMetricName, getResultColor } from './utils';
 import { Z_SEPARATOR } from '../plugin/utils';
+import { ColorSchemeBy } from './types';
 
 const Container = styled.div`
   border: 1px solid #cccccc;
@@ -45,8 +46,8 @@ type ComposedChartTooltipProps = TooltipProps & {
   isTimeSeries: boolean;
   zDimension?: string;
   breakdowns: string[];
-  colorScheme: string;
   hasExcludedBars: boolean;
+  colorSchemeBy: ColorSchemeBy;
 };
 
 const getFormattedDate = (value: string) => {
@@ -67,13 +68,12 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
   zDimension,
   breakdowns,
   hasExcludedBars,
-  colorScheme,
+  colorSchemeBy,
 }) => {
   if (active) {
     const firstPayload: Payload = payload[0]?.payload;
     const total = firstPayload?.rechartsTotal;
     const formatter = getNumberFormatter(numbersFormat);
-    const colorFn = CategoricalColorNamespace.getScale(colorScheme);
     if (hasOrderedBars) {
       return (
         <Container>
@@ -83,7 +83,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
             const resultValue = isNaN(value) ? '-' : formatter(value);
             return (
               <>
-                <Line key={name} color={colorFn(breakdown)}>{`${name}: ${resultValue}`}</Line>
+                <Line key={name} color={getResultColor(breakdown, colorSchemeBy)}>{`${name}: ${resultValue}`}</Line>
               </>
             );
           })}
@@ -105,10 +105,11 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
           const zName = `${Z_SEPARATOR}${name}`;
           const value = item?.value as number;
           const resultValue = isNaN(value) ? '-' : formatter(value);
+          const color = getResultColor(item?.name, colorSchemeBy);
           return (
             <>
-              <Line key={name} color={colorFn(item?.name)}>{`${name}: ${resultValue}`}</Line>
-              {zValue && <Line key={zName} color={colorFn(item?.name)}>{`${zDimension}: ${formatter(zValue)}`}</Line>}
+              <Line key={name} color={color}>{`${name}: ${resultValue}`}</Line>
+              {zValue && <Line key={zName} color={color}>{`${zDimension}: ${formatter(zValue)}`}</Line>}
             </>
           );
         })}

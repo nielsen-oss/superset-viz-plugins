@@ -19,7 +19,7 @@
 import { ChartProps } from '@superset-ui/core';
 import { AxisInterval } from 'recharts';
 import { mergeBy } from '../components/utils';
-import { CHART_SUB_TYPES, CHART_TYPES, Layout } from '../components/types';
+import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeByItem, Layout } from '../components/types';
 import { ComposedChartProps } from '../components/ComposedChart';
 import {
   addBreakdownYColumnsAndGetBreakdownValues,
@@ -85,12 +85,22 @@ export default function transformProps(chartProps: ChartProps) {
   const chartTypeMetrics: (keyof typeof CHART_TYPES)[] = [];
   const chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[] = [];
   const hasCustomTypeMetrics: boolean[] = [];
-  const hideLegendForMetrics: boolean[] = [];
+  const colorSchemeByMetric: ColorSchemeByItem = {};
+  const colorSchemeByBreakdown: ColorSchemeByItem = {};
+  const hideLegendByMetric: boolean[] = [];
+
+  if (formData.coloredBreakdowns?.length) {
+    colorSchemeByBreakdown.values = formData.coloredBreakdowns.map(cb => cb.comparator);
+    colorSchemeByBreakdown.colorScheme = formData.colorSchemeByBreakdown;
+  }
 
   if (formData.queryMode !== QueryMode.raw) {
     yColumns.forEach((yColumn, index) => {
       hasCustomTypeMetrics.push(formData[`useCustomTypeMetric${index}`] as boolean);
-      hideLegendForMetrics.push(formData[`hideLegendForMetric${index}`] as boolean);
+      hideLegendByMetric.push(formData[`hideLegendByMetric${index}`] as boolean);
+      if (formData[`hasColorSchemeMetric${index}`]) {
+        colorSchemeByMetric[yColumn] = formData[`colorSchemeByMetric${index}`];
+      }
       chartTypeMetrics.push(formData[`chartTypeMetric${index}`] as keyof typeof CHART_TYPES);
       chartSubTypeMetrics.push(
         getChartSubType(
@@ -130,18 +140,22 @@ export default function transformProps(chartProps: ChartProps) {
     isTimeSeries,
     xColumns,
     yColumns,
-    hideLegendForMetrics,
+    hideLegendByMetric,
     chartTypeMetrics,
     zDimension: formData.zDimension?.label,
     chartSubTypeMetrics,
     hasCustomTypeMetrics,
     layout: formData.layout,
-    colorScheme: formData.colorScheme,
     bubbleSize: Number(formData.bubbleSize ?? 1000),
     chartType: formData.chartType,
     showLegend: formData.showLegend,
     legendPosition: formData.legendPosition,
     chartSubType,
+    colorSchemeBy: {
+      __DEFAULT_COLOR_SCHEME__: formData.colorScheme,
+      metric: colorSchemeByMetric,
+      breakdown: colorSchemeByBreakdown,
+    },
     showTotals: formData.showTotals,
     numbersFormat: formData.numbersFormat,
     labelsColor: formData.labelsColor,

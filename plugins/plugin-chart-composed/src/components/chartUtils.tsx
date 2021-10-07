@@ -32,7 +32,7 @@ import {
   AxisInterval,
   Cell,
 } from 'recharts';
-import { CategoricalColorNamespace, getNumberFormatter, JsonObject } from '@superset-ui/core';
+import { getNumberFormatter, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, LabelColors, ResultData, Z_SEPARATOR } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 import { ResetProps } from './ComposedChart';
@@ -40,6 +40,7 @@ import {
   BarChartValueMap,
   CHART_SUB_TYPES,
   CHART_TYPES,
+  ColorSchemeBy,
   Layout,
   LegendAlign,
   LegendPosition,
@@ -47,7 +48,7 @@ import {
   MIN_BAR_SIZE_FOR_LABEL,
   MIN_SYMBOL_WIDTH_FOR_LABEL,
 } from './types';
-import { checkIsMetricStacked } from './utils';
+import { checkIsMetricStacked, getMetricFromBreakdown, getResultColor } from './utils';
 
 const emptyRender = () => null;
 
@@ -111,21 +112,21 @@ export const getLegendProps = (
   width: number,
   breakdowns: string[],
   disabledDataKeys: string[],
-  colorScheme: string,
   yColumns: string[],
   xAxisHeight: number,
   yAxisWidth: number,
-  hideLegendForMetrics: boolean[],
+  hideLegendByMetric: boolean[],
   metrics: string[],
+  colorSchemeBy: ColorSchemeBy,
 ): LegendProps => {
   const resultBreakdowns = breakdowns.filter(
-    breakdown => !hideLegendForMetrics.find((hiddenMetric, i) => hiddenMetric && breakdown.startsWith(metrics[i])),
+    breakdown => !hideLegendByMetric.find((hiddenMetric, i) => hiddenMetric && breakdown.startsWith(metrics[i])),
   );
   const payload: LegendPayload[] = resultBreakdowns.map(breakdown => ({
-    value: getMetricName(breakdown, yColumns.length - hideLegendForMetrics.filter(h => h).length),
+    value: getMetricName(breakdown, yColumns.length - hideLegendByMetric.filter(h => h).length),
     id: breakdown,
     type: disabledDataKeys.includes(breakdown) ? 'line' : 'square',
-    color: CategoricalColorNamespace.getScale(colorScheme)(breakdown),
+    color: getResultColor(breakdown, colorSchemeBy),
   }));
   let result = {
     payload,
@@ -544,7 +545,6 @@ type ChartElementProps = {
   breakdown: string;
   layout: Layout;
   breakdowns: string[];
-  colorScheme: string;
   hasY2Axis?: boolean;
   showTotals: boolean;
   chartSubType: keyof typeof CHART_SUB_TYPES;
@@ -562,6 +562,7 @@ type ChartElementProps = {
   includedMetricsForStackedBars: string[];
   excludedMetricsForStackedBars: string[];
   isMainChartStacked: boolean;
+  colorSchemeBy: ColorSchemeBy;
 };
 
 export const renderChartElement = ({
@@ -582,25 +583,25 @@ export const renderChartElement = ({
   chartTypeMetrics,
   chartSubTypeMetrics,
   showTotals,
-  colorScheme,
   layout,
   excludedMetricsForStackedBars,
   includedMetricsForStackedBars,
   isMainChartStacked,
+  colorSchemeBy,
 }: ChartElementProps) => {
   let customChartType = chartType;
   let customChartSubType = chartSubType;
-  const actualMetricIndex = yColumns.findIndex(metric => metric === breakdown?.split(BREAKDOWN_SEPARATOR)[0]);
+  const actualMetricIndex = yColumns.findIndex(metric => metric === getMetricFromBreakdown(breakdown));
   if (hasCustomTypeMetrics[actualMetricIndex]) {
     customChartType = chartTypeMetrics[actualMetricIndex];
     customChartSubType = chartSubTypeMetrics[actualMetricIndex];
   }
-  const color = CategoricalColorNamespace.getScale(colorScheme)(breakdown);
+
   const { Element, ...elementProps } = getChartElement(
     breakdown,
     customChartType,
     customChartSubType,
-    color,
+    getResultColor(breakdown, colorSchemeBy),
     customChartType === CHART_TYPES.BAR_CHART && hasCustomTypeMetrics.some(el => el),
     index,
   );
@@ -656,9 +657,7 @@ export const renderChartElement = ({
     <Element
       key={`${breakdown}${updater}`}
       isAnimationActive={isAnimationActive}
-      yAxisId={
-        hasY2Axis && breakdown?.split(BREAKDOWN_SEPARATOR)[0] === yColumns[yColumns.length - 1] ? 'right' : 'left'
-      }
+      yAxisId={hasY2Axis && getMetricFromBreakdown(breakdown) === yColumns[yColumns.length - 1] ? 'right' : 'left'}
       dataKey={dataKey}
       {...elementProps}
     >
@@ -669,12 +668,10 @@ export const renderChartElement = ({
           excludedMetricsForStackedBars,
           includedMetricsForStackedBars,
         ) &&
-        currentData.map(entry => (
-          <Cell
-            // @ts-ignore
-            fill={CategoricalColorNamespace.getScale(colorScheme)(entry[entry?.orderedBarsDataMap?.[index]]?.id)}
-          />
-        ))}
+        currentData.map(entry => {
+          const breakdownItem = (entry[entry?.orderedBarsDataMap?.[index]] as JsonObject)?.id;
+          return <Cell fill={getResultColor(breakdownItem, colorSchemeBy)} />;
+        })}
       {showTotals && <LabelList {...labelListExtraPropsWithTotal} />}
     </Element>
   );

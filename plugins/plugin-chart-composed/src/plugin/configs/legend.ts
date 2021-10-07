@@ -24,11 +24,11 @@ import { LegendPosition } from '../../components/types';
 
 type Legend = { name: string; config: ControlConfig<'CheckboxControl'> }[];
 
-const hideLegendForMetric: Legend[] = [];
+const hideLegendByMetric: Legend[] = [];
 
 const getLegendByMetric = (index: number): Legend => [
   {
-    name: `hide_legend_for_metric_${index ?? 0}`,
+    name: `hide_legend_by_metric_${index}`,
     config: {
       renderTrigger: true,
       type: 'CheckboxControl',
@@ -41,7 +41,7 @@ const getLegendByMetric = (index: number): Legend => [
 ];
 
 for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
-  hideLegendForMetric.push(getLegendByMetric(i));
+  hideLegendByMetric.push(getLegendByMetric(i));
 }
 
 export const showLegend = {
@@ -70,4 +70,4 @@ export const legendPosition = {
   },
 };
 
-export { hideLegendForMetric };
+export { hideLegendByMetric };
