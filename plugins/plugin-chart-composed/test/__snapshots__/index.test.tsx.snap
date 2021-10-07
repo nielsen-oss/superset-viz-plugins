@@ -389,6 +389,13 @@ Object {
                   "COUNT_DISTINCT(efficiency)_$_Custom",
                 ]
               }
+              colorSchemeBy={
+                Object {
+                  "__DEFAULT_COLOR_SCHEME__": undefined,
+                  "breakdown": Object {},
+                  "metric": Object {},
+                }
+              }
               hasExcludedBars={true}
               hasOrderedBars={false}
               isTimeSeries={false}
@@ -1743,6 +1750,13 @@ Object {
             "COUNT_DISTINCT(efficiency)_$_Custom",
           ]
         }
+        colorSchemeBy={
+          Object {
+            "__DEFAULT_COLOR_SCHEME__": undefined,
+            "breakdown": Object {},
+            "metric": Object {},
+          }
+        }
         hasExcludedBars={true}
         hasOrderedBars={false}
         isTimeSeries={false}
@@ -1976,6 +1990,13 @@ Object {
                   "COUNT_DISTINCT(period)",
                   "COUNT_DISTINCT(group_name)",
                 ]
+              }
+              colorSchemeBy={
+                Object {
+                  "__DEFAULT_COLOR_SCHEME__": undefined,
+                  "breakdown": Object {},
+                  "metric": Object {},
+                }
               }
               hasExcludedBars={false}
               hasOrderedBars={false}
@@ -2224,6 +2245,13 @@ Object {
             "COUNT_DISTINCT(group_name)",
           ]
         }
+        colorSchemeBy={
+          Object {
+            "__DEFAULT_COLOR_SCHEME__": undefined,
+            "breakdown": Object {},
+            "metric": Object {},
+          }
+        }
         hasExcludedBars={false}
         hasOrderedBars={false}
         isTimeSeries={false}
@@ -2362,6 +2390,13 @@ Object {
                   "COUNT_DISTINCT(period)",
                   "COUNT_DISTINCT(group_name)",
                 ]
+              }
+              colorSchemeBy={
+                Object {
+                  "__DEFAULT_COLOR_SCHEME__": undefined,
+                  "breakdown": Object {},
+                  "metric": Object {},
+                }
               }
               hasExcludedBars={false}
               hasOrderedBars={false}
@@ -2608,6 +2643,13 @@ Object {
             "COUNT_DISTINCT(group_name)",
           ]
         }
+        colorSchemeBy={
+          Object {
+            "__DEFAULT_COLOR_SCHEME__": undefined,
+            "breakdown": Object {},
+            "metric": Object {},
+          }
+        }
         hasExcludedBars={false}
         hasOrderedBars={false}
         isTimeSeries={false}
@@ -2812,6 +2854,13 @@ Object {
                   "COUNT_DISTINCT(period)",
                   "COUNT_DISTINCT(group_name)",
                 ]
+              }
+              colorSchemeBy={
+                Object {
+                  "__DEFAULT_COLOR_SCHEME__": undefined,
+                  "breakdown": Object {},
+                  "metric": Object {},
+                }
               }
               hasExcludedBars={false}
               hasOrderedBars={false}
@@ -3034,6 +3083,13 @@ Object {
             "COUNT_DISTINCT(period)",
             "COUNT_DISTINCT(group_name)",
           ]
+        }
+        colorSchemeBy={
+          Object {
+            "__DEFAULT_COLOR_SCHEME__": undefined,
+            "breakdown": Object {},
+            "metric": Object {},
+          }
         }
         hasExcludedBars={false}
         hasOrderedBars={false}
