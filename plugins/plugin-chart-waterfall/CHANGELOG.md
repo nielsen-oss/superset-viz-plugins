@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.14.1 (2021-10-10)
+
+
+### Reverts
+
+* to the point where ci worked ([bf7b3ab](https://github.com/nielsen-oss/superset-viz-plugins/commit/bf7b3abbd75cba23d89da71f4819a8bb76a86d32))
+
+
+
+
+
 # 0.14.0 (2021-10-10)
 
 
