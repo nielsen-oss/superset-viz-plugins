@@ -36,6 +36,8 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
 export const isStackedBar = (ct: keyof typeof CHART_TYPES, cst: keyof typeof CHART_SUB_TYPES) =>
   ct === CHART_TYPES.BAR_CHART && cst === CHART_SUB_TYPES.STACKED;
 
+export const getMetricFromBreakdown = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR)[0];
+
 export const checkIsBreakdownInMetricsList = (breakdown: string, excludedMetricsForStackedBars: string[] = []) =>
   excludedMetricsForStackedBars.includes(getMetricFromBreakdown(breakdown));
 
@@ -194,7 +196,6 @@ export function debounce(func: Function, timeout = 300) {
   };
 }
 
-export const getMetricFromBreakdown = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR)[0];
 export const getBreakdownsOnly = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR).splice(1);
 
 export const getResultColor = (breakdown = '', colorSchemeBy: ColorSchemeBy) => {
