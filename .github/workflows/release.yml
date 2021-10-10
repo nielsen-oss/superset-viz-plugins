@@ -19,7 +19,10 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '14'
+    - name: install npm
+      run: |
+        npm install -g npm@7.24.2
     - name: Checkout viz plugins repo
       uses: actions/checkout@v2
       with:
