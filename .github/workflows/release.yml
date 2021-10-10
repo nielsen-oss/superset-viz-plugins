@@ -17,9 +17,10 @@ jobs:
       REPOSITORY_OWNER: nielsen-oss
     steps:
     - name: Use Node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
         node-version: '16'
+        cache: 'yarn'
 #     - name: install npm
 #       run: |
 #         npm install -g npm@7.24.2
