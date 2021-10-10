@@ -33,8 +33,8 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@superset-ui/chart-controls": "0.16.9",
-    "@superset-ui/core": "0.16.7",
+    "@superset-ui/chart-controls": "0.17.84",
+    "@superset-ui/core": "0.17.81",
     "react": "^16.13.1"
   },
   "dependencies": {
