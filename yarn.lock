@@ -3728,17 +3728,17 @@
     resolve-from "^5.0.0"
     store2 "^2.7.1"
 
-"@superset-ui/chart-controls@0.17.84":
-  version "0.17.84"
-  resolved "https://registry.yarnpkg.com/@superset-ui/chart-controls/-/chart-controls-0.17.84.tgz#42c92d4e25c0f8607baca175d31ba952032319f2"
-  integrity sha512-tLbTdYegaez2D1N3eIHIkfpWyI3i/SoLQfY7asV1YadKcSZfff1BpSBDV2vbGom1hehsftD09sIV3uHm4wjkAg==
+"@superset-ui/chart-controls@^0.17.84":
+  version "0.17.85"
+  resolved "https://registry.yarnpkg.com/@superset-ui/chart-controls/-/chart-controls-0.17.85.tgz#09d1788123f722095ab24fd205ac498e58dca487"
+  integrity sha512-RNk6za6IfcnAKoDFA8XpWgK5AdwPCEprKauv29Z+8VkHrMT8DkoEwDtgl0vutEmLRPECAL+lR76g5B9Z33iCJQ==
   dependencies:
     "@react-icons/all-files" "^4.1.0"
     "@superset-ui/core" "0.17.81"
     lodash "^4.17.15"
     prop-types "^15.7.2"
 
-"@superset-ui/core@0.17.81":
+"@superset-ui/core@0.17.81", "@superset-ui/core@^0.17.81":
   version "0.17.81"
   resolved "https://registry.yarnpkg.com/@superset-ui/core/-/core-0.17.81.tgz#c67c8a9f448fba68bc0d760d63250a0cf6e07b50"
   integrity sha512-CaDihqqwFnqtO9yWHxPbZh3MKTot66Zd27ifdIYQCVEMQwz5OpP6zUbULekq7NAbPMHwf7Ju3FOzN0uEzWwSmw==
