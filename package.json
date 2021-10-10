@@ -95,8 +95,8 @@
     "webpack-manifest-plugin": "^2.2.0"
   },
   "engines": {
-    "node": ">=10.10.0",
-    "npm": ">=6.8.0",
+    "node": ">=14.0.0",
+    "npm": ">=7.0.0",
     "yarn": ">=1.13.0"
   },
   "workspaces": [
