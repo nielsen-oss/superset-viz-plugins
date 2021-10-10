@@ -1,6 +1,6 @@
 {
   "name": "@superset-viz-plugins/plugin-chart-composed",
-  "version": "0.30.3",
+  "version": "0.30.4",
   "description": "Superset Chart - Chart Composed",
   "pluginName": "ComposedChartPlugin",
   "sideEffects": false,
