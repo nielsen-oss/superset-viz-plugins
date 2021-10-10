@@ -198,11 +198,11 @@ export const getMetricFromBreakdown = (breakdown = '') => breakdown?.split(BREAK
 export const getBreakdownsOnly = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR).splice(1);
 
 export const getResultColor = (breakdown = '', colorSchemeBy: ColorSchemeBy) => {
-  let resultColorScheme = colorSchemeBy.metric[getMetricFromBreakdown(breakdown)];
+  let resultColorScheme = colorSchemeBy.metric?.[getMetricFromBreakdown(breakdown)];
   if (!resultColorScheme) {
-    const foundBreakdown = getBreakdownsOnly(breakdown).find(bo => colorSchemeBy.breakdown.values?.includes(bo));
+    const foundBreakdown = getBreakdownsOnly(breakdown).find(bo => colorSchemeBy.breakdown?.values?.includes(bo));
     if (foundBreakdown) {
-      resultColorScheme = colorSchemeBy.breakdown.colorScheme;
+      resultColorScheme = colorSchemeBy.breakdown?.colorScheme;
     }
   }
   const colorFn = CategoricalColorNamespace.getScale(

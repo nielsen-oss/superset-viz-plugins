@@ -86,7 +86,7 @@ const colorSchemeByBreakdown = [
       label: t(`Color scheme`),
       default: categoricalSchemeRegistry.getDefaultKey(),
       description: t(`Color scheme for breakdown`),
-      visibility: ({ form_data }: { form_data: QueryFormData }) => !!form_data?.colored_breakdowns.length,
+      visibility: ({ form_data }: { form_data: QueryFormData }) => !!form_data?.colored_breakdowns?.length,
       choices: () => categoricalSchemeRegistry.keys().map(s => [s, s]),
       schemes: () => categoricalSchemeRegistry.getMap(),
     },
