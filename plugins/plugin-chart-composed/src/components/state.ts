@@ -23,7 +23,6 @@ import { ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
 export const useCurrentData = (
   data: ResultData[],
   disabledDataKeys: string[],
-  colorScheme: string,
   hasOrderedBars: boolean,
   breakdowns: string[],
   orderByYColumn: SortingType,
@@ -50,7 +49,6 @@ export const useCurrentData = (
         breakdowns,
         yColumns,
         currentData,
-        colorScheme,
         orderByYColumn,
         excludedMetricsForStackedBars,
         includedMetricsForStackedBars,
@@ -61,7 +59,6 @@ export const useCurrentData = (
       breakdowns,
       yColumns,
       currentData,
-      colorScheme,
       orderByYColumn,
       excludedMetricsForStackedBars,
       includedMetricsForStackedBars,

@@ -16,9 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { JsonObject } from '@superset-ui/core';
+import { CategoricalColorNamespace, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
-import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES } from './types';
+import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, ColorSchemeBy } from './types';
 
 export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[] {
   const result: ResultData[] = [];
@@ -36,8 +36,10 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
 export const isStackedBar = (ct: keyof typeof CHART_TYPES, cst: keyof typeof CHART_SUB_TYPES) =>
   ct === CHART_TYPES.BAR_CHART && cst === CHART_SUB_TYPES.STACKED;
 
+export const getMetricFromBreakdown = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR)[0];
+
 export const checkIsBreakdownInMetricsList = (breakdown: string, excludedMetricsForStackedBars: string[] = []) =>
-  excludedMetricsForStackedBars.includes(breakdown.split(BREAKDOWN_SEPARATOR)[0]);
+  excludedMetricsForStackedBars.includes(getMetricFromBreakdown(breakdown));
 
 export const checkIsMetricStacked = (
   isMainChartStacked: boolean,
@@ -148,7 +150,6 @@ export const processBarChartOrder = (
   breakdowns: string[],
   yColumns: string[],
   resultData: ResultData[],
-  colorScheme: string,
   orderByYColumn: SortingType,
   excludedMetricsForStackedBars: string[],
   includedMetricsForStackedBars: string[],
@@ -170,7 +171,6 @@ export const processBarChartOrder = (
       // Sorting bars according order
       const sortSign = orderByYColumn === SortingType.ASC ? 1 : -1;
       tempSortedArray.sort((a, b) => sortSign * (a?.value - b?.value));
-      console.log(sortedData);
       return fillBarsDataByOrder(
         breakdowns,
         sortedData,
@@ -195,3 +195,20 @@ export function debounce(func: Function, timeout = 300) {
     }, timeout);
   };
 }
+
+export const getBreakdownsOnly = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR).splice(1);
+
+export const getResultColor = (breakdown = '', colorSchemeBy: ColorSchemeBy) => {
+  let resultColorScheme = colorSchemeBy.metric?.[getMetricFromBreakdown(breakdown)];
+  if (!resultColorScheme) {
+    const foundBreakdown = getBreakdownsOnly(breakdown).find(bo => colorSchemeBy.breakdown?.values?.includes(bo));
+    if (foundBreakdown) {
+      resultColorScheme = colorSchemeBy.breakdown?.colorScheme;
+    }
+  }
+  const colorFn = CategoricalColorNamespace.getScale(
+    // eslint-disable-next-line no-underscore-dangle
+    resultColorScheme ?? colorSchemeBy.__DEFAULT_COLOR_SCHEME__,
+  );
+  return colorFn(breakdown);
+};
