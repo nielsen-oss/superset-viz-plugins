@@ -21,7 +21,7 @@ import { ControlPanelConfig, SharedControlConfig, sharedControls } from '@supers
 import { ColumnMeta, SelectControlConfig } from '@superset-ui/chart-controls/lib/types';
 import { NUMBER_OF_COLORS } from '../types';
 
-const objectColumn: { name: string; config: SelectControlConfig<ColumnMeta, 'SelectControl'> } = {
+const objectColumn: { name: string; config: typeof sharedControls.groupby } = {
   name: 'object_column',
   config: {
     ...sharedControls.groupby,
@@ -34,7 +34,7 @@ const objectColumn: { name: string; config: SelectControlConfig<ColumnMeta, 'Sel
 
 const objectColumnFilters: {
   name: string;
-  config: SelectControlConfig<string | Record<string, any>, 'AdhocFilterControl'>;
+  config: typeof sharedControls.adhoc_filters;
 } = {
   name: 'object_column_filters',
   config: {
@@ -44,7 +44,7 @@ const objectColumnFilters: {
   },
 };
 
-const statusColumn: { name: string; config: SelectControlConfig<ColumnMeta, 'SelectControl'> } = {
+const statusColumn: { name: string; config: typeof sharedControls.groupby } = {
   name: 'status_column',
   config: {
     ...sharedControls.groupby,
@@ -87,7 +87,7 @@ for (let i = 0; i < NUMBER_OF_COLORS; i++) {
 
 const statusColumnFilters: {
   name: string;
-  config: SelectControlConfig<string | Record<string, any>, 'AdhocFilterControl'>;
+  config: typeof sharedControls.adhoc_filters;
 } = {
   name: 'status_column_filters',
   config: {

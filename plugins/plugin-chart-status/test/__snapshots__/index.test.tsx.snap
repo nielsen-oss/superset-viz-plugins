@@ -11,8 +11,8 @@ exports[`plugin-chart-status Multiple Objects / Statuses 1`] = `
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
   -ms-flex-pack: center;
+  -webkit-justify-content: center;
   justify-content: center;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
@@ -28,7 +28,7 @@ exports[`plugin-chart-status Multiple Objects / Statuses 1`] = `
 .emotion-2 {
   font-size: 28px;
   font-weight: 700;
-  color: rgba(90,193,137,1);
+  color: rgba(90, 193, 137, 1);
 }
 
 <div
