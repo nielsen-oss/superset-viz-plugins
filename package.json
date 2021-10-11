@@ -129,6 +129,8 @@
     }
   },
   "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
     "@superset-ui/chart-controls": "^0.17.84",
     "@superset-ui/core": "^0.17.81"
   }
