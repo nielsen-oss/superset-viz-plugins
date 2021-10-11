@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.3.1 (2021-10-10)
+
+
+### Reverts
+
+* to the point where ci worked ([bf7b3ab](https://github.com/nielsen-oss/superset-viz-plugins/commit/bf7b3abbd75cba23d89da71f4819a8bb76a86d32))
+
+
+
+
+
+# 0.3.0 (2021-10-10)
+
+
+### Features
+
+* upgrade to ^ in superset libraries ([403f7d5](https://github.com/nielsen-oss/superset-viz-plugins/commit/403f7d5aeb952d7d2cfc7c85c1637897d4a0fc94))
+
+
+
+
+
+# 0.2.0 (2021-10-10)
+
+
+### Features
+
+* upgrade dependecies to 1.3.1 ([9933599](https://github.com/nielsen-oss/superset-viz-plugins/commit/99335994d7dde6876359d5ae037e7c80b60f8d3d))
+
+
+
+
+
 ## 0.1.5 (2021-02-10)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-status

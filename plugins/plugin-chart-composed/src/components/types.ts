@@ -1,3 +1,5 @@
+import { JsonObject } from '@superset-ui/core';
+
 export type BarChartValue = { id: string; value: number; name: string; color: string };
 export type BarChartValueMap = { [key: string]: BarChartValue };
 
@@ -82,4 +84,11 @@ export const CHART_SUB_TYPE_NAMES = {
     [CHART_SUB_TYPES.MONOTONE]: 'Monotone Area Chart',
     [CHART_SUB_TYPES.STEP]: 'Step Area Chart',
   },
+};
+
+export type ColorSchemeByItem = JsonObject;
+export type ColorSchemeBy = {
+  __DEFAULT_COLOR_SCHEME__: string;
+  metric: ColorSchemeByItem;
+  breakdown: ColorSchemeByItem;
 };

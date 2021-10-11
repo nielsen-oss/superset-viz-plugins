@@ -16,10 +16,6 @@ jobs:
       PROJECT_WORKING_DIRECTORY: superset-viz-plugins
       REPOSITORY_OWNER: nielsen-oss
     steps:
-    - name: Use Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
     - name: Checkout viz plugins repo
       uses: actions/checkout@v2
       with:
@@ -32,7 +28,10 @@ jobs:
         git fetch --prune
       working-directory: ./${{ env.PROJECT_WORKING_DIRECTORY }}
       continue-on-error: true
-
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
     - name: Install dependencies
       run: yarn install --frozen-lockfile
       working-directory: ./${{ env.PROJECT_WORKING_DIRECTORY }}

@@ -984,6 +984,15 @@ const formDataWithAllChartTypes = {
   areaChartSubTypeMetric5: 'basis',
   scatterChartSubTypeMetric5: 'circle',
 };
+const formDataWithMetricsAndBreakdownBars = {
+  ...formDataWithAllChartTypes,
+  legendPosition: 'top',
+  useCustomTypeMetric0: false,
+  useCustomTypeMetric1: false,
+  useCustomTypeMetric2: false,
+  useCustomTypeMetric3: false,
+  useCustomTypeMetric4: false,
+};
 const formDataTimeSeries = {
   ...formDataBarsHorizontalLegendTop,
   granularitySqla: 'group_type',
@@ -1030,6 +1039,13 @@ export const barsVerticalLegendRightNumFormatAllLabelsBreakdowns = {
 
 export const allChatsLegendBottomBreakdowns = {
   formData: formDataWithAllChartTypes,
+  height: 400,
+  queriesData: [queriesDataForAllCharts],
+  width: 800,
+};
+
+export const metricsAndBreakdownBars = {
+  formData: formDataWithMetricsAndBreakdownBars,
   height: 400,
   queriesData: [queriesDataForAllCharts],
   width: 800,
