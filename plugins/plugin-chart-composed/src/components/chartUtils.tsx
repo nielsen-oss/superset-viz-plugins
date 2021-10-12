@@ -33,6 +33,8 @@ import {
   Cell,
 } from 'recharts';
 import { getNumberFormatter, JsonObject } from '@superset-ui/core';
+import arrowUp from '../images/arrow-up.svg';
+import arrowDown from '../images/arrow-down.svg';
 import { BREAKDOWN_SEPARATOR, LabelColors, ResultData, Z_SEPARATOR } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 import { ResetProps } from './ComposedChart';
@@ -51,6 +53,10 @@ import {
 import { checkIsMetricStacked, getMetricFromBreakdown, getResultColor } from './utils';
 
 const emptyRender = () => null;
+const icons = {
+  arrowUp,
+  arrowDown,
+};
 
 export const getMetricName = (name: string, numberOfMetrics: number, zDimension?: string) => {
   if (name?.startsWith(Z_SEPARATOR)) {
@@ -209,6 +215,15 @@ export type ChartBarItem = {
   stackId?: string | boolean;
 };
 
+type Shape = {
+  cx: number;
+  cy: number;
+  opacity: number;
+  fill: string;
+};
+
+const ICON_SIZE = 12;
+
 export const getChartElement = (
   breakdown: string,
   chartType: keyof typeof CHART_TYPES,
@@ -219,6 +234,15 @@ export const getChartElement = (
 ): ChartsUIItem => {
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
 
+  let resultType: any = chartSubType;
+  if (chartSubType === CHART_SUB_TYPES.ARROW_UP || chartSubType === CHART_SUB_TYPES.ARROW_DOWN) {
+    // @ts-ignore
+    const IconElement = icons[chartSubType];
+    resultType = (props: Shape) =>
+      props.cx && props.cy ? (
+        <IconElement x={props.cx - ICON_SIZE} y={props.cy - ICON_SIZE} fill={props.fill} opacity={props.opacity} />
+      ) : null;
+  }
   switch (chartType) {
     case CHART_TYPES.LINE_CHART:
       commonProps = {
@@ -245,7 +269,7 @@ export const getChartElement = (
         Element: Scatter,
         fill: color,
         opacity: 0.8,
-        shape: chartSubType,
+        shape: resultType,
       };
       break;
     case CHART_TYPES.BUBBLE_CHART:
