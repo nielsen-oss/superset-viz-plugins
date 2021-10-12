@@ -67,7 +67,7 @@ const coloredBreakdowns: { name: string; config: ControlConfig<'AdhocFilterContr
     renderTrigger: true,
     description: 'Choose breakdown value to be coloured',
     mapStateToProps: state => ({
-      hasCustomSQL: false,
+      sections: ['SIMPLE'],
       operators: ['EQUALS'],
       columns: state.datasource ? state.datasource.columns.filter(c => c.filterable) : [],
       savedMetrics: [],

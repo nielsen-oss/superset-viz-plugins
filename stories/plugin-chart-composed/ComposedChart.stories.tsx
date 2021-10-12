@@ -42,7 +42,8 @@ const commonProps = {
 };
 
 const BarsTemplate = args => {
-  if (args.chartSubType !== CHART_SUB_TYPES.DEFAULT && args.chartSubType !== CHART_SUB_TYPES.STACKED) {
+  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.DEFAULT;
+  if (chartSubType !== CHART_SUB_TYPES.DEFAULT && chartSubType !== CHART_SUB_TYPES.STACKED) {
     return (
       <>
         {`SubType "${args.chartSubType}" is not applied for Bars Chart, please change "chartSubType" property to:`}
@@ -54,7 +55,6 @@ const BarsTemplate = args => {
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        chartType={CHART_TYPES.BAR_CHART}
         data={
           transformProps(({
             ...barsHorizontalLegendTop,
@@ -66,6 +66,8 @@ const BarsTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
+        chartType={CHART_TYPES.BAR_CHART}
+        chartSubType={chartSubType}
       />
     </ThemeProvider>
   );

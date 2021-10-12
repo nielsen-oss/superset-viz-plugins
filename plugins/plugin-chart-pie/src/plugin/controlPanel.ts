@@ -18,10 +18,9 @@
  */
 import { formatSelectOptions, sharedControls } from '@superset-ui/chart-controls';
 import { QueryFormData, t, validateNonEmpty } from '@superset-ui/core';
-import { ColumnMeta, SelectControlConfig } from '@superset-ui/chart-controls/lib/types';
 import { LabelTypeNames, LabelTypes, LegendPosition } from '../utils';
 
-const groupBy: { name: string; config: SelectControlConfig<ColumnMeta, 'SelectControl'> } = {
+const groupBy: { name: string; config: typeof sharedControls.groupby } = {
   name: 'groupby',
   config: {
     ...sharedControls.groupby,
@@ -30,7 +29,7 @@ const groupBy: { name: string; config: SelectControlConfig<ColumnMeta, 'SelectCo
   },
 };
 
-const metric: { name: string; config: SelectControlConfig<string | Record<string, any>, 'MetricsControl'> } = {
+const metric: { name: string; config: typeof sharedControls.metrics } = {
   name: 'metric',
   config: {
     ...sharedControls.metrics,
