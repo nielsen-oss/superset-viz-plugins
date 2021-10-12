@@ -25,10 +25,9 @@ import {
   D3_FORMAT_OPTIONS,
   sharedControls,
 } from '@superset-ui/chart-controls';
-import { ColumnMeta, SelectControlConfig } from '@superset-ui/chart-controls/lib/types';
 import { SHOW_TOTAL_NAMES, ShowTotal } from '../types';
 
-const rows: { name: string; config: SelectControlConfig<ColumnMeta, 'SelectControl'> } = {
+const rows: { name: string; config: typeof sharedControls.groupby } = {
   name: 'rows',
   config: {
     ...sharedControls.groupby,

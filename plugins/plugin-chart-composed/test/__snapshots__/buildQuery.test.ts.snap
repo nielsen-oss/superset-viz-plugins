@@ -5,11 +5,13 @@ Object {
   "annotation_layers": Array [],
   "applied_time_extras": Object {},
   "columns": Array [],
+  "custom_form_data": Object {},
+  "custom_params": Object {},
   "extras": Object {
     "having": "",
     "having_druid": Array [],
     "time_grain_sqla": undefined,
-    "where": undefined,
+    "where": "",
   },
   "filters": Array [],
   "granularity": undefined,
@@ -66,26 +68,19 @@ Object {
     "spend",
     "duetogroup",
   ],
+  "custom_form_data": Object {},
+  "custom_params": Object {},
   "extras": Object {
     "having": "",
     "having_druid": Array [],
     "time_grain_sqla": undefined,
-    "where": undefined,
+    "where": "",
   },
   "filters": Array [],
   "granularity": undefined,
   "groupby": Array [],
   "is_timeseries": false,
-  "metrics": Array [
-    Object {
-      "aggregate": "SUM",
-      "column": Object {
-        "column_name": "spend",
-        "id": 1043,
-      },
-      "label": "SUM(spend)",
-    },
-  ],
+  "metrics": Array [],
   "order_desc": true,
   "orderby": Array [
     Array [

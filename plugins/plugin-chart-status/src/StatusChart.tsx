@@ -41,13 +41,13 @@ const Styles = styled.div<StatusStylesProps>`
   width: ${({ width }) => width}px;
 `;
 
-const ObjectName = styled.div<{ theme: SupersetTheme }>`
-  font-size: ${({ theme }) => theme.typography.sizes.xl}px;
+const ObjectName = styled.div<{ theme?: SupersetTheme }>`
+  font-size: ${({ theme }) => theme?.typography.sizes.xl}px;
 `;
 
-const StatusName = styled.div<{ col: string; theme: SupersetTheme }>`
-  font-size: ${({ theme }) => theme.typography.sizes.xxl}px;
-  font-weight: ${({ theme }) => theme.typography.weights.bold};
+const StatusName = styled.div<{ col: string; theme?: SupersetTheme }>`
+  font-size: ${({ theme }) => theme?.typography.sizes.xxl}px;
+  font-weight: ${({ theme }) => theme?.typography.weights.bold};
   color: ${({ col }) => col};
 `;
 

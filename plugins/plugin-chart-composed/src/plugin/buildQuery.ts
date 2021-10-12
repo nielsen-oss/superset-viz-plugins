@@ -61,7 +61,7 @@ export default function buildQuery(formData: QueryFormData) {
       groupby = [];
     }
 
-    const metrics = [...baseQueryObject.metrics];
+    const metrics = [...(baseQueryObject.metrics ?? [])];
     if (formData.z_dimension && formData.chart_type === CHART_TYPES.BUBBLE_CHART) {
       metrics.push(formData.z_dimension);
     }

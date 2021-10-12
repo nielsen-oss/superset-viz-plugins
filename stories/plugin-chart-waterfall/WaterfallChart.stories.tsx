@@ -18,7 +18,7 @@
  */
 import React from 'react';
 import { D3_FORMAT_OPTIONS } from '@superset-ui/chart-controls';
-import { ChartProps, supersetTheme, ThemeProvider } from '@superset-ui/core';
+import { supersetTheme, ThemeProvider } from '@superset-ui/core';
 import WaterfallChart from '../../plugins/plugin-chart-waterfall/src/components/WaterfallChart';
 import transformProps from '../../plugins/plugin-chart-waterfall/src/plugin/transformProps';
 import { legendTop } from '../../plugins/plugin-chart-waterfall/test/__mocks__/waterfallProps';
