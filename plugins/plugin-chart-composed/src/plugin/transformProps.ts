@@ -28,6 +28,7 @@ import {
   Data,
   FormData,
   getChartSubType,
+  getLabel,
   processNumbers,
   QueryMode,
   ResultData,
@@ -140,26 +141,6 @@ export default function transformProps(chartProps: ChartProps) {
     );
   }
 
-  const getLabel = (axisLabel: string) => {
-    const moustacheRegexp = new RegExp(/{{(.*?)}}/g);
-    if (moustacheRegexp.test(axisLabel)) {
-      const filterName = axisLabel.replace(/[{}]/g, '').trim();
-      let value = '';
-      if (filterName) {
-        const item = (formData?.extraFilters as any[])?.find(f => f.col === filterName);
-        if (item) {
-          if (item?.op === 'IN') {
-            value = item.val[0];
-          } else {
-            value = item.val;
-          }
-        }
-      }
-      return value;
-    }
-    return axisLabel;
-  };
-
   resultData = processNumbers(resultData, breakdowns, formData.numbersFormat, formData.numbersFormatDigits);
   const result: ComposedChartProps = {
     orderByYColumn: orderByYColumn as SortingType,
@@ -192,7 +173,7 @@ export default function transformProps(chartProps: ChartProps) {
     labelsColor: formData.labelsColor,
     xAxis: {
       interval: formData.xAxisInterval as AxisInterval,
-      label: getLabel(formData.xAxisLabel),
+      label: getLabel(formData, formData.xAxisLabel),
       tickLabelAngle: -Number(formData.xAxisTickLabelAngle),
     },
     scattersStickToBars,
@@ -204,7 +185,7 @@ export default function transformProps(chartProps: ChartProps) {
     yAxis: {
       labelAngle: -Number(formData.yAxisLabelAngle ?? 0),
       labelAngle2: -Number(formData.y2AxisLabelAngle ?? 0),
-      label: getLabel(formData.yAxisLabel),
+      label: getLabel(formData, formData.yAxisLabel),
       tickLabelAngle: -Number(formData.yAxisTickLabelAngle),
       label2: formData.y2AxisLabel,
       tickLabelAngle2: -Number(formData.y2AxisTickLabelAngle),
