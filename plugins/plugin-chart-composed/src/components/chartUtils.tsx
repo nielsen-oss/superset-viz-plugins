@@ -33,7 +33,9 @@ import {
   Cell,
 } from 'recharts';
 import { getNumberFormatter, JsonObject } from '@superset-ui/core';
+// @ts-ignore
 import arrowUp from '../images/arrow-up.svg';
+// @ts-ignore
 import arrowDown from '../images/arrow-down.svg';
 import { BREAKDOWN_SEPARATOR, LabelColors, ResultData, Z_SEPARATOR } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';

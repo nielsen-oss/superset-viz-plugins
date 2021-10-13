@@ -186,6 +186,8 @@ const ScatterTemplate = args => {
     args.chartSubType !== CHART_SUB_TYPES.CIRCLE &&
     args.chartSubType !== CHART_SUB_TYPES.DIAMOND &&
     args.chartSubType !== CHART_SUB_TYPES.SQUARE &&
+    args.chartSubType !== CHART_SUB_TYPES.ARROW_UP &&
+    args.chartSubType !== CHART_SUB_TYPES.ARROW_DOWN &&
     args.chartSubType !== CHART_SUB_TYPES.WYE
   ) {
     return (
@@ -195,6 +197,8 @@ const ScatterTemplate = args => {
         <li>{CHART_SUB_TYPES.DIAMOND}</li>
         <li>{CHART_SUB_TYPES.SQUARE}</li>
         <li>{CHART_SUB_TYPES.WYE}</li>
+        <li>{CHART_SUB_TYPES.ARROW_UP}</li>
+        <li>{CHART_SUB_TYPES.ARROW_DOWN}</li>
       </>
     );
   }
