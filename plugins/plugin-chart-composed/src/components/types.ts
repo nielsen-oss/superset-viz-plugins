@@ -34,6 +34,8 @@ export const CHART_SUB_TYPES = {
   DIAMOND: 'diamond',
   SQUARE: 'square',
   WYE: 'wye',
+  ARROW_UP: 'arrowUp',
+  ARROW_DOWN: 'arrowDown',
 
   BASIS: 'basis',
   LINEAR: 'linear',
@@ -63,12 +65,16 @@ export const CHART_SUB_TYPE_NAMES = {
     [CHART_SUB_TYPES.DIAMOND]: 'Diamond Scatter Chart',
     [CHART_SUB_TYPES.SQUARE]: 'Square Scatter Chart',
     [CHART_SUB_TYPES.WYE]: 'Wye Scatter Chart',
+    [CHART_SUB_TYPES.ARROW_UP]: 'Arrow Up Scatter Chart',
+    [CHART_SUB_TYPES.ARROW_DOWN]: 'Arrow Down Scatter Chart',
   },
   [CHART_TYPES.BUBBLE_CHART]: {
     [CHART_SUB_TYPES.CIRCLE]: 'Circle Bubble Chart',
     [CHART_SUB_TYPES.DIAMOND]: 'Diamond Bubble Chart',
     [CHART_SUB_TYPES.SQUARE]: 'Square Bubble Chart',
     [CHART_SUB_TYPES.WYE]: 'Wye Bubble Chart',
+    [CHART_SUB_TYPES.ARROW_UP]: 'Arrow Up Bubble Chart',
+    [CHART_SUB_TYPES.ARROW_DOWN]: 'Arrow Down Bubble Chart',
   },
   [CHART_TYPES.LINE_CHART]: {
     [CHART_SUB_TYPES.BASIS]: 'Basis Line Chart',
