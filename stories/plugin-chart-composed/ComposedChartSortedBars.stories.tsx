@@ -91,7 +91,7 @@ const SortedBarsTemplate = args => {
 
 export const SortedBars = SortedBarsTemplate.bind({});
 SortedBars.args = {
-  ...transformProps((barsHorizontalSorted as unknown) as ChartProps),
+  ...transformProps(({ ...barsHorizontalSorted } as unknown) as ChartProps),
   ...commonProps,
   queriesData: barsHorizontalSorted.queriesData,
   chartSubType: CHART_SUB_TYPES.STACKED,

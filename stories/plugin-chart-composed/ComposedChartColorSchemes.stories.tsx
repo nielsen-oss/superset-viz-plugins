@@ -138,7 +138,7 @@ const SortedBarsTemplate = args => {
 
 export const ColorSchemes = SortedBarsTemplate.bind({});
 ColorSchemes.args = {
-  ...transformProps((metricsAndBreakdownBars as unknown) as ChartProps),
+  ...transformProps(({ ...metricsAndBreakdownBars } as unknown) as ChartProps),
   ...commonProps,
   queriesData: metricsAndBreakdownBars.queriesData,
   chartSubType: CHART_SUB_TYPES.DEFAULT,
