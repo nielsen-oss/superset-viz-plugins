@@ -74,7 +74,8 @@ const BarsTemplate = args => {
 };
 
 const TimeSeriesTemplate = args => {
-  if (args.chartSubType !== CHART_SUB_TYPES.DEFAULT && args.chartSubType !== CHART_SUB_TYPES.STACKED) {
+  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.DEFAULT;
+  if (chartSubType !== CHART_SUB_TYPES.DEFAULT && chartSubType !== CHART_SUB_TYPES.STACKED) {
     return (
       <>
         {`SubType "${args.chartSubType}" is not applied for Bars Chart, please change "chartSubType" property to:`}
@@ -98,18 +99,20 @@ const TimeSeriesTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
+        chartSubType={chartSubType}
       />
     </ThemeProvider>
   );
 };
 
 const LinesTemplate = args => {
+  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.BASIS;
   if (
-    args.chartSubType !== CHART_SUB_TYPES.BASIS &&
-    args.chartSubType !== CHART_SUB_TYPES.LINEAR &&
-    args.chartSubType !== CHART_SUB_TYPES.NATURAL &&
-    args.chartSubType !== CHART_SUB_TYPES.MONOTONE &&
-    args.chartSubType !== CHART_SUB_TYPES.STEP
+    chartSubType !== CHART_SUB_TYPES.BASIS &&
+    chartSubType !== CHART_SUB_TYPES.LINEAR &&
+    chartSubType !== CHART_SUB_TYPES.NATURAL &&
+    chartSubType !== CHART_SUB_TYPES.MONOTONE &&
+    chartSubType !== CHART_SUB_TYPES.STEP
   ) {
     return (
       <>
@@ -137,18 +140,20 @@ const LinesTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
+        chartSubType={chartSubType}
       />
     </ThemeProvider>
   );
 };
 
 const AreaTemplate = args => {
+  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.BASIS;
   if (
-    args.chartSubType !== CHART_SUB_TYPES.BASIS &&
-    args.chartSubType !== CHART_SUB_TYPES.LINEAR &&
-    args.chartSubType !== CHART_SUB_TYPES.NATURAL &&
-    args.chartSubType !== CHART_SUB_TYPES.MONOTONE &&
-    args.chartSubType !== CHART_SUB_TYPES.STEP
+    chartSubType !== CHART_SUB_TYPES.BASIS &&
+    chartSubType !== CHART_SUB_TYPES.LINEAR &&
+    chartSubType !== CHART_SUB_TYPES.NATURAL &&
+    chartSubType !== CHART_SUB_TYPES.MONOTONE &&
+    chartSubType !== CHART_SUB_TYPES.STEP
   ) {
     return (
       <>
@@ -176,19 +181,21 @@ const AreaTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
+        chartSubType={chartSubType}
       />
     </ThemeProvider>
   );
 };
 
 const ScatterTemplate = args => {
+  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.CIRCLE;
   if (
-    args.chartSubType !== CHART_SUB_TYPES.CIRCLE &&
-    args.chartSubType !== CHART_SUB_TYPES.DIAMOND &&
-    args.chartSubType !== CHART_SUB_TYPES.SQUARE &&
-    args.chartSubType !== CHART_SUB_TYPES.ARROW_UP &&
-    args.chartSubType !== CHART_SUB_TYPES.ARROW_DOWN &&
-    args.chartSubType !== CHART_SUB_TYPES.WYE
+    chartSubType !== CHART_SUB_TYPES.CIRCLE &&
+    chartSubType !== CHART_SUB_TYPES.DIAMOND &&
+    chartSubType !== CHART_SUB_TYPES.SQUARE &&
+    chartSubType !== CHART_SUB_TYPES.ARROW_UP &&
+    chartSubType !== CHART_SUB_TYPES.ARROW_DOWN &&
+    chartSubType !== CHART_SUB_TYPES.WYE
   ) {
     return (
       <>
@@ -217,17 +224,19 @@ const ScatterTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
+        chartSubType={chartSubType}
       />
     </ThemeProvider>
   );
 };
 
 const BubbleTemplate = args => {
+  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.CIRCLE;
   if (
-    args.chartSubType !== CHART_SUB_TYPES.CIRCLE &&
-    args.chartSubType !== CHART_SUB_TYPES.DIAMOND &&
-    args.chartSubType !== CHART_SUB_TYPES.SQUARE &&
-    args.chartSubType !== CHART_SUB_TYPES.WYE
+    chartSubType !== CHART_SUB_TYPES.CIRCLE &&
+    chartSubType !== CHART_SUB_TYPES.DIAMOND &&
+    chartSubType !== CHART_SUB_TYPES.SQUARE &&
+    chartSubType !== CHART_SUB_TYPES.WYE
   ) {
     return (
       <>
@@ -254,6 +263,7 @@ const BubbleTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
+        chartSubType={chartSubType}
       />
     </ThemeProvider>
   );
@@ -280,7 +290,7 @@ const AllTypesTemplate = args => (
 export const Bars = BarsTemplate.bind({});
 Bars.args = {
   ...commonProps,
-  ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
+  ...transformProps(({ ...barsHorizontalLegendTop } as unknown) as ChartProps),
   queriesData: barsHorizontalLegendTop.queriesData,
   chartSubType: CHART_SUB_TYPES.DEFAULT,
 };
@@ -297,7 +307,7 @@ TimeSeries.args = {
 export const Lines = LinesTemplate.bind({});
 Lines.args = {
   ...commonProps,
-  ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
+  ...transformProps(({ ...barsHorizontalLegendTop } as unknown) as ChartProps),
   queriesData: barsHorizontalLegendTop.queriesData,
   chartSubType: CHART_SUB_TYPES.BASIS,
   chartType: CHART_TYPES.LINE_CHART,
@@ -307,7 +317,7 @@ Lines.args = {
 export const Area = AreaTemplate.bind({});
 Area.args = {
   ...commonProps,
-  ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
+  ...transformProps(({ ...barsHorizontalLegendTop } as unknown) as ChartProps),
   queriesData: barsHorizontalLegendTop.queriesData,
   chartType: CHART_TYPES.AREA_CHART,
   chartSubType: CHART_SUB_TYPES.BASIS,
@@ -316,7 +326,7 @@ Area.args = {
 export const Scatter = ScatterTemplate.bind({});
 Scatter.args = {
   ...commonProps,
-  ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
+  ...transformProps(({ ...barsHorizontalLegendTop } as unknown) as ChartProps),
   queriesData: barsHorizontalLegendTop.queriesData,
   chartType: CHART_TYPES.SCATTER_CHART,
   chartSubType: CHART_SUB_TYPES.CIRCLE,
@@ -325,7 +335,7 @@ Scatter.args = {
 export const Bubble = BubbleTemplate.bind({});
 Bubble.args = {
   ...commonProps,
-  ...transformProps((bubbleHorizontalLegendTop as unknown) as ChartProps),
+  ...transformProps(({ ...bubbleHorizontalLegendTop } as unknown) as ChartProps),
   queriesData: bubbleHorizontalLegendTop.queriesData,
   chartType: CHART_TYPES.BUBBLE_CHART,
   chartSubType: CHART_SUB_TYPES.CIRCLE,
@@ -334,6 +344,6 @@ Bubble.args = {
 export const AllTypes = AllTypesTemplate.bind({});
 AllTypes.args = {
   ...commonProps,
-  ...transformProps((allChatsLegendBottomBreakdowns as unknown) as ChartProps),
+  ...transformProps(({ ...allChatsLegendBottomBreakdowns } as unknown) as ChartProps),
   queriesData: allChatsLegendBottomBreakdowns.queriesData,
 };

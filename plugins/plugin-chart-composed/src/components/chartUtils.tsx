@@ -33,10 +33,6 @@ import {
   Cell,
 } from 'recharts';
 import { getNumberFormatter, JsonObject } from '@superset-ui/core';
-// @ts-ignore
-import arrowUp from '../images/arrow-up.svg';
-// @ts-ignore
-import arrowDown from '../images/arrow-down.svg';
 import { BREAKDOWN_SEPARATOR, LabelColors, ResultData, Z_SEPARATOR } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 import { ResetProps } from './ComposedChart';
@@ -53,12 +49,9 @@ import {
   MIN_SYMBOL_WIDTH_FOR_LABEL,
 } from './types';
 import { checkIsMetricStacked, getMetricFromBreakdown, getResultColor } from './utils';
+import icons from './icons';
 
 const emptyRender = () => null;
-const icons = {
-  arrowUp,
-  arrowDown,
-};
 
 export const getMetricName = (name: string, numberOfMetrics: number, zDimension?: string) => {
   if (name?.startsWith(Z_SEPARATOR)) {

@@ -193,7 +193,7 @@ const TicksTemplate = args => {
 
 export const Ticks = TicksTemplate.bind({});
 Ticks.args = {
-  ...transformProps((barsHorizontalLegendTop as unknown) as ChartProps),
+  ...transformProps(({ ...barsHorizontalLegendTop } as unknown) as ChartProps),
   ...commonProps,
   queriesData: barsHorizontalLegendTop.queriesData,
   chartSubType: CHART_SUB_TYPES.DEFAULT,
