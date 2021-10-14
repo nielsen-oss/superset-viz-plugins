@@ -219,6 +219,9 @@ type Shape = {
 
 const ICON_SIZE = 12;
 
+const isCustomIcon = (chartSubType: keyof typeof CHART_SUB_TYPES) =>
+  chartSubType === CHART_SUB_TYPES.ARROW_UP || chartSubType === CHART_SUB_TYPES.ARROW_DOWN;
+
 export const getChartElement = (
   breakdown: string,
   chartType: keyof typeof CHART_TYPES,
@@ -230,7 +233,7 @@ export const getChartElement = (
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
 
   let resultType: any = chartSubType;
-  if (chartSubType === CHART_SUB_TYPES.ARROW_UP || chartSubType === CHART_SUB_TYPES.ARROW_DOWN) {
+  if (isCustomIcon(chartSubType)) {
     // @ts-ignore
     const IconElement = icons[chartSubType];
     resultType = (props: Shape) =>
