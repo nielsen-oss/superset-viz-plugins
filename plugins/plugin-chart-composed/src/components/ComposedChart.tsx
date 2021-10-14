@@ -29,7 +29,7 @@ import {
   YAxis,
   ZAxis,
 } from 'recharts';
-import { styled } from '@superset-ui/core';
+import { JsonObject, styled } from '@superset-ui/core';
 import ComposedChartTooltip from './ComposedChartTooltip';
 import { LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
 import { debounce, isStackedBar } from './utils';
@@ -69,6 +69,7 @@ export type YAxisProps = {
 export type ComposedChartProps = {
   orderByYColumn: SortingType;
   isTimeSeries: boolean;
+  scattersStickToBars: JsonObject;
   /**
    * Height of chart */
   height: number;
@@ -155,11 +156,14 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     metrics,
     zDimension,
     colorSchemeBy,
+    scattersStickToBars,
   } = props;
 
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
   const [updater, setUpdater] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
+  const [barsUIPositions, setBarsUIPositions] = useState<JsonObject>({});
+  const barsUIPositionsRef = useRef<JsonObject>({});
   const [resetProps, setResetProps] = useState<ResetProps>({});
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -407,6 +411,9 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             numbersFormat,
             hasY2Axis,
             labelsColor,
+            scattersStickToBars,
+            barsUIPositions,
+            setBarsUIPositions,
             isAnimationActive: isAnimationActive && visible,
             updater,
             index,
@@ -420,6 +427,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             includedMetricsForStackedBars,
             isMainChartStacked,
             colorSchemeBy,
+            barsUIPositionsRef,
           }),
         )}
       </ChartContainer>

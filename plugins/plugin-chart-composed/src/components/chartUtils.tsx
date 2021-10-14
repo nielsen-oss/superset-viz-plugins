@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { RefObject } from 'react';
+import React, { ReactElement, RefObject } from 'react';
 import {
   Area,
   Bar,
@@ -47,9 +47,11 @@ import {
   LegendVerticalAlign,
   MIN_BAR_SIZE_FOR_LABEL,
   MIN_SYMBOL_WIDTH_FOR_LABEL,
+  STICK_TYPES,
 } from './types';
-import { checkIsMetricStacked, getMetricFromBreakdown, getResultColor } from './utils';
+import { checkIsMetricStacked, getBreakdownsOnly, getMetricFromBreakdown, getResultColor } from './utils';
 import icons from './icons';
+import ComposedBar from './ComposedBar';
 
 const emptyRender = () => null;
 
@@ -204,6 +206,7 @@ export type ChartLineItem = {
 };
 
 export type ChartBarItem = {
+  shape: ReactElement | Function;
   Element: React.ElementType;
   fill?: string;
   opacity?: number;
@@ -222,6 +225,46 @@ const ICON_SIZE = 12;
 const isCustomIcon = (chartSubType: keyof typeof CHART_SUB_TYPES) =>
   chartSubType === CHART_SUB_TYPES.ARROW_UP || chartSubType === CHART_SUB_TYPES.ARROW_DOWN;
 
+const getCustomScatterIcon = (
+  scattersStickToBars: JsonObject,
+  breakdown: string,
+  chartSubType: keyof typeof CHART_SUB_TYPES,
+  barsUIPositionsRef: RefObject<JsonObject>,
+) => {
+  // @ts-ignore
+  const IconElement = icons[chartSubType];
+  return (props: Shape) => {
+    const stickData =
+      // @ts-ignore
+      barsUIPositionsRef.current[
+        // @ts-ignore
+        `${props.rechartsDataKey}${BREAKDOWN_SEPARATOR}${getBreakdownsOnly(breakdown).join()}`
+      ];
+
+    let x = props.cx;
+
+    switch (stickData && scattersStickToBars[breakdown.split(BREAKDOWN_SEPARATOR)[0]]) {
+      case STICK_TYPES.CENTER: {
+        x = stickData?.x + stickData.width / 2;
+        break;
+      }
+      case STICK_TYPES.END: {
+        x = stickData?.x + stickData.width;
+        break;
+      }
+      case STICK_TYPES.START: {
+        x = stickData?.x;
+        break;
+      }
+      default:
+    }
+
+    return props.cx && props.cy ? (
+      <IconElement x={x - ICON_SIZE} y={props.cy - ICON_SIZE} fill={props.fill} opacity={props.opacity} />
+    ) : null;
+  };
+};
+
 export const getChartElement = (
   breakdown: string,
   chartType: keyof typeof CHART_TYPES,
@@ -229,18 +272,13 @@ export const getChartElement = (
   color: string,
   hasDifferentTypes: boolean,
   index: number,
+  scattersStickToBars: JsonObject,
+  barsUIPositions: JsonObject,
+  setBarsUIPositions: Function,
+  barsUIPositionsRef: RefObject<JsonObject>,
 ): ChartsUIItem => {
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
 
-  let resultType: any = chartSubType;
-  if (isCustomIcon(chartSubType)) {
-    // @ts-ignore
-    const IconElement = icons[chartSubType];
-    resultType = (props: Shape) =>
-      props.cx && props.cy ? (
-        <IconElement x={props.cx - ICON_SIZE} y={props.cy - ICON_SIZE} fill={props.fill} opacity={props.opacity} />
-      ) : null;
-  }
   switch (chartType) {
     case CHART_TYPES.LINE_CHART:
       commonProps = {
@@ -267,7 +305,9 @@ export const getChartElement = (
         Element: Scatter,
         fill: color,
         opacity: 0.8,
-        shape: resultType,
+        shape: isCustomIcon(chartSubType)
+          ? getCustomScatterIcon(scattersStickToBars, breakdown, chartSubType, barsUIPositionsRef)
+          : chartSubType,
       };
       break;
     case CHART_TYPES.BUBBLE_CHART:
@@ -287,6 +327,16 @@ export const getChartElement = (
         fill: color,
         stackId: chartSubType === CHART_SUB_TYPES.STACKED ? 'metric' : breakdown,
       };
+      if (Object.keys(scattersStickToBars).length) {
+        commonProps.shape = (
+          // @ts-ignore
+          <ComposedBar
+            setBarsUIPositions={setBarsUIPositions}
+            breakdown={breakdown}
+            barsUIPositionsRef={barsUIPositionsRef}
+          />
+        );
+      }
   }
 
   return { ...commonProps };
@@ -585,6 +635,10 @@ type ChartElementProps = {
   excludedMetricsForStackedBars: string[];
   isMainChartStacked: boolean;
   colorSchemeBy: ColorSchemeBy;
+  scattersStickToBars: JsonObject;
+  barsUIPositions: JsonObject;
+  setBarsUIPositions: Function;
+  barsUIPositionsRef: RefObject<JsonObject>;
 };
 
 export const renderChartElement = ({
@@ -597,6 +651,9 @@ export const renderChartElement = ({
   numbersFormat,
   hasY2Axis,
   labelsColor,
+  scattersStickToBars,
+  barsUIPositions,
+  setBarsUIPositions,
   isAnimationActive,
   updater,
   index,
@@ -610,6 +667,7 @@ export const renderChartElement = ({
   includedMetricsForStackedBars,
   isMainChartStacked,
   colorSchemeBy,
+  barsUIPositionsRef,
 }: ChartElementProps) => {
   let customChartType = chartType;
   let customChartSubType = chartSubType;
@@ -626,6 +684,10 @@ export const renderChartElement = ({
     getResultColor(breakdown, colorSchemeBy),
     customChartType === CHART_TYPES.BAR_CHART && hasCustomTypeMetrics.some(el => el),
     index,
+    scattersStickToBars,
+    barsUIPositions,
+    setBarsUIPositions,
+    barsUIPositionsRef,
   );
 
   const labelListExtraPropsWithTotal: LabelListProps & { fill: string } = {

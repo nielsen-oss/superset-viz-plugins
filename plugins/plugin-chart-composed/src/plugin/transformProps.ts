@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { ChartProps } from '@superset-ui/core';
+import { ChartProps, JsonObject } from '@superset-ui/core';
 import { AxisInterval } from 'recharts';
 import { mergeBy } from '../components/utils';
 import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeByItem, Layout } from '../components/types';
@@ -88,7 +88,9 @@ export default function transformProps(chartProps: ChartProps) {
   const colorSchemeByMetric: ColorSchemeByItem = {};
   const colorSchemeByBreakdown: ColorSchemeByItem = {};
   const hideLegendByMetric: boolean[] = [];
+  const scattersStickToBars: JsonObject = {};
 
+  const metrics = formData.metrics.map(({ label }) => label);
   if (formData.coloredBreakdowns?.length) {
     colorSchemeByBreakdown.values = formData.coloredBreakdowns.map(cb => cb.comparator);
     colorSchemeByBreakdown.colorScheme = formData.colorSchemeByBreakdown;
@@ -100,6 +102,14 @@ export default function transformProps(chartProps: ChartProps) {
       hideLegendByMetric.push(formData[`hideLegendByMetric${index}`] as boolean);
       if (formData[`hasColorSchemeMetric${index}`]) {
         colorSchemeByMetric[yColumn] = formData[`colorSchemeByMetric${index}`];
+      }
+      if (
+        formData[`stickToBars${index}`] &&
+        formData.chartType === CHART_TYPES.BAR_CHART &&
+        formData.barChartSubType === CHART_SUB_TYPES.DEFAULT &&
+        formData[`chartTypeMetric${index}`] === CHART_TYPES.SCATTER_CHART
+      ) {
+        scattersStickToBars[metrics[index]] = formData[`stickToBars${index}`];
       }
       chartTypeMetrics.push(formData[`chartTypeMetric${index}`] as keyof typeof CHART_TYPES);
       chartSubTypeMetrics.push(
@@ -136,12 +146,12 @@ export default function transformProps(chartProps: ChartProps) {
     breakdowns,
     width,
     height,
-    metrics: formData.metrics.map(({ label }) => label),
     isTimeSeries,
     xColumns,
     yColumns,
     hideLegendByMetric,
     chartTypeMetrics,
+    metrics,
     zDimension: formData.zDimension?.label,
     chartSubTypeMetrics,
     hasCustomTypeMetrics,
@@ -164,6 +174,7 @@ export default function transformProps(chartProps: ChartProps) {
       label: formData.xAxisLabel,
       tickLabelAngle: -Number(formData.xAxisTickLabelAngle),
     },
+    scattersStickToBars,
     hasY2Axis:
       yColumns.length > 1 &&
       formData.useY2Axis &&
