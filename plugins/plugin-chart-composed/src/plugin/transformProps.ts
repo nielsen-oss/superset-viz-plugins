@@ -107,7 +107,10 @@ export default function transformProps(chartProps: ChartProps) {
         formData[`stickToBars${index}`] &&
         formData.chartType === CHART_TYPES.BAR_CHART &&
         formData.barChartSubType === CHART_SUB_TYPES.DEFAULT &&
-        formData[`chartTypeMetric${index}`] === CHART_TYPES.SCATTER_CHART
+        formData[`chartTypeMetric${index}`] === CHART_TYPES.SCATTER_CHART &&
+        (formData[`scatterChartSubTypeMetric${index}`] === CHART_SUB_TYPES.ARROW_UP ||
+          formData[`scatterChartSubTypeMetric${index}`] === CHART_SUB_TYPES.CIRCLE ||
+          formData[`scatterChartSubTypeMetric${index}`] === CHART_SUB_TYPES.ARROW_DOWN)
       ) {
         scattersStickToBars[metrics[index]] = formData[`stickToBars${index}`];
       }
