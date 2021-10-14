@@ -19,18 +19,18 @@
 import React, { ReactElement, RefObject } from 'react';
 import {
   Area,
+  AxisInterval,
   Bar,
+  Cell,
   LabelFormatter,
+  LabelList,
+  LabelListProps,
   LabelProps,
   LegendPayload,
   LegendProps,
   Line,
   Scatter,
-  LabelList,
-  LabelListProps,
   XAxisProps,
-  AxisInterval,
-  Cell,
 } from 'recharts';
 import { getNumberFormatter, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, LabelColors, ResultData, Z_SEPARATOR } from '../plugin/utils';
@@ -50,8 +50,8 @@ import {
   STICK_TYPES,
 } from './types';
 import { checkIsMetricStacked, getBreakdownsOnly, getMetricFromBreakdown, getResultColor } from './utils';
-import icons from './icons';
 import ComposedBar from './ComposedBar';
+import icons from './icons';
 
 const emptyRender = () => null;
 
@@ -223,16 +223,25 @@ type Shape = {
 const ICON_SIZE = 12;
 
 const isCustomIcon = (chartSubType: keyof typeof CHART_SUB_TYPES) =>
-  chartSubType === CHART_SUB_TYPES.ARROW_UP || chartSubType === CHART_SUB_TYPES.ARROW_DOWN;
+  chartSubType === CHART_SUB_TYPES.ARROW_UP ||
+  chartSubType === CHART_SUB_TYPES.ARROW_DOWN ||
+  chartSubType === CHART_SUB_TYPES.CIRCLE;
+
+const ICONS_VERTICAL_MAP = {
+  [CHART_SUB_TYPES.ARROW_UP]: 'arrowRight',
+  [CHART_SUB_TYPES.ARROW_DOWN]: 'arrowLeft',
+};
 
 const getCustomScatterIcon = (
   scattersStickToBars: JsonObject,
   breakdown: string,
   chartSubType: keyof typeof CHART_SUB_TYPES,
   barsUIPositionsRef: RefObject<JsonObject>,
+  layout: Layout,
 ) => {
-  // @ts-ignore
-  const IconElement = icons[chartSubType];
+  const IconElement =
+    // @ts-ignore
+    icons[layout === Layout.vertical ? ICONS_VERTICAL_MAP[chartSubType] ?? chartSubType : chartSubType];
   return (props: Shape) => {
     const stickData =
       // @ts-ignore
@@ -241,27 +250,52 @@ const getCustomScatterIcon = (
         `${props.rechartsDataKey}${BREAKDOWN_SEPARATOR}${getBreakdownsOnly(breakdown).join()}`
       ];
 
-    let x = props.cx;
+    const params: JsonObject = {
+      fill: props.fill,
+      opacity: props.opacity,
+    };
 
-    switch (stickData && scattersStickToBars[breakdown.split(BREAKDOWN_SEPARATOR)[0]]) {
-      case STICK_TYPES.CENTER: {
-        x = stickData?.x + stickData.width / 2;
-        break;
+    if (layout === Layout.horizontal) {
+      params.y = props.cy - ICON_SIZE;
+      switch (stickData && scattersStickToBars[breakdown.split(BREAKDOWN_SEPARATOR)[0]]) {
+        case STICK_TYPES.CENTER: {
+          params.x = stickData?.x + stickData.width / 2;
+          break;
+        }
+        case STICK_TYPES.END: {
+          params.x = stickData?.x + stickData.width;
+          break;
+        }
+        case STICK_TYPES.START: {
+          params.x = stickData?.x;
+          break;
+        }
+        default:
+          params.x = props.cx;
       }
-      case STICK_TYPES.END: {
-        x = stickData?.x + stickData.width;
-        break;
+      params.x -= ICON_SIZE;
+    } else {
+      params.x = props.cx - ICON_SIZE;
+      switch (stickData && scattersStickToBars[breakdown.split(BREAKDOWN_SEPARATOR)[0]]) {
+        case STICK_TYPES.CENTER: {
+          params.y = stickData?.y + stickData.height / 2;
+          break;
+        }
+        case STICK_TYPES.END: {
+          params.x = stickData?.y + stickData.height;
+          break;
+        }
+        case STICK_TYPES.START: {
+          params.y = stickData?.y;
+          break;
+        }
+        default:
+          params.y = props.cy;
       }
-      case STICK_TYPES.START: {
-        x = stickData?.x;
-        break;
-      }
-      default:
+      params.y -= ICON_SIZE;
     }
 
-    return props.cx && props.cy ? (
-      <IconElement x={x - ICON_SIZE} y={props.cy - ICON_SIZE} fill={props.fill} opacity={props.opacity} />
-    ) : null;
+    return props.cx && props.cy ? <IconElement {...params} /> : null;
   };
 };
 
@@ -273,9 +307,8 @@ export const getChartElement = (
   hasDifferentTypes: boolean,
   index: number,
   scattersStickToBars: JsonObject,
-  barsUIPositions: JsonObject,
-  setBarsUIPositions: Function,
   barsUIPositionsRef: RefObject<JsonObject>,
+  layout: Layout,
 ): ChartsUIItem => {
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
 
@@ -306,7 +339,7 @@ export const getChartElement = (
         fill: color,
         opacity: 0.8,
         shape: isCustomIcon(chartSubType)
-          ? getCustomScatterIcon(scattersStickToBars, breakdown, chartSubType, barsUIPositionsRef)
+          ? getCustomScatterIcon(scattersStickToBars, breakdown, chartSubType, barsUIPositionsRef, layout)
           : chartSubType,
       };
       break;
@@ -330,11 +363,7 @@ export const getChartElement = (
       if (Object.keys(scattersStickToBars).length) {
         commonProps.shape = (
           // @ts-ignore
-          <ComposedBar
-            setBarsUIPositions={setBarsUIPositions}
-            breakdown={breakdown}
-            barsUIPositionsRef={barsUIPositionsRef}
-          />
+          <ComposedBar breakdown={breakdown} barsUIPositionsRef={barsUIPositionsRef} />
         );
       }
   }
@@ -652,8 +681,6 @@ export const renderChartElement = ({
   hasY2Axis,
   labelsColor,
   scattersStickToBars,
-  barsUIPositions,
-  setBarsUIPositions,
   isAnimationActive,
   updater,
   index,
@@ -685,9 +712,8 @@ export const renderChartElement = ({
     customChartType === CHART_TYPES.BAR_CHART && hasCustomTypeMetrics.some(el => el),
     index,
     scattersStickToBars,
-    barsUIPositions,
-    setBarsUIPositions,
     barsUIPositionsRef,
+    layout,
   );
 
   const labelListExtraPropsWithTotal: LabelListProps & { fill: string } = {

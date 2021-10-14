@@ -185,6 +185,9 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
             !isQueryMode(QueryMode.raw)(otherControls as ControlPanelsContainerProps) &&
             form_data[`use_custom_type_metric_${index}`] &&
             form_data[`chart_type_metric_${index}`] === CHART_TYPES.SCATTER_CHART &&
+            (form_data[`scatter_chart_sub_type_metric_${index}`] === CHART_SUB_TYPES.CIRCLE ||
+              form_data[`scatter_chart_sub_type_metric_${index}`] === CHART_SUB_TYPES.ARROW_UP ||
+              form_data[`scatter_chart_sub_type_metric_${index}`] === CHART_SUB_TYPES.ARROW_DOWN) &&
             form_data.chart_type === CHART_TYPES.BAR_CHART &&
             form_data.bar_chart_sub_type === CHART_SUB_TYPES.DEFAULT &&
             form_data?.metrics?.[index]
