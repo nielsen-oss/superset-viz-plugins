@@ -91,10 +91,9 @@ export default function transformProps(chartProps: ChartProps) {
   const scattersStickToBars: JsonObject = {};
 
   const metrics = formData.metrics.map(({ label }) => label);
-  if (formData.coloredBreakdowns?.length) {
-    colorSchemeByBreakdown.values = formData.coloredBreakdowns.map(cb => cb.comparator);
-    colorSchemeByBreakdown.colorScheme = formData.colorSchemeByBreakdown;
-  }
+  formData.coloredBreakdowns?.forEach((cb, i) => {
+    colorSchemeByBreakdown[(cb.comparator as unknown) as string] = formData[`colorSchemeByBreakdown${i}`];
+  });
 
   if (formData.queryMode !== QueryMode.raw) {
     yColumns.forEach((yColumn, index) => {
@@ -154,7 +153,6 @@ export default function transformProps(chartProps: ChartProps) {
     yColumns,
     hideLegendByMetric,
     chartTypeMetrics,
-    metrics,
     zDimension: formData.zDimension?.label,
     chartSubTypeMetrics,
     hasCustomTypeMetrics,
