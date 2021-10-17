@@ -38,9 +38,6 @@ jobs:
     - name: Build packages
       run: yarn build
       working-directory: ./${{ env.PROJECT_WORKING_DIRECTORY }}
-    - name: Build assets
-      run: yarn run build:assets
-      working-directory: ./${{ env.PROJECT_WORKING_DIRECTORY }}
 
     - name: Configure npm and git
       run: |

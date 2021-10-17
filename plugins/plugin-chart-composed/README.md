@@ -4,6 +4,9 @@
 
 This plugin provides Composed for Superset.
 
+(Storybook)[https://5fec4c81935a8c002151e85f-abrnxxsiuy.chromatic.com/?path=/docs/plugins-composed-chart-playground--bars]
+
+
 ### Usage
 
 Configure `key`, which can be any `string`, and register the plugin. This `key` will be used to lookup this chart throughout the app.
@@ -29,3 +32,5 @@ Then use it via `SuperChart`. See [storybook](https://apache-superset.github.io/
   }]}
 />
 ```
+
+
