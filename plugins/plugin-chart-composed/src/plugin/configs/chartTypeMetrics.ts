@@ -18,7 +18,13 @@
  */
 import { QueryFormData, t } from '@superset-ui/core';
 import { ControlPanelsContainerProps } from '@superset-ui/chart-controls';
-import { CHART_SUB_TYPE_NAMES, CHART_SUB_TYPES, CHART_TYPE_NAMES, CHART_TYPES } from '../../components/types';
+import {
+  CHART_SUB_TYPE_NAMES,
+  CHART_SUB_TYPES,
+  CHART_TYPE_NAMES,
+  CHART_TYPES,
+  STICK_TYPES,
+} from '../../components/types';
 import { isQueryMode, MAX_FORM_CONTROLS, QueryMode } from '../utils';
 
 const chartTypeMetricsInit = [];
@@ -158,5 +164,35 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
     lineChartSubTypeMetric,
     areaChartSubTypeMetric,
     scatterChartSubTypeMetric,
+    {
+      name: `stick_to_bars_${index}`,
+      config: {
+        label: t(`Stick to bars`),
+        clearable: true,
+        renderTrigger: true,
+        type: 'SelectControl',
+        options: Object.keys(STICK_TYPES).map(key => ({
+          value: key,
+          label: key.toLowerCase(),
+        })),
+        default: null,
+        description: t(
+          `When main chart is Bar chart (with Default subtype), current chart dots will be stickied to bars`,
+        ),
+        // @ts-ignore
+        visibility: ({ form_data, ...otherControls }: { form_data: QueryFormData }) =>
+          !!(
+            !isQueryMode(QueryMode.raw)(otherControls as ControlPanelsContainerProps) &&
+            form_data[`use_custom_type_metric_${index}`] &&
+            form_data[`chart_type_metric_${index}`] === CHART_TYPES.SCATTER_CHART &&
+            (form_data[`scatter_chart_sub_type_metric_${index}`] === CHART_SUB_TYPES.CIRCLE ||
+              form_data[`scatter_chart_sub_type_metric_${index}`] === CHART_SUB_TYPES.ARROW_UP ||
+              form_data[`scatter_chart_sub_type_metric_${index}`] === CHART_SUB_TYPES.ARROW_DOWN) &&
+            form_data.chart_type === CHART_TYPES.BAR_CHART &&
+            form_data.bar_chart_sub_type === CHART_SUB_TYPES.DEFAULT &&
+            form_data?.metrics?.[index]
+          ),
+      },
+    },
   ];
 });

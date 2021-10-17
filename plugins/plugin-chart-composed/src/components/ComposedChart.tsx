@@ -29,7 +29,7 @@ import {
   YAxis,
   ZAxis,
 } from 'recharts';
-import { styled } from '@superset-ui/core';
+import { JsonObject, styled } from '@superset-ui/core';
 import ComposedChartTooltip from './ComposedChartTooltip';
 import { LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
 import { debounce, isStackedBar } from './utils';
@@ -69,6 +69,7 @@ export type YAxisProps = {
 export type ComposedChartProps = {
   orderByYColumn: SortingType;
   isTimeSeries: boolean;
+  scattersStickToBars: JsonObject;
   /**
    * Height of chart */
   height: number;
@@ -84,7 +85,6 @@ export type ComposedChartProps = {
   layout: Layout;
   /**
    * List of metrics */
-  metrics: string[];
   hideLegendByMetric: boolean[];
   yColumns: string[];
   breakdowns: string[];
@@ -152,14 +152,16 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     xColumns,
     minBarWidth,
     bubbleSize,
-    metrics,
     zDimension,
     colorSchemeBy,
+    scattersStickToBars,
   } = props;
 
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
   const [updater, setUpdater] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
+  const [barsUIPositions, setBarsUIPositions] = useState<JsonObject>({});
+  const barsUIPositionsRef = useRef<JsonObject>({});
   const [resetProps, setResetProps] = useState<ResetProps>({});
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -184,10 +186,10 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   const y2AxisWidth = Math.ceil(y2AxisClientRect?.width || 1);
 
   const { excludedMetricsForStackedBars, includedMetricsForStackedBars, isMainChartStacked } = useMemo(() => {
-    const excludedMetricsForStackedBars = metrics.filter(
+    const excludedMetricsForStackedBars = yColumns.filter(
       (metric, i) => hasCustomTypeMetrics[i] && !isStackedBar(chartTypeMetrics[i], chartSubTypeMetrics[i]),
     );
-    const includedMetricsForStackedBars = metrics.filter(
+    const includedMetricsForStackedBars = yColumns.filter(
       (metric, i) => hasCustomTypeMetrics[i] && isStackedBar(chartTypeMetrics[i], chartSubTypeMetrics[i]),
     );
     return {
@@ -195,7 +197,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
       includedMetricsForStackedBars,
       isMainChartStacked: isStackedBar(chartType, chartSubType),
     };
-  }, [chartSubType, chartSubTypeMetrics, chartType, chartTypeMetrics, hasCustomTypeMetrics, metrics]);
+  }, [chartSubType, chartSubTypeMetrics, chartType, chartTypeMetrics, hasCustomTypeMetrics, yColumns]);
 
   const currentData = useCurrentData(
     data,
@@ -330,7 +332,6 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               xAxisHeight,
               yAxisWidth,
               hideLegendByMetric,
-              metrics,
               colorSchemeBy,
             )}
             iconType="circle"
@@ -407,6 +408,9 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             numbersFormat,
             hasY2Axis,
             labelsColor,
+            scattersStickToBars,
+            barsUIPositions,
+            setBarsUIPositions,
             isAnimationActive: isAnimationActive && visible,
             updater,
             index,
@@ -420,6 +424,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             includedMetricsForStackedBars,
             isMainChartStacked,
             colorSchemeBy,
+            barsUIPositionsRef,
           }),
         )}
       </ChartContainer>

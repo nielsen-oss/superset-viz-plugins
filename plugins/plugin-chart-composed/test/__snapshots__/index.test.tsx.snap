@@ -755,7 +755,7 @@ Object {
               }
             }
             opacity={0.8}
-            shape="circle"
+            shape={[Function]}
             yAxisId="left"
           />,
           <mockConstructor
@@ -1215,7 +1215,7 @@ Object {
               }
             }
             opacity={0.8}
-            shape="circle"
+            shape={[Function]}
             yAxisId="left"
           />,
           <mockConstructor
@@ -1730,7 +1730,7 @@ Object {
         "position": "center",
       },
       "opacity": 0.8,
-      "shape": "circle",
+      "shape": [Function],
       "yAxisId": "left",
     },
     Object {},

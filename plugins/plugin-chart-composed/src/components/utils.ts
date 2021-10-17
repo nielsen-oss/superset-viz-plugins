@@ -196,7 +196,7 @@ export function debounce(func: Function, timeout = 300) {
   };
 }
 
-export const getBreakdownsOnly = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR).splice(1);
+export const getBreakdownsOnly = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR).slice(1);
 
 export const getResultColor = (breakdown = '', colorSchemeBy: ColorSchemeBy) => {
   let resultColorScheme = colorSchemeBy.metric?.[getMetricFromBreakdown(breakdown)];
