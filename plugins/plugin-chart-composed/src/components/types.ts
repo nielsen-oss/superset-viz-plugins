@@ -29,6 +29,12 @@ export const CHART_TYPES = {
   BUBBLE_CHART: 'BUBBLE_CHART',
 };
 
+export enum STICK_TYPES {
+  START = 'START',
+  CENTER = 'CENTER',
+  END = 'END',
+}
+
 export const CHART_SUB_TYPES = {
   CIRCLE: 'circle',
   DIAMOND: 'diamond',
