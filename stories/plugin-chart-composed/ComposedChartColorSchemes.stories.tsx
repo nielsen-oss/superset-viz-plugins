@@ -125,8 +125,7 @@ const SortedBarsTemplate = args => {
           colorSchemeBy={{
             metric: {},
             breakdown: {
-              values: ['Standard'],
-              colorScheme: GREY_COLOR_SCHEME,
+              Standard: GREY_COLOR_SCHEME,
             },
             __DEFAULT_COLOR_SCHEME__: 'SUPERSET_DEFAULT',
           }}
