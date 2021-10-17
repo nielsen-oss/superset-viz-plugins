@@ -11,7 +11,7 @@ const packages = fg.sync([`{packages,plugins}/${pkgGlob}`], {
 
 console.log('Copying asset files from package {src} to {lib,esm}...');
 packages.forEach(pkg => {
-  const assets = fg.sync([`${pkg}/src/**/*.{png,gif,jpg,css,geojson}`]);
+  const assets = fg.sync([`${pkg}/src/**/*.{png,gif,jpg,css,geojson,svg}`]);
   assets.forEach(filePath => {
     ['dist', 'esm']
       .map(dir => filePath.replace(`${pkg}/src`, `${pkg}/${dir}`))
