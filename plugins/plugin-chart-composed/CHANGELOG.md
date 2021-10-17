@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.33.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.32.0...@superset-viz-plugins/plugin-chart-composed@0.33.0) (2021-10-17)
+
+
+### Features
+
+* Colored breakdowns ([#88](https://github.com/nielsen-oss/superset-viz-plugins/issues/88)) ([47452e3](https://github.com/nielsen-oss/superset-viz-plugins/commit/47452e3cf42b4a5418d6cf0ef5d61c83a43110bd))
+
+
+
+
+
 # [0.32.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.31.0...@superset-viz-plugins/plugin-chart-composed@0.32.0) (2021-10-17)
 
 
