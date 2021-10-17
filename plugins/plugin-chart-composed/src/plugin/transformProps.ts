@@ -136,7 +136,6 @@ export default function transformProps(chartProps: ChartProps) {
     breakdowns,
     width,
     height,
-    metrics: formData.metrics.map(({ label }) => label),
     isTimeSeries,
     xColumns,
     yColumns,

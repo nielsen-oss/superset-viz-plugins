@@ -117,11 +117,10 @@ export const getLegendProps = (
   xAxisHeight: number,
   yAxisWidth: number,
   hideLegendByMetric: boolean[],
-  metrics: string[],
   colorSchemeBy: ColorSchemeBy,
 ): LegendProps => {
   const resultBreakdowns = breakdowns.filter(
-    breakdown => !hideLegendByMetric.find((hiddenMetric, i) => hiddenMetric && breakdown.startsWith(metrics[i])),
+    breakdown => !hideLegendByMetric.find((hiddenMetric, i) => hiddenMetric && breakdown.startsWith(yColumns[i])),
   );
   const payload: LegendPayload[] = resultBreakdowns.map(breakdown => ({
     value: getMetricName(breakdown, yColumns.length - hideLegendByMetric.filter(h => h).length),

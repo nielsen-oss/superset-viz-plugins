@@ -84,7 +84,6 @@ export type ComposedChartProps = {
   layout: Layout;
   /**
    * List of metrics */
-  metrics: string[];
   hideLegendByMetric: boolean[];
   yColumns: string[];
   breakdowns: string[];
@@ -152,7 +151,6 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     xColumns,
     minBarWidth,
     bubbleSize,
-    metrics,
     zDimension,
     colorSchemeBy,
   } = props;
@@ -184,10 +182,10 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   const y2AxisWidth = Math.ceil(y2AxisClientRect?.width || 1);
 
   const { excludedMetricsForStackedBars, includedMetricsForStackedBars, isMainChartStacked } = useMemo(() => {
-    const excludedMetricsForStackedBars = metrics.filter(
+    const excludedMetricsForStackedBars = yColumns.filter(
       (metric, i) => hasCustomTypeMetrics[i] && !isStackedBar(chartTypeMetrics[i], chartSubTypeMetrics[i]),
     );
-    const includedMetricsForStackedBars = metrics.filter(
+    const includedMetricsForStackedBars = yColumns.filter(
       (metric, i) => hasCustomTypeMetrics[i] && isStackedBar(chartTypeMetrics[i], chartSubTypeMetrics[i]),
     );
     return {
@@ -195,7 +193,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
       includedMetricsForStackedBars,
       isMainChartStacked: isStackedBar(chartType, chartSubType),
     };
-  }, [chartSubType, chartSubTypeMetrics, chartType, chartTypeMetrics, hasCustomTypeMetrics, metrics]);
+  }, [chartSubType, chartSubTypeMetrics, chartType, chartTypeMetrics, hasCustomTypeMetrics, yColumns]);
 
   const currentData = useCurrentData(
     data,
@@ -330,7 +328,6 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               xAxisHeight,
               yAxisWidth,
               hideLegendByMetric,
-              metrics,
               colorSchemeBy,
             )}
             iconType="circle"
