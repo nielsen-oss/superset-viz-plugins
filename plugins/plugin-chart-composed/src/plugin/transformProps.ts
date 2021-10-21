@@ -28,6 +28,7 @@ import {
   Data,
   FormData,
   getChartSubType,
+  getLabel,
   processNumbers,
   QueryMode,
   ResultData,
@@ -91,10 +92,9 @@ export default function transformProps(chartProps: ChartProps) {
   const scattersStickToBars: JsonObject = {};
 
   const metrics = formData.metrics.map(({ label }) => label);
-  if (formData.coloredBreakdowns?.length) {
-    colorSchemeByBreakdown.values = formData.coloredBreakdowns.map(cb => cb.comparator);
-    colorSchemeByBreakdown.colorScheme = formData.colorSchemeByBreakdown;
-  }
+  formData.coloredBreakdowns?.forEach((cb, i) => {
+    colorSchemeByBreakdown[(cb.comparator as unknown) as string] = formData[`colorSchemeByBreakdown${i}`];
+  });
 
   if (formData.queryMode !== QueryMode.raw) {
     yColumns.forEach((yColumn, index) => {
@@ -154,7 +154,6 @@ export default function transformProps(chartProps: ChartProps) {
     yColumns,
     hideLegendByMetric,
     chartTypeMetrics,
-    metrics,
     zDimension: formData.zDimension?.label,
     chartSubTypeMetrics,
     hasCustomTypeMetrics,
@@ -174,7 +173,7 @@ export default function transformProps(chartProps: ChartProps) {
     labelsColor: formData.labelsColor,
     xAxis: {
       interval: formData.xAxisInterval as AxisInterval,
-      label: formData.xAxisLabel,
+      label: getLabel(formData, formData.xAxisLabel),
       tickLabelAngle: -Number(formData.xAxisTickLabelAngle),
     },
     scattersStickToBars,
@@ -186,7 +185,7 @@ export default function transformProps(chartProps: ChartProps) {
     yAxis: {
       labelAngle: -Number(formData.yAxisLabelAngle ?? 0),
       labelAngle2: -Number(formData.y2AxisLabelAngle ?? 0),
-      label: formData.yAxisLabel,
+      label: getLabel(formData, formData.yAxisLabel),
       tickLabelAngle: -Number(formData.yAxisTickLabelAngle),
       label2: formData.y2AxisLabel,
       tickLabelAngle2: -Number(formData.y2AxisTickLabelAngle),

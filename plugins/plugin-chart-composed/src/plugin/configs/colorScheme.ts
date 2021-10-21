@@ -18,7 +18,6 @@
  */
 import { getCategoricalSchemeRegistry, QueryFormData, t } from '@superset-ui/core';
 import { ControlConfig } from '@superset-ui/chart-controls/lib/types';
-import { formatSelectOptions } from '@superset-ui/chart-controls';
 import { MAX_FORM_CONTROLS } from '../utils';
 
 const categoricalSchemeRegistry = getCategoricalSchemeRegistry();
@@ -65,7 +64,6 @@ const coloredBreakdowns: { name: string; config: ControlConfig<'AdhocFilterContr
     label: t('Colored breakdowns'),
     default: null,
     renderTrigger: true,
-    description: 'Choose breakdown value to be coloured',
     mapStateToProps: state => ({
       sections: ['SIMPLE'],
       operators: ['EQUALS'],
@@ -76,25 +74,30 @@ const coloredBreakdowns: { name: string; config: ControlConfig<'AdhocFilterContr
   },
 };
 
-const colorSchemeByBreakdown = [
-  coloredBreakdowns,
+const getColorSchemeByBreakdown = (i: number): [{ name: string; config: ControlConfig<'ColorSchemeControl'> }] => [
   {
-    name: `color_scheme_by_breakdown`,
+    name: `color_scheme_by_breakdown_${i}`,
     config: {
       renderTrigger: true,
       type: 'ColorSchemeControl',
-      label: t(`Color scheme`),
+      label: t(`Color scheme for breakdown value ${i + 1}`),
       default: categoricalSchemeRegistry.getDefaultKey(),
-      description: t(`Color scheme for breakdown`),
-      visibility: ({ form_data }: { form_data: QueryFormData }) => !!form_data?.colored_breakdowns?.length,
+      visibility: ({ form_data }: { form_data: QueryFormData }) => !!form_data.colored_breakdowns?.[i],
       choices: () => categoricalSchemeRegistry.keys().map(s => [s, s]),
       schemes: () => categoricalSchemeRegistry.getMap(),
     },
   },
 ];
 
+const colorSchemeByBreakdown: (
+  | [{ name: string; config: ControlConfig<'ColorSchemeControl'> }]
+  | [{ name: string; config: ControlConfig<'AdhocFilterControl'> }]
+)[] = [[coloredBreakdowns]];
+
 for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
   colorSchemeByMetric.push(getColorSchemeBy(i));
+
+  colorSchemeByBreakdown.push(getColorSchemeByBreakdown(i));
 }
 
 export { colorSchemeByMetric, colorSchemeByBreakdown };

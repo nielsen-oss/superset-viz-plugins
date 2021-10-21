@@ -281,7 +281,7 @@ const config: ControlPanelConfig = {
     {
       label: t('Color scheme'),
       expanded: true,
-      controlSetRows: [['color_scheme'], ...colorSchemeByMetric, colorSchemeByBreakdown],
+      controlSetRows: [['color_scheme'], ...colorSchemeByMetric, ...colorSchemeByBreakdown],
     },
     {
       label: t('Legend'),
