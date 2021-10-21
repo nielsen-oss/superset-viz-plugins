@@ -89,7 +89,6 @@ const getColorSchemeByBreakdown = (i: number): [{ name: string; config: ControlC
   },
 ];
 
-
 const colorSchemeByBreakdown: (
   | [{ name: string; config: ControlConfig<'ColorSchemeControl'> }]
   | [{ name: string; config: ControlConfig<'AdhocFilterControl'> }]
@@ -97,7 +96,7 @@ const colorSchemeByBreakdown: (
 
 for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
   colorSchemeByMetric.push(getColorSchemeBy(i));
-  
+
   colorSchemeByBreakdown.push(getColorSchemeByBreakdown(i));
 }
 

@@ -1940,7 +1940,7 @@ Object {
             Object {
               "dy": 1,
               "position": "insideBottom",
-              "value": undefined,
+              "value": "X Axis dynamic label",
             }
           }
           tick={[Function]}
@@ -1955,12 +1955,12 @@ Object {
               "dx": -5,
               "dy": 0,
               "position": "insideLeft",
-              "value": undefined,
+              "value": "Y Axis dynamic label",
             }
           }
           orientation="left"
           tick={[Function]}
-          width={1}
+          width={12}
           yAxisId="left"
         />,
         false,
@@ -2275,7 +2275,7 @@ Object {
       "label": Object {
         "dy": 1,
         "position": "insideBottom",
-        "value": undefined,
+        "value": "X Axis dynamic label",
       },
       "tick": [Function],
     },
@@ -2821,7 +2821,7 @@ Object {
             Object {
               "dy": 1,
               "position": "insideBottom",
-              "value": undefined,
+              "value": "X Axis dynamic label",
             }
           }
           tick={[Function]}
@@ -2836,12 +2836,12 @@ Object {
               "dx": -5,
               "dy": 0,
               "position": "insideLeft",
-              "value": undefined,
+              "value": "Y Axis dynamic label",
             }
           }
           orientation="left"
           tick={[Function]}
-          width={1}
+          width={12}
           yAxisId="left"
         />,
         false,
@@ -3034,7 +3034,7 @@ Object {
       "layout": "horizontal",
       "margin": Object {
         "bottom": 17,
-        "left": 4.5,
+        "left": 5,
         "right": 10,
         "top": 15,
       },
@@ -3114,7 +3114,7 @@ Object {
       "label": Object {
         "dy": 1,
         "position": "insideBottom",
-        "value": undefined,
+        "value": "X Axis dynamic label",
       },
       "tick": [Function],
     },
@@ -3130,11 +3130,11 @@ Object {
         "dx": -5,
         "dy": 0,
         "position": "insideLeft",
-        "value": undefined,
+        "value": "Y Axis dynamic label",
       },
       "orientation": "left",
       "tick": [Function],
-      "width": 1,
+      "width": 12,
       "yAxisId": "left",
     },
     Object {},

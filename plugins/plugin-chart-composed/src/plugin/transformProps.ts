@@ -28,6 +28,7 @@ import {
   Data,
   FormData,
   getChartSubType,
+  getLabel,
   processNumbers,
   QueryMode,
   ResultData,
@@ -172,7 +173,7 @@ export default function transformProps(chartProps: ChartProps) {
     labelsColor: formData.labelsColor,
     xAxis: {
       interval: formData.xAxisInterval as AxisInterval,
-      label: formData.xAxisLabel,
+      label: getLabel(formData, formData.xAxisLabel),
       tickLabelAngle: -Number(formData.xAxisTickLabelAngle),
     },
     scattersStickToBars,
@@ -184,7 +185,7 @@ export default function transformProps(chartProps: ChartProps) {
     yAxis: {
       labelAngle: -Number(formData.yAxisLabelAngle ?? 0),
       labelAngle2: -Number(formData.y2AxisLabelAngle ?? 0),
-      label: formData.yAxisLabel,
+      label: getLabel(formData, formData.yAxisLabel),
       tickLabelAngle: -Number(formData.yAxisTickLabelAngle),
       label2: formData.y2AxisLabel,
       tickLabelAngle2: -Number(formData.y2AxisTickLabelAngle),

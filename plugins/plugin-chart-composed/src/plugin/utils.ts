@@ -247,3 +247,23 @@ export const isQueryMode = (mode: QueryMode) => ({ controls }: ControlPanelsCont
   getQueryMode(controls) === mode;
 export const isAggMode = isQueryMode(QueryMode.aggregate);
 export const isRawMode = isQueryMode(QueryMode.raw);
+
+export const getLabel = (formData: FormData, axisLabel?: string) => {
+  const moustacheRegexp = new RegExp(/{{(.*?)}}/g);
+  if (axisLabel && moustacheRegexp.test(axisLabel)) {
+    const filterName = axisLabel.replace(/[{}]/g, '').trim();
+    let value = '';
+    if (filterName) {
+      const item = (formData?.extraFilters as any[])?.find(f => f.col === filterName);
+      if (item) {
+        if (item?.op === 'IN') {
+          value = item.val.join(', ');
+        } else {
+          value = item.val;
+        }
+      }
+    }
+    return value;
+  }
+  return axisLabel || '';
+};

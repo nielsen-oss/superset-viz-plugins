@@ -645,6 +645,12 @@ const formDataBarsHorizontalLegendTop = {
   timeRange: 'Last week',
   groupby: ['group_type'],
   numbersFormat: 'SMART_NUMBER',
+  xAxisLabel: '{{metric_name_1}}',
+  yAxisLabel: '{{metric_name_2}}',
+  extraFilters: [
+    { col: 'metric_name_1', op: 'IN', val: ['X Axis dynamic label'] },
+    { col: 'metric_name_2', op: 'IN', val: ['Y Axis dynamic label'] },
+  ],
   metrics: [
     {
       expressionType: 'SIMPLE',
