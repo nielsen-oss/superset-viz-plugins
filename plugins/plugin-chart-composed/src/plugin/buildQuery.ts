@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { buildQueryContext, QueryFormData } from '@superset-ui/core';
+import { buildQueryContext, JsonObject, QueryFormData } from '@superset-ui/core';
 import { BinaryOperator, SetOperator } from '@superset-ui/core/lib/query/types/Operator';
 import { checkTimeSeries, MAX_FORM_CONTROLS, QueryMode, SortingType } from './utils';
 import { CHART_TYPES } from '../components/types';
@@ -35,7 +35,7 @@ export type QueryFormExtraFilter = {
     }
 );
 
-export default function buildQuery(formData: QueryFormData) {
+export default function buildQuery(formData: QueryFormData, options: JsonObject) {
   return buildQueryContext(formData, baseQueryObject => {
     const orderby: [string, boolean][] = [];
 
@@ -65,10 +65,20 @@ export default function buildQuery(formData: QueryFormData) {
     if (formData.z_dimension && formData.chart_type === CHART_TYPES.BUBBLE_CHART) {
       metrics.push(formData.z_dimension);
     }
+    let { filters } = baseQueryObject;
+    const ownState = options?.ownState ?? {};
+    if (ownState.filters) {
+      // eslint-disable-next-line prefer-destructuring
+      filters = ownState.filters;
+    }
+    if (ownState.groupBy) {
+      groupby = ownState.groupBy as string[];
+    }
 
     return [
       {
         ...baseQueryObject,
+        filters,
         metrics,
         orderby,
         is_timeseries: checkTimeSeries(

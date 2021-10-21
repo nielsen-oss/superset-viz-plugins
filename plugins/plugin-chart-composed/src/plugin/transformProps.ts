@@ -37,17 +37,19 @@ import {
 } from './utils';
 
 export default function transformProps(chartProps: ChartProps) {
-  const { width, height, queriesData } = chartProps;
+  const { width, height, queriesData, hooks, ownState } = chartProps;
   const data = queriesData[0].data as Data[];
   const formData = chartProps.formData as FormData;
   let xColumns: string[];
   let yColumns: string[];
 
+  const { setDataMask = () => {} } = hooks;
+
   if (formData.queryMode === QueryMode.raw) {
     xColumns = [formData.xColumn];
     yColumns = [formData.yColumn];
   } else {
-    xColumns = formData.groupby;
+    xColumns = ownState?.groupBy ?? formData.groupby;
     yColumns = formData.metrics?.map(metric => metric.label ?? metric);
   }
 
@@ -141,6 +143,29 @@ export default function transformProps(chartProps: ChartProps) {
     );
   }
 
+  const handleChartClick = (obj?: JsonObject) => {
+    if (!obj) {
+      setDataMask({
+        ownState: {
+          deepness: 0,
+          groupBy: null,
+          filters: null,
+        },
+      });
+      return;
+    }
+    const deepness = ownState.deepness ?? 0;
+    const filters = [...(ownState?.filters ?? [])];
+    filters.push({ col: ownState?.groupBy?.[0] ?? formData.groupby[0], op: '==', val: obj?.value });
+    setDataMask({
+      ownState: {
+        deepness: deepness + 1,
+        groupBy: [formData.drillDownGroupBy[deepness]],
+        filters,
+      },
+    });
+  };
+
   resultData = processNumbers(resultData, breakdowns, formData.numbersFormat, formData.numbersFormatDigits);
   const result: ComposedChartProps = {
     orderByYColumn: orderByYColumn as SortingType,
@@ -191,6 +216,12 @@ export default function transformProps(chartProps: ChartProps) {
       tickLabelAngle2: -Number(formData.y2AxisTickLabelAngle),
     },
     data: resultData,
+    deepness: ownState?.deepness,
+    resetChart: () => handleChartClick(),
   };
+
+  if ((ownState?.deepness ?? 0) < formData.drillDownGroupBy?.length) {
+    result.handleChartClick = handleChartClick;
+  }
   return result;
 }

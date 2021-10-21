@@ -49,6 +49,7 @@ type ComposedChartStylesProps = {
   height: number;
   width: number;
   legendPosition: LegendPosition;
+  isClickable: boolean;
 };
 
 type XAxisProps = {
@@ -67,6 +68,9 @@ export type YAxisProps = {
 };
 
 export type ComposedChartProps = {
+  resetChart: (arg?: JsonObject) => void;
+  handleChartClick?: (arg?: JsonObject) => void;
+  deepness?: boolean;
   orderByYColumn: SortingType;
   isTimeSeries: boolean;
   scattersStickToBars: JsonObject;
@@ -113,11 +117,15 @@ const Styles = styled.div<ComposedChartStylesProps>`
   width: ${({ width }) => width}px;
   overflow: auto;
 
-  & .recharts-cartesian-axis-tick-line {
+  .recharts-cartesian-axis-tick-line {
     display: none;
   }
 
-  & .recharts-legend-item {
+  .recharts-bar-rectangle {
+    ${({ isClickable }) => isClickable && 'cursor: pointer'};
+  }
+
+  .recharts-legend-item {
     cursor: pointer;
     white-space: nowrap;
   }
@@ -155,6 +163,9 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     zDimension,
     colorSchemeBy,
     scattersStickToBars,
+    handleChartClick,
+    resetChart,
+    deepness,
   } = props;
 
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
@@ -298,6 +309,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
 
   return (
     <Styles
+      isClickable={!!handleChartClick}
       key={updater}
       height={height}
       width={width}
@@ -305,6 +317,8 @@ const ComposedChart: FC<ComposedChartProps> = props => {
       ref={rootRef}
       style={{ overflowX: newWidth === width ? 'hidden' : 'auto', overflowY: newHeight === height ? 'hidden' : 'auto' }}
     >
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      {deepness ? <a onClick={() => resetChart()}>Reset</a> : null}
       <ChartContainer
         key={updater}
         width={newWidth}
@@ -425,6 +439,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             isMainChartStacked,
             colorSchemeBy,
             barsUIPositionsRef,
+            handleChartClick,
           }),
         )}
       </ChartContainer>

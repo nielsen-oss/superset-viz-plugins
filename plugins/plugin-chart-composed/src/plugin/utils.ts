@@ -38,6 +38,7 @@ export type LabelColors = 'black' | 'white';
 export type FormData = {
   [key: string]: string | string[] | Metric[] | Metric | boolean | SetAdhocFilter[];
   layout: Layout;
+  drillDownGroupBy: string[];
   colorScheme: string;
   coloredBreakdowns: SetAdhocFilter[];
   colorSchemeByBreakdown: string;

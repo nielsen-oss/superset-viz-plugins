@@ -59,13 +59,11 @@ export const getMetricName = (name: string, numberOfMetrics: number, zDimension?
   if (name?.startsWith(Z_SEPARATOR)) {
     return zDimension;
   }
-  if (numberOfMetrics === 1) {
-    return name
-      ?.split(BREAKDOWN_SEPARATOR)
-      .splice(1)
-      .join(', ');
+  const metric = name?.split(BREAKDOWN_SEPARATOR);
+  if (numberOfMetrics === 1 && metric.length > 1) {
+    return metric.splice(1).join(', ');
   }
-  return name?.split(BREAKDOWN_SEPARATOR).join(', ');
+  return metric.join(', ');
 };
 
 export const renderLabel = ({
@@ -210,6 +208,7 @@ export type ChartBarItem = {
   fill?: string;
   opacity?: number;
   stackId?: string | boolean;
+  onClick?: Function;
 };
 
 type Shape = {
@@ -308,6 +307,7 @@ export const getChartElement = (
   scattersStickToBars: JsonObject,
   barsUIPositionsRef: RefObject<JsonObject>,
   layout: Layout,
+  handleChartClick?: (arg: JsonObject) => void,
 ): ChartsUIItem => {
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
 
@@ -354,6 +354,11 @@ export const getChartElement = (
     case CHART_TYPES.BAR_CHART:
     default:
       commonProps = {
+        onClick: ({ rechartsDataKey }: JsonObject) => {
+          if (handleChartClick) {
+            handleChartClick({ value: rechartsDataKey });
+          }
+        },
         Element: Bar,
         opacity: hasDifferentTypes ? 0.6 : 1,
         fill: color,
@@ -667,6 +672,7 @@ type ChartElementProps = {
   barsUIPositions: JsonObject;
   setBarsUIPositions: Function;
   barsUIPositionsRef: RefObject<JsonObject>;
+  handleChartClick?: (arg?: JsonObject) => void;
 };
 
 export const renderChartElement = ({
@@ -694,6 +700,7 @@ export const renderChartElement = ({
   isMainChartStacked,
   colorSchemeBy,
   barsUIPositionsRef,
+  handleChartClick,
 }: ChartElementProps) => {
   let customChartType = chartType;
   let customChartSubType = chartSubType;
@@ -713,6 +720,7 @@ export const renderChartElement = ({
     scattersStickToBars,
     barsUIPositionsRef,
     layout,
+    handleChartClick,
   );
 
   const labelListExtraPropsWithTotal: LabelListProps & { fill: string } = {
