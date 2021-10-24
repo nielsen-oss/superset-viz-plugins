@@ -231,6 +231,8 @@ const ICONS_VERTICAL_MAP = {
   [CHART_SUB_TYPES.ARROW_DOWN]: 'arrowLeft',
 };
 
+const BARS_SPACE = 2;
+
 const getCustomScatterIcon = (
   scattersStickToBars: JsonObject,
   breakdown: string,
@@ -262,11 +264,11 @@ const getCustomScatterIcon = (
           break;
         }
         case STICK_TYPES.END: {
-          params.x = stickData?.x + stickData.width;
+          params.x = stickData?.x + stickData.width + BARS_SPACE;
           break;
         }
         case STICK_TYPES.START: {
-          params.x = stickData?.x;
+          params.x = stickData?.x - BARS_SPACE;
           break;
         }
         default:
@@ -281,11 +283,11 @@ const getCustomScatterIcon = (
           break;
         }
         case STICK_TYPES.END: {
-          params.x = stickData?.y + stickData.height;
+          params.x = stickData?.y + stickData.height + BARS_SPACE;
           break;
         }
         case STICK_TYPES.START: {
-          params.y = stickData?.y;
+          params.y = stickData?.y - BARS_SPACE;
           break;
         }
         default:
@@ -336,7 +338,7 @@ export const getChartElement = (
       commonProps = {
         Element: Scatter,
         fill: color,
-        opacity: 0.8,
+        opacity: 1,
         shape: isCustomIcon(chartSubType)
           ? getCustomScatterIcon(scattersStickToBars, breakdown, chartSubType, barsUIPositionsRef, layout)
           : chartSubType,
