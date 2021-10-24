@@ -35,7 +35,7 @@ export type QueryFormExtraFilter = {
     }
 );
 
-export default function buildQuery(formData: QueryFormData, options: JsonObject) {
+export default function buildQuery(formData: QueryFormData, options?: JsonObject) {
   return buildQueryContext(formData, baseQueryObject => {
     const orderby: [string, boolean][] = [];
 
