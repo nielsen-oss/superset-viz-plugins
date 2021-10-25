@@ -754,7 +754,7 @@ Object {
                 "position": "center",
               }
             }
-            opacity={0.8}
+            opacity={1}
             shape={[Function]}
             yAxisId="left"
           />,
@@ -1214,7 +1214,7 @@ Object {
                 "position": "center",
               }
             }
-            opacity={0.8}
+            opacity={1}
             shape={[Function]}
             yAxisId="left"
           />,
@@ -1729,7 +1729,7 @@ Object {
         "keyIndex": 6,
         "position": "center",
       },
-      "opacity": 0.8,
+      "opacity": 1,
       "shape": [Function],
       "yAxisId": "left",
     },
