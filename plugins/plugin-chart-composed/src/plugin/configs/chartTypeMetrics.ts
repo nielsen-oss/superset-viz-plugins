@@ -124,14 +124,14 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
     },
   };
 
-  const markChartSubTypeMetric = {
-    name: `mark_chart_sub_type_metric_${index}`,
+  const normChartSubTypeMetric = {
+    name: `norm_chart_sub_type_metric_${index}`,
     config: {
       label: t(`Chart subtype for metric ${el}`),
       clearable: false,
       renderTrigger: true,
       type: 'SelectControl',
-      options: Object.keys(CHART_SUB_TYPE_NAMES[CHART_TYPES.MARK_CHART]).map(key => ({
+      options: Object.keys(CHART_SUB_TYPE_NAMES[CHART_TYPES.NORM_CHART]).map(key => ({
         value: key,
         label: CHART_SUB_TYPE_NAMES[key],
       })),
@@ -140,7 +140,7 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
           !isQueryMode(QueryMode.raw)(otherControls as ControlPanelsContainerProps) &&
           form_data[`use_custom_type_metric_${index}`] &&
           form_data?.metrics?.[index] &&
-          form_data[`chart_type_metric_${index}`] === CHART_TYPES.MARK_CHART
+          form_data[`chart_type_metric_${index}`] === CHART_TYPES.NORM_CHART
         ),
       default: CHART_SUB_TYPES.DEFAULT,
       description: t(`Set subtype of chart for metric ${el}`),
@@ -187,7 +187,7 @@ export const chartTypeMetrics = chartTypeMetricsInit.map((el, index) => {
     lineChartSubTypeMetric,
     areaChartSubTypeMetric,
     scatterChartSubTypeMetric,
-    markChartSubTypeMetric,
+    normChartSubTypeMetric,
     {
       name: `stick_to_bars_${index}`,
       config: {

@@ -35,7 +35,7 @@ import { LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/uti
 import { debounce, isStackedBar } from './utils';
 import { getCartesianGridProps, getLegendProps, getXAxisProps, getYAxisProps, renderChartElement } from './chartUtils';
 import { useCurrentData, useZAxisRange } from './state';
-import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeBy, Layout, LegendPosition, MARK_SPACE } from './types';
+import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeBy, Layout, LegendPosition, NORM_SPACE } from './types';
 import ScatterChartTooltip from './ScatterChartTooltip';
 
 type EventData = {
@@ -247,21 +247,25 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     setDisabledDataKeys(resultKeys);
   };
 
-  const xMarginLeft =
+  let xMarginLeft =
     xAxis.tickLabelAngle === -45 &&
     layout === Layout.horizontal &&
     showLegend &&
     legendPosition !== LegendPosition.left &&
     !yAxis.label
       ? xAxisHeight / 2 - yAxisWidth + 5
-      : 5;
+      : 10;
 
   let yMarginBottom =
     yAxis.tickLabelAngle === -45 && layout === Layout.vertical ? yAxisWidth - xAxisHeight - 10 : xAxisHeight;
-  const hasMarkChart = [...chartTypeMetrics, chartType].includes(CHART_TYPES.MARK_CHART as keyof typeof CHART_TYPES);
+  const hasNormChart = [...chartTypeMetrics, chartType].includes(CHART_TYPES.NORM_CHART as keyof typeof CHART_TYPES);
 
-  if (hasMarkChart && layout === Layout.horizontal) {
-    yMarginBottom += MARK_SPACE;
+  if (hasNormChart && layout === Layout.horizontal) {
+    yMarginBottom += NORM_SPACE * 2;
+  }
+
+  if (hasNormChart && layout === Layout.vertical) {
+    xMarginLeft += NORM_SPACE * 2;
   }
 
   let newWidth = width;
@@ -431,9 +435,10 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             isMainChartStacked,
             colorSchemeBy,
             barsUIPositionsRef,
-            xAxisHeight,
-            yAxisWidth,
+            xAxisClientRect,
+            yAxisClientRect,
             xColumns,
+            firstItem: data[0]?.rechartsDataKey,
           }),
         )}
       </ChartContainer>

@@ -86,7 +86,7 @@ export default function transformProps(chartProps: ChartProps) {
     formData.areaChartSubType,
     formData.scatterChartSubType,
     formData.bubbleChartSubType,
-    formData.markChartSubType,
+    formData.normChartSubType,
   );
 
   const chartTypeMetrics: (keyof typeof CHART_TYPES)[] = [];
@@ -129,7 +129,7 @@ export default function transformProps(chartProps: ChartProps) {
           formData[`areaChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
           formData[`scatterChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
           formData[`bubbleChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
-          formData[`markChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
+          formData[`normChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
         ),
       );
     });

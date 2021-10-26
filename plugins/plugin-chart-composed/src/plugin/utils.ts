@@ -52,7 +52,7 @@ export type FormData = {
   barChartSubType: keyof typeof CHART_SUB_TYPES;
   scatterChartSubType: keyof typeof CHART_SUB_TYPES;
   bubbleChartSubType: keyof typeof CHART_SUB_TYPES;
-  markChartSubType: keyof typeof CHART_SUB_TYPES;
+  normChartSubType: keyof typeof CHART_SUB_TYPES;
   numbersFormat: string;
   columns: string[];
   labelsColor: LabelColors;
@@ -102,7 +102,7 @@ export const getChartSubType = (
   areaChartSubType: keyof typeof CHART_SUB_TYPES,
   scatterChartSubType: keyof typeof CHART_SUB_TYPES,
   bubbleChartSubType: keyof typeof CHART_SUB_TYPES,
-  markChartSubType: keyof typeof CHART_SUB_TYPES,
+  normChartSubType: keyof typeof CHART_SUB_TYPES,
 ) => {
   switch (chartType) {
     case CHART_TYPES.LINE_CHART:
@@ -113,8 +113,8 @@ export const getChartSubType = (
       return scatterChartSubType;
     case CHART_TYPES.BUBBLE_CHART:
       return bubbleChartSubType;
-    case CHART_TYPES.MARK_CHART:
-      return markChartSubType;
+    case CHART_TYPES.NORM_CHART:
+      return normChartSubType;
     case CHART_TYPES.BAR_CHART:
     default:
       return barChartSubType;
@@ -240,8 +240,8 @@ export const sortOrderedBars = (
 export const has2Queries = (fromData: JsonObject) => {
   for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
     if (
-      (fromData[`use_custom_type_metric_${i}`] && fromData[`chart_type_metric_${i}`] === CHART_TYPES.MARK_CHART) ||
-      fromData.chart_type === CHART_TYPES.MARK_CHART
+      (fromData[`use_custom_type_metric_${i}`] && fromData[`chart_type_metric_${i}`] === CHART_TYPES.NORM_CHART) ||
+      fromData.chart_type === CHART_TYPES.NORM_CHART
     ) {
       return true;
     }
