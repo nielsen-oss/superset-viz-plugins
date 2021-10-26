@@ -238,6 +238,7 @@ Object {
         "keyIndex": 7,
         "position": "center",
       },
+      "onClick": [Function],
       "opacity": 0.6,
       "stackId": "COUNT_DISTINCT(efficiency)_$_Custom",
       "yAxisId": "right",
@@ -868,6 +869,7 @@ Object {
                 "position": "center",
               }
             }
+            onClick={[Function]}
             opacity={0.6}
             stackId="COUNT_DISTINCT(efficiency)_$_Standard"
             yAxisId="right"
@@ -1328,6 +1330,7 @@ Object {
                 "position": "center",
               }
             }
+            onClick={[Function]}
             opacity={0.6}
             stackId="COUNT_DISTINCT(efficiency)_$_Custom"
             yAxisId="right"
@@ -1879,6 +1882,7 @@ Object {
         "keyIndex": 1,
         "position": "center",
       },
+      "onClick": [Function],
       "opacity": 1,
       "stackId": "COUNT_DISTINCT(group_name)",
       "yAxisId": "right",
@@ -2075,6 +2079,7 @@ Object {
                 "position": "center",
               }
             }
+            onClick={[Function]}
             opacity={1}
             stackId="COUNT_DISTINCT(period)"
             yAxisId="left"
@@ -2142,6 +2147,7 @@ Object {
                 "position": "center",
               }
             }
+            onClick={[Function]}
             opacity={1}
             stackId="COUNT_DISTINCT(group_name)"
             yAxisId="right"
@@ -2475,6 +2481,7 @@ Object {
                 "position": "center",
               }
             }
+            onClick={[Function]}
             opacity={1}
             stackId="metric"
             yAxisId="left"
@@ -2542,6 +2549,7 @@ Object {
                 "position": "center",
               }
             }
+            onClick={[Function]}
             opacity={1}
             stackId="metric"
             yAxisId="left"
@@ -2763,6 +2771,7 @@ Object {
         "keyIndex": 1,
         "position": "center",
       },
+      "onClick": [Function],
       "opacity": 1,
       "stackId": "COUNT_DISTINCT(group_name)",
       "yAxisId": "left",
@@ -2931,6 +2940,7 @@ Object {
                 "position": "center",
               }
             }
+            onClick={[Function]}
             opacity={1}
             stackId="COUNT_DISTINCT(period)"
             yAxisId="left"
@@ -2990,6 +3000,7 @@ Object {
                 "position": "center",
               }
             }
+            onClick={[Function]}
             opacity={1}
             stackId="COUNT_DISTINCT(group_name)"
             yAxisId="left"
