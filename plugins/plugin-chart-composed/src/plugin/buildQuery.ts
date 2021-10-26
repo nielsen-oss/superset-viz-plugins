@@ -18,7 +18,7 @@
  */
 import { buildQueryContext, QueryFormData } from '@superset-ui/core';
 import { BinaryOperator, SetOperator } from '@superset-ui/core/lib/query/types/Operator';
-import { checkTimeSeries, MAX_FORM_CONTROLS, QueryMode, SortingType } from './utils';
+import { checkTimeSeries, has2Queries, MAX_FORM_CONTROLS, QueryMode, SortingType } from './utils';
 import { CHART_TYPES } from '../components/types';
 
 // Not correctly imported form node_modules, so add it here
@@ -66,7 +66,7 @@ export default function buildQuery(formData: QueryFormData) {
       metrics.push(formData.z_dimension);
     }
 
-    return [
+    const queries = [
       {
         ...baseQueryObject,
         metrics,
@@ -80,5 +80,22 @@ export default function buildQuery(formData: QueryFormData) {
         groupby,
       },
     ];
+
+    if (has2Queries(formData)) {
+      queries.push({
+        ...baseQueryObject,
+        metrics,
+        orderby,
+        is_timeseries: checkTimeSeries(
+          formData.query_mode === QueryMode.raw ? formData.x_column : formData.groupby,
+          formData.granularity_sqla,
+          formData.layout,
+        ),
+        columns,
+        groupby: groupby.filter(gb => !formData.columns?.includes(gb)),
+      });
+    }
+
+    return queries;
   });
 }

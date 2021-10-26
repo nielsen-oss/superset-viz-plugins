@@ -52,6 +52,7 @@ import {
 import { checkIsMetricStacked, getBreakdownsOnly, getMetricFromBreakdown, getResultColor } from './utils';
 import ComposedBar from './ComposedBar';
 import icons from './icons';
+import ComposedMark from './ComposedMark';
 
 const emptyRender = () => null;
 
@@ -310,6 +311,10 @@ export const getChartElement = (
   scattersStickToBars: JsonObject,
   barsUIPositionsRef: RefObject<JsonObject>,
   layout: Layout,
+  xAxisHeight: number,
+  numbersFormat: string,
+  yColumns: string[],
+  xColumns: string[],
 ): ChartsUIItem => {
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
 
@@ -353,6 +358,22 @@ export const getChartElement = (
         shape: chartSubType,
       };
       break;
+    case CHART_TYPES.MARK_CHART:
+      commonProps = {
+        Element: Scatter,
+        opacity: 1,
+        zAxisId: index,
+        shape: (props: JsonObject) => (
+          <ComposedMark
+            layout={layout}
+            xAxisHeight={xAxisHeight}
+            breakdown={breakdown}
+            numbersFormat={numbersFormat}
+            {...props}
+          />
+        ),
+      };
+      break;
     case CHART_TYPES.BAR_CHART:
     default:
       commonProps = {
@@ -369,6 +390,7 @@ export const getChartElement = (
       }
   }
 
+  console.log(index, yColumns);
   return { ...commonProps };
 };
 
@@ -460,7 +482,7 @@ export const getXAxisProps = ({
   const labelProps: LabelProps = {
     value: label,
     position: 'insideBottom',
-    dy: axisHeight,
+    dy: axisHeight + 5,
   };
 
   const params: XAxisProps = {
@@ -669,6 +691,9 @@ type ChartElementProps = {
   barsUIPositions: JsonObject;
   setBarsUIPositions: Function;
   barsUIPositionsRef: RefObject<JsonObject>;
+  xAxisHeight: number;
+  yAxisWidth: number;
+  xColumns: string[];
 };
 
 export const renderChartElement = ({
@@ -696,6 +721,9 @@ export const renderChartElement = ({
   isMainChartStacked,
   colorSchemeBy,
   barsUIPositionsRef,
+  xAxisHeight,
+  yAxisWidth,
+  xColumns,
 }: ChartElementProps) => {
   let customChartType = chartType;
   let customChartSubType = chartSubType;
@@ -715,6 +743,10 @@ export const renderChartElement = ({
     scattersStickToBars,
     barsUIPositionsRef,
     layout,
+    xAxisHeight,
+    numbersFormat,
+    yColumns,
+    xColumns,
   );
 
   const labelListExtraPropsWithTotal: LabelListProps & { fill: string } = {
@@ -761,6 +793,8 @@ export const renderChartElement = ({
       isMainChartStacked,
       excludedMetricsForStackedBars,
       includedMetricsForStackedBars,
+      xAxisHeight,
+      yAxisWidth,
     };
   }
 

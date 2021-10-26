@@ -35,7 +35,7 @@ import { LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/uti
 import { debounce, isStackedBar } from './utils';
 import { getCartesianGridProps, getLegendProps, getXAxisProps, getYAxisProps, renderChartElement } from './chartUtils';
 import { useCurrentData, useZAxisRange } from './state';
-import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeBy, Layout, LegendPosition } from './types';
+import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeBy, Layout, LegendPosition, MARK_SPACE } from './types';
 import ScatterChartTooltip from './ScatterChartTooltip';
 
 type EventData = {
@@ -255,8 +255,14 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     !yAxis.label
       ? xAxisHeight / 2 - yAxisWidth + 5
       : 5;
-  const yMarginBottom =
+
+  let yMarginBottom =
     yAxis.tickLabelAngle === -45 && layout === Layout.vertical ? yAxisWidth - xAxisHeight - 10 : xAxisHeight;
+  const hasMarkChart = [...chartTypeMetrics, chartType].includes(CHART_TYPES.MARK_CHART as keyof typeof CHART_TYPES);
+
+  if (hasMarkChart && layout === Layout.horizontal) {
+    yMarginBottom += MARK_SPACE;
+  }
 
   let newWidth = width;
   let newHeight = height;
@@ -425,6 +431,9 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             isMainChartStacked,
             colorSchemeBy,
             barsUIPositionsRef,
+            xAxisHeight,
+            yAxisWidth,
+            xColumns,
           }),
         )}
       </ChartContainer>

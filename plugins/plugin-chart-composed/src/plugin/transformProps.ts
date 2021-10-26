@@ -29,6 +29,7 @@ import {
   FormData,
   getChartSubType,
   getLabel,
+  has2Queries,
   processNumbers,
   QueryMode,
   ResultData,
@@ -37,7 +38,7 @@ import {
 } from './utils';
 
 export default function transformProps(chartProps: ChartProps) {
-  const { width, height, queriesData } = chartProps;
+  const { width, height, queriesData, rawFormData } = chartProps;
   const data = queriesData[0].data as Data[];
   const formData = chartProps.formData as FormData;
   let xColumns: string[];
@@ -74,6 +75,10 @@ export default function transformProps(chartProps: ChartProps) {
   // Unit data elements by groupBy values
   resultData = mergeBy(resultData, 'rechartsDataKey');
 
+  if (has2Queries(rawFormData)) {
+    resultData = resultData.map((item, index) => ({ ...item, ...queriesData[1]?.data[index] }));
+  }
+
   const chartSubType = getChartSubType(
     formData.chartType,
     formData.barChartSubType,
@@ -81,6 +86,7 @@ export default function transformProps(chartProps: ChartProps) {
     formData.areaChartSubType,
     formData.scatterChartSubType,
     formData.bubbleChartSubType,
+    formData.markChartSubType,
   );
 
   const chartTypeMetrics: (keyof typeof CHART_TYPES)[] = [];
@@ -123,6 +129,7 @@ export default function transformProps(chartProps: ChartProps) {
           formData[`areaChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
           formData[`scatterChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
           formData[`bubbleChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
+          formData[`markChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
         ),
       );
     });
@@ -141,7 +148,12 @@ export default function transformProps(chartProps: ChartProps) {
     );
   }
 
-  resultData = processNumbers(resultData, breakdowns, formData.numbersFormat, formData.numbersFormatDigits);
+  resultData = processNumbers(
+    resultData,
+    [...breakdowns, ...yColumns],
+    formData.numbersFormat,
+    formData.numbersFormatDigits,
+  );
   const result: ComposedChartProps = {
     orderByYColumn: orderByYColumn as SortingType,
     hasOrderedBars,
