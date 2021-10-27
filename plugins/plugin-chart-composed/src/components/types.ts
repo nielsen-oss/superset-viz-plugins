@@ -22,7 +22,7 @@ export const MIN_BAR_SIZE_FOR_LABEL = 18;
 export const MIN_SYMBOL_WIDTH_FOR_LABEL = 14;
 
 export const NORM_SIZE = 40;
-export const NORM_SPACE = NORM_SIZE + 10;
+export const NORM_SPACE = NORM_SIZE;
 
 export const CHART_TYPES = {
   BAR_CHART: 'BAR_CHART',

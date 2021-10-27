@@ -30,6 +30,8 @@ import {
   getChartSubType,
   getLabel,
   has2Queries,
+  HIDDEN_DATA,
+  NORM_SEPARATOR,
   processNumbers,
   QueryMode,
   ResultData,
@@ -75,8 +77,21 @@ export default function transformProps(chartProps: ChartProps) {
   // Unit data elements by groupBy values
   resultData = mergeBy(resultData, 'rechartsDataKey');
 
-  if (has2Queries(rawFormData)) {
-    resultData = resultData.map((item, index) => ({ ...item, ...queriesData[1]?.data[index] }));
+  const secondQuery = has2Queries(rawFormData);
+  if (secondQuery) {
+    const secondQueryData = mergeBy(
+      addRechartsKeyAndGetXColumnValues(formData, queriesData[1]?.data, xColumnValues, isTimeSeries, xColumns),
+      'rechartsDataKey',
+    );
+    resultData = resultData.map(item => {
+      const secondQueryFound = secondQueryData.find(sqd => sqd.rechartsDataKey === item.rechartsDataKey);
+      return {
+        ...item,
+        [`${yColumns[secondQuery.metricOrder]}${NORM_SEPARATOR}`]:
+          secondQueryFound?.[yColumns[secondQuery.metricOrder]] ?? '-',
+        [yColumns[secondQuery.metricOrder]]: HIDDEN_DATA,
+      };
+    });
   }
 
   const chartSubType = getChartSubType(
@@ -105,7 +120,10 @@ export default function transformProps(chartProps: ChartProps) {
   if (formData.queryMode !== QueryMode.raw) {
     yColumns.forEach((yColumn, index) => {
       hasCustomTypeMetrics.push(formData[`useCustomTypeMetric${index}`] as boolean);
-      hideLegendByMetric.push(formData[`hideLegendByMetric${index}`] as boolean);
+      hideLegendByMetric.push(
+        // @ts-ignore
+        (formData[`hideLegendByMetric${index}`] as boolean) || yColumns[secondQuery?.metricOrder] === yColumn,
+      );
       if (formData[`hasColorSchemeMetric${index}`]) {
         colorSchemeByMetric[yColumn] = formData[`colorSchemeByMetric${index}`];
       }

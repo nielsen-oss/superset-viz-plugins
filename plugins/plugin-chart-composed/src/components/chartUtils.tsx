@@ -60,10 +60,11 @@ export const getMetricName = (name: string, numberOfMetrics: number, zDimension?
   if (name?.startsWith(Z_SEPARATOR)) {
     return zDimension;
   }
-  if (numberOfMetrics === 1) {
-    return name?.split(BREAKDOWN_SEPARATOR).splice(1).join(', ');
+  const metric = name?.split(BREAKDOWN_SEPARATOR);
+  if (numberOfMetrics === 1 && metric.length > 1) {
+    return metric.splice(1).join(', ');
   }
-  return name?.split(BREAKDOWN_SEPARATOR).join(', ');
+  return metric.join(', ');
 };
 
 export const renderLabel = ({
@@ -128,6 +129,7 @@ export const getLegendProps = (
     type: disabledDataKeys.includes(breakdown) ? 'line' : 'square',
     color: getResultColor(breakdown, colorSchemeBy),
   }));
+
   let result = {
     payload,
     wrapperStyle: {

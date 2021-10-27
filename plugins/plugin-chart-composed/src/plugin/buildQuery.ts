@@ -81,10 +81,14 @@ export default function buildQuery(formData: QueryFormData) {
       },
     ];
 
-    if (has2Queries(formData)) {
+    const secondMetric = has2Queries(formData);
+    if (secondMetric) {
+      const updatedMetrics = [...queries[0].metrics];
+      updatedMetrics.splice(secondMetric.metricOrder, 1);
+      queries[0].metrics = updatedMetrics;
       queries.push({
         ...baseQueryObject,
-        metrics,
+        metrics: [metrics[secondMetric.metricOrder]],
         orderby,
         is_timeseries: checkTimeSeries(
           formData.query_mode === QueryMode.raw ? formData.x_column : formData.groupby,

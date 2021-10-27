@@ -385,7 +385,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
         {chartType === CHART_TYPES.BUBBLE_CHART &&
           breakdowns.map((breakdown, i) => (
             // eslint-disable-next-line no-underscore-dangle
-            <ZAxis type="number" zAxisId={i} range={getZAxisRange(breakdown)} dataKey={`${Z_SEPARATOR}${breakdown}`} />
+            <ZAxis type="number" zAxisId={i} range={getZAxisRange(breakdown)} dataKey={`${breakdown}${Z_SEPARATOR}`} />
           ))}
         {hasY2Axis && (
           <YAxis
