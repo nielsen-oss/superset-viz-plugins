@@ -25,7 +25,7 @@ import {
   sharedControls,
 } from '@superset-ui/chart-controls';
 import { orderBy } from './configs/orderBy';
-import { LegendPosition } from '../components/utils';
+import { LegendPosition } from '../types';
 
 const xAxisColumn: typeof sharedControls.groupby = {
   type: 'SelectControl',

@@ -19,7 +19,7 @@
 import { ChartProps } from '@superset-ui/core';
 import { processNumbers, convertDataForRecharts, createReChartsBarValues, SortingType, Metric } from './utils';
 import { WaterfallChartProps } from '../components/WaterfallChart';
-import { LegendPosition } from '../components/utils';
+import { LegendPosition } from '../types';
 
 export type QueryData = {
   [key: string]: number | string;

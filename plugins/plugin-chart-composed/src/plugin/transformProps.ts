@@ -47,7 +47,7 @@ export default function transformProps(chartProps: ChartProps) {
     yColumns = [formData.yColumn];
   } else {
     xColumns = formData.groupby;
-    yColumns = formData.metrics?.map(metric => metric.label);
+    yColumns = formData.metrics?.map(metric => metric.label ?? metric);
   }
 
   const xColumnValues: string[] = [];
