@@ -1,5 +1,5 @@
-// import 'babel-polyfill';
-import { ChartProps } from '@superset-ui/core';
+import 'babel-polyfill';
+import { ChartProps } from '@superset-ui/chart';
 import transformProps from '../../src/plugin/transformProps';
 
 describe('Bubble tranformProps', () => {
@@ -17,7 +17,9 @@ describe('Bubble tranformProps', () => {
     formData,
     width: 800,
     height: 600,
-    queriesData: [{ name: 'Hulk', sum__num: 1 }],
+    queryData: {
+      data: [{ name: 'Hulk', sum__num: 1 }],
+    },
   });
 
   it('should tranform chart props for viz', () => {

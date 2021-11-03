@@ -22,6 +22,7 @@ import {
   CartesianGrid,
   Cell,
   Legend,
+  LegendPayload,
   LegendProps,
   Scatter,
   ScatterChart,

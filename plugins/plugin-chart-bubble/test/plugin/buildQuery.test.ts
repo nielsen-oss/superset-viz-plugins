@@ -1,4 +1,4 @@
-// import 'babel-polyfill';
+import 'babel-polyfill';
 import buildQuery from '../../src/plugin/buildQuery';
 
 describe('Bubble buildQuery', () => {
