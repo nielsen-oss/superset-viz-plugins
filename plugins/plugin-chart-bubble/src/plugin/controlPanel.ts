@@ -139,6 +139,17 @@ export const legendPosition = {
   },
 };
 
+export const maxNumberOfLegends = {
+  name: 'max_number_of_legends',
+  config: {
+    type: 'TextControl',
+    label: t('Max Number of Legends'),
+    renderTrigger: true,
+    default: 18,
+    description: t('The maximum number of legends in the chart'),
+  },
+};
+
 const zAxis: { name: string; config: ControlConfig<'MetricControl'> } = {
   name: 'z_axis',
   // @ts-ignore
@@ -219,6 +230,7 @@ const config: ControlPanelConfig = {
         [numbersFormat, numbersFormatDigits],
         [showGridLines],
         [legendPosition],
+        [maxNumberOfLegends],
       ],
     },
     {

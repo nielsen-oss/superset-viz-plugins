@@ -56,6 +56,7 @@ export type BubbleChartProps = {
   xAxisLogScale: boolean;
   yAxisLogScale: boolean;
   legendPosition: LegendPosition;
+  maxNumberOfLegends: number;
   showGridLines: boolean;
   numbersFormat: string;
   height: number;
@@ -83,6 +84,7 @@ const BubbleChart: FC<BubbleChartProps> = props => {
     height,
     width,
     legendPosition,
+    maxNumberOfLegends,
     showGridLines,
     yAxisLabelAngle,
     xAxisLogScale,
@@ -190,7 +192,7 @@ const BubbleChart: FC<BubbleChartProps> = props => {
         }),
   );
 
-  legends = legends.slice(0, 18);
+  legends = legends.slice(0, maxNumberOfLegends);
 
   return (
     <Styles height={height} width={width} ref={rootRef}>

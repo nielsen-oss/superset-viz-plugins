@@ -35,6 +35,7 @@ type FormData = {
   numbersFormat: string;
   colorScheme: string;
   legendPosition: LegendPosition;
+  maxNumberOfLegends: string;
   showGridLines: boolean;
   bubbleSize: boolean;
   entity: string;
@@ -52,6 +53,7 @@ export default function transformProps(chartProps: ChartProps) {
     xAxisColumn,
     numbersFormat,
     legendPosition,
+    maxNumberOfLegends,
     showGridLines,
     bubbleSize,
     xAxisLogScale,
@@ -73,6 +75,7 @@ export default function transformProps(chartProps: ChartProps) {
     height,
     bubbleSize: bubbleSize ?? 1000,
     legendPosition,
+    maxNumberOfLegends,
     showGridLines,
     numbersFormat,
     colorScheme,
