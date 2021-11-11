@@ -137,6 +137,10 @@ const BubbleChart: FC<BubbleChartProps> = props => {
     };
   }
 
+  // sort the data with larger bubble to match with legend color. Otherwise, scatter chart sorts the data anyway
+  // to display the largest bubble first and legend color will be out of sync
+  data.sort((a: BubbleChartData, b: BubbleChartData) => parseFloat(b[zAxis]) - parseFloat(a[zAxis]));
+
   const range = useMemo(() => {
     const values = data.reduce(
       (prev, next) => [...prev, ...Object.values(next).filter(item => !isNaN(item))],
@@ -196,9 +200,11 @@ const BubbleChart: FC<BubbleChartProps> = props => {
           onClick={handleClick}
           payload={legends}
           wrapperStyle={legendStyle}
-          verticalAlign={legendPosition as LegendProps['verticalAlign']}
+          verticalAlign={
+            ['left', 'right'].includes(legendPosition) ? 'middle' : (legendPosition as LegendProps['verticalAlign'])
+          }
           iconType="square"
-          align={legendPosition === LegendPosition.LEFT ? 'left' : 'right'}
+          align={['top', 'bottom'].includes(legendPosition) ? 'center' : (legendPosition as LegendProps['align'])}
           layout={['top', 'bottom'].includes(legendPosition) ? 'horizontal' : 'vertical'}
           iconSize={10}
         />

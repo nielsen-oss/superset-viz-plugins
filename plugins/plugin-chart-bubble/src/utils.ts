@@ -19,7 +19,7 @@ export const getChartStyles = (legendPosition: LegendPosition, yAxisWidth: numbe
     };
   }
   if (legendPosition === LegendPosition.RIGHT || legendPosition === LegendPosition.LEFT) {
-    chartMargin = { left: yAxisWidth + 10, top: 20, right: 20, bottom: EXTRA_PADDING };
+    chartMargin = { left: yAxisWidth + 10, top: 30, right: 20, bottom: EXTRA_PADDING };
   }
   return {
     legendStyle,
