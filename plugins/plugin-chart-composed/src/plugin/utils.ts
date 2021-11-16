@@ -152,7 +152,7 @@ export const addBreakdownYColumnsAndGetBreakdownValues = (
   resultData.map(item => {
     yColumns.forEach(metric => {
       const breakdown = (formData.columns || []).reduce(
-        (acc, column) => `${acc}${BREAKDOWN_SEPARATOR}${item[column]}`,
+        (acc, column) => (item[column] ? `${acc}${BREAKDOWN_SEPARATOR}${item[column]}` : acc),
         '',
       );
       // Build metric name by breakdown
