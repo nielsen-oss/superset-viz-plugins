@@ -20,3 +20,5 @@ node $GITHUB_WORKSPACE/$PROJECT_WORKING_DIRECTORY/scripts/generateSetupPluginsEx
 cp "./${PLUGINS_EXTRA_FILENAME}" "src/setup/${PLUGINS_EXTRA_FILENAME}"
 
 npm install
+
+yarn lint-fix
