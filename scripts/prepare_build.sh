@@ -21,4 +21,6 @@ cp "./${PLUGINS_EXTRA_FILENAME}" "src/setup/${PLUGINS_EXTRA_FILENAME}"
 
 npm install
 
+ls -R 
+
 yarn lint-fix
