@@ -17,10 +17,8 @@ mv "./${PRESET_NAME}Preset.ts" "./src/visualizations/presets/${PRESET_NAME}Prese
 
 # generate setupPluginsExtra override in incubator source code
 node $GITHUB_WORKSPACE/$PROJECT_WORKING_DIRECTORY/scripts/generateSetupPluginsExtra.js
-cp "./${PLUGINS_EXTRA_FILENAME}" "src/setup/${PLUGINS_EXTRA_FILENAME}"
+mv "./${PLUGINS_EXTRA_FILENAME}" "src/setup/${PLUGINS_EXTRA_FILENAME}"
 
 npm install
-
-ls -R 
 
 yarn lint-fix
