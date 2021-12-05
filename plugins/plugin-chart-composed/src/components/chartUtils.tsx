@@ -52,6 +52,7 @@ import {
 import { checkIsMetricStacked, getBreakdownsOnly, getMetricFromBreakdown, getResultColor } from './utils';
 import ComposedBar from './ComposedBar';
 import icons from './icons';
+import ComposedNorm from './ComposedNorm';
 
 const emptyRender = () => null;
 
@@ -59,13 +60,11 @@ export const getMetricName = (name: string, numberOfMetrics: number, zDimension?
   if (name?.startsWith(Z_SEPARATOR)) {
     return zDimension;
   }
-  if (numberOfMetrics === 1) {
-    return name
-      ?.split(BREAKDOWN_SEPARATOR)
-      .splice(1)
-      .join(', ');
+  const metric = name?.split(BREAKDOWN_SEPARATOR);
+  if (numberOfMetrics === 1 && metric.length > 1) {
+    return metric.splice(1).join(', ');
   }
-  return name?.split(BREAKDOWN_SEPARATOR).join(', ');
+  return metric.join(', ');
 };
 
 export const renderLabel = ({
@@ -130,6 +129,7 @@ export const getLegendProps = (
     type: disabledDataKeys.includes(breakdown) ? 'line' : 'square',
     color: getResultColor(breakdown, colorSchemeBy),
   }));
+
   let result = {
     payload,
     wrapperStyle: {
@@ -310,6 +310,12 @@ export const getChartElement = (
   scattersStickToBars: JsonObject,
   barsUIPositionsRef: RefObject<JsonObject>,
   layout: Layout,
+  numbersFormat: string,
+  yColumns: string[],
+  xColumns: string[],
+  firstItem: string,
+  xAxisClientRect?: ClientRect,
+  yAxisClientRect?: ClientRect,
 ): ChartsUIItem => {
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
 
@@ -351,6 +357,26 @@ export const getChartElement = (
         opacity: 0.8,
         zAxisId: index,
         shape: chartSubType,
+      };
+      break;
+    case CHART_TYPES.NORM_CHART:
+      commonProps = {
+        Element: Scatter,
+        opacity: 1,
+        zAxisId: index,
+        shape: (props: JsonObject) => (
+          <ComposedNorm
+            layout={layout}
+            xAxisClientRect={xAxisClientRect}
+            yAxisClientRect={yAxisClientRect}
+            xColumns={xColumns}
+            yColumns={yColumns}
+            breakdown={breakdown}
+            numbersFormat={numbersFormat}
+            firstItem={firstItem}
+            {...props}
+          />
+        ),
       };
       break;
     case CHART_TYPES.BAR_CHART:
@@ -460,7 +486,7 @@ export const getXAxisProps = ({
   const labelProps: LabelProps = {
     value: label,
     position: 'insideBottom',
-    dy: axisHeight,
+    dy: axisHeight + 5,
   };
 
   const params: XAxisProps = {
@@ -550,7 +576,7 @@ export const getYAxisProps = ({
   if (labelAngle === 0) {
     dyLabel = 0;
   } else if ((labelAngle === -90 && !isSecondAxis) || (labelAngle === -270 && isSecondAxis)) {
-    dyLabel = -axisHeight / 2 + height / 2;
+    dyLabel = undefined;
   } else {
     dyLabel = axisHeight / 4 - height / 4;
   }
@@ -652,7 +678,6 @@ type ChartElementProps = {
   chartSubType: keyof typeof CHART_SUB_TYPES;
   isAnimationActive?: boolean;
   chartType: keyof typeof CHART_TYPES;
-  yColumns: string[];
   labelsColor: LabelColors;
   chartTypeMetrics: (keyof typeof CHART_TYPES)[];
   chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[];
@@ -669,6 +694,11 @@ type ChartElementProps = {
   barsUIPositions: JsonObject;
   setBarsUIPositions: Function;
   barsUIPositionsRef: RefObject<JsonObject>;
+  xAxisClientRect?: ClientRect;
+  yAxisClientRect?: ClientRect;
+  xColumns: string[];
+  yColumns: string[];
+  firstItem: string;
 };
 
 export const renderChartElement = ({
@@ -696,6 +726,10 @@ export const renderChartElement = ({
   isMainChartStacked,
   colorSchemeBy,
   barsUIPositionsRef,
+  xColumns,
+  firstItem,
+  xAxisClientRect,
+  yAxisClientRect,
 }: ChartElementProps) => {
   let customChartType = chartType;
   let customChartSubType = chartSubType;
@@ -715,6 +749,12 @@ export const renderChartElement = ({
     scattersStickToBars,
     barsUIPositionsRef,
     layout,
+    numbersFormat,
+    yColumns,
+    xColumns,
+    firstItem,
+    xAxisClientRect,
+    yAxisClientRect,
   );
 
   const labelListExtraPropsWithTotal: LabelListProps & { fill: string } = {

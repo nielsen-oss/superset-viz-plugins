@@ -21,12 +21,16 @@ export type LegendVerticalAlign = 'top' | 'middle' | 'bottom';
 export const MIN_BAR_SIZE_FOR_LABEL = 18;
 export const MIN_SYMBOL_WIDTH_FOR_LABEL = 14;
 
+export const NORM_SIZE = 40;
+export const NORM_SPACE = NORM_SIZE;
+
 export const CHART_TYPES = {
   BAR_CHART: 'BAR_CHART',
   LINE_CHART: 'LINE_CHART',
   SCATTER_CHART: 'SCATTER_CHART',
   AREA_CHART: 'AREA_CHART',
   BUBBLE_CHART: 'BUBBLE_CHART',
+  NORM_CHART: 'NORM_CHART',
 };
 
 export enum STICK_TYPES {
@@ -59,12 +63,16 @@ export const CHART_TYPE_NAMES = {
   [CHART_TYPES.AREA_CHART]: 'Area',
   [CHART_TYPES.SCATTER_CHART]: 'Scatter',
   [CHART_TYPES.BUBBLE_CHART]: 'Bubble',
+  [CHART_TYPES.NORM_CHART]: 'Norm',
 };
 
 export const CHART_SUB_TYPE_NAMES = {
   [CHART_TYPES.BAR_CHART]: {
     [CHART_SUB_TYPES.DEFAULT]: 'Default Bar Chart',
     [CHART_SUB_TYPES.STACKED]: 'Stacked Bar Chart',
+  },
+  [CHART_TYPES.NORM_CHART]: {
+    [CHART_SUB_TYPES.DEFAULT]: 'Default Norm Chart',
   },
   [CHART_TYPES.SCATTER_CHART]: {
     [CHART_SUB_TYPES.CIRCLE]: 'Circle Scatter Chart',
