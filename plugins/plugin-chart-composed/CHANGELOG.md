@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.36.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.35.0...@superset-viz-plugins/plugin-chart-composed@0.36.0) (2021-12-05)
+
+
+### Features
+
+* Norm Chart ([#93](https://github.com/nielsen-oss/superset-viz-plugins/issues/93)) ([e148c8e](https://github.com/nielsen-oss/superset-viz-plugins/commit/e148c8e4a2a6d63e035f5054f7a53054ee0e7116))
+
+
+
+
+
 # [0.35.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.34.1...@superset-viz-plugins/plugin-chart-composed@0.35.0) (2021-11-28)
 
 
