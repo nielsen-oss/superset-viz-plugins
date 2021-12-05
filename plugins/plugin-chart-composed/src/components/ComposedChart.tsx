@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import {
   AxisInterval,
   CartesianGrid,
@@ -42,7 +42,6 @@ import {
 } from './utils';
 import { useCurrentData, useZAxisRange } from './state';
 import { CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from './types';
-import { chartType } from '../plugin/configs/chartTypes';
 import ScatterChartTooltip from './ScatterChartTooltip';
 
 type EventData = {
@@ -152,7 +151,6 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     xColumns,
     minBarWidth,
     bubbleSize,
-    metrics,
     zDimension,
   } = props;
 

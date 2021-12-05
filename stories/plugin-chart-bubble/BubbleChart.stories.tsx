@@ -19,14 +19,14 @@
 import React from 'react';
 import { D3_FORMAT_OPTIONS } from '@superset-ui/chart-controls';
 import { supersetTheme, ThemeProvider } from '@superset-ui/core';
-import WaterfallChart from '../../plugins/plugin-chart-waterfall/src/components/WaterfallChart';
-import transformProps from '../../plugins/plugin-chart-waterfall/src/plugin/transformProps';
-import { legendTop } from '../../plugins/plugin-chart-waterfall/test/__mocks__/waterfallProps';
+import BubbleChart from '../../plugins/plugin-chart-bubble/src/BubbleChart';
+import transformProps from '../../plugins/plugin-chart-bubble/src/plugin/transformProps';
+import { bubbleProps } from '../../plugins/plugin-chart-bubble/test/__mocks__/bubbleProps';
 import { extractTransformProps } from '../utils';
 
 export default {
-  title: 'Plugins/Waterfall Chart',
-  component: WaterfallChart,
+  title: 'Plugins/Bubble Chart',
+  component: BubbleChart,
   argTypes: {
     xAxisTickLabelAngle: {
       control: {
@@ -51,12 +51,39 @@ export default {
 
 const Template = args => (
   <ThemeProvider theme={supersetTheme}>
-    <WaterfallChart {...extractTransformProps({ args, props: legendTop, transformProps })} />
+    <BubbleChart {...extractTransformProps({ args, props: bubbleProps, transformProps })} />
+  </ThemeProvider>
+);
+
+const WithoutSeriesBubble = args => (
+  <ThemeProvider theme={supersetTheme}>
+    <BubbleChart {...extractTransformProps({ args, props: bubbleProps, transformProps })} />
+  </ThemeProvider>
+);
+
+const logScaleBubble = args => (
+  <ThemeProvider theme={supersetTheme}>
+    <BubbleChart {...extractTransformProps({ args, props: bubbleProps, transformProps })} />
   </ThemeProvider>
 );
 
 export const Default = Template.bind({});
 Default.args = {
-  ...legendTop,
-  queriesData: legendTop.queriesData,
+  ...bubbleProps,
+  queriesData: bubbleProps.queriesData,
+};
+
+export const WithoutSeries = WithoutSeriesBubble.bind({});
+WithoutSeries.args = {
+  ...bubbleProps,
+  series: '',
+  queriesData: bubbleProps.queriesData,
+};
+
+export const LogAxis = logScaleBubble.bind({});
+LogAxis.args = {
+  ...bubbleProps,
+  xAxisLogScale: true,
+  yAxisLogScale: true,
+  queriesData: bubbleProps.queriesData,
 };

@@ -29,10 +29,14 @@ type FormData = {
   xAxisLabel: string;
   yAxisLabel: string;
   yAxisLabelAngle: string;
+  yAxisLogScale: boolean;
   xAxisTickLabelAngle: string;
+  xAxisLogScale: boolean;
   numbersFormat: string;
   colorScheme: string;
   legendPosition: LegendPosition;
+  maxNumberOfLegends: string;
+  showGridLines: boolean;
   bubbleSize: boolean;
   entity: string;
   series: string;
@@ -45,7 +49,19 @@ export default function transformProps(chartProps: ChartProps) {
   const { width, height, formData, queriesData } = chartProps;
   const data = queriesData[0].data as QueryData[];
 
-  const { xAxisColumn, numbersFormat, legendPosition, bubbleSize, colorScheme, entity, series } = formData as FormData;
+  const {
+    xAxisColumn,
+    numbersFormat,
+    legendPosition,
+    maxNumberOfLegends,
+    showGridLines,
+    bubbleSize,
+    xAxisLogScale,
+    yAxisLogScale,
+    colorScheme,
+    entity,
+    series,
+  } = formData as FormData;
 
   return {
     xAxisDataKey: xAxisColumn,
@@ -53,10 +69,14 @@ export default function transformProps(chartProps: ChartProps) {
     yAxisLabel: formData.yAxisLabel ?? '',
     xAxisTickLabelAngle: -Number(formData.xAxisTickLabelAngle ?? 45),
     yAxisLabelAngle: -Number(formData.yAxisLabelAngle),
+    xAxisLogScale,
+    yAxisLogScale,
     width,
     height,
     bubbleSize: bubbleSize ?? 1000,
     legendPosition,
+    maxNumberOfLegends,
+    showGridLines,
     numbersFormat,
     colorScheme,
     data,

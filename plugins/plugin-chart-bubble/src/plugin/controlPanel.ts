@@ -103,6 +103,28 @@ export const xAxisTickLabelAngle = {
   },
 };
 
+export const xAxisLogScale = {
+  name: 'x_axis_log_scale',
+  config: {
+    type: 'CheckboxControl',
+    label: t('X Log Scale'),
+    default: false,
+    renderTrigger: true,
+    description: t('Use a log scale for the X-axis'),
+  },
+};
+
+export const YAxisLogScale = {
+  name: 'y_axis_log_scale',
+  config: {
+    type: 'CheckboxControl',
+    label: t('Y Log Scale'),
+    default: false,
+    renderTrigger: true,
+    description: t('Use a log scale for the Y-axis'),
+  },
+};
+
 export const legendPosition = {
   name: 'legend_position',
   config: {
@@ -114,6 +136,17 @@ export const legendPosition = {
     choices: formatSelectOptions(Object.values(LegendPosition)),
     default: 'top',
     description: t('Set legend position'),
+  },
+};
+
+export const maxNumberOfLegends = {
+  name: 'max_number_of_legends',
+  config: {
+    type: 'TextControl',
+    label: t('Max Number of Legends'),
+    renderTrigger: true,
+    default: 18,
+    description: t('The maximum number of legends in the chart'),
   },
 };
 
@@ -162,6 +195,17 @@ export const bubbleSize = {
   },
 };
 
+export const showGridLines = {
+  name: 'show_grid_lines',
+  config: {
+    type: 'CheckboxControl',
+    label: t('Show Grid Lines'),
+    renderTrigger: true,
+    default: true,
+    description: t('Show/Hide grid lines'),
+  },
+};
+
 const config: ControlPanelConfig = {
   controlPanelSections: [
     {
@@ -181,17 +225,23 @@ const config: ControlPanelConfig = {
     {
       label: t('Chart Options'),
       expanded: true,
-      controlSetRows: [['color_scheme', 'label_colors'], [numbersFormat, numbersFormatDigits], [legendPosition]],
+      controlSetRows: [
+        ['color_scheme', 'label_colors'],
+        [numbersFormat, numbersFormatDigits],
+        [showGridLines],
+        [legendPosition],
+        [maxNumberOfLegends],
+      ],
     },
     {
       label: t('X Axis'),
       expanded: true,
-      controlSetRows: [[xAxisLabel], [xAxisTickLabelAngle]],
+      controlSetRows: [[xAxisLabel], [xAxisTickLabelAngle], [xAxisLogScale]],
     },
     {
       label: t('Y Axis'),
       expanded: true,
-      controlSetRows: [[yAxisLabel, yAxisLabelAngle]],
+      controlSetRows: [[yAxisLabel, yAxisLabelAngle], [YAxisLogScale]],
     },
   ],
 
