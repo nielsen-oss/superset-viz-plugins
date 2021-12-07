@@ -197,7 +197,7 @@ export default function transformProps(chartProps: ChartProps) {
     formData.numbersFormat,
     formData.numbersFormatDigits,
   );
-  
+
   const result: ComposedChartProps = {
     orderByYColumn: orderByYColumn as SortingType,
     hasOrderedBars,
