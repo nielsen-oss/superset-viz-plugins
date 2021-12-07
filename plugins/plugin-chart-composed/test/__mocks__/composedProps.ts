@@ -1,13 +1,4 @@
-const queriesDataMetrics2 = {
-  cache_key: 'bb08409c3c01818c025db286402da2ae',
-  cached_dttm: null,
-  cache_timeout: 86400,
-  error: null,
-  is_cached: true,
-  status: 'success',
-  stacktrace: null,
-  rowcount: 4,
-  annotation_data: [],
+const queriesDataMetrics = {
   data: [
     {
       group_type: 'Direct Due To Group',
@@ -25,6 +16,40 @@ const queriesDataMetrics2 = {
       'COUNT_DISTINCT(group_name)': 3,
     },
     { group_type: 'Variable', 'COUNT_DISTINCT(period)': 5, 'COUNT_DISTINCT(group_name)': 31 },
+  ],
+};
+const queriesDataOneMetric = {
+  data: [
+    {
+      group_type: 'Direct Due To Group',
+      'COUNT_DISTINCT(period)': 5,
+    },
+    {
+      group_type: 'Due To Group',
+      'COUNT_DISTINCT(period)': 15,
+    },
+    {
+      group_type: 'Summary Group',
+      'COUNT_DISTINCT(period)': 5,
+    },
+    { group_type: 'Variable', 'COUNT_DISTINCT(period)': 25 },
+  ],
+};
+const queriesDataOneMetric2 = {
+  data: [
+    {
+      group_type: 'Direct Due To Group',
+      'COUNT_DISTINCT(group_name)': -7,
+    },
+    {
+      group_type: 'Due To Group',
+      'COUNT_DISTINCT(group_name)': 0,
+    },
+    {
+      group_type: 'Summary Group',
+      'COUNT_DISTINCT(group_name)': 11,
+    },
+    { group_type: 'Variable', 'COUNT_DISTINCT(group_name)': -31 },
   ],
 };
 const queriesDataSortedBars = {
@@ -51,15 +76,6 @@ const queriesDataSortedBars = {
   ],
 };
 const queriesDataMetrics2Breakdowns = {
-  cache_key: 'd2cb05cdf3e072a803c4d04040b12fd2',
-  cached_dttm: null,
-  cache_timeout: 86400,
-  error: null,
-  is_cached: true,
-  status: 'success',
-  stacktrace: null,
-  rowcount: 8,
-  annotation_data: [],
   data: [
     {
       group_type: 'Variable',
@@ -120,15 +136,6 @@ const queriesDataMetrics2Breakdowns = {
   ],
 };
 const queriesDataForAllCharts = {
-  cache_key: '8255e4b82cdfa2332d133f35bae05ca1',
-  cached_dttm: null,
-  cache_timeout: 86400,
-  error: null,
-  is_cached: true,
-  status: 'success',
-  stacktrace: null,
-  rowcount: 8,
-  annotation_data: [],
   data: [
     {
       group_type: 'Variable',
@@ -197,15 +204,6 @@ const queriesDataForAllCharts = {
   ],
 };
 const queriesDataTimeSeries = {
-  cache_key: 'bb08409c3c01818c025db286402da2ae',
-  cached_dttm: null,
-  cache_timeout: 86400,
-  error: null,
-  is_cached: true,
-  status: 'success',
-  stacktrace: null,
-  rowcount: 4,
-  annotation_data: [],
   data: [
     {
       __timestamp: 1508112000000,
@@ -657,15 +655,6 @@ const formDataBarsHorizontalLegendTop = {
       column: {
         id: 442,
         column_name: 'period',
-        verbose_name: null,
-        description: null,
-        expression: null,
-        filterable: true,
-        groupby: true,
-        is_dttm: false,
-        type: 'TEXT',
-        python_date_format: null,
-        optionName: '_col_period',
       },
       aggregate: 'COUNT_DISTINCT',
       sqlExpression: null,
@@ -679,15 +668,6 @@ const formDataBarsHorizontalLegendTop = {
       column: {
         id: 439,
         column_name: 'group_name',
-        verbose_name: null,
-        description: null,
-        expression: null,
-        filterable: true,
-        groupby: true,
-        is_dttm: false,
-        type: 'TEXT',
-        python_date_format: null,
-        optionName: '_col_group_name',
       },
       aggregate: 'COUNT_DISTINCT',
       sqlExpression: null,
@@ -721,6 +701,19 @@ const formDataBarsHorizontalLegendTop = {
   lineChartSubTypeMetric0: 'basis',
   areaChartSubTypeMetric0: 'basis',
   scatterChartSubTypeMetric0: 'circle',
+};
+const normRawDataBarsHorizontalLegendTop = {
+  chart_type: 'NORM_CHART',
+  norm_chart_sub_type: 'default',
+  use_custom_type_metric_0: true,
+  chart_type_metric_0: 'BAR_CHART',
+  bar_chart_sub_type_metric_0: 'default',
+};
+const normDataBarsHorizontalLegendTop = {
+  ...formDataBarsHorizontalLegendTop,
+  useCustomTypeMetric0: true,
+  chartTypeMetric0: 'BAR_CHART',
+  barChartSubTypeMetric0: 'default',
 };
 const formDataBubbleHorizontalLegendTop = {
   ...formDataBarsHorizontalLegendTop,
@@ -922,7 +915,15 @@ export const barsHorizontalLegendTop = {
   hooks: {},
   formData: formDataBarsHorizontalLegendTop,
   height: 400,
-  queriesData: [queriesDataMetrics2],
+  queriesData: [queriesDataMetrics],
+  width: 800,
+};
+
+export const normHorizontalLegendTop = {
+  formData: normDataBarsHorizontalLegendTop,
+  rawFormData: normRawDataBarsHorizontalLegendTop,
+  height: 400,
+  queriesData: [queriesDataOneMetric, queriesDataOneMetric2],
   width: 800,
 };
 

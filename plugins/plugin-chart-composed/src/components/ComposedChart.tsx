@@ -35,7 +35,7 @@ import { LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/uti
 import { debounce, isStackedBar } from './utils';
 import { getCartesianGridProps, getLegendProps, getXAxisProps, getYAxisProps, renderChartElement } from './chartUtils';
 import { useCurrentData, useZAxisRange } from './state';
-import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeBy, Layout, LegendPosition } from './types';
+import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeBy, Layout, LegendPosition, NORM_SPACE } from './types';
 import ScatterChartTooltip from './ScatterChartTooltip';
 
 type EventData = {
@@ -258,16 +258,26 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     setDisabledDataKeys(resultKeys);
   };
 
-  const xMarginLeft =
+  let xMarginLeft =
     xAxis.tickLabelAngle === -45 &&
     layout === Layout.horizontal &&
     showLegend &&
     legendPosition !== LegendPosition.left &&
     !yAxis.label
       ? xAxisHeight / 2 - yAxisWidth + 5
-      : 5;
-  const yMarginBottom =
+      : 10;
+
+  let yMarginBottom =
     yAxis.tickLabelAngle === -45 && layout === Layout.vertical ? yAxisWidth - xAxisHeight - 10 : xAxisHeight;
+  const hasNormChart = [...chartTypeMetrics, chartType].includes(CHART_TYPES.NORM_CHART as keyof typeof CHART_TYPES);
+
+  if (hasNormChart && layout === Layout.horizontal) {
+    yMarginBottom += NORM_SPACE * 2;
+  }
+
+  if (hasNormChart && layout === Layout.vertical) {
+    xMarginLeft += NORM_SPACE * 2;
+  }
 
   let newWidth = width;
   let newHeight = height;
@@ -389,7 +399,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
         {chartType === CHART_TYPES.BUBBLE_CHART &&
           breakdowns.map((breakdown, i) => (
             // eslint-disable-next-line no-underscore-dangle
-            <ZAxis type="number" zAxisId={i} range={getZAxisRange(breakdown)} dataKey={`${Z_SEPARATOR}${breakdown}`} />
+            <ZAxis type="number" zAxisId={i} range={getZAxisRange(breakdown)} dataKey={`${breakdown}${Z_SEPARATOR}`} />
           ))}
         {hasY2Axis && (
           <YAxis
@@ -440,6 +450,10 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             colorSchemeBy,
             barsUIPositionsRef,
             handleChartClick,
+            xAxisClientRect,
+            yAxisClientRect,
+            xColumns,
+            firstItem: data[0]?.rechartsDataKey,
           }),
         )}
       </ChartContainer>

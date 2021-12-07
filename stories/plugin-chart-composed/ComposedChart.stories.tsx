@@ -25,6 +25,7 @@ import {
   allChatsLegendBottomBreakdowns,
   barsHorizontalLegendTop,
   bubbleHorizontalLegendTop,
+  normHorizontalLegendTop,
   timeSeries,
 } from '../../plugins/plugin-chart-composed/test/__mocks__/composedProps';
 import { applyCommonLogic, commonConfig } from './utils';
@@ -67,6 +68,37 @@ const BarsTemplate = args => {
         }
         {...applyCommonLogic(args)}
         chartType={CHART_TYPES.BAR_CHART}
+        chartSubType={chartSubType}
+      />
+    </ThemeProvider>
+  );
+};
+
+const NormTemplate = args => {
+  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.DEFAULT;
+  if (chartSubType !== CHART_SUB_TYPES.DEFAULT) {
+    return (
+      <>
+        {`SubType "${args.chartSubType}" is not applied for Norm Chart, please change "chartSubType" property to:`}
+        <li>{CHART_SUB_TYPES.DEFAULT}</li>
+      </>
+    );
+  }
+  return (
+    <ThemeProvider theme={supersetTheme}>
+      <ComposedChart
+        data={
+          transformProps(({
+            ...normHorizontalLegendTop,
+            formData: {
+              ...normHorizontalLegendTop.formData,
+              useCategoryFormattingGroupBy0: args.useCategoryFormattingGroupBy0,
+            },
+            queriesData: args.queriesData,
+          } as unknown) as ChartProps).data
+        }
+        {...applyCommonLogic(args)}
+        chartType={CHART_TYPES.NORM_CHART}
         chartSubType={chartSubType}
       />
     </ThemeProvider>
@@ -292,6 +324,14 @@ Bars.args = {
   ...commonProps,
   ...transformProps(({ ...barsHorizontalLegendTop } as unknown) as ChartProps),
   queriesData: barsHorizontalLegendTop.queriesData,
+  chartSubType: CHART_SUB_TYPES.DEFAULT,
+};
+
+export const Norm = NormTemplate.bind({});
+Norm.args = {
+  ...commonProps,
+  ...transformProps(({ ...normHorizontalLegendTop } as unknown) as ChartProps),
+  queriesData: normHorizontalLegendTop.queriesData,
   chartSubType: CHART_SUB_TYPES.DEFAULT,
 };
 
