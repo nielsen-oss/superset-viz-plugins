@@ -20,7 +20,7 @@ import React, { FC } from 'react';
 import { getNumberFormatter, styled, t } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
 import { getMetricName, getResultColor } from './utils';
-import { Z_SEPARATOR } from '../plugin/utils';
+import { HIDDEN_DATA, Z_SEPARATOR } from '../plugin/utils';
 import { ColorSchemeBy } from './types';
 
 const Container = styled.div`
@@ -77,16 +77,18 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
     if (hasOrderedBars) {
       return (
         <Container>
-          {breakdowns.map(breakdown => {
-            const name = getMetricName(breakdown, yColumns);
-            const value = firstPayload[breakdown] as number;
-            const resultValue = isNaN(value) ? '-' : formatter(value);
-            return (
-              <>
-                <Line key={name} color={getResultColor(breakdown, colorSchemeBy)}>{`${name}: ${resultValue}`}</Line>
-              </>
-            );
-          })}
+          {breakdowns
+            .filter(breakdown => firstPayload[breakdown] !== HIDDEN_DATA)
+            .map(breakdown => {
+              const name = getMetricName(breakdown, yColumns);
+              const value = firstPayload[breakdown] as number;
+              const resultValue = isNaN(value) ? '-' : formatter(value);
+              return (
+                <>
+                  <Line key={name} color={getResultColor(breakdown, colorSchemeBy)}>{`${name}: ${resultValue}`}</Line>
+                </>
+              );
+            })}
           {!!total && (
             <Line color="black">{`${t(hasExcludedBars ? 'Total (only for stacked bars)' : 'Total')}: ${
               isNaN(total) ? '-' : formatter(total)
@@ -98,21 +100,22 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
     return (
       <Container>
         <p>{isTimeSeries ? getFormattedDate(label as string) : label}</p>
-        {payload.map(initItem => {
-          const item = initItem;
-          const name = getMetricName(item?.name, yColumns);
-          const zValue = item?.payload?.[`${Z_SEPARATOR}${name}`];
-          const zName = `${Z_SEPARATOR}${name}`;
-          const value = item?.value as number;
-          const resultValue = isNaN(value) ? '-' : formatter(value);
-          const color = getResultColor(item?.name, colorSchemeBy);
-          return (
-            <>
-              <Line key={name} color={color}>{`${name}: ${resultValue}`}</Line>
-              {zValue && <Line key={zName} color={color}>{`${zDimension}: ${formatter(zValue)}`}</Line>}
-            </>
-          );
-        })}
+        {payload
+          .filter(item => item.value !== HIDDEN_DATA)
+          .map(item => {
+            const name = getMetricName(item?.name, yColumns);
+            const zValue = item?.payload?.[`${name}${Z_SEPARATOR}`];
+            const zName = `${name}${Z_SEPARATOR}`;
+            const value = item?.value as number;
+            const resultValue = isNaN(value) ? '-' : formatter(value);
+            const color = getResultColor(item?.name, colorSchemeBy);
+            return (
+              <>
+                <Line key={name} color={color}>{`${name}: ${resultValue}`}</Line>
+                {zValue && <Line key={zName} color={color}>{`${zDimension}: ${formatter(zValue)}`}</Line>}
+              </>
+            );
+          })}
         {!!total && <Line color="black">{`${t('Total')}: ${isNaN(total) ? '-' : formatter(total)}`}</Line>}
       </Container>
     );

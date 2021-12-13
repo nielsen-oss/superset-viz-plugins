@@ -23,6 +23,8 @@ import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } f
 export const MAX_FORM_CONTROLS = 5;
 export const BREAKDOWN_SEPARATOR = '_$_';
 export const Z_SEPARATOR = '_Z$_';
+export const NORM_SEPARATOR = '_NORM$_';
+export const HIDDEN_DATA = '_HIDDEN_DATA_';
 
 export enum QueryMode {
   aggregate = 'aggregate',
@@ -52,6 +54,7 @@ export type FormData = {
   barChartSubType: keyof typeof CHART_SUB_TYPES;
   scatterChartSubType: keyof typeof CHART_SUB_TYPES;
   bubbleChartSubType: keyof typeof CHART_SUB_TYPES;
+  normChartSubType: keyof typeof CHART_SUB_TYPES;
   numbersFormat: string;
   columns: string[];
   labelsColor: LabelColors;
@@ -101,6 +104,7 @@ export const getChartSubType = (
   areaChartSubType: keyof typeof CHART_SUB_TYPES,
   scatterChartSubType: keyof typeof CHART_SUB_TYPES,
   bubbleChartSubType: keyof typeof CHART_SUB_TYPES,
+  normChartSubType: keyof typeof CHART_SUB_TYPES,
 ) => {
   switch (chartType) {
     case CHART_TYPES.LINE_CHART:
@@ -111,6 +115,8 @@ export const getChartSubType = (
       return scatterChartSubType;
     case CHART_TYPES.BUBBLE_CHART:
       return bubbleChartSubType;
+    case CHART_TYPES.NORM_CHART:
+      return normChartSubType;
     case CHART_TYPES.BAR_CHART:
     default:
       return barChartSubType;
@@ -158,7 +164,7 @@ export const addBreakdownYColumnsAndGetBreakdownValues = (
       const resultBreakdown = `${metric}${breakdown}`;
       if (formData.chartType === CHART_TYPES.BUBBLE_CHART) {
         // eslint-disable-next-line no-param-reassign
-        item[`${Z_SEPARATOR}${resultBreakdown}`] = item[formData.zDimension?.label];
+        item[`${resultBreakdown}${Z_SEPARATOR}`] = item[formData.zDimension?.label];
       }
       // mutation to save unnecessary loops
       // eslint-disable-next-line no-param-reassign
@@ -231,6 +237,19 @@ export const sortOrderedBars = (
     }
     return 0;
   });
+};
+
+export const has2Queries = (fromData: JsonObject = {}) => {
+  for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
+    const isCustomNorm =
+      fromData[`use_custom_type_metric_${i}`] && fromData[`chart_type_metric_${i}`] === CHART_TYPES.NORM_CHART;
+    const isMainNorm = fromData.chart_type === CHART_TYPES.NORM_CHART;
+    const isIgnoreCustom = !fromData[`use_custom_type_metric_${i}`];
+    if ((isMainNorm && (isIgnoreCustom || isCustomNorm)) || (!isMainNorm && isCustomNorm)) {
+      return { metricOrder: i };
+    }
+  }
+  return false;
 };
 
 export const getQueryMode = (controls: ControlStateMapping): QueryMode => {

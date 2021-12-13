@@ -330,7 +330,7 @@ Object {
           interval={0}
           label={
             Object {
-              "dy": 1,
+              "dy": 6,
               "position": "insideBottom",
               "value": "",
             }
@@ -754,7 +754,7 @@ Object {
                 "position": "center",
               }
             }
-            opacity={0.8}
+            opacity={1}
             shape={[Function]}
             yAxisId="left"
           />,
@@ -1214,7 +1214,7 @@ Object {
                 "position": "center",
               }
             }
-            opacity={0.8}
+            opacity={1}
             shape={[Function]}
             yAxisId="left"
           />,
@@ -1416,7 +1416,7 @@ Object {
       "layout": "horizontal",
       "margin": Object {
         "bottom": 16,
-        "left": 5,
+        "left": 10,
         "right": 10,
         "top": 15,
       },
@@ -1729,7 +1729,7 @@ Object {
         "keyIndex": 6,
         "position": "center",
       },
-      "opacity": 0.8,
+      "opacity": 1,
       "shape": [Function],
       "yAxisId": "left",
     },
@@ -1780,7 +1780,7 @@ Object {
       "dy": 5,
       "interval": 0,
       "label": Object {
-        "dy": 1,
+        "dy": 6,
         "position": "insideBottom",
         "value": "",
       },
@@ -1938,7 +1938,7 @@ Object {
           interval={0}
           label={
             Object {
-              "dy": 1,
+              "dy": 6,
               "position": "insideBottom",
               "value": "X Axis dynamic label",
             }
@@ -2194,7 +2194,7 @@ Object {
       "layout": "horizontal",
       "margin": Object {
         "bottom": 17,
-        "left": 5,
+        "left": 10,
         "right": 10,
         "top": 15,
       },
@@ -2273,7 +2273,7 @@ Object {
       "dy": 15,
       "interval": 0,
       "label": Object {
-        "dy": 1,
+        "dy": 6,
         "position": "insideBottom",
         "value": "X Axis dynamic label",
       },
@@ -2353,7 +2353,7 @@ Object {
           interval={0}
           label={
             Object {
-              "dy": 1,
+              "dy": 6,
               "position": "insideBottom",
               "value": "XLabel",
             }
@@ -2594,7 +2594,7 @@ Object {
       "layout": "vertical",
       "margin": Object {
         "bottom": 6,
-        "left": 5,
+        "left": 10,
         "right": 10,
         "top": 15,
       },
@@ -2670,7 +2670,7 @@ Object {
       "axisLine": false,
       "interval": 0,
       "label": Object {
-        "dy": 1,
+        "dy": 6,
         "position": "insideBottom",
         "value": "XLabel",
       },
@@ -2819,7 +2819,7 @@ Object {
           interval={0}
           label={
             Object {
-              "dy": 1,
+              "dy": 6,
               "position": "insideBottom",
               "value": "X Axis dynamic label",
             }
@@ -3034,7 +3034,7 @@ Object {
       "layout": "horizontal",
       "margin": Object {
         "bottom": 17,
-        "left": 5,
+        "left": 10,
         "right": 10,
         "top": 15,
       },
@@ -3112,7 +3112,7 @@ Object {
       "dy": 15,
       "interval": 0,
       "label": Object {
-        "dy": 1,
+        "dy": 6,
         "position": "insideBottom",
         "value": "X Axis dynamic label",
       },
