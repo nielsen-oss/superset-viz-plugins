@@ -19,6 +19,7 @@
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CategoricalColorNamespace, getNumberFormatter, styled } from '@superset-ui/core';
 import {
+  CartesianGrid,
   Cell,
   Legend,
   LegendPayload,
@@ -52,7 +53,11 @@ export type BubbleChartProps = {
   series: string;
   xAxisTickLabelAngle: number;
   yAxisLabelAngle: number;
+  xAxisLogScale: boolean;
+  yAxisLogScale: boolean;
   legendPosition: LegendPosition;
+  maxNumberOfLegends: number;
+  showGridLines: boolean;
   numbersFormat: string;
   height: number;
   width: number;
@@ -79,10 +84,14 @@ const BubbleChart: FC<BubbleChartProps> = props => {
     height,
     width,
     legendPosition,
+    maxNumberOfLegends,
+    showGridLines,
     yAxisLabelAngle,
+    xAxisLogScale,
     xAxisLabel,
     yAxisLabel,
     xAxisTickLabelAngle,
+    yAxisLogScale,
     xAxis,
     yAxis,
     zAxis,
@@ -102,7 +111,6 @@ const BubbleChart: FC<BubbleChartProps> = props => {
   }, [forceUpdate, props]);
 
   const formatter = getNumberFormatter(numbersFormat);
-
   const xAxisClientRect = rootRef.current
     ?.querySelector('.xAxis .recharts-cartesian-axis-ticks')
     ?.getBoundingClientRect();
@@ -112,11 +120,11 @@ const BubbleChart: FC<BubbleChartProps> = props => {
   const yAxisWidth = Math.ceil(yAxisClientRect?.width ?? 1);
 
   const { chartMargin, legendStyle } = getChartStyles(legendPosition, yAxisWidth);
-
   const xAxisProps: XAxisProps = {};
   if (xAxisLabel) {
     xAxisProps.label = {
       position: 'bottom',
+      offset: 10,
       value: xAxisLabel,
     };
   }
@@ -130,6 +138,10 @@ const BubbleChart: FC<BubbleChartProps> = props => {
       position: 'left',
     };
   }
+
+  // sort the data with larger bubble to match with legend color. Otherwise, scatter chart sorts the data anyway
+  // to display the largest bubble first and legend color will be out of sync
+  data.sort((a: BubbleChartData, b: BubbleChartData) => parseFloat(b[zAxis]) - parseFloat(a[zAxis]));
 
   const range = useMemo(() => {
     const values = data.reduce(
@@ -150,38 +162,73 @@ const BubbleChart: FC<BubbleChartProps> = props => {
     }
   };
 
-  const currentData = useMemo(() => data.filter(item => !disabledItems.includes(item[entity] as string)), [
-    data,
+  // if log scale is selected in x or y axis, then remove data with 0 for that axis
+  let dataForPlot: BubbleChartData[];
+  if (xAxisLogScale && yAxisLogScale) {
+    dataForPlot = data.filter(item => item[xAxis] && item[yAxis]);
+  } else if (xAxisLogScale) {
+    dataForPlot = data.filter(item => item[xAxis]);
+  } else if (yAxisLogScale) {
+    dataForPlot = data.filter(item => item[yAxis]);
+  } else {
+    dataForPlot = data;
+  }
+
+  const currentData = useMemo(() => dataForPlot.filter(item => !disabledItems.includes(item[entity] as string)), [
+    dataForPlot,
     disabledItems,
     entity,
   ]);
+  const legendIds: any[] = [];
+  let legends: any[] = [];
+  const groupingField = series || entity;
+  // eslint-disable-next-line
+  data.map(item => legendIds.includes(item[groupingField]) ? null: legendIds
+    .push(item[groupingField]) && legends.push({
+          value: item[groupingField],
+          type: disabledItems.includes(item[groupingField] as string) ? 'line' : 'square',
+          id: item[groupingField],
+          color: CategoricalColorNamespace.getScale(colorScheme)(item[groupingField]),
+        }),
+  );
+
+  legends = legends.slice(0, maxNumberOfLegends);
 
   return (
     <Styles height={height} width={width} ref={rootRef}>
       <ScatterChart width={width} height={height} margin={chartMargin} data={currentData} key={updater}>
+        <CartesianGrid vertical={showGridLines} horizontal={showGridLines} />
         <Legend
           onClick={handleClick}
-          payload={data.map(item => ({
-            value: item[entity],
-            type: disabledItems.includes(item[entity] as string) ? 'line' : 'square',
-            id: item[entity],
-            color: CategoricalColorNamespace.getScale(colorScheme)(item[entity]),
-          }))}
+          payload={legends}
           wrapperStyle={legendStyle}
-          verticalAlign={legendPosition as LegendProps['verticalAlign']}
+          verticalAlign={
+            ['left', 'right'].includes(legendPosition) ? 'middle' : (legendPosition as LegendProps['verticalAlign'])
+          }
           iconType="square"
+          align={['top', 'bottom'].includes(legendPosition) ? 'center' : (legendPosition as LegendProps['align'])}
+          layout={['top', 'bottom'].includes(legendPosition) ? 'horizontal' : 'vertical'}
           iconSize={10}
         />
         <XAxis
-          dy={10}
+          dy={5}
           angle={xAxisTickLabelAngle}
           tickLine={false}
           type="number"
+          {...(xAxisLogScale && { scale: 'log', domain: ['auto', 'auto'] })}
           dataKey={xAxis}
           {...xAxisProps}
           tickFormatter={formatter}
         />
-        <YAxis type="number" tickLine={false} dataKey={yAxis} tickFormatter={formatter} {...yAxisProps} />
+        <YAxis
+          type="number"
+          {...(yAxisLogScale && { scale: 'log', domain: ['auto', 'auto'] })}
+          tickLine={false}
+          dataKey={yAxis}
+          tickFormatter={formatter}
+          {...yAxisProps}
+        />
+
         <ZAxis dataKey={zAxis} range={range} type="number" />
         <Tooltip
           content={
@@ -198,7 +245,7 @@ const BubbleChart: FC<BubbleChartProps> = props => {
         />
         <Scatter data={currentData}>
           {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={CategoricalColorNamespace.getScale(colorScheme)(entry[entity])} />
+            <Cell key={`cell-${index}`} fill={CategoricalColorNamespace.getScale(colorScheme)(entry[groupingField])} />
           ))}
         </Scatter>
       </ScatterChart>

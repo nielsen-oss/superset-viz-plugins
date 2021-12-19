@@ -17,7 +17,7 @@
  * under the License.
  */
 import React, { FC } from 'react';
-import { CategoricalColorNamespace, getNumberFormatter, styled, t } from '@superset-ui/core';
+import { CategoricalColorNamespace, getNumberFormatter, styled } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
 
 const Container = styled.div`
@@ -60,9 +60,10 @@ const BubbleTooltip: FC<BubbleChartTooltipProps> = ({
     const firstPayload: Payload = payload?.[0]?.payload;
     const formatter = getNumberFormatter(numbersFormat);
     let name = firstPayload[entity];
-    const color = CategoricalColorNamespace.getScale(colorScheme)(name as string);
+    const color = CategoricalColorNamespace.getScale(colorScheme)(firstPayload[series] as string);
+
     if (series) {
-      name = `${name} (${series})`;
+      name = `${name} (${firstPayload[series]})`;
     }
     return (
       <Container>

@@ -27,7 +27,7 @@ import {
   sections,
   sharedControls,
 } from '@superset-ui/chart-controls';
-import { CHART_TYPES, CHART_TYPE_NAMES, CHART_SUB_TYPES } from '../components/types';
+import { CHART_TYPES, CHART_SUB_TYPES } from '../components/types';
 import {
   useSecondYAxis,
   xAxisInterval,
