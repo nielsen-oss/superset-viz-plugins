@@ -27,7 +27,7 @@ import {
   sections,
   sharedControls,
 } from '@superset-ui/chart-controls';
-import { CHART_TYPES, CHART_SUB_TYPES } from '../components/types';
+import { CHART_TYPES, CHART_TYPE_NAMES, CHART_SUB_TYPES } from '../components/types';
 import {
   useSecondYAxis,
   xAxisInterval,
@@ -96,6 +96,16 @@ const metrics: { name: string; config: ControlConfig<'MetricsControl'> } = {
       columns: datasource?.columns || [],
       savedMetrics: datasource?.metrics || [],
       datasourceType: datasource?.type,
+      fields: [
+        {
+          type: 'SelectControl',
+          label: t('Chart type'),
+          options: Object.keys(CHART_TYPES).map(key => ({
+            value: key,
+            label: CHART_TYPE_NAMES[key],
+          })),
+        },
+      ],
     }),
   },
 };
@@ -113,6 +123,16 @@ const zDimension: { name: string; config: ControlConfig<'MetricsControl'> } = {
       columns: datasource?.columns || [],
       savedMetrics: datasource?.metrics || [],
       datasourceType: datasource?.type,
+      fields: [
+        {
+          type: 'SelectControl',
+          label: t('Chart type'),
+          options: Object.keys(CHART_TYPES).map(key => ({
+            value: key,
+            label: CHART_TYPE_NAMES[key],
+          })),
+        },
+      ],
     }),
   },
 };

@@ -197,7 +197,7 @@ const PieChart: FC<PieProps<string, string>> = memo(props => {
             payload={data.map(item => ({
               value: item[groupBy],
               id: item[groupBy],
-              // payload: item,
+              payload: item,
               type: disabledDataKeys.includes(item[groupBy]) ? 'line' : 'circle',
               color: CategoricalColorNamespace.getScale(colorScheme)(item[groupBy]),
             }))}
