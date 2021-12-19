@@ -4800,20 +4800,20 @@
     resolve-from "^5.0.0"
     store2 "^2.12.0"
 
-"@superset-ui/chart-controls@^0.18.19":
-  version "0.18.25"
-  resolved "https://registry.npmjs.org/@superset-ui/chart-controls/-/chart-controls-0.18.25.tgz#2031bf90518adcbb9b2d3645621809a1315aa65d"
-  integrity sha512-zi2DJ2cTpgR1HugPX3yBHJAaBo7XYhodgZqj0BsKNMoexrLvHyPYsN+cw5xXFE1Q1ZyeKtQBB5m41+CKKfwQYw==
+"@superset-ui/chart-controls@0.18.8":
+  version "0.18.8"
+  resolved "https://registry.npmjs.org/@superset-ui/chart-controls/-/chart-controls-0.18.8.tgz#f1a57722ba8ba3b1f2827b0ec6fd0af090870f26"
+  integrity sha512-D64i+VDq3aba9fqqFhlYvxQ71eq2YoyW9iiolaqOh+1hmqDmTVKrmo/bXZRRHewTQgPDMfkrKC6iuzoH3SkmSQ==
   dependencies:
     "@react-icons/all-files" "^4.1.0"
-    "@superset-ui/core" "0.18.25"
+    "@superset-ui/core" "0.18.8"
     lodash "^4.17.15"
     prop-types "^15.7.2"
 
-"@superset-ui/core@0.18.25", "@superset-ui/core@^0.18.19":
-  version "0.18.25"
-  resolved "https://registry.npmjs.org/@superset-ui/core/-/core-0.18.25.tgz#f118fa687bcb5000b032110208bc470d30b0adbe"
-  integrity sha512-b5ACrOuwriJ0SEQdsJuZYQfg+CjgfW2ZcVI3f0r8gK5HWmJnma5fBzc2VM/NGd0JIpCQSgfgoyXaVeFEXXD+dQ==
+"@superset-ui/core@0.18.8":
+  version "0.18.8"
+  resolved "https://registry.npmjs.org/@superset-ui/core/-/core-0.18.8.tgz#0e091f50889bc188f3f09bf3d0518821c2b0eee5"
+  integrity sha512-eRbqy57yhvX2xQgAb4Zf5wmF87BPa+1ua97GFJBbmR+Uc8672nNNolLQAmwP4xoqQxrWqhYIoZzwzQPkRVEGBg==
   dependencies:
     "@babel/runtime" "^7.1.2"
     "@types/d3-format" "^1.3.0"
