@@ -102,7 +102,7 @@ export const useZAxisRange = (currentData: ResultData[], bubbleSize = 1000) =>
   useCallback<(arg: string) => number[]>(
     breakdown => {
       const axisValues = [
-        ...currentData.map(item => item[`${Z_SEPARATOR}${breakdown}`]).filter(item => item !== undefined),
+        ...currentData.map(item => item[`${breakdown}${Z_SEPARATOR}`]).filter(item => item !== undefined),
       ] as number[];
       const min = Math.min(...axisValues);
       const max = Math.max(...axisValues);

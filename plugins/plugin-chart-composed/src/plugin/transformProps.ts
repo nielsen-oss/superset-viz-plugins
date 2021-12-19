@@ -29,6 +29,9 @@ import {
   FormData,
   getChartSubType,
   getLabel,
+  has2Queries,
+  HIDDEN_DATA,
+  NORM_SEPARATOR,
   processNumbers,
   QueryMode,
   ResultData,
@@ -37,7 +40,7 @@ import {
 } from './utils';
 
 export default function transformProps(chartProps: ChartProps) {
-  const { width, height, queriesData, hooks, ownState } = chartProps;
+  const { width, height, queriesData, hooks, ownState, rawFormData } = chartProps;
   const data = queriesData[0].data as Data[];
   const formData = chartProps.formData as FormData;
   let xColumns: string[];
@@ -76,6 +79,23 @@ export default function transformProps(chartProps: ChartProps) {
   // Unit data elements by groupBy values
   resultData = mergeBy(resultData, 'rechartsDataKey');
 
+  const secondQuery = has2Queries(rawFormData);
+  if (secondQuery) {
+    const secondQueryData = mergeBy(
+      addRechartsKeyAndGetXColumnValues(formData, queriesData[1]?.data, xColumnValues, isTimeSeries, xColumns),
+      'rechartsDataKey',
+    );
+    resultData = resultData.map(item => {
+      const secondQueryFound = secondQueryData.find(sqd => sqd.rechartsDataKey === item.rechartsDataKey);
+      return {
+        ...item,
+        [`${yColumns[secondQuery.metricOrder]}${NORM_SEPARATOR}`]:
+          secondQueryFound?.[yColumns[secondQuery.metricOrder]] ?? '-',
+        [yColumns[secondQuery.metricOrder]]: HIDDEN_DATA,
+      };
+    });
+  }
+
   const chartSubType = getChartSubType(
     formData.chartType,
     formData.barChartSubType,
@@ -83,6 +103,7 @@ export default function transformProps(chartProps: ChartProps) {
     formData.areaChartSubType,
     formData.scatterChartSubType,
     formData.bubbleChartSubType,
+    formData.normChartSubType,
   );
 
   const chartTypeMetrics: (keyof typeof CHART_TYPES)[] = [];
@@ -101,7 +122,10 @@ export default function transformProps(chartProps: ChartProps) {
   if (formData.queryMode !== QueryMode.raw) {
     yColumns.forEach((yColumn, index) => {
       hasCustomTypeMetrics.push(formData[`useCustomTypeMetric${index}`] as boolean);
-      hideLegendByMetric.push(formData[`hideLegendByMetric${index}`] as boolean);
+      hideLegendByMetric.push(
+        // @ts-ignore
+        (formData[`hideLegendByMetric${index}`] as boolean) || yColumns[secondQuery?.metricOrder] === yColumn,
+      );
       if (formData[`hasColorSchemeMetric${index}`]) {
         colorSchemeByMetric[yColumn] = formData[`colorSchemeByMetric${index}`];
       }
@@ -125,6 +149,7 @@ export default function transformProps(chartProps: ChartProps) {
           formData[`areaChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
           formData[`scatterChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
           formData[`bubbleChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
+          formData[`normChartSubTypeMetric${index}`] as keyof typeof CHART_SUB_TYPES,
         ),
       );
     });
@@ -166,7 +191,12 @@ export default function transformProps(chartProps: ChartProps) {
     });
   };
 
-  resultData = processNumbers(resultData, breakdowns, formData.numbersFormat, formData.numbersFormatDigits);
+  resultData = processNumbers(
+    resultData,
+    [...breakdowns, ...yColumns],
+    formData.numbersFormat,
+    formData.numbersFormatDigits,
+  );
   const result: ComposedChartProps = {
     orderByYColumn: orderByYColumn as SortingType,
     hasOrderedBars,

@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.36.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.35.0...@superset-viz-plugins/plugin-chart-composed@0.36.0) (2021-12-05)
+
+
+### Features
+
+* Norm Chart ([#93](https://github.com/nielsen-oss/superset-viz-plugins/issues/93)) ([e148c8e](https://github.com/nielsen-oss/superset-viz-plugins/commit/e148c8e4a2a6d63e035f5054f7a53054ee0e7116))
+
+
+
+
+
+# [0.35.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.34.1...@superset-viz-plugins/plugin-chart-composed@0.35.0) (2021-11-28)
+
+
+### Features
+
+* integrate 1.4 ([#95](https://github.com/nielsen-oss/superset-viz-plugins/issues/95)) ([1d30a75](https://github.com/nielsen-oss/superset-viz-plugins/commit/1d30a759db345a52481ea5146ffa57d13b75ed36))
+
+
+
+
+
+## [0.34.1](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.34.0...@superset-viz-plugins/plugin-chart-composed@0.34.1) (2021-10-25)
+
+**Note:** Version bump only for package @superset-viz-plugins/plugin-chart-composed
+
+
+
+
+
 # [0.34.0](https://github.com/nielsen-oss/superset-viz-plugins/compare/@superset-viz-plugins/plugin-chart-composed@0.33.1...@superset-viz-plugins/plugin-chart-composed@0.34.0) (2021-10-21)
 
 
