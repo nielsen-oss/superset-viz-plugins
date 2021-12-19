@@ -912,6 +912,7 @@ const formDataTimeSeries = {
 };
 
 export const barsHorizontalLegendTop = {
+  hooks: {},
   formData: formDataBarsHorizontalLegendTop,
   height: 400,
   queriesData: [queriesDataMetrics],
@@ -919,6 +920,7 @@ export const barsHorizontalLegendTop = {
 };
 
 export const normHorizontalLegendTop = {
+  hooks: {},
   formData: normDataBarsHorizontalLegendTop,
   rawFormData: normRawDataBarsHorizontalLegendTop,
   height: 400,
@@ -927,6 +929,7 @@ export const normHorizontalLegendTop = {
 };
 
 export const bubbleHorizontalLegendTop = {
+  hooks: {},
   formData: formDataBubbleHorizontalLegendTop,
   height: 400,
   queriesData: [queriesDataMetrics2Breakdowns],
@@ -934,6 +937,7 @@ export const bubbleHorizontalLegendTop = {
 };
 
 export const barsHorizontalSorted = {
+  hooks: {},
   formData: formDataSortedBars,
   height: 400,
   queriesData: [queriesDataSortedBars],
@@ -941,6 +945,7 @@ export const barsHorizontalSorted = {
 };
 
 export const barsHorizontalLegendLeftY2AxisBreakdowns = {
+  hooks: {},
   formData: formDataBarsHorizontalLegendLeftY2Axis,
   height: 400,
   queriesData: [queriesDataMetrics2Breakdowns],
@@ -948,6 +953,7 @@ export const barsHorizontalLegendLeftY2AxisBreakdowns = {
 };
 
 export const barsVerticalLegendRightNumFormatAllLabelsBreakdowns = {
+  hooks: {},
   formData: formDataBarsVerticalLegendRightNumFormatAllLabels,
   height: 400,
   queriesData: [queriesDataMetrics2Breakdowns],
@@ -955,6 +961,7 @@ export const barsVerticalLegendRightNumFormatAllLabelsBreakdowns = {
 };
 
 export const allChatsLegendBottomBreakdowns = {
+  hooks: {},
   formData: formDataWithAllChartTypes,
   height: 400,
   queriesData: [queriesDataForAllCharts],
@@ -962,6 +969,7 @@ export const allChatsLegendBottomBreakdowns = {
 };
 
 export const metricsAndBreakdownBars = {
+  hooks: {},
   formData: formDataWithMetricsAndBreakdownBars,
   height: 400,
   queriesData: [queriesDataForAllCharts],
@@ -969,6 +977,7 @@ export const metricsAndBreakdownBars = {
 };
 
 export const metricsAndBreakdownStickyBars = {
+  hooks: {},
   formData: formDataWithMetricsAndBreakdownStickyBars,
   height: 400,
   queriesData: [queriesDataForAllCharts],
@@ -976,6 +985,7 @@ export const metricsAndBreakdownStickyBars = {
 };
 
 export const timeSeries = {
+  hooks: {},
   formData: formDataTimeSeries,
   height: 400,
   queriesData: [queriesDataTimeSeries],

@@ -210,6 +210,7 @@ export type ChartBarItem = {
   fill?: string;
   opacity?: number;
   stackId?: string | boolean;
+  onClick?: Function;
 };
 
 type Shape = {
@@ -316,6 +317,7 @@ export const getChartElement = (
   firstItem: string,
   xAxisClientRect?: ClientRect,
   yAxisClientRect?: ClientRect,
+  handleChartClick?: (arg: JsonObject) => void,
 ): ChartsUIItem => {
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
 
@@ -382,6 +384,11 @@ export const getChartElement = (
     case CHART_TYPES.BAR_CHART:
     default:
       commonProps = {
+        onClick: ({ rechartsDataKey }: JsonObject) => {
+          if (handleChartClick) {
+            handleChartClick({ value: rechartsDataKey });
+          }
+        },
         Element: Bar,
         opacity: hasDifferentTypes ? 0.6 : 1,
         fill: color,
@@ -699,6 +706,7 @@ type ChartElementProps = {
   xColumns: string[];
   yColumns: string[];
   firstItem: string;
+  handleChartClick?: (arg?: JsonObject) => void;
 };
 
 export const renderChartElement = ({
@@ -730,6 +738,7 @@ export const renderChartElement = ({
   firstItem,
   xAxisClientRect,
   yAxisClientRect,
+  handleChartClick,
 }: ChartElementProps) => {
   let customChartType = chartType;
   let customChartSubType = chartSubType;
@@ -755,6 +764,7 @@ export const renderChartElement = ({
     firstItem,
     xAxisClientRect,
     yAxisClientRect,
+    handleChartClick,
   );
 
   const labelListExtraPropsWithTotal: LabelListProps & { fill: string } = {

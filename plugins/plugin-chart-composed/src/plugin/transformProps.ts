@@ -40,17 +40,19 @@ import {
 } from './utils';
 
 export default function transformProps(chartProps: ChartProps) {
-  const { width, height, queriesData, rawFormData } = chartProps;
+  const { width, height, queriesData, hooks = {}, ownState, rawFormData } = chartProps;
   const data = queriesData[0].data as Data[];
   const formData = chartProps.formData as FormData;
   let xColumns: string[];
   let yColumns: string[];
 
+  const { setDataMask = () => {} } = hooks;
+
   if (formData.queryMode === QueryMode.raw) {
     xColumns = [formData.xColumn];
     yColumns = [formData.yColumn];
   } else {
-    xColumns = formData.groupby;
+    xColumns = ownState?.groupBy ?? formData.groupby;
     yColumns = formData.metrics?.map(metric => metric.label ?? metric);
   }
 
@@ -166,6 +168,37 @@ export default function transformProps(chartProps: ChartProps) {
     );
   }
 
+  const hasDrillDown = (ownState?.deepness?.length ?? 0) < formData.drillDownGroupBy?.length;
+  const handleChartClick = (obj?: JsonObject) => {
+    const initDeepness = [...(ownState.deepness ?? [])];
+    const initFilters = [...(ownState?.filters ?? [])];
+    let deepness: JsonObject[];
+    let filters: JsonObject[];
+    let groupBy: string;
+    if (obj?.index !== undefined) {
+      deepness = initDeepness.slice(0, obj?.index);
+      filters = initFilters.slice(0, obj?.index);
+      // eslint-disable-next-line prefer-destructuring
+      groupBy = deepness[deepness.length - 1]?.groupBy;
+    } else {
+      groupBy = formData.drillDownGroupBy[initDeepness?.length];
+      deepness = initDeepness.concat({ ...obj, label: `${groupBy}: ${obj?.value}`, groupBy });
+      filters = initFilters.concat({
+        col: ownState?.groupBy?.[0] ?? formData.groupby[0],
+        op: '==',
+        val: deepness[deepness.length - 1]?.value,
+      });
+    }
+
+    setDataMask({
+      ownState: {
+        deepness,
+        groupBy: groupBy ? [groupBy] : null,
+        filters,
+      },
+    });
+  };
+
   resultData = processNumbers(
     resultData,
     [...breakdowns, ...yColumns],
@@ -221,6 +254,9 @@ export default function transformProps(chartProps: ChartProps) {
       tickLabelAngle2: -Number(formData.y2AxisTickLabelAngle),
     },
     data: resultData,
+    deepness: ownState?.deepness,
+    handleChartClick,
+    hasDrillDown,
   };
   return result;
 }

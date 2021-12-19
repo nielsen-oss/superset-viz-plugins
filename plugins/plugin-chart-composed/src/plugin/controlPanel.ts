@@ -249,6 +249,17 @@ const queryMode: { name: string; config: ControlConfig<'RadioButtonControl'> } =
   },
 };
 
+const drillDownGroupBy: { name: string; config: ControlConfig<'SelectControl'> } = {
+  name: 'drill_down_group_by',
+  // @ts-ignore
+  config: {
+    ...sharedControls.columns,
+    label: t('Drill down group by'),
+    // @ts-ignore
+    visibility: isAggMode,
+  },
+};
+
 const config: ControlPanelConfig = {
   controlPanelSections: [
     sections.legacyTimeseriesTime,
@@ -317,6 +328,11 @@ const config: ControlPanelConfig = {
       label: t('Chart settings by metric'),
       expanded: true,
       controlSetRows: [...chartTypeMetrics],
+    },
+    {
+      label: t('Drill down'),
+      expanded: true,
+      controlSetRows: [[drillDownGroupBy]],
     },
   ],
 

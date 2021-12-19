@@ -49,6 +49,7 @@ type ComposedChartStylesProps = {
   height: number;
   width: number;
   legendPosition: LegendPosition;
+  isClickable: boolean;
 };
 
 type XAxisProps = {
@@ -67,6 +68,9 @@ export type YAxisProps = {
 };
 
 export type ComposedChartProps = {
+  hasDrillDown?: boolean;
+  handleChartClick?: (arg?: JsonObject) => void;
+  deepness?: JsonObject[];
   orderByYColumn: SortingType;
   isTimeSeries: boolean;
   scattersStickToBars: JsonObject;
@@ -107,17 +111,35 @@ export type ComposedChartProps = {
 
 export type ResetProps = { xAxisTicks?: boolean };
 
+const Breadcrumb = styled.div`
+  display: flex;
+`;
+
+const StyledLink = styled.div`
+  cursor: pointer;
+  color: #4b31af;
+  padding-right: 5px;
+  &:not(:last-child):after {
+    color: black;
+    content: ' / ';
+  }
+`;
+
 const Styles = styled.div<ComposedChartStylesProps>`
   position: relative;
   height: ${({ height }) => height}px;
   width: ${({ width }) => width}px;
   overflow: auto;
 
-  & .recharts-cartesian-axis-tick-line {
+  .recharts-cartesian-axis-tick-line {
     display: none;
   }
 
-  & .recharts-legend-item {
+  .recharts-bar-rectangle {
+    ${({ isClickable }) => isClickable && 'cursor: pointer'};
+  }
+
+  .recharts-legend-item {
     cursor: pointer;
     white-space: nowrap;
   }
@@ -155,6 +177,9 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     zDimension,
     colorSchemeBy,
     scattersStickToBars,
+    handleChartClick,
+    hasDrillDown,
+    deepness,
   } = props;
 
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
@@ -308,6 +333,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
 
   return (
     <Styles
+      isClickable={!!hasDrillDown && !!handleChartClick}
       key={updater}
       height={height}
       width={width}
@@ -315,6 +341,18 @@ const ComposedChart: FC<ComposedChartProps> = props => {
       ref={rootRef}
       style={{ overflowX: newWidth === width ? 'hidden' : 'auto', overflowY: newHeight === height ? 'hidden' : 'auto' }}
     >
+      <Breadcrumb>
+        {deepness?.map((deep, index) => (
+          // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/interactive-supports-focus
+          <StyledLink
+            onClick={() => {
+              handleChartClick?.({ index });
+            }}
+          >
+            {deep?.label}
+          </StyledLink>
+        )) ?? null}
+      </Breadcrumb>
       <ChartContainer
         key={updater}
         width={newWidth}
@@ -439,6 +477,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             yAxisClientRect,
             xColumns,
             firstItem: data[0]?.rechartsDataKey,
+            handleChartClick: hasDrillDown ? handleChartClick : undefined,
           }),
         )}
       </ChartContainer>
