@@ -18,26 +18,14 @@
  */
 import { validateNonEmpty, t, QueryFormData } from '@superset-ui/core';
 import {
+  ControlConfig,
   ControlPanelConfig,
   D3_FORMAT_DOCS,
   D3_FORMAT_OPTIONS,
   formatSelectOptions,
   sharedControls,
 } from '@superset-ui/chart-controls';
-import { orderBy } from './configs/orderBy';
 import { LegendPosition } from '../types';
-
-const xAxisColumn: typeof sharedControls.groupby = {
-  type: 'SelectControl',
-  label: t('XAxis column'),
-  description: t('Choose table column that will be displayed on XAxis in chart, should be chosen also in "Group by"'),
-  multi: false,
-  valueKey: 'column_name',
-  mapStateToProps: ({ datasource }) => ({
-    options: datasource?.columns || [],
-  }),
-  validators: [validateNonEmpty],
-};
 
 export const numbersFormat = {
   name: 'numbers_format',
@@ -63,18 +51,6 @@ export const numbersFormatDigits = {
     description: t('Number of digits after point'),
     visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.numbers_format === 'SMART_NUMBER',
   },
-};
-
-const periodColumn: typeof sharedControls.groupby = {
-  type: 'SelectControl',
-  label: t('Period column'),
-  description: t('Choose table column that will split data to periods, should be chosen also in "Group by"'),
-  multi: false,
-  valueKey: 'column_name',
-  mapStateToProps: ({ datasource }) => ({
-    options: datasource?.columns || [],
-  }),
-  validators: [validateNonEmpty],
 };
 
 export const xAxisLabel = {
@@ -127,6 +103,28 @@ export const xAxisTickLabelAngle = {
   },
 };
 
+export const xAxisLogScale = {
+  name: 'x_axis_log_scale',
+  config: {
+    type: 'CheckboxControl',
+    label: t('X Log Scale'),
+    default: false,
+    renderTrigger: true,
+    description: t('Use a log scale for the X-axis'),
+  },
+};
+
+export const YAxisLogScale = {
+  name: 'y_axis_log_scale',
+  config: {
+    type: 'CheckboxControl',
+    label: t('Y Log Scale'),
+    default: false,
+    renderTrigger: true,
+    description: t('Use a log scale for the Y-axis'),
+  },
+};
+
 export const legendPosition = {
   name: 'legend_position',
   config: {
@@ -141,8 +139,64 @@ export const legendPosition = {
   },
 };
 
-export const showHorizontalGridLines = {
-  name: 'show_horizontal_grid_lines',
+export const maxNumberOfLegends = {
+  name: 'max_number_of_legends',
+  config: {
+    type: 'TextControl',
+    label: t('Max Number of Legends'),
+    renderTrigger: true,
+    default: 18,
+    description: t('The maximum number of legends in the chart'),
+  },
+};
+
+const zAxis: { name: string; config: ControlConfig<'MetricControl'> } = {
+  name: 'z_axis',
+  // @ts-ignore
+  config: {
+    ...sharedControls.metric_2,
+    label: t('Z Axis'),
+    description: t('Z Axis'),
+    validate: [validateNonEmpty],
+  },
+};
+
+const xAxis: { name: string; config: ControlConfig<'MetricControl'> } = {
+  name: 'x_axis',
+  // @ts-ignore
+  config: {
+    ...sharedControls.metric_2,
+    label: t('X Axis'),
+    description: t('X Axis'),
+    validate: [validateNonEmpty],
+  },
+};
+
+const yAxis: { name: string; config: ControlConfig<'MetricControl'> } = {
+  name: 'y_axis',
+  // @ts-ignore
+  config: {
+    ...sharedControls.metric_2,
+    label: t('Y Axis'),
+    description: t('Y Axis'),
+    validate: [validateNonEmpty],
+  },
+};
+
+export const bubbleSize = {
+  name: 'bubble_size',
+  config: {
+    label: t('Bubble size'),
+    type: 'SelectControl',
+    choices: formatSelectOptions([100, 500, 1000, 1500, 2000, 3000, 5000]),
+    default: 1000,
+    renderTrigger: true,
+    description: t('Max size of bubble'),
+  },
+};
+
+export const showGridLines = {
+  name: 'show_grid_lines',
   config: {
     type: 'CheckboxControl',
     label: t('Show Grid Lines'),
@@ -155,56 +209,43 @@ export const showHorizontalGridLines = {
 const config: ControlPanelConfig = {
   controlPanelSections: [
     {
-      label: t('Map Fields'),
-      expanded: true,
-      controlSetRows: [
-        [
-          {
-            name: 'x_axis_column',
-            config: xAxisColumn,
-          },
-          {
-            name: 'period_column',
-            config: periodColumn,
-          },
-        ],
-      ],
-    },
-    {
       label: t('Query'),
       expanded: true,
-      controlSetRows: [['metric'], ['adhoc_filters'], ['row_limit', null]],
-    },
-    {
-      label: t('Sorting'),
-      expanded: true,
-      controlSetRows: [...orderBy],
+      controlSetRows: [
+        ['series'],
+        ['entity'],
+        [xAxis],
+        [yAxis],
+        [zAxis],
+        [bubbleSize],
+        ['adhoc_filters'],
+        ['row_limit', null],
+      ],
     },
     {
       label: t('Chart Options'),
       expanded: true,
-      controlSetRows: [[numbersFormat, numbersFormatDigits], [legendPosition], [showHorizontalGridLines]],
+      controlSetRows: [
+        ['color_scheme', 'label_colors'],
+        [numbersFormat, numbersFormatDigits],
+        [showGridLines],
+        [legendPosition],
+        [maxNumberOfLegends],
+      ],
     },
     {
       label: t('X Axis'),
       expanded: true,
-      controlSetRows: [[xAxisLabel], [xAxisTickLabelAngle]],
+      controlSetRows: [[xAxisLabel], [xAxisTickLabelAngle], [xAxisLogScale]],
     },
     {
       label: t('Y Axis'),
       expanded: true,
-      controlSetRows: [[yAxisLabel, yAxisLabelAngle]],
+      controlSetRows: [[yAxisLabel, yAxisLabelAngle], [YAxisLogScale]],
     },
   ],
 
   controlOverrides: {
-    series: {
-      validators: [validateNonEmpty],
-      clearable: false,
-    },
-    metrics: {
-      multi: false,
-    },
     row_limit: {
       default: 100,
     },

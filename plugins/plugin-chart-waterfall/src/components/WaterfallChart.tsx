@@ -34,9 +34,10 @@ import {
   YAxisProps,
 } from 'recharts';
 import WaterfallTick from './WaterfallTick';
-import { getChartStyles, LEGEND, LegendPosition, renderLabel, useDomain } from './utils';
+import { getChartStyles, LEGEND, renderLabel, useDomain } from './utils';
 import WaterfallBar from './WaterfallBar';
 import WaterfallTooltip from './WaterfallTooltip';
+import { LegendPosition } from '../types';
 
 type WaterfallStylesProps = {
   height: number;

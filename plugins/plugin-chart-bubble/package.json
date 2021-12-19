@@ -1,8 +1,8 @@
 {
-  "name": "@superset-viz-plugins/plugin-chart-composed",
-  "version": "0.36.1",
-  "description": "Superset Chart - Chart Composed",
-  "pluginName": "ComposedChartPlugin",
+  "name": "@superset-viz-plugins/plugin-chart-bubble",
+  "version": "0.0.1",
+  "description": "Superset Chart - Bubble",
+  "pluginName": "BubbleChartPlugin",
   "sideEffects": false,
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -25,20 +25,22 @@
   "keywords": [
     "superset"
   ],
+  "author": "MAF",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/nielsen-oss/superset-viz-plugins/iissues"
+    "url": "https://github.com/nielsen-oss/superset-viz-plugins/issues"
   },
+  "homepage": "https://github.com/nielsen-oss/superset-viz-plugins#readme",
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "recharts": "^1.8.5"
   },
   "peerDependencies": {
     "@superset-ui/chart-controls": "*",
     "@superset-ui/core": "*",
     "react": "^16.13.1"
+  },
+  "dependencies": {
+    "recharts": "^1.8.5"
   },
   "babel": {
     "presets": [
