@@ -96,6 +96,7 @@ export default function buildQuery(formData: QueryFormData, options?: JsonObject
       const updatedMetrics = [...queries[0].metrics];
       updatedMetrics.splice(secondMetric.metricOrder, 1);
       queries[0].metrics = updatedMetrics;
+      // @ts-ignore
       queries.push({
         ...baseQueryObject,
         metrics: [metrics[secondMetric.metricOrder]],
