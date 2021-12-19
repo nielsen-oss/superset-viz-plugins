@@ -40,7 +40,7 @@ import {
 } from './utils';
 
 export default function transformProps(chartProps: ChartProps) {
-  const { width, height, queriesData, hooks, ownState, rawFormData } = chartProps;
+  const { width, height, queriesData, hooks = {}, ownState, rawFormData } = chartProps;
   const data = queriesData[0].data as Data[];
   const formData = chartProps.formData as FormData;
   let xColumns: string[];

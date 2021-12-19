@@ -920,6 +920,7 @@ export const barsHorizontalLegendTop = {
 };
 
 export const normHorizontalLegendTop = {
+  hooks: {},
   formData: normDataBarsHorizontalLegendTop,
   rawFormData: normRawDataBarsHorizontalLegendTop,
   height: 400,
