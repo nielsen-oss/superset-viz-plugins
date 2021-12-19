@@ -1,13 +1,4 @@
-const queriesDataMetrics2 = {
-  cache_key: 'bb08409c3c01818c025db286402da2ae',
-  cached_dttm: null,
-  cache_timeout: 86400,
-  error: null,
-  is_cached: true,
-  status: 'success',
-  stacktrace: null,
-  rowcount: 4,
-  annotation_data: [],
+const queriesDataMetrics = {
   data: [
     {
       group_type: 'Direct Due To Group',
@@ -25,6 +16,40 @@ const queriesDataMetrics2 = {
       'COUNT_DISTINCT(group_name)': 3,
     },
     { group_type: 'Variable', 'COUNT_DISTINCT(period)': 5, 'COUNT_DISTINCT(group_name)': 31 },
+  ],
+};
+const queriesDataOneMetric = {
+  data: [
+    {
+      group_type: 'Direct Due To Group',
+      'COUNT_DISTINCT(period)': 5,
+    },
+    {
+      group_type: 'Due To Group',
+      'COUNT_DISTINCT(period)': 15,
+    },
+    {
+      group_type: 'Summary Group',
+      'COUNT_DISTINCT(period)': 5,
+    },
+    { group_type: 'Variable', 'COUNT_DISTINCT(period)': 25 },
+  ],
+};
+const queriesDataOneMetric2 = {
+  data: [
+    {
+      group_type: 'Direct Due To Group',
+      'COUNT_DISTINCT(group_name)': -7,
+    },
+    {
+      group_type: 'Due To Group',
+      'COUNT_DISTINCT(group_name)': 0,
+    },
+    {
+      group_type: 'Summary Group',
+      'COUNT_DISTINCT(group_name)': 11,
+    },
+    { group_type: 'Variable', 'COUNT_DISTINCT(group_name)': -31 },
   ],
 };
 const queriesDataSortedBars = {
@@ -51,15 +76,6 @@ const queriesDataSortedBars = {
   ],
 };
 const queriesDataMetrics2Breakdowns = {
-  cache_key: 'd2cb05cdf3e072a803c4d04040b12fd2',
-  cached_dttm: null,
-  cache_timeout: 86400,
-  error: null,
-  is_cached: true,
-  status: 'success',
-  stacktrace: null,
-  rowcount: 8,
-  annotation_data: [],
   data: [
     {
       group_type: 'Variable',
@@ -120,15 +136,6 @@ const queriesDataMetrics2Breakdowns = {
   ],
 };
 const queriesDataForAllCharts = {
-  cache_key: '8255e4b82cdfa2332d133f35bae05ca1',
-  cached_dttm: null,
-  cache_timeout: 86400,
-  error: null,
-  is_cached: true,
-  status: 'success',
-  stacktrace: null,
-  rowcount: 8,
-  annotation_data: [],
   data: [
     {
       group_type: 'Variable',
@@ -197,15 +204,6 @@ const queriesDataForAllCharts = {
   ],
 };
 const queriesDataTimeSeries = {
-  cache_key: 'bb08409c3c01818c025db286402da2ae',
-  cached_dttm: null,
-  cache_timeout: 86400,
-  error: null,
-  is_cached: true,
-  status: 'success',
-  stacktrace: null,
-  rowcount: 4,
-  annotation_data: [],
   data: [
     {
       __timestamp: 1508112000000,
@@ -645,21 +643,18 @@ const formDataBarsHorizontalLegendTop = {
   timeRange: 'Last week',
   groupby: ['group_type'],
   numbersFormat: 'SMART_NUMBER',
+  xAxisLabel: '{{metric_name_1}}',
+  yAxisLabel: '{{metric_name_2}}',
+  extraFilters: [
+    { col: 'metric_name_1', op: 'IN', val: ['X Axis dynamic label'] },
+    { col: 'metric_name_2', op: 'IN', val: ['Y Axis dynamic label'] },
+  ],
   metrics: [
     {
       expressionType: 'SIMPLE',
       column: {
         id: 442,
         column_name: 'period',
-        verbose_name: null,
-        description: null,
-        expression: null,
-        filterable: true,
-        groupby: true,
-        is_dttm: false,
-        type: 'TEXT',
-        python_date_format: null,
-        optionName: '_col_period',
       },
       aggregate: 'COUNT_DISTINCT',
       sqlExpression: null,
@@ -673,15 +668,6 @@ const formDataBarsHorizontalLegendTop = {
       column: {
         id: 439,
         column_name: 'group_name',
-        verbose_name: null,
-        description: null,
-        expression: null,
-        filterable: true,
-        groupby: true,
-        is_dttm: false,
-        type: 'TEXT',
-        python_date_format: null,
-        optionName: '_col_group_name',
       },
       aggregate: 'COUNT_DISTINCT',
       sqlExpression: null,
@@ -716,6 +702,19 @@ const formDataBarsHorizontalLegendTop = {
   areaChartSubTypeMetric0: 'basis',
   scatterChartSubTypeMetric0: 'circle',
 };
+const normRawDataBarsHorizontalLegendTop = {
+  chart_type: 'NORM_CHART',
+  norm_chart_sub_type: 'default',
+  use_custom_type_metric_0: true,
+  chart_type_metric_0: 'BAR_CHART',
+  bar_chart_sub_type_metric_0: 'default',
+};
+const normDataBarsHorizontalLegendTop = {
+  ...formDataBarsHorizontalLegendTop,
+  useCustomTypeMetric0: true,
+  chartTypeMetric0: 'BAR_CHART',
+  barChartSubTypeMetric0: 'default',
+};
 const formDataBubbleHorizontalLegendTop = {
   ...formDataBarsHorizontalLegendTop,
   chartType: 'BUBBLE_CHART',
@@ -728,13 +727,7 @@ const formDataBubbleHorizontalLegendTop = {
       verbose_name: 'Willing To Relocate',
       description: null,
     },
-    expressionType: 'SIMPLE',
-    hasCustomLabel: false,
-    isNew: false,
     label: 'COUNT(willing_to_relocate)',
-    optionName: 'metric_g5k1l2xm67f_apxgonu8pzd',
-    sqlExpression: null,
-    columns: [],
   },
 };
 const formDataSortedBars = {
@@ -751,26 +744,7 @@ const formDataSortedBars = {
   groupby: ['country_name'],
   metrics: [
     {
-      expressionType: 'SIMPLE',
-      column: {
-        id: 560,
-        column_name: 'country_name',
-        verbose_name: null,
-        description: null,
-        expression: null,
-        filterable: true,
-        groupby: true,
-        is_dttm: false,
-        type: 'TEXT',
-        type_generic: 1,
-        python_date_format: null,
-      },
-      aggregate: 'COUNT',
-      sqlExpression: null,
-      isNew: false,
-      hasCustomLabel: false,
       label: 'COUNT(country_name)',
-      optionName: 'metric_o23c4qyoy89_nv0nyvrztmq',
     },
   ],
   columns: ['clinical_stage'],
@@ -839,92 +813,16 @@ const formDataWithAllChartTypes = {
   groupby: ['group_type'],
   metrics: [
     {
-      expressionType: 'SIMPLE',
-      column: {
-        id: 442,
-        column_name: 'period',
-        verbose_name: null,
-        description: null,
-        expression: null,
-        filterable: true,
-        groupby: true,
-        is_dttm: false,
-        type: 'TEXT',
-        python_date_format: null,
-        optionName: '_col_period',
-      },
-      aggregate: 'COUNT_DISTINCT',
-      sqlExpression: null,
-      isNew: false,
-      hasCustomLabel: false,
       label: 'COUNT_DISTINCT(period)',
-      optionName: 'metric_pgoatq2ztj_89vhh4gcums',
     },
     {
-      expressionType: 'SIMPLE',
-      column: {
-        id: 439,
-        column_name: 'group_name',
-        verbose_name: null,
-        description: null,
-        expression: null,
-        filterable: true,
-        groupby: true,
-        is_dttm: false,
-        type: 'TEXT',
-        python_date_format: null,
-        optionName: '_col_group_name',
-      },
-      aggregate: 'COUNT_DISTINCT',
-      sqlExpression: null,
-      isNew: false,
-      hasCustomLabel: false,
       label: 'COUNT_DISTINCT(group_name)',
-      optionName: 'metric_lmdhe0lkblg_elv2tmnvmq9',
     },
     {
-      expressionType: 'SIMPLE',
-      column: {
-        id: 446,
-        column_name: 'due_to_group',
-        verbose_name: null,
-        description: null,
-        expression: null,
-        filterable: true,
-        groupby: true,
-        is_dttm: false,
-        type: 'TEXT',
-        python_date_format: null,
-        optionName: '_col_due_to_group',
-      },
-      aggregate: 'COUNT_DISTINCT',
-      sqlExpression: null,
-      isNew: false,
-      hasCustomLabel: false,
       label: 'COUNT_DISTINCT(due_to_group)',
-      optionName: 'metric_c98ay692tm5_sta4btkbwrs',
     },
     {
-      expressionType: 'SIMPLE',
-      column: {
-        id: 461,
-        column_name: 'efficiency',
-        verbose_name: null,
-        description: null,
-        expression: null,
-        filterable: true,
-        groupby: true,
-        is_dttm: false,
-        type: 'DOUBLE PRECISION',
-        python_date_format: null,
-        optionName: '_col_efficiency',
-      },
-      aggregate: 'COUNT_DISTINCT',
-      sqlExpression: null,
-      isNew: false,
-      hasCustomLabel: false,
       label: 'COUNT_DISTINCT(efficiency)',
-      optionName: 'metric_audvel3jew_xu9l29kfkuj',
     },
   ],
   columns: ['period_type'],
@@ -984,6 +882,26 @@ const formDataWithAllChartTypes = {
   areaChartSubTypeMetric5: 'basis',
   scatterChartSubTypeMetric5: 'circle',
 };
+const formDataWithMetricsAndBreakdownBars = {
+  ...formDataWithAllChartTypes,
+  legendPosition: 'top',
+  useCustomTypeMetric0: false,
+  useCustomTypeMetric1: false,
+  useCustomTypeMetric2: false,
+  useCustomTypeMetric3: false,
+  useCustomTypeMetric4: false,
+};
+const formDataWithMetricsAndBreakdownStickyBars = {
+  ...formDataWithAllChartTypes,
+  legendPosition: 'top',
+  useCustomTypeMetric1: false,
+  useCustomTypeMetric0: true,
+  chartTypeMetric0: 'SCATTER_CHART',
+  scatterChartSubTypeMetric0: 'arrowUp',
+  useCustomTypeMetric2: false,
+  useCustomTypeMetric3: false,
+  useCustomTypeMetric4: false,
+};
 const formDataTimeSeries = {
   ...formDataBarsHorizontalLegendTop,
   granularitySqla: 'group_type',
@@ -996,7 +914,15 @@ const formDataTimeSeries = {
 export const barsHorizontalLegendTop = {
   formData: formDataBarsHorizontalLegendTop,
   height: 400,
-  queriesData: [queriesDataMetrics2],
+  queriesData: [queriesDataMetrics],
+  width: 800,
+};
+
+export const normHorizontalLegendTop = {
+  formData: normDataBarsHorizontalLegendTop,
+  rawFormData: normRawDataBarsHorizontalLegendTop,
+  height: 400,
+  queriesData: [queriesDataOneMetric, queriesDataOneMetric2],
   width: 800,
 };
 
@@ -1030,6 +956,20 @@ export const barsVerticalLegendRightNumFormatAllLabelsBreakdowns = {
 
 export const allChatsLegendBottomBreakdowns = {
   formData: formDataWithAllChartTypes,
+  height: 400,
+  queriesData: [queriesDataForAllCharts],
+  width: 800,
+};
+
+export const metricsAndBreakdownBars = {
+  formData: formDataWithMetricsAndBreakdownBars,
+  height: 400,
+  queriesData: [queriesDataForAllCharts],
+  width: 800,
+};
+
+export const metricsAndBreakdownStickyBars = {
+  formData: formDataWithMetricsAndBreakdownStickyBars,
   height: 400,
   queriesData: [queriesDataForAllCharts],
   width: 800,

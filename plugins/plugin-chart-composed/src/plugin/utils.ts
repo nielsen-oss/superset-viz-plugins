@@ -16,13 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { QueryFormColumn, t } from '@superset-ui/core';
+import { JsonObject, QueryFormColumn, SetAdhocFilter, t } from '@superset-ui/core';
 import { ControlPanelsContainerProps, ControlStateMapping } from '@superset-ui/chart-controls';
 import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/types';
 
 export const MAX_FORM_CONTROLS = 5;
 export const BREAKDOWN_SEPARATOR = '_$_';
 export const Z_SEPARATOR = '_Z$_';
+export const NORM_SEPARATOR = '_NORM$_';
+export const HIDDEN_DATA = '_HIDDEN_DATA_';
 
 export enum QueryMode {
   aggregate = 'aggregate',
@@ -36,21 +38,23 @@ type Metric = {
 export type LabelColors = 'black' | 'white';
 
 export type FormData = {
-  [key: string]: string | string[] | Metric[] | Metric | boolean;
+  [key: string]: string | string[] | Metric[] | Metric | boolean | SetAdhocFilter[];
   layout: Layout;
   colorScheme: string;
+  coloredBreakdowns: SetAdhocFilter[];
+  colorSchemeByBreakdown: string;
   minBarWidth: string;
   xAxisInterval: string;
   queryMode: QueryMode;
   xColumn: string;
   yColumn: string;
-  useOrderByMetric0: boolean;
   chartType: keyof typeof CHART_TYPES;
   lineChartSubType: keyof typeof CHART_SUB_TYPES;
   areaChartSubType: keyof typeof CHART_SUB_TYPES;
   barChartSubType: keyof typeof CHART_SUB_TYPES;
   scatterChartSubType: keyof typeof CHART_SUB_TYPES;
   bubbleChartSubType: keyof typeof CHART_SUB_TYPES;
+  normChartSubType: keyof typeof CHART_SUB_TYPES;
   numbersFormat: string;
   columns: string[];
   labelsColor: LabelColors;
@@ -73,11 +77,12 @@ export type FormData = {
 
 export type Data = { [key: string]: string | number };
 export type ResultData = {
+  orderedBarsDataMap?: JsonObject;
   rechartsDataKey: string;
   rechartsDataKeyUI: string;
   rechartsTotal?: number;
   color?: string;
-  [key: string]: BarChartValue | string | number | undefined;
+  [key: string]: BarChartValue | string | number | undefined | JsonObject;
 };
 
 export type ColorsMap = { [key: string]: string };
@@ -99,6 +104,7 @@ export const getChartSubType = (
   areaChartSubType: keyof typeof CHART_SUB_TYPES,
   scatterChartSubType: keyof typeof CHART_SUB_TYPES,
   bubbleChartSubType: keyof typeof CHART_SUB_TYPES,
+  normChartSubType: keyof typeof CHART_SUB_TYPES,
 ) => {
   switch (chartType) {
     case CHART_TYPES.LINE_CHART:
@@ -109,6 +115,8 @@ export const getChartSubType = (
       return scatterChartSubType;
     case CHART_TYPES.BUBBLE_CHART:
       return bubbleChartSubType;
+    case CHART_TYPES.NORM_CHART:
+      return normChartSubType;
     case CHART_TYPES.BAR_CHART:
     default:
       return barChartSubType;
@@ -156,7 +164,7 @@ export const addBreakdownYColumnsAndGetBreakdownValues = (
       const resultBreakdown = `${metric}${breakdown}`;
       if (formData.chartType === CHART_TYPES.BUBBLE_CHART) {
         // eslint-disable-next-line no-param-reassign
-        item[`${Z_SEPARATOR}${resultBreakdown}`] = item[formData.zDimension?.label];
+        item[`${resultBreakdown}${Z_SEPARATOR}`] = item[formData.zDimension?.label];
       }
       // mutation to save unnecessary loops
       // eslint-disable-next-line no-param-reassign
@@ -231,6 +239,19 @@ export const sortOrderedBars = (
   });
 };
 
+export const has2Queries = (fromData: JsonObject = {}) => {
+  for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
+    const isCustomNorm =
+      fromData[`use_custom_type_metric_${i}`] && fromData[`chart_type_metric_${i}`] === CHART_TYPES.NORM_CHART;
+    const isMainNorm = fromData.chart_type === CHART_TYPES.NORM_CHART;
+    const isIgnoreCustom = !fromData[`use_custom_type_metric_${i}`];
+    if ((isMainNorm && (isIgnoreCustom || isCustomNorm)) || (!isMainNorm && isCustomNorm)) {
+      return { metricOrder: i };
+    }
+  }
+  return false;
+};
+
 export const getQueryMode = (controls: ControlStateMapping): QueryMode => {
   const mode = controls?.query_mode?.value;
   if (mode === QueryMode.aggregate || mode === QueryMode.raw) {
@@ -245,3 +266,23 @@ export const isQueryMode = (mode: QueryMode) => ({ controls }: ControlPanelsCont
   getQueryMode(controls) === mode;
 export const isAggMode = isQueryMode(QueryMode.aggregate);
 export const isRawMode = isQueryMode(QueryMode.raw);
+
+export const getLabel = (formData: FormData, axisLabel?: string) => {
+  const moustacheRegexp = new RegExp(/{{(.*?)}}/g);
+  if (axisLabel && moustacheRegexp.test(axisLabel)) {
+    const filterName = axisLabel.replace(/[{}]/g, '').trim();
+    let value = '';
+    if (filterName) {
+      const item = (formData?.extraFilters as any[])?.find(f => f.col === filterName);
+      if (item) {
+        if (item?.op === 'IN') {
+          value = item.val.join(', ');
+        } else {
+          value = item.val;
+        }
+      }
+    }
+    return value;
+  }
+  return axisLabel || '';
+};

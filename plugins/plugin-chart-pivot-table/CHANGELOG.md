@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.14.0 (2021-11-28)
+
+
+### Features
+
+* integrate 1.4 ([#95](https://github.com/nielsen-oss/superset-viz-plugins/issues/95)) ([1d30a75](https://github.com/nielsen-oss/superset-viz-plugins/commit/1d30a759db345a52481ea5146ffa57d13b75ed36))
+
+
+
+
+
+## 0.13.2 (2021-10-12)
+
+**Note:** Version bump only for package @superset-viz-plugins/plugin-chart-pivot-table
+
+
+
+
+
+## 0.13.1 (2021-10-10)
+
+
+### Reverts
+
+* to the point where ci worked ([bf7b3ab](https://github.com/nielsen-oss/superset-viz-plugins/commit/bf7b3abbd75cba23d89da71f4819a8bb76a86d32))
+
+
+
+
+
+# 0.13.0 (2021-10-10)
+
+
+### Features
+
+* upgrade to ^ in superset libraries ([403f7d5](https://github.com/nielsen-oss/superset-viz-plugins/commit/403f7d5aeb952d7d2cfc7c85c1637897d4a0fc94))
+
+
+
+
+
+# 0.12.0 (2021-10-10)
+
+
+### Features
+
+* upgrade dependecies to 1.3.1 ([9933599](https://github.com/nielsen-oss/superset-viz-plugins/commit/99335994d7dde6876359d5ae037e7c80b60f8d3d))
+
+
+
+
+
 ## 0.11.1 (2021-05-26)
 
 **Note:** Version bump only for package @superset-viz-plugins/plugin-chart-pivot-table

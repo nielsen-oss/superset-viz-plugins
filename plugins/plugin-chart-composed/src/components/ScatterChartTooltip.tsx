@@ -17,9 +17,10 @@
  * under the License.
  */
 import React, { FC } from 'react';
-import { CategoricalColorNamespace, getNumberFormatter, styled, t } from '@superset-ui/core';
+import { getNumberFormatter, JsonObject, styled } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
-import { getMetricName } from './utils';
+import { getMetricName, getResultColor } from './utils';
+import { ColorSchemeBy } from './types';
 
 const Container = styled.div`
   border: 1px solid #cccccc;
@@ -42,8 +43,8 @@ type ScatterChartTooltipProps = TooltipProps & {
   numbersFormat: string;
   yColumns: string[];
   zDimension?: string;
-  colorScheme: string;
   breakdowns: string[];
+  colorSchemeBy: ColorSchemeBy;
 };
 
 const ScatterChartTooltip: FC<ScatterChartTooltipProps> = ({
@@ -52,28 +53,22 @@ const ScatterChartTooltip: FC<ScatterChartTooltipProps> = ({
   yColumns,
   payload = [],
   zDimension,
-  colorScheme,
   breakdowns,
+  colorSchemeBy,
 }) => {
   if (active) {
     const firstPayload: Payload = payload[0]?.payload;
     const formatter = getNumberFormatter(numbersFormat);
     const data = [...payload];
     data.shift();
+
+    const foundBreakdown = breakdowns.find(breakdown => breakdown === data?.[0]?.dataKey) ?? '';
+
     return (
       <Container>
-        {/*
-          // @ts-ignore */}
-        <Line
-          color={CategoricalColorNamespace.getScale(colorScheme)(
-            breakdowns.findIndex(breakdown => breakdown === data?.[0]?.dataKey),
-          )}
-        >
-          {firstPayload.rechartsDataKeyUI}
-        </Line>
+        <Line color={getResultColor(foundBreakdown, colorSchemeBy)}>{firstPayload.rechartsDataKeyUI}</Line>
         {data.map(item => {
-          // @ts-ignore
-          const name = getMetricName(item?.dataKey, yColumns, zDimension);
+          const name = getMetricName((item as JsonObject)?.dataKey, yColumns, zDimension);
           const value = item?.value as number;
           const resultValue = isNaN(value) ? '-' : formatter(value);
           return <Line key={name}>{`${name}: ${resultValue}`}</Line>;

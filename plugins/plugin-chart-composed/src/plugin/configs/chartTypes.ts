@@ -118,3 +118,20 @@ export const bubbleChartSubType = {
     description: t('Set subtype of chart'),
   },
 };
+
+export const normChartSubType = {
+  name: 'norm_chart_sub_type',
+  config: {
+    label: t('Chart subtype'),
+    clearable: false,
+    renderTrigger: true,
+    type: 'SelectControl',
+    options: Object.keys(CHART_SUB_TYPE_NAMES[CHART_TYPES.NORM_CHART]).map(key => ({
+      value: key,
+      label: CHART_SUB_TYPE_NAMES[key],
+    })),
+    visibility: ({ form_data }: { form_data: QueryFormData }) => form_data.chart_type === CHART_TYPES.NORM_CHART,
+    default: CHART_SUB_TYPES.DEFAULT,
+    description: t('Set subtype of chart'),
+  },
+};
