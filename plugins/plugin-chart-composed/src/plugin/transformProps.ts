@@ -168,24 +168,32 @@ export default function transformProps(chartProps: ChartProps) {
     );
   }
 
+  const hasDrillDown = (ownState?.deepness?.length ?? 0) < formData.drillDownGroupBy?.length;
   const handleChartClick = (obj?: JsonObject) => {
-    if (!obj) {
-      setDataMask({
-        ownState: {
-          deepness: 0,
-          groupBy: null,
-          filters: null,
-        },
+    const initDeepness = [...(ownState.deepness ?? [])];
+    const initFilters = [...(ownState?.filters ?? [])];
+    let deepness: JsonObject[];
+    let filters: JsonObject[];
+    let groupBy: string;
+    if (obj?.index !== undefined) {
+      deepness = initDeepness.slice(0, obj?.index);
+      filters = initFilters.slice(0, obj?.index);
+      // eslint-disable-next-line prefer-destructuring
+      groupBy = deepness[deepness.length - 1]?.groupBy;
+    } else {
+      groupBy = formData.drillDownGroupBy[initDeepness?.length];
+      deepness = initDeepness.concat({ ...obj, label: `${groupBy}: ${obj?.value}`, groupBy });
+      filters = initFilters.concat({
+        col: ownState?.groupBy?.[0] ?? formData.groupby[0],
+        op: '==',
+        val: deepness[deepness.length - 1]?.value,
       });
-      return;
     }
-    const deepness = ownState.deepness ?? 0;
-    const filters = [...(ownState?.filters ?? [])];
-    filters.push({ col: ownState?.groupBy?.[0] ?? formData.groupby[0], op: '==', val: obj?.value });
+
     setDataMask({
       ownState: {
-        deepness: deepness + 1,
-        groupBy: [formData.drillDownGroupBy[deepness]],
+        deepness,
+        groupBy: groupBy ? [groupBy] : null,
         filters,
       },
     });
@@ -247,11 +255,8 @@ export default function transformProps(chartProps: ChartProps) {
     },
     data: resultData,
     deepness: ownState?.deepness,
-    resetChart: () => handleChartClick(),
+    handleChartClick,
+    hasDrillDown,
   };
-
-  if ((ownState?.deepness ?? 0) < formData.drillDownGroupBy?.length) {
-    result.handleChartClick = handleChartClick;
-  }
   return result;
 }

@@ -68,9 +68,9 @@ export type YAxisProps = {
 };
 
 export type ComposedChartProps = {
-  resetChart: (arg?: JsonObject) => void;
+  hasDrillDown?: boolean;
   handleChartClick?: (arg?: JsonObject) => void;
-  deepness?: boolean;
+  deepness?: JsonObject[];
   orderByYColumn: SortingType;
   isTimeSeries: boolean;
   scattersStickToBars: JsonObject;
@@ -110,6 +110,20 @@ export type ComposedChartProps = {
 };
 
 export type ResetProps = { xAxisTicks?: boolean };
+
+const Breadcrumb = styled.div`
+  display: flex;
+`;
+
+const StyledLink = styled.div`
+  cursor: pointer;
+  color: #4b31af;
+  padding-right: 5px;
+  &:not(:last-child):after {
+    color: black;
+    content: ' / ';
+  }
+`;
 
 const Styles = styled.div<ComposedChartStylesProps>`
   position: relative;
@@ -164,7 +178,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     colorSchemeBy,
     scattersStickToBars,
     handleChartClick,
-    resetChart,
+    hasDrillDown,
     deepness,
   } = props;
 
@@ -319,7 +333,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
 
   return (
     <Styles
-      isClickable={!!handleChartClick}
+      isClickable={!!hasDrillDown && !!handleChartClick}
       key={updater}
       height={height}
       width={width}
@@ -327,8 +341,18 @@ const ComposedChart: FC<ComposedChartProps> = props => {
       ref={rootRef}
       style={{ overflowX: newWidth === width ? 'hidden' : 'auto', overflowY: newHeight === height ? 'hidden' : 'auto' }}
     >
-      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-      {deepness ? <a onClick={() => resetChart()}>Reset</a> : null}
+      <Breadcrumb>
+        {deepness?.map((deep, index) => (
+          // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/interactive-supports-focus
+          <StyledLink
+            onClick={() => {
+              handleChartClick?.({ index });
+            }}
+          >
+            {deep?.label}
+          </StyledLink>
+        )) ?? null}
+      </Breadcrumb>
       <ChartContainer
         key={updater}
         width={newWidth}
@@ -453,7 +477,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             yAxisClientRect,
             xColumns,
             firstItem: data[0]?.rechartsDataKey,
-            handleChartClick,
+            handleChartClick: hasDrillDown ? handleChartClick : undefined,
           }),
         )}
       </ChartContainer>
