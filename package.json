@@ -133,8 +133,8 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
-    "@superset-ui/chart-controls": "^0.18.19",
-    "@superset-ui/core": "^0.18.19",
+    "@superset-ui/chart-controls": "0.18.8",
+    "@superset-ui/core": "0.18.8",
     "@svgr/webpack": "^5.5.0",
     "antd": "^4.16.13",
     "jest-svg-transformer": "^1.0.0"
