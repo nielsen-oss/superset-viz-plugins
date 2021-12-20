@@ -32,7 +32,7 @@ import {
 import { JsonObject, styled } from '@superset-ui/core';
 import ComposedChartTooltip from './ComposedChartTooltip';
 import { LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
-import { debounce, isStackedBar } from './utils';
+import { debounce, getResultColor, isStackedBar } from './utils';
 import { getCartesianGridProps, getLegendProps, getXAxisProps, getYAxisProps, renderChartElement } from './chartUtils';
 import { useCurrentData, useZAxisRange } from './state';
 import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeBy, Layout, LegendPosition, NORM_SPACE } from './types';
@@ -181,7 +181,10 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     hasDrillDown,
     deepness,
   } = props;
-
+  let resultColors: JsonObject = {};
+  breakdowns.forEach(b => {
+    resultColors = { ...resultColors, ...getResultColor(b, colorSchemeBy, resultColors) };
+  });
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
   const [updater, setUpdater] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
@@ -315,6 +318,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
       zDimension={zDimension}
       breakdowns={breakdowns}
       colorSchemeBy={colorSchemeBy}
+      resultColors={resultColors}
       hasExcludedBars={!!excludedMetricsForStackedBars.length}
     />
   );
@@ -326,7 +330,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
         numbersFormat={numbersFormat}
         yColumns={yColumns}
         zDimension={zDimension}
-        colorSchemeBy={colorSchemeBy}
+        resultColors={resultColors}
       />
     );
   }
@@ -380,7 +384,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               xAxisHeight,
               yAxisWidth,
               hideLegendByMetric,
-              colorSchemeBy,
+              resultColors,
             )}
             iconType="circle"
             iconSize={10}
@@ -472,6 +476,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             includedMetricsForStackedBars,
             isMainChartStacked,
             colorSchemeBy,
+            resultColors,
             barsUIPositionsRef,
             xAxisClientRect,
             yAxisClientRect,

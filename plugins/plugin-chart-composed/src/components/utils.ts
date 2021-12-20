@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { CategoricalColorNamespace, JsonObject } from '@superset-ui/core';
+import { CategoricalColorNamespace, getCategoricalSchemeRegistry, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
 import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, ColorSchemeBy } from './types';
 
@@ -198,7 +198,7 @@ export function debounce(func: Function, timeout = 300) {
 
 export const getBreakdownsOnly = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR).slice(1);
 
-export const getResultColor = (breakdown = '', colorSchemeBy: ColorSchemeBy) => {
+export const getResultColor = (breakdown = '', colorSchemeBy: ColorSchemeBy, resultColors: JsonObject) => {
   let resultColorScheme = colorSchemeBy.metric?.[getMetricFromBreakdown(breakdown)];
   if (!resultColorScheme) {
     const foundBreakdown = getBreakdownsOnly(breakdown).find(bo => colorSchemeBy.breakdown?.[bo]);
@@ -206,9 +206,13 @@ export const getResultColor = (breakdown = '', colorSchemeBy: ColorSchemeBy) => 
       resultColorScheme = colorSchemeBy.breakdown?.[foundBreakdown];
     }
   }
-  const colorFn = CategoricalColorNamespace.getScale(
-    // eslint-disable-next-line no-underscore-dangle
-    resultColorScheme ?? colorSchemeBy.__DEFAULT_COLOR_SCHEME__,
-  );
-  return colorFn(breakdown);
+
+  // eslint-disable-next-line no-underscore-dangle
+  const calcColorScheme = resultColorScheme ?? colorSchemeBy.__DEFAULT_COLOR_SCHEME__;
+
+  const colorFn = resultColors[calcColorScheme] ?? CategoricalColorNamespace.getScale(calcColorScheme);
+  return {
+    [calcColorScheme]: colorFn,
+    [breakdown]: colorFn(breakdown),
+  };
 };
