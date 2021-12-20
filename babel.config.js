@@ -1,4 +1,4 @@
-module.exports = function(api) {
+module.exports = function (api) {
   api.cache(true);
 
   const presets = [
@@ -15,6 +15,7 @@ module.exports = function(api) {
   ];
 
   return {
+    plugins: ['@babel/plugin-proposal-nullish-coalescing-operator'],
     presets,
     sourceMaps: true,
     retainLines: true,
