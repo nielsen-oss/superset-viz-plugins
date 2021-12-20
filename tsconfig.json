@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": "./",
+    "target": "es2019",
+    "lib": ["dom", "dom.iterable", "es2019"],
     "allowJs": true,
     "skipLibCheck": true,
     "downlevelIteration": true,
@@ -23,5 +24,6 @@
       "./src/stories"
     ]
   },
-  "include": ["./packages/**/src", "./plugins/**/src"]
+  "include": ["./packages/**/src", "./plugins/**/src", "./stories"],
+  "exclude": ["node_modules"]
 }

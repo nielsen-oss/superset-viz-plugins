@@ -102,6 +102,7 @@ const PieChart: FC<PieProps<string, string>> = memo(props => {
     labelType,
     legendPosition,
   } = props;
+  const colorFn = CategoricalColorNamespace.getScale(colorScheme);
   const [notification, setNotification] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
@@ -199,14 +200,14 @@ const PieChart: FC<PieProps<string, string>> = memo(props => {
               id: item[groupBy],
               payload: item,
               type: disabledDataKeys.includes(item[groupBy]) ? 'line' : 'circle',
-              color: CategoricalColorNamespace.getScale(colorScheme)(item[groupBy]),
+              color: colorFn(item[groupBy]),
             }))}
           />
         )}
         {((isSideLegend && legendWidth) || !isSideLegend) && (
           <RechartsPie {...pieProps}>
             {currentData?.map(entry => (
-              <Cell fill={CategoricalColorNamespace.getScale(colorScheme)(entry[groupBy])} />
+              <Cell fill={colorFn(entry[groupBy])} />
             ))}
           </RechartsPie>
         )}

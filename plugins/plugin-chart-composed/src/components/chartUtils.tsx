@@ -118,7 +118,7 @@ export const getLegendProps = (
   xAxisHeight: number,
   yAxisWidth: number,
   hideLegendByMetric: boolean[],
-  colorSchemeBy: ColorSchemeBy,
+  resultColors: JsonObject,
 ): LegendProps => {
   const resultBreakdowns = breakdowns.filter(
     breakdown => !hideLegendByMetric.find((hiddenMetric, i) => hiddenMetric && breakdown.startsWith(yColumns[i])),
@@ -127,7 +127,7 @@ export const getLegendProps = (
     value: getMetricName(breakdown, yColumns.length - hideLegendByMetric.filter(h => h).length),
     id: breakdown,
     type: disabledDataKeys.includes(breakdown) ? 'line' : 'square',
-    color: getResultColor(breakdown, colorSchemeBy),
+    color: resultColors[breakdown],
   }));
 
   let result = {
@@ -696,6 +696,7 @@ type ChartElementProps = {
   includedMetricsForStackedBars: string[];
   excludedMetricsForStackedBars: string[];
   isMainChartStacked: boolean;
+  resultColors: JsonObject;
   colorSchemeBy: ColorSchemeBy;
   scattersStickToBars: JsonObject;
   barsUIPositions: JsonObject;
@@ -732,6 +733,7 @@ export const renderChartElement = ({
   excludedMetricsForStackedBars,
   includedMetricsForStackedBars,
   isMainChartStacked,
+  resultColors,
   colorSchemeBy,
   barsUIPositionsRef,
   xColumns,
@@ -752,7 +754,7 @@ export const renderChartElement = ({
     breakdown,
     customChartType,
     customChartSubType,
-    getResultColor(breakdown, colorSchemeBy),
+    resultColors[breakdown],
     customChartType === CHART_TYPES.BAR_CHART && hasCustomTypeMetrics.some(el => el),
     index,
     scattersStickToBars,
@@ -831,7 +833,7 @@ export const renderChartElement = ({
         ) &&
         currentData.map(entry => {
           const breakdownItem = (entry[entry?.orderedBarsDataMap?.[index]] as JsonObject)?.id;
-          return <Cell fill={getResultColor(breakdownItem, colorSchemeBy)} />;
+          return <Cell fill={resultColors[breakdownItem]} />;
         })}
       {showTotals && <LabelList {...labelListExtraPropsWithTotal} />}
     </Element>

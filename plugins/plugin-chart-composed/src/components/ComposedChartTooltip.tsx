@@ -17,7 +17,7 @@
  * under the License.
  */
 import React, { FC } from 'react';
-import { getNumberFormatter, styled, t } from '@superset-ui/core';
+import { getNumberFormatter, JsonObject, styled, t } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
 import { getMetricName, getResultColor } from './utils';
 import { HIDDEN_DATA, Z_SEPARATOR } from '../plugin/utils';
@@ -47,6 +47,7 @@ type ComposedChartTooltipProps = TooltipProps & {
   zDimension?: string;
   breakdowns: string[];
   hasExcludedBars: boolean;
+  resultColors: JsonObject;
   colorSchemeBy: ColorSchemeBy;
 };
 
@@ -68,6 +69,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
   zDimension,
   breakdowns,
   hasExcludedBars,
+  resultColors,
   colorSchemeBy,
 }) => {
   if (active) {
@@ -85,7 +87,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
               const resultValue = isNaN(value) ? '-' : formatter(value);
               return (
                 <>
-                  <Line key={name} color={getResultColor(breakdown, colorSchemeBy)}>{`${name}: ${resultValue}`}</Line>
+                  <Line key={name} color={resultColors[breakdown]}>{`${name}: ${resultValue}`}</Line>
                 </>
               );
             })}
@@ -108,7 +110,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
             const zName = `${name}${Z_SEPARATOR}`;
             const value = item?.value as number;
             const resultValue = isNaN(value) ? '-' : formatter(value);
-            const color = getResultColor(item?.name, colorSchemeBy);
+            const color = resultColors[item?.name];
             return (
               <>
                 <Line key={name} color={color}>{`${name}: ${resultValue}`}</Line>

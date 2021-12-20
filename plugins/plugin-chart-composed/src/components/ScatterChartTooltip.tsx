@@ -44,7 +44,7 @@ type ScatterChartTooltipProps = TooltipProps & {
   yColumns: string[];
   zDimension?: string;
   breakdowns: string[];
-  colorSchemeBy: ColorSchemeBy;
+  resultColors: JsonObject;
 };
 
 const ScatterChartTooltip: FC<ScatterChartTooltipProps> = ({
@@ -54,7 +54,7 @@ const ScatterChartTooltip: FC<ScatterChartTooltipProps> = ({
   payload = [],
   zDimension,
   breakdowns,
-  colorSchemeBy,
+  resultColors,
 }) => {
   if (active) {
     const firstPayload: Payload = payload[0]?.payload;
@@ -66,7 +66,7 @@ const ScatterChartTooltip: FC<ScatterChartTooltipProps> = ({
 
     return (
       <Container>
-        <Line color={getResultColor(foundBreakdown, colorSchemeBy)}>{firstPayload.rechartsDataKeyUI}</Line>
+        <Line color={resultColors[foundBreakdown]}>{firstPayload.rechartsDataKeyUI}</Line>
         {data.map(item => {
           const name = getMetricName((item as JsonObject)?.dataKey, yColumns, zDimension);
           const value = item?.value as number;

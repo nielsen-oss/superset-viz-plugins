@@ -22,7 +22,6 @@ import {
   CartesianGrid,
   Cell,
   Legend,
-  LegendPayload,
   LegendProps,
   Scatter,
   ScatterChart,
@@ -100,6 +99,7 @@ const BubbleChart: FC<BubbleChartProps> = props => {
     entity,
     series,
   } = props;
+  const colorFn = CategoricalColorNamespace.getScale(colorScheme);
   const rootRef = useRef<HTMLDivElement>(null);
   const [updater, setUpdater] = useState<number>(0);
   const [disabledItems, setDisabledItems] = useState([] as string[]);
@@ -183,12 +183,15 @@ const BubbleChart: FC<BubbleChartProps> = props => {
   let legends: any[] = [];
   const groupingField = series || entity;
   // eslint-disable-next-line
-  data.map(item => legendIds.includes(item[groupingField]) ? null: legendIds
-    .push(item[groupingField]) && legends.push({
+  data.map(item =>
+    legendIds.includes(item[groupingField])
+      ? null
+      : legendIds.push(item[groupingField]) &&
+        legends.push({
           value: item[groupingField],
           type: disabledItems.includes(item[groupingField] as string) ? 'line' : 'square',
           id: item[groupingField],
-          color: CategoricalColorNamespace.getScale(colorScheme)(item[groupingField]),
+          color: colorFn(item[groupingField]),
         }),
   );
 
@@ -245,7 +248,7 @@ const BubbleChart: FC<BubbleChartProps> = props => {
         />
         <Scatter data={currentData}>
           {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={CategoricalColorNamespace.getScale(colorScheme)(entry[groupingField])} />
+            <Cell key={`cell-${index}`} fill={colorFn(entry[groupingField])} />
           ))}
         </Scatter>
       </ScatterChart>
