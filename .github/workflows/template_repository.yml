@@ -7,10 +7,9 @@ on:
 
 jobs:
   run:
-    name: Build and test
-    runs-on: ubuntu-18.04
+    name: Template Repository Usage Action
+    runs-on: ubuntu-latest
     steps:
-    - name: Template Repository Usage Action
-      uses: maael/template-repository-usage-action@v1.1.0
-      with:
+      - uses: maael/template-repository-usage-action@v1.1.0
+        with:
           token: ${{ secrets.GH_TOKEN }}
