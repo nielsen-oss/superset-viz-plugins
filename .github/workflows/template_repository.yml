@@ -1,19 +1,1 @@
-name: document-template-repository-usages
 
-on:
-  push:
-    branches:
-      - 'master'
-
-jobs:
-  run:
-    name: Template Repository Usage Action
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: maael/template-repository-usage-action@v1.1.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          org: '*'
-          repo: 'superset-viz-plugins'
-          author_name: 'amitmiran137'
