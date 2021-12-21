@@ -57,8 +57,3 @@ This repository is using a monorepo strategy which lets us have one source of tr
 
 [Manage Repository](./docs/MANAGE_REPOSITORY.md)
 
-<!-- TEMPLATE_LIST_START -->
-# 0 Repositories using template
-
-
-<!-- TEMPLATE_LIST_END -->
