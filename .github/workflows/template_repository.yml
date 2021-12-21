@@ -12,3 +12,5 @@ jobs:
     steps:
     - name: Template Repository Usage Action
       uses: maael/template-repository-usage-action@v1.1.0
+      with:
+          token: ${{ secrets.GH_TOKEN }}
