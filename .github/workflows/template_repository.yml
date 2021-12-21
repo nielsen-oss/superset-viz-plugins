@@ -14,3 +14,6 @@ jobs:
       - uses: maael/template-repository-usage-action@v1.1.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          org: 'nielsen-oss'
+          repo: 'superset-viz-plugins'
+          author_name: 'amitmiran137'
