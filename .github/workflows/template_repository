@@ -2,6 +2,8 @@ name: document-template-repository-usages
 
 on:
   push:
+    branches:
+      - 'master'
 
 jobs:
   run:
