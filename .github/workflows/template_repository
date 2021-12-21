@@ -1,0 +1,12 @@
+name: document-template-repository-usages
+
+on:
+  push:
+
+jobs:
+  run:
+    name: Build and test
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Template Repository Usage Action
+      uses: maael/template-repository-usage-action@v1.1.0
