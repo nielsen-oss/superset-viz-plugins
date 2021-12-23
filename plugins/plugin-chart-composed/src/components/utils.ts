@@ -209,10 +209,10 @@ export const getResultColor = (breakdown = '', colorSchemeBy: ColorSchemeBy, res
 
   // eslint-disable-next-line no-underscore-dangle
   const calcColorScheme = resultColorScheme ?? colorSchemeBy.__DEFAULT_COLOR_SCHEME__;
-
   const colorFn = resultColors[calcColorScheme] ?? CategoricalColorNamespace.getScale(calcColorScheme);
+
   return {
     [calcColorScheme]: colorFn,
-    [breakdown]: colorFn(breakdown),
+    [breakdown]: colorFn(getBreakdownsOnly(breakdown).join(BREAKDOWN_SEPARATOR)),
   };
 };
