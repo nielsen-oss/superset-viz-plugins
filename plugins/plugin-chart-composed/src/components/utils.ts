@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { CategoricalColorNamespace, getCategoricalSchemeRegistry, JsonObject } from '@superset-ui/core';
+import { CategoricalColorNamespace, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
 import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, ColorSchemeBy } from './types';
 
@@ -36,7 +36,7 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
 export const isStackedBar = (ct: keyof typeof CHART_TYPES, cst: keyof typeof CHART_SUB_TYPES) =>
   ct === CHART_TYPES.BAR_CHART && cst === CHART_SUB_TYPES.STACKED;
 
-export const getMetricFromBreakdown = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR)[0];
+export const getMetricFromBreakdown = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR)[0] ?? '';
 
 export const checkIsBreakdownInMetricsList = (breakdown: string, excludedMetricsForStackedBars: string[] = []) =>
   excludedMetricsForStackedBars.includes(getMetricFromBreakdown(breakdown));
@@ -196,10 +196,27 @@ export function debounce(func: Function, timeout = 300) {
   };
 }
 
-export const getBreakdownsOnly = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR).slice(1);
+export const getBreakdownsOnly = (breakdown = '') => {
+  const items = breakdown.split(BREAKDOWN_SEPARATOR);
+  if (items.length > 1) {
+    return items.slice(1);
+  }
+  return [items[0]];
+};
 
-export const getResultColor = (breakdown = '', colorSchemeBy: ColorSchemeBy, resultColors: JsonObject) => {
-  let resultColorScheme = colorSchemeBy.metric?.[getMetricFromBreakdown(breakdown)];
+export const getResultColor = (
+  breakdown = '',
+  colorSchemeBy: ColorSchemeBy,
+  resultColors: JsonObject,
+  hasCustomTypeMetrics: boolean[],
+  yColumns: string[],
+  chartTypeMetrics: string[],
+  chartSubTypeMetrics: string[],
+  chartType: string,
+  chartSubType: string,
+) => {
+  const currentMetric = getMetricFromBreakdown(breakdown);
+  let resultColorScheme = colorSchemeBy.metric?.[currentMetric];
   if (!resultColorScheme) {
     const foundBreakdown = getBreakdownsOnly(breakdown).find(bo => colorSchemeBy.breakdown?.[bo]);
     if (foundBreakdown) {
@@ -207,12 +224,19 @@ export const getResultColor = (breakdown = '', colorSchemeBy: ColorSchemeBy, res
     }
   }
 
+  const metricIndex = yColumns.findIndex(ctm => ctm === currentMetric);
+  const hasCustomType = hasCustomTypeMetrics[metricIndex];
+  const chartTypeMetric = hasCustomType ? chartTypeMetrics[metricIndex] : chartType;
+  const chartSubTypeMetric = hasCustomType ? chartSubTypeMetrics[metricIndex] : chartSubType;
+
   // eslint-disable-next-line no-underscore-dangle
   const calcColorScheme = resultColorScheme ?? colorSchemeBy.__DEFAULT_COLOR_SCHEME__;
+  const colorFn =
+    resultColors[`${chartTypeMetric}${chartSubTypeMetric}${calcColorScheme}`] ??
+    CategoricalColorNamespace.getScale(calcColorScheme);
 
-  const colorFn = resultColors[calcColorScheme] ?? CategoricalColorNamespace.getScale(calcColorScheme);
   return {
-    [calcColorScheme]: colorFn,
-    [breakdown]: colorFn(breakdown),
+    [`${chartTypeMetric}${chartSubTypeMetric}${calcColorScheme}`]: colorFn,
+    [breakdown]: colorFn(`${breakdown}`),
   };
 };
