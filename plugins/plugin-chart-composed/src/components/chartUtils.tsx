@@ -35,12 +35,11 @@ import {
 import { getNumberFormatter, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, LabelColors, ResultData, Z_SEPARATOR } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
-import { ResetProps } from './ComposedChart';
+import { LegendType, ResetProps, YAxisProps, YColumnsMeta } from './ComposedChart';
 import {
   BarChartValueMap,
   CHART_SUB_TYPES,
   CHART_TYPES,
-  ColorSchemeBy,
   Layout,
   LegendAlign,
   LegendPosition,
@@ -49,7 +48,7 @@ import {
   MIN_SYMBOL_WIDTH_FOR_LABEL,
   STICK_TYPES,
 } from './types';
-import { checkIsMetricStacked, getBreakdownsOnly, getMetricFromBreakdown, getResultColor } from './utils';
+import { checkIsMetricStacked, getBreakdownsOnly, getMetricFromBreakdown } from './utils';
 import ComposedBar from './ComposedBar';
 import icons from './icons';
 import ComposedNorm from './ComposedNorm';
@@ -109,7 +108,7 @@ export const renderLabel = ({
 };
 
 export const getLegendProps = (
-  legendPosition: LegendPosition,
+  legend: LegendType,
   height: number,
   width: number,
   breakdowns: string[],
@@ -117,14 +116,15 @@ export const getLegendProps = (
   yColumns: string[],
   xAxisHeight: number,
   yAxisWidth: number,
-  hideLegendByMetric: boolean[],
+  yColumnsMeta: YColumnsMeta,
   resultColors: JsonObject,
 ): LegendProps => {
-  const resultBreakdowns = breakdowns.filter(
-    breakdown => !hideLegendByMetric.find((hiddenMetric, i) => hiddenMetric && breakdown.startsWith(yColumns[i])),
-  );
+  const resultBreakdowns = breakdowns.filter(breakdown => !yColumnsMeta[getMetricFromBreakdown(breakdown)]?.hideLegend);
   const payload: LegendPayload[] = resultBreakdowns.map(breakdown => ({
-    value: getMetricName(breakdown, yColumns.length - hideLegendByMetric.filter(h => h).length),
+    value: getMetricName(
+      breakdown,
+      yColumns.length - Object.values(yColumnsMeta).filter(({ hideLegend }) => hideLegend).length,
+    ),
     id: breakdown,
     type: disabledDataKeys.includes(breakdown) ? 'line' : 'square',
     color: resultColors[breakdown],
@@ -138,13 +138,13 @@ export const getLegendProps = (
     align: 'center' as LegendAlign,
     verticalAlign: 'middle' as LegendVerticalAlign,
   };
-  if (legendPosition === LegendPosition.left || legendPosition === LegendPosition.right) {
+  if (legend?.position === LegendPosition.left || legend?.position === LegendPosition.right) {
     result = {
       ...result,
-      align: legendPosition as LegendAlign,
+      align: legend?.position as LegendAlign,
     };
   }
-  switch (legendPosition) {
+  switch (legend?.position) {
     case LegendPosition.left:
       return {
         ...result,
@@ -164,7 +164,7 @@ export const getLegendProps = (
       return {
         ...result,
         layout: 'horizontal',
-        verticalAlign: legendPosition as LegendVerticalAlign,
+        verticalAlign: legend?.position as LegendVerticalAlign,
         wrapperStyle: {
           ...result.wrapperStyle,
           paddingTop: xAxisHeight,
@@ -176,7 +176,7 @@ export const getLegendProps = (
       return {
         ...result,
         layout: 'horizontal',
-        verticalAlign: legendPosition as LegendVerticalAlign,
+        verticalAlign: legend?.position as LegendVerticalAlign,
         wrapperStyle: {
           ...result.wrapperStyle,
           paddingBottom: 15,
@@ -235,11 +235,11 @@ const ICONS_VERTICAL_MAP = {
 const BARS_SPACE = 2;
 
 const getCustomScatterIcon = (
-  scattersStickToBars: JsonObject,
   breakdown: string,
   chartSubType: keyof typeof CHART_SUB_TYPES,
   barsUIPositionsRef: RefObject<JsonObject>,
   layout: Layout,
+  stickyScatters?: JsonObject,
 ) => {
   const IconElement =
     // @ts-ignore
@@ -259,7 +259,7 @@ const getCustomScatterIcon = (
 
     if (layout === Layout.horizontal) {
       params.y = props.cy - ICON_SIZE;
-      switch (stickData && scattersStickToBars[breakdown.split(BREAKDOWN_SEPARATOR)[0]]) {
+      switch (stickData && stickyScatters?.[breakdown.split(BREAKDOWN_SEPARATOR)[0]]) {
         case STICK_TYPES.CENTER: {
           params.x = stickData?.x + stickData.width / 2;
           break;
@@ -278,7 +278,7 @@ const getCustomScatterIcon = (
       params.x -= ICON_SIZE;
     } else {
       params.x = props.cx - ICON_SIZE;
-      switch (stickData && scattersStickToBars[breakdown.split(BREAKDOWN_SEPARATOR)[0]]) {
+      switch (stickData && stickyScatters?.[breakdown.split(BREAKDOWN_SEPARATOR)[0]]) {
         case STICK_TYPES.CENTER: {
           params.y = stickData?.y + stickData.height / 2;
           break;
@@ -308,7 +308,6 @@ export const getChartElement = (
   color: string,
   hasDifferentTypes: boolean,
   index: number,
-  scattersStickToBars: JsonObject,
   barsUIPositionsRef: RefObject<JsonObject>,
   layout: Layout,
   numbersFormat: string,
@@ -318,6 +317,7 @@ export const getChartElement = (
   xAxisClientRect?: ClientRect,
   yAxisClientRect?: ClientRect,
   handleChartClick?: (arg: JsonObject) => void,
+  stickyScatters?: JsonObject,
 ): ChartsUIItem => {
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
 
@@ -348,7 +348,7 @@ export const getChartElement = (
         fill: color,
         opacity: 1,
         shape: isCustomIcon(chartSubType)
-          ? getCustomScatterIcon(scattersStickToBars, breakdown, chartSubType, barsUIPositionsRef, layout)
+          ? getCustomScatterIcon(breakdown, chartSubType, barsUIPositionsRef, layout, stickyScatters)
           : chartSubType,
       };
       break;
@@ -394,7 +394,7 @@ export const getChartElement = (
         fill: color,
         stackId: chartSubType === CHART_SUB_TYPES.STACKED ? 'metric' : breakdown,
       };
-      if (Object.keys(scattersStickToBars).length) {
+      if (Object.keys(stickyScatters ?? {}).length) {
         commonProps.shape = (
           // @ts-ignore
           <ComposedBar breakdown={breakdown} barsUIPositionsRef={barsUIPositionsRef} />
@@ -676,19 +676,17 @@ export const getCartesianGridProps = ({
 export const getValueForBarChart = (obj: BarChartValueMap, key: string) => obj?.[key]?.value;
 
 type ChartElementProps = {
-  hasOrderedBars: boolean;
+  hasOrderedBars?: boolean;
   breakdown: string;
   layout: Layout;
   breakdowns: string[];
-  hasY2Axis?: boolean;
-  showTotals: boolean;
+  y2Axis?: YAxisProps;
+  isShowTotals?: boolean;
   chartSubType: keyof typeof CHART_SUB_TYPES;
   isAnimationActive?: boolean;
   chartType: keyof typeof CHART_TYPES;
   labelsColor: LabelColors;
-  chartTypeMetrics: (keyof typeof CHART_TYPES)[];
-  chartSubTypeMetrics: (keyof typeof CHART_SUB_TYPES)[];
-  hasCustomTypeMetrics: boolean[];
+  yColumnsMeta: YColumnsMeta;
   numbersFormat: string;
   updater: number;
   index: number;
@@ -697,8 +695,7 @@ type ChartElementProps = {
   excludedMetricsForStackedBars: string[];
   isMainChartStacked: boolean;
   resultColors: JsonObject;
-  colorSchemeBy: ColorSchemeBy;
-  scattersStickToBars: JsonObject;
+  stickyScatters?: JsonObject;
   barsUIPositions: JsonObject;
   setBarsUIPositions: Function;
   barsUIPositionsRef: RefObject<JsonObject>;
@@ -718,23 +715,20 @@ export const renderChartElement = ({
   currentData,
   yColumns,
   numbersFormat,
-  hasY2Axis,
+  y2Axis,
   labelsColor,
-  scattersStickToBars,
+  stickyScatters,
   isAnimationActive,
   updater,
   index,
   chartSubType,
-  hasCustomTypeMetrics,
-  chartTypeMetrics,
-  chartSubTypeMetrics,
-  showTotals,
+  yColumnsMeta,
+  isShowTotals,
   layout,
   excludedMetricsForStackedBars,
   includedMetricsForStackedBars,
   isMainChartStacked,
   resultColors,
-  colorSchemeBy,
   barsUIPositionsRef,
   xColumns,
   firstItem,
@@ -742,22 +736,16 @@ export const renderChartElement = ({
   yAxisClientRect,
   handleChartClick,
 }: ChartElementProps) => {
-  let customChartType = chartType;
-  let customChartSubType = chartSubType;
-  const actualMetricIndex = yColumns.findIndex(metric => metric === getMetricFromBreakdown(breakdown));
-  if (hasCustomTypeMetrics[actualMetricIndex]) {
-    customChartType = chartTypeMetrics[actualMetricIndex];
-    customChartSubType = chartSubTypeMetrics[actualMetricIndex];
-  }
+  const customChartType = yColumnsMeta[getMetricFromBreakdown(breakdown)]?.chartType ?? chartType;
+  const customChartSubType = yColumnsMeta[getMetricFromBreakdown(breakdown)]?.chartSubType ?? chartSubType;
 
   const { Element, ...elementProps } = getChartElement(
     breakdown,
     customChartType,
     customChartSubType,
     resultColors[breakdown],
-    customChartType === CHART_TYPES.BAR_CHART && hasCustomTypeMetrics.some(el => el),
+    customChartType === CHART_TYPES.BAR_CHART && Object.values(yColumnsMeta).some(({ chartType }) => chartType),
     index,
-    scattersStickToBars,
     barsUIPositionsRef,
     layout,
     numbersFormat,
@@ -767,6 +755,7 @@ export const renderChartElement = ({
     xAxisClientRect,
     yAxisClientRect,
     handleChartClick,
+    stickyScatters,
   );
 
   const labelListExtraPropsWithTotal: LabelListProps & { fill: string } = {
@@ -820,7 +809,7 @@ export const renderChartElement = ({
     <Element
       key={`${breakdown}${updater}`}
       isAnimationActive={isAnimationActive}
-      yAxisId={hasY2Axis && getMetricFromBreakdown(breakdown) === yColumns[yColumns.length - 1] ? 'right' : 'left'}
+      yAxisId={y2Axis && getMetricFromBreakdown(breakdown) === yColumns[yColumns.length - 1] ? 'right' : 'left'}
       dataKey={dataKey}
       {...elementProps}
     >
@@ -835,7 +824,7 @@ export const renderChartElement = ({
           const breakdownItem = (entry[entry?.orderedBarsDataMap?.[index]] as JsonObject)?.id;
           return <Cell fill={resultColors[breakdownItem]} />;
         })}
-      {showTotals && <LabelList {...labelListExtraPropsWithTotal} />}
+      {isShowTotals && <LabelList {...labelListExtraPropsWithTotal} />}
     </Element>
   );
 };

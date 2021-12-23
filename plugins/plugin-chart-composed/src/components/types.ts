@@ -8,6 +8,12 @@ export enum Layout {
   vertical = 'vertical',
 }
 
+export type Deepness = JsonObject &
+  {
+    label: string;
+    value: string;
+  }[];
+
 export enum LegendPosition {
   top = 'top',
   right = 'right',
@@ -107,7 +113,7 @@ export const CHART_SUB_TYPE_NAMES = {
 };
 
 export type ColorSchemeByItem = JsonObject;
-export type ColorSchemeBy = {
+export type ColorSchemes = {
   __DEFAULT_COLOR_SCHEME__: string;
   metric: ColorSchemeByItem;
   breakdown: ColorSchemeByItem;

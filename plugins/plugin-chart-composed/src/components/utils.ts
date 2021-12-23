@@ -18,7 +18,8 @@
  */
 import { CategoricalColorNamespace, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
-import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, ColorSchemeBy } from './types';
+import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, ColorSchemes } from './types';
+import { YColumnsMeta } from './ComposedChart';
 
 export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[] {
   const result: ResultData[] = [];
@@ -33,7 +34,7 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   return result;
 }
 
-export const isStackedBar = (ct: keyof typeof CHART_TYPES, cst: keyof typeof CHART_SUB_TYPES) =>
+export const isStackedBar = (ct?: keyof typeof CHART_TYPES, cst?: keyof typeof CHART_SUB_TYPES) =>
   ct === CHART_TYPES.BAR_CHART && cst === CHART_SUB_TYPES.STACKED;
 
 export const getMetricFromBreakdown = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR)[0] ?? '';
@@ -150,7 +151,7 @@ export const processBarChartOrder = (
   breakdowns: string[],
   yColumns: string[],
   resultData: ResultData[],
-  orderByYColumn: SortingType,
+  yColumnSortingType: SortingType,
   excludedMetricsForStackedBars: string[],
   includedMetricsForStackedBars: string[],
   isMainChartStacked: boolean,
@@ -169,7 +170,7 @@ export const processBarChartOrder = (
         includedMetricsForStackedBars,
       );
       // Sorting bars according order
-      const sortSign = orderByYColumn === SortingType.ASC ? 1 : -1;
+      const sortSign = yColumnSortingType === SortingType.ASC ? 1 : -1;
       tempSortedArray.sort((a, b) => sortSign * (a?.value - b?.value));
       return fillBarsDataByOrder(
         breakdowns,
@@ -206,31 +207,27 @@ export const getBreakdownsOnly = (breakdown = '') => {
 
 export const getResultColor = (
   breakdown = '',
-  colorSchemeBy: ColorSchemeBy,
+  colorSchemes: ColorSchemes,
   resultColors: JsonObject,
-  hasCustomTypeMetrics: boolean[],
   yColumns: string[],
-  chartTypeMetrics: string[],
-  chartSubTypeMetrics: string[],
-  chartType: string,
-  chartSubType: string,
+  yColumnsMeta: YColumnsMeta,
+  chartType: keyof typeof CHART_TYPES,
+  chartSubType: keyof typeof CHART_SUB_TYPES,
 ) => {
   const currentMetric = getMetricFromBreakdown(breakdown);
-  let resultColorScheme = colorSchemeBy.metric?.[currentMetric];
+  let resultColorScheme = colorSchemes.metric?.[currentMetric];
   if (!resultColorScheme) {
-    const foundBreakdown = getBreakdownsOnly(breakdown).find(bo => colorSchemeBy.breakdown?.[bo]);
+    const foundBreakdown = getBreakdownsOnly(breakdown).find(bo => colorSchemes.breakdown?.[bo]);
     if (foundBreakdown) {
-      resultColorScheme = colorSchemeBy.breakdown?.[foundBreakdown];
+      resultColorScheme = colorSchemes.breakdown?.[foundBreakdown];
     }
   }
 
-  const metricIndex = yColumns.findIndex(ctm => ctm === currentMetric);
-  const hasCustomType = hasCustomTypeMetrics[metricIndex];
-  const chartTypeMetric = hasCustomType ? chartTypeMetrics[metricIndex] : chartType;
-  const chartSubTypeMetric = hasCustomType ? chartSubTypeMetrics[metricIndex] : chartSubType;
+  const chartTypeMetric = yColumnsMeta[currentMetric]?.chartType ?? chartType;
+  const chartSubTypeMetric = yColumnsMeta[currentMetric]?.chartSubType ?? chartSubType;
 
   // eslint-disable-next-line no-underscore-dangle
-  const calcColorScheme = resultColorScheme ?? colorSchemeBy.__DEFAULT_COLOR_SCHEME__;
+  const calcColorScheme = resultColorScheme ?? colorSchemes.__DEFAULT_COLOR_SCHEME__;
   const colorFn =
     resultColors[`${chartTypeMetric}${chartSubTypeMetric}${calcColorScheme}`] ??
     CategoricalColorNamespace.getScale(calcColorScheme);

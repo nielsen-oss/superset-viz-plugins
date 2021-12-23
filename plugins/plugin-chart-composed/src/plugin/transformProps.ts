@@ -19,7 +19,7 @@
 import { ChartProps, JsonObject } from '@superset-ui/core';
 import { AxisInterval } from 'recharts';
 import { mergeBy } from '../components/utils';
-import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeByItem, Layout } from '../components/types';
+import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeByItem, Deepness, Layout } from '../components/types';
 import { ComposedChartProps } from '../components/ComposedChart';
 import {
   addBreakdownYColumnsAndGetBreakdownValues,
@@ -112,7 +112,7 @@ export default function transformProps(chartProps: ChartProps) {
   const colorSchemeByMetric: ColorSchemeByItem = {};
   const colorSchemeByBreakdown: ColorSchemeByItem = {};
   const hideLegendByMetric: boolean[] = [];
-  const scattersStickToBars: JsonObject = {};
+  const stickyScatters: JsonObject = {};
 
   const metrics = formData.metrics.map(({ label }) => label);
   formData.coloredBreakdowns?.forEach((cb, i) => {
@@ -138,7 +138,7 @@ export default function transformProps(chartProps: ChartProps) {
           formData[`scatterChartSubTypeMetric${index}`] === CHART_SUB_TYPES.CIRCLE ||
           formData[`scatterChartSubTypeMetric${index}`] === CHART_SUB_TYPES.ARROW_DOWN)
       ) {
-        scattersStickToBars[metrics[index]] = formData[`stickToBars${index}`];
+        stickyScatters[metrics[index]] = formData[`stickToBars${index}`];
       }
       chartTypeMetrics.push(formData[`chartTypeMetric${index}`] as keyof typeof CHART_TYPES);
       chartSubTypeMetrics.push(
@@ -172,7 +172,7 @@ export default function transformProps(chartProps: ChartProps) {
   const handleChartClick = (obj?: JsonObject) => {
     const initDeepness = [...(ownState.deepness ?? [])];
     const initFilters = [...(ownState?.filters ?? [])];
-    let deepness: JsonObject[];
+    let deepness: Deepness[];
     let filters: JsonObject[];
     let groupBy: string;
     if (obj?.index !== undefined) {
@@ -206,32 +206,19 @@ export default function transformProps(chartProps: ChartProps) {
     formData.numbersFormatDigits,
   );
   const result: ComposedChartProps = {
-    orderByYColumn: orderByYColumn as SortingType,
-    hasOrderedBars,
-    minBarWidth: formData.minBarWidth,
     breakdowns,
     width,
     height,
     isTimeSeries,
     xColumns,
-    yColumns,
-    hideLegendByMetric,
-    chartTypeMetrics,
-    zDimension: formData.zDimension?.label,
-    chartSubTypeMetrics,
-    hasCustomTypeMetrics,
     layout: formData.layout,
-    bubbleSize: Number(formData.bubbleSize ?? 1000),
     chartType: formData.chartType,
-    showLegend: formData.showLegend,
-    legendPosition: formData.legendPosition,
     chartSubType,
-    colorSchemeBy: {
+    colorSchemes: {
       __DEFAULT_COLOR_SCHEME__: formData.colorScheme,
       metric: colorSchemeByMetric,
       breakdown: colorSchemeByBreakdown,
     },
-    showTotals: formData.showTotals,
     numbersFormat: formData.numbersFormat,
     labelsColor: formData.labelsColor,
     xAxis: {
@@ -239,24 +226,59 @@ export default function transformProps(chartProps: ChartProps) {
       label: getLabel(formData, formData.xAxisLabel),
       tickLabelAngle: -Number(formData.xAxisTickLabelAngle),
     },
-    scattersStickToBars,
-    hasY2Axis:
-      yColumns.length > 1 &&
-      formData.useY2Axis &&
-      formData.layout === Layout.horizontal &&
-      formData.queryMode !== QueryMode.raw,
     yAxis: {
       labelAngle: -Number(formData.yAxisLabelAngle ?? 0),
-      labelAngle2: -Number(formData.y2AxisLabelAngle ?? 0),
       label: getLabel(formData, formData.yAxisLabel),
       tickLabelAngle: -Number(formData.yAxisTickLabelAngle),
-      label2: formData.y2AxisLabel,
-      tickLabelAngle2: -Number(formData.y2AxisTickLabelAngle),
+    },
+    bubbleChart: {
+      size: Number(formData.bubbleSize ?? 1000),
+      zDimension: formData.zDimension?.label,
+    },
+    barChart: {
+      stickyScatters,
+      minBarWidth: Number(formData.minBarWidth),
+      hasOrderedBars,
+      yColumnSortingType: orderByYColumn as SortingType,
+      isShowTotals: formData.showTotals,
     },
     data: resultData,
-    deepness: ownState?.deepness,
     handleChartClick,
-    hasDrillDown,
+    yColumns,
+    drillDown: { deepness: ownState?.deepness, disabled: !hasDrillDown },
+    yColumnsMeta: yColumns.reduce((acc, cur, index) => {
+      if (!hasCustomTypeMetrics[index]) {
+        return acc;
+      }
+      return {
+        ...acc,
+        [cur]: {
+          chartType: chartTypeMetrics[index],
+          chartSubType: chartSubTypeMetrics[index],
+          hideLegend: hideLegendByMetric[index],
+        },
+      };
+    }, {}),
   };
+
+  if (formData.showLegend) {
+    result.legend = {
+      position: formData.legendPosition,
+    };
+  }
+
+  if (
+    yColumns.length > 1 &&
+    formData.useY2Axis &&
+    formData.layout === Layout.horizontal &&
+    formData.queryMode !== QueryMode.raw
+  ) {
+    result.y2Axis = {
+      labelAngle: -Number(formData.y2AxisLabelAngle ?? 0),
+      label: formData.y2AxisLabel,
+      tickLabelAngle: -Number(formData.y2AxisTickLabelAngle),
+    };
+  }
+
   return result;
 }

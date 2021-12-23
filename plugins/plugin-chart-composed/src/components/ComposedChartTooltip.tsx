@@ -19,9 +19,8 @@
 import React, { FC } from 'react';
 import { getNumberFormatter, JsonObject, styled, t } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
-import { getMetricName, getResultColor } from './utils';
+import { getMetricName } from './utils';
 import { HIDDEN_DATA, Z_SEPARATOR } from '../plugin/utils';
-import { ColorSchemeBy } from './types';
 
 const Container = styled.div`
   border: 1px solid #cccccc;
@@ -48,7 +47,6 @@ type ComposedChartTooltipProps = TooltipProps & {
   breakdowns: string[];
   hasExcludedBars: boolean;
   resultColors: JsonObject;
-  colorSchemeBy: ColorSchemeBy;
 };
 
 const getFormattedDate = (value: string) => {
@@ -70,7 +68,6 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
   breakdowns,
   hasExcludedBars,
   resultColors,
-  colorSchemeBy,
 }) => {
   if (active) {
     const firstPayload: Payload = payload[0]?.payload;
