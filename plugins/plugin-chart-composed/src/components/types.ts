@@ -114,7 +114,7 @@ export const CHART_SUB_TYPE_NAMES = {
 
 export type ColorSchemeByItem = JsonObject;
 export type ColorSchemes = {
-  __DEFAULT_COLOR_SCHEME__: string;
-  metric: ColorSchemeByItem;
-  breakdown: ColorSchemeByItem;
+  __DEFAULT_COLOR_SCHEME__?: string;
+  metric?: ColorSchemeByItem;
+  breakdown?: ColorSchemeByItem;
 };

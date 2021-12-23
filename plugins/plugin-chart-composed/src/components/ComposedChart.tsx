@@ -107,7 +107,7 @@ export type ComposedChartProps = {
   yAxis: YAxisProps;
   y2Axis?: YAxisProps;
   labelsColor: LabelColors;
-  colorSchemes: ColorSchemes;
+  colorSchemes?: ColorSchemes;
   numbersFormat: string;
   yColumnsMeta: YColumnsMeta;
   barChart?: {
@@ -176,7 +176,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     isTimeSeries,
     xColumns,
     bubbleChart,
-    colorSchemes,
+    colorSchemes = {},
     handleChartClick,
     drillDown,
     barChart = {},
