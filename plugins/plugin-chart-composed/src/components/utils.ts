@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { CategoricalColorNamespace, getCategoricalSchemeRegistry, JsonObject } from '@superset-ui/core';
+import { CategoricalColorNamespace, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
 import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, ColorSchemeBy } from './types';
 
