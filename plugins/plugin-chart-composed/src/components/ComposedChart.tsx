@@ -183,7 +183,20 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   } = props;
   let resultColors: JsonObject = {};
   breakdowns.forEach(b => {
-    resultColors = { ...resultColors, ...getResultColor(b, colorSchemeBy, resultColors) };
+    resultColors = {
+      ...resultColors,
+      ...getResultColor(
+        b,
+        colorSchemeBy,
+        resultColors,
+        hasCustomTypeMetrics,
+        yColumns,
+        chartTypeMetrics,
+        chartSubTypeMetrics,
+        chartType,
+        chartSubType,
+      ),
+    };
   });
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
   const [updater, setUpdater] = useState<number>(0);
