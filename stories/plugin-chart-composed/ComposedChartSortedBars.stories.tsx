@@ -54,9 +54,10 @@ const SortedBarsTemplate = args => {
       <div>
         <ComposedChart
           {...applyCommonLogic(args)}
-          hasOrderedBars
+          barChart={{
+            yColumnSortingType: SortingType.ASC,
+          }}
           chartType={CHART_TYPES.BAR_CHART}
-          orderByYColumn={SortingType.ASC}
           data={
             transformProps(({
               ...barsHorizontalSorted,
@@ -71,8 +72,9 @@ const SortedBarsTemplate = args => {
         <ComposedChart
           {...applyCommonLogic(args)}
           chartType={CHART_TYPES.BAR_CHART}
-          hasOrderedBars
-          orderByYColumn={SortingType.DESC}
+          barChart={{
+            yColumnSortingType: SortingType.DESC,
+          }}
           data={
             transformProps(({
               ...barsHorizontalSorted,

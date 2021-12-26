@@ -33,7 +33,7 @@ import {
   XAxisProps,
 } from 'recharts';
 import { getNumberFormatter, JsonObject } from '@superset-ui/core';
-import { BREAKDOWN_SEPARATOR, LabelColors, ResultData, Z_SEPARATOR } from '../plugin/utils';
+import { BREAKDOWN_SEPARATOR, LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 import { LegendType, ResetProps, YAxisProps, YColumnsMeta } from './ComposedChart';
 import {
@@ -76,13 +76,13 @@ export const renderLabel = ({
   isMainChartStacked,
   excludedMetricsForStackedBars,
   includedMetricsForStackedBars,
-  hasOrderedBars,
+  yColumnSortingType,
   keyIndex,
 }: LabelProps & {
   currentData: ResultData[];
   breakdown: string;
   index: number;
-  hasOrderedBars: boolean;
+  yColumnSortingType?: boolean;
   breakdowns: string[];
   excludedMetricsForStackedBars: string[];
   includedMetricsForStackedBars: string[];
@@ -91,7 +91,7 @@ export const renderLabel = ({
 }) => {
   let formattedValue = `${formatter(currentData[index][breakdown] as number)}`;
   if (
-    hasOrderedBars &&
+    yColumnSortingType &&
     checkIsMetricStacked(isMainChartStacked, breakdown, excludedMetricsForStackedBars, includedMetricsForStackedBars)
   ) {
     const item = currentData[index];
@@ -259,7 +259,7 @@ const getCustomScatterIcon = (
 
     if (layout === Layout.horizontal) {
       params.y = props.cy - ICON_SIZE;
-      switch (stickData && stickyScatters?.[breakdown.split(BREAKDOWN_SEPARATOR)[0]]) {
+      switch (stickData && stickyScatters?.[getMetricFromBreakdown(breakdown)]) {
         case STICK_TYPES.CENTER: {
           params.x = stickData?.x + stickData.width / 2;
           break;
@@ -278,7 +278,7 @@ const getCustomScatterIcon = (
       params.x -= ICON_SIZE;
     } else {
       params.x = props.cx - ICON_SIZE;
-      switch (stickData && stickyScatters?.[breakdown.split(BREAKDOWN_SEPARATOR)[0]]) {
+      switch (stickData && stickyScatters?.[getMetricFromBreakdown(breakdown)]) {
         case STICK_TYPES.CENTER: {
           params.y = stickData?.y + stickData.height / 2;
           break;
@@ -394,7 +394,7 @@ export const getChartElement = (
         fill: color,
         stackId: chartSubType === CHART_SUB_TYPES.STACKED ? 'metric' : breakdown,
       };
-      if (Object.keys(stickyScatters ?? {}).length) {
+      if (stickyScatters && Object.keys(stickyScatters).length) {
         commonProps.shape = (
           // @ts-ignore
           <ComposedBar breakdown={breakdown} barsUIPositionsRef={barsUIPositionsRef} />
@@ -601,12 +601,11 @@ export const getYAxisProps = ({
           rootRef?.current?.querySelectorAll('.yAxis .recharts-label')?.[isSecondAxis ? 1 : 0]?.getBoundingClientRect()
             ?.width ?? 1,
         ) + 10
-      : 15;
+      : 20;
   const labelWidth = label?.length ? labelPerAngle : 0;
 
-  const dxPerAxis = isSecondAxis ? -5 : 5;
   const params = {
-    dx: isSecondAxis && tickLabelAngle === -90 ? axisInverseSign * 5 : dxPerAxis,
+    dx: isSecondAxis && tickLabelAngle === -90 ? axisInverseSign * 5 : 0,
     width: axisWidth + labelWidth,
     angle: tickLabelAngle,
     orientation: isSecondAxis ? ('right' as const) : ('left' as const),
@@ -676,12 +675,12 @@ export const getCartesianGridProps = ({
 export const getValueForBarChart = (obj: BarChartValueMap, key: string) => obj?.[key]?.value;
 
 type ChartElementProps = {
-  hasOrderedBars?: boolean;
+  yColumnSortingType?: SortingType;
   breakdown: string;
   layout: Layout;
   breakdowns: string[];
   y2Axis?: YAxisProps;
-  isShowTotals?: boolean;
+  hasTotals?: boolean;
   chartSubType: keyof typeof CHART_SUB_TYPES;
   isAnimationActive?: boolean;
   chartType: keyof typeof CHART_TYPES;
@@ -708,7 +707,7 @@ type ChartElementProps = {
 };
 
 export const renderChartElement = ({
-  hasOrderedBars,
+  yColumnSortingType,
   breakdown,
   breakdowns,
   chartType,
@@ -723,7 +722,7 @@ export const renderChartElement = ({
   index,
   chartSubType,
   yColumnsMeta,
-  isShowTotals,
+  hasTotals,
   layout,
   excludedMetricsForStackedBars,
   includedMetricsForStackedBars,
@@ -736,8 +735,9 @@ export const renderChartElement = ({
   yAxisClientRect,
   handleChartClick,
 }: ChartElementProps) => {
-  const customChartType = yColumnsMeta[getMetricFromBreakdown(breakdown)]?.chartType ?? chartType;
-  const customChartSubType = yColumnsMeta[getMetricFromBreakdown(breakdown)]?.chartSubType ?? chartSubType;
+  const yColumnMeta = yColumnsMeta[getMetricFromBreakdown(breakdown)];
+  const customChartType = yColumnMeta?.chartType ?? chartType;
+  const customChartSubType = yColumnMeta?.chartSubType ?? chartSubType;
 
   const { Element, ...elementProps } = getChartElement(
     breakdown,
@@ -779,7 +779,7 @@ export const renderChartElement = ({
   }
   let dataKey: string | Function = breakdown;
   if (
-    hasOrderedBars &&
+    yColumnSortingType &&
     checkIsMetricStacked(isMainChartStacked, breakdown, excludedMetricsForStackedBars, includedMetricsForStackedBars)
   ) {
     dataKey = (val: BarChartValueMap) =>
@@ -798,7 +798,7 @@ export const renderChartElement = ({
       currentData,
       breakdown,
       breakdowns,
-      hasOrderedBars,
+      yColumnSortingType,
       isMainChartStacked,
       excludedMetricsForStackedBars,
       includedMetricsForStackedBars,
@@ -813,7 +813,7 @@ export const renderChartElement = ({
       dataKey={dataKey}
       {...elementProps}
     >
-      {hasOrderedBars &&
+      {yColumnSortingType &&
         checkIsMetricStacked(
           isMainChartStacked,
           breakdown,
@@ -824,7 +824,7 @@ export const renderChartElement = ({
           const breakdownItem = (entry[entry?.orderedBarsDataMap?.[index]] as JsonObject)?.id;
           return <Cell fill={resultColors[breakdownItem]} />;
         })}
-      {isShowTotals && <LabelList {...labelListExtraPropsWithTotal} />}
+      {hasTotals && <LabelList {...labelListExtraPropsWithTotal} />}
     </Element>
   );
 };

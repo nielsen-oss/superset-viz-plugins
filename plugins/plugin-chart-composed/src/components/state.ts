@@ -23,14 +23,13 @@ import { ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
 export const useCurrentData = (
   data: ResultData[],
   disabledDataKeys: string[],
-  hasOrderedBars: boolean,
   breakdowns: string[],
-  yColumnSortingType: SortingType,
   showTotals: boolean,
   yColumns: string[],
   excludedMetricsForStackedBars: string[],
   includedMetricsForStackedBars: string[],
   isMainChartStacked: boolean,
+  yColumnSortingType?: SortingType,
 ): ResultData[] => {
   let currentData = useMemo(
     () =>
@@ -45,17 +44,15 @@ export const useCurrentData = (
   currentData = useMemo(
     () =>
       processBarChartOrder(
-        hasOrderedBars,
         breakdowns,
         yColumns,
         currentData,
-        yColumnSortingType,
         excludedMetricsForStackedBars,
         includedMetricsForStackedBars,
         isMainChartStacked,
+        yColumnSortingType,
       ),
     [
-      hasOrderedBars,
       breakdowns,
       yColumns,
       currentData,

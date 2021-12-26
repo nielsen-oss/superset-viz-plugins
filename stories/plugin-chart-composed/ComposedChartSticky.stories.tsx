@@ -57,7 +57,7 @@ const StickyTemplate = args => (
         }
         chartType={CHART_TYPES.BAR_CHART}
         chartSubType={CHART_SUB_TYPES.DEFAULT}
-        scattersStickToBars={{ 'COUNT_DISTINCT(period)': 'START' }}
+        barChart={{ ...args.barChart, stickyScatters: { 'COUNT_DISTINCT(period)': 'START' } }}
       />
       <ComposedChart
         {...applyCommonLogic({
@@ -75,7 +75,7 @@ const StickyTemplate = args => (
         }
         chartType={CHART_TYPES.BAR_CHART}
         chartSubType={CHART_SUB_TYPES.DEFAULT}
-        scattersStickToBars={{ 'COUNT_DISTINCT(period)': 'CENTER' }}
+        barChart={{ ...args.barChart, stickyScatters: { 'COUNT_DISTINCT(period)': 'CENTER' } }}
       />
       <ComposedChart
         {...applyCommonLogic({
@@ -93,7 +93,7 @@ const StickyTemplate = args => (
         }
         chartType={CHART_TYPES.BAR_CHART}
         chartSubType={CHART_SUB_TYPES.DEFAULT}
-        scattersStickToBars={{ 'COUNT_DISTINCT(period)': 'END' }}
+        barChart={{ ...args.barChart, stickyScatters: { 'COUNT_DISTINCT(period)': 'END' } }}
       />
     </div>
   </ThemeProvider>

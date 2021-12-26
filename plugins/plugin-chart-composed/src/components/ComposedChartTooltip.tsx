@@ -20,7 +20,7 @@ import React, { FC } from 'react';
 import { getNumberFormatter, JsonObject, styled, t } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
 import { getMetricName } from './utils';
-import { HIDDEN_DATA, Z_SEPARATOR } from '../plugin/utils';
+import { HIDDEN_DATA, SortingType, Z_SEPARATOR } from '../plugin/utils';
 
 const Container = styled.div`
   border: 1px solid #cccccc;
@@ -41,7 +41,7 @@ type Payload = {
 type ComposedChartTooltipProps = TooltipProps & {
   numbersFormat: string;
   yColumns: string[];
-  hasOrderedBars: boolean;
+  yColumnSortingType?: SortingType;
   isTimeSeries: boolean;
   zDimension?: string;
   breakdowns: string[];
@@ -63,7 +63,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
   yColumns,
   payload = [],
   label,
-  hasOrderedBars,
+  yColumnSortingType,
   zDimension,
   breakdowns,
   hasExcludedBars,
@@ -73,7 +73,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
     const firstPayload: Payload = payload[0]?.payload;
     const total = firstPayload?.rechartsTotal;
     const formatter = getNumberFormatter(numbersFormat);
-    if (hasOrderedBars) {
+    if (yColumnSortingType) {
       return (
         <Container>
           {breakdowns

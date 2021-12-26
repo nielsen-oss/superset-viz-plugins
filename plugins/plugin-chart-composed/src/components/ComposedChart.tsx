@@ -113,9 +113,8 @@ export type ComposedChartProps = {
   barChart?: {
     stickyScatters?: JsonObject;
     minBarWidth?: number;
-    hasOrderedBars?: boolean;
     yColumnSortingType?: SortingType;
-    isShowTotals?: boolean;
+    hasTotals?: boolean;
   };
 };
 
@@ -189,13 +188,8 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     };
   });
 
-  const {
-    hasOrderedBars = false,
-    yColumnSortingType = SortingType.ASC,
-    isShowTotals = false,
-    minBarWidth,
-    stickyScatters,
-  } = barChart;
+  const { yColumnSortingType, hasTotals = false, minBarWidth, stickyScatters } = barChart;
+  console.log(stickyScatters);
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
   const [updater, setUpdater] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
@@ -245,14 +239,13 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   const currentData = useCurrentData(
     data,
     disabledDataKeys,
-    hasOrderedBars,
     breakdowns,
-    yColumnSortingType,
-    isShowTotals,
+    hasTotals,
     yColumns,
     excludedMetricsForStackedBars,
     includedMetricsForStackedBars,
     isMainChartStacked,
+    yColumnSortingType,
   );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -329,7 +322,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     <ComposedChartTooltip
       numbersFormat={numbersFormat}
       yColumns={yColumns}
-      hasOrderedBars={hasOrderedBars}
+      yColumnSortingType={yColumnSortingType}
       isTimeSeries={isTimeSeries}
       zDimension={bubbleChart.zDimension}
       breakdowns={breakdowns}
@@ -466,11 +459,11 @@ const ComposedChart: FC<ComposedChartProps> = props => {
         <Tooltip content={tooltipContent} />
         {breakdowns.map((breakdown, index) =>
           renderChartElement({
-            hasOrderedBars,
+            yColumnSortingType,
             chartType,
             layout,
             yColumns,
-            isShowTotals,
+            hasTotals,
             breakdown,
             numbersFormat,
             y2Axis,

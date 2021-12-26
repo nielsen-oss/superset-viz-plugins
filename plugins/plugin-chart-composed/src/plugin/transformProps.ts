@@ -238,9 +238,7 @@ export default function transformProps(chartProps: ChartProps) {
     barChart: {
       stickyScatters,
       minBarWidth: Number(formData.minBarWidth),
-      hasOrderedBars,
-      yColumnSortingType: orderByYColumn as SortingType,
-      isShowTotals: formData.showTotals,
+      hasTotals: formData.showTotals,
     },
     data: resultData,
     handleChartClick,
@@ -265,6 +263,10 @@ export default function transformProps(chartProps: ChartProps) {
     result.legend = {
       position: formData.legendPosition,
     };
+  }
+
+  if (hasOrderedBars) {
+    result.barChart!.yColumnSortingType = orderByYColumn as SortingType;
   }
 
   if (

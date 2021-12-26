@@ -147,16 +147,15 @@ export const buildSortedDataForBars = (
 };
 
 export const processBarChartOrder = (
-  hasOrderedBars: boolean,
   breakdowns: string[],
   yColumns: string[],
   resultData: ResultData[],
-  yColumnSortingType: SortingType,
   excludedMetricsForStackedBars: string[],
   includedMetricsForStackedBars: string[],
   isMainChartStacked: boolean,
+  yColumnSortingType?: SortingType,
 ): ResultData[] => {
-  if (hasOrderedBars) {
+  if (yColumnSortingType) {
     // Build this model: https://mabdelsattar.medium.com/recharts-stack-order-bf22c245d0be
     return resultData.map(dataItem => {
       const tempSortedArray: BarChartValue[] = [];

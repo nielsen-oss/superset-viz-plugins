@@ -5,8 +5,8 @@ Object {
   "AreaProps": Array [
     Object {
       "children": Array [
-        false,
         undefined,
+        false,
       ],
       "dataKey": "COUNT_DISTINCT(period)_$_Custom",
       "fill": "#ff7f0e",
@@ -110,11 +110,11 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "hasOrderedBars": false,
         "includedMetricsForStackedBars": Array [],
         "isMainChartStacked": true,
         "keyIndex": 4,
         "position": "center",
+        "yColumnSortingType": undefined,
       },
       "opacity": 0.8,
       "stroke": "#ff7f0e",
@@ -127,8 +127,8 @@ Object {
   "BarProps": Array [
     Object {
       "children": Array [
-        false,
         undefined,
+        false,
       ],
       "dataKey": "COUNT_DISTINCT(efficiency)_$_Custom",
       "fill": "#ff7f0e",
@@ -232,11 +232,11 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "hasOrderedBars": false,
         "includedMetricsForStackedBars": Array [],
         "isMainChartStacked": true,
         "keyIndex": 7,
         "position": "center",
+        "yColumnSortingType": undefined,
       },
       "onClick": [Function],
       "opacity": 0.6,
@@ -341,7 +341,7 @@ Object {
         <mockConstructor
           angle={-45}
           axisLine={false}
-          dx={5}
+          dx={0}
           label={
             Object {
               "angle": -0,
@@ -360,7 +360,7 @@ Object {
         <mockConstructor
           angle={-0}
           axisLine={false}
-          dx={-5}
+          dx={0}
           label={
             Object {
               "angle": -0,
@@ -390,15 +390,7 @@ Object {
                   "COUNT_DISTINCT(efficiency)_$_Custom",
                 ]
               }
-              colorSchemeBy={
-                Object {
-                  "__DEFAULT_COLOR_SCHEME__": undefined,
-                  "breakdown": Object {},
-                  "metric": Object {},
-                }
-              }
               hasExcludedBars={true}
-              hasOrderedBars={false}
               isTimeSeries={false}
               numbersFormat="SMART_NUMBER"
               resultColors={
@@ -532,11 +524,11 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": true,
                 "keyIndex": 0,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             opacity={0.8}
@@ -648,11 +640,11 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": true,
                 "keyIndex": 1,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             opacity={0.8}
@@ -764,11 +756,11 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": true,
                 "keyIndex": 2,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             opacity={1}
@@ -878,11 +870,11 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": true,
                 "keyIndex": 3,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             onClick={[Function]}
@@ -993,11 +985,11 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": true,
                 "keyIndex": 4,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             opacity={0.8}
@@ -1109,11 +1101,11 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": true,
                 "keyIndex": 5,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             opacity={0.8}
@@ -1225,11 +1217,11 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": true,
                 "keyIndex": 6,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             opacity={1}
@@ -1339,11 +1331,11 @@ Object {
                 ],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": true,
                 "keyIndex": 7,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             onClick={[Function]}
@@ -1515,8 +1507,8 @@ Object {
   "LineProps": Array [
     Object {
       "children": Array [
-        false,
         undefined,
+        false,
       ],
       "connectNulls": true,
       "dataKey": "COUNT_DISTINCT(group_name)_$_Custom",
@@ -1620,11 +1612,11 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "hasOrderedBars": false,
         "includedMetricsForStackedBars": Array [],
         "isMainChartStacked": true,
         "keyIndex": 5,
         "position": "center",
+        "yColumnSortingType": undefined,
       },
       "opacity": 0.8,
       "stroke": "#ff7f0e",
@@ -1637,8 +1629,8 @@ Object {
   "ScatterProps": Array [
     Object {
       "children": Array [
-        false,
         undefined,
+        false,
       ],
       "dataKey": "COUNT_DISTINCT(due_to_group)_$_Custom",
       "fill": "#ff7f0e",
@@ -1742,11 +1734,11 @@ Object {
         ],
         "fill": "black",
         "formatter": [Function],
-        "hasOrderedBars": false,
         "includedMetricsForStackedBars": Array [],
         "isMainChartStacked": true,
         "keyIndex": 6,
         "position": "center",
+        "yColumnSortingType": undefined,
       },
       "opacity": 1,
       "shape": [Function],
@@ -1769,15 +1761,7 @@ Object {
             "COUNT_DISTINCT(efficiency)_$_Custom",
           ]
         }
-        colorSchemeBy={
-          Object {
-            "__DEFAULT_COLOR_SCHEME__": undefined,
-            "breakdown": Object {},
-            "metric": Object {},
-          }
-        }
         hasExcludedBars={true}
-        hasOrderedBars={false}
         isTimeSeries={false}
         numbersFormat="SMART_NUMBER"
         resultColors={
@@ -1827,7 +1811,7 @@ Object {
     Object {
       "angle": -0,
       "axisLine": false,
-      "dx": -5,
+      "dx": 0,
       "label": Object {
         "angle": -0,
         "dx": 5,
@@ -1850,8 +1834,8 @@ Object {
   "BarProps": Array [
     Object {
       "children": Array [
-        false,
         undefined,
+        false,
       ],
       "dataKey": "COUNT_DISTINCT(group_name)",
       "fill": "#ff7f0e",
@@ -1908,11 +1892,11 @@ Object {
         "excludedMetricsForStackedBars": Array [],
         "fill": "white",
         "formatter": [Function],
-        "hasOrderedBars": false,
         "includedMetricsForStackedBars": Array [],
         "isMainChartStacked": false,
         "keyIndex": 1,
         "position": "center",
+        "yColumnSortingType": undefined,
       },
       "onClick": [Function],
       "opacity": 1,
@@ -1984,7 +1968,7 @@ Object {
         <mockConstructor
           angle={-0}
           axisLine={false}
-          dx={5}
+          dx={0}
           label={
             Object {
               "angle": -0,
@@ -2003,7 +1987,7 @@ Object {
         <mockConstructor
           angle={-0}
           axisLine={false}
-          dx={-5}
+          dx={0}
           label={
             Object {
               "angle": -0,
@@ -2027,15 +2011,7 @@ Object {
                   "COUNT_DISTINCT(group_name)",
                 ]
               }
-              colorSchemeBy={
-                Object {
-                  "__DEFAULT_COLOR_SCHEME__": undefined,
-                  "breakdown": Object {},
-                  "metric": Object {},
-                }
-              }
               hasExcludedBars={false}
-              hasOrderedBars={false}
               isTimeSeries={false}
               numbersFormat="SMART_NUMBER"
               resultColors={
@@ -2111,11 +2087,11 @@ Object {
                 "excludedMetricsForStackedBars": Array [],
                 "fill": "white",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": false,
                 "keyIndex": 0,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             onClick={[Function]}
@@ -2179,11 +2155,11 @@ Object {
                 "excludedMetricsForStackedBars": Array [],
                 "fill": "white",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": false,
                 "keyIndex": 1,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             onClick={[Function]}
@@ -2290,15 +2266,7 @@ Object {
             "COUNT_DISTINCT(group_name)",
           ]
         }
-        colorSchemeBy={
-          Object {
-            "__DEFAULT_COLOR_SCHEME__": undefined,
-            "breakdown": Object {},
-            "metric": Object {},
-          }
-        }
         hasExcludedBars={false}
-        hasOrderedBars={false}
         isTimeSeries={false}
         numbersFormat="SMART_NUMBER"
         resultColors={
@@ -2337,7 +2305,7 @@ Object {
     Object {
       "angle": -0,
       "axisLine": false,
-      "dx": -5,
+      "dx": 0,
       "label": Object {
         "angle": -0,
         "dx": 5,
@@ -2416,7 +2384,7 @@ Object {
         <mockConstructor
           angle={-45}
           dataKey="rechartsDataKeyUI"
-          dx={5}
+          dx={0}
           label={
             Object {
               "angle": -0,
@@ -2433,7 +2401,7 @@ Object {
           yAxisId="left"
         />,
         false,
-        false,
+        undefined,
         <mockConstructor
           content={
             <ComposedChartTooltip
@@ -2443,15 +2411,7 @@ Object {
                   "COUNT_DISTINCT(group_name)",
                 ]
               }
-              colorSchemeBy={
-                Object {
-                  "__DEFAULT_COLOR_SCHEME__": undefined,
-                  "breakdown": Object {},
-                  "metric": Object {},
-                }
-              }
               hasExcludedBars={false}
-              hasOrderedBars={false}
               isTimeSeries={false}
               numbersFormat="SMART_NUMBER"
               resultColors={
@@ -2527,11 +2487,11 @@ Object {
                 "excludedMetricsForStackedBars": Array [],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": true,
                 "keyIndex": 0,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             onClick={[Function]}
@@ -2595,11 +2555,11 @@ Object {
                 "excludedMetricsForStackedBars": Array [],
                 "fill": "black",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": true,
                 "keyIndex": 1,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             onClick={[Function]}
@@ -2704,15 +2664,7 @@ Object {
             "COUNT_DISTINCT(group_name)",
           ]
         }
-        colorSchemeBy={
-          Object {
-            "__DEFAULT_COLOR_SCHEME__": undefined,
-            "breakdown": Object {},
-            "metric": Object {},
-          }
-        }
         hasExcludedBars={false}
-        hasOrderedBars={false}
         isTimeSeries={false}
         numbersFormat="SMART_NUMBER"
         resultColors={
@@ -2751,7 +2703,7 @@ Object {
     Object {
       "angle": -45,
       "dataKey": "rechartsDataKeyUI",
-      "dx": 5,
+      "dx": 0,
       "label": Object {
         "angle": -0,
         "dx": -5,
@@ -2775,8 +2727,8 @@ Object {
   "BarProps": Array [
     Object {
       "children": Array [
-        false,
         undefined,
+        false,
       ],
       "dataKey": "COUNT_DISTINCT(group_name)",
       "fill": "#ff7f0e",
@@ -2825,11 +2777,11 @@ Object {
         "excludedMetricsForStackedBars": Array [],
         "fill": "white",
         "formatter": [Function],
-        "hasOrderedBars": false,
         "includedMetricsForStackedBars": Array [],
         "isMainChartStacked": false,
         "keyIndex": 1,
         "position": "center",
+        "yColumnSortingType": undefined,
       },
       "onClick": [Function],
       "opacity": 1,
@@ -2898,7 +2850,7 @@ Object {
         <mockConstructor
           angle={-0}
           axisLine={false}
-          dx={5}
+          dx={0}
           label={
             Object {
               "angle": -0,
@@ -2924,15 +2876,7 @@ Object {
                   "COUNT_DISTINCT(group_name)",
                 ]
               }
-              colorSchemeBy={
-                Object {
-                  "__DEFAULT_COLOR_SCHEME__": undefined,
-                  "breakdown": Object {},
-                  "metric": Object {},
-                }
-              }
               hasExcludedBars={false}
-              hasOrderedBars={false}
               isTimeSeries={false}
               numbersFormat="SMART_NUMBER"
               resultColors={
@@ -3000,11 +2944,11 @@ Object {
                 "excludedMetricsForStackedBars": Array [],
                 "fill": "white",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": false,
                 "keyIndex": 0,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             onClick={[Function]}
@@ -3060,11 +3004,11 @@ Object {
                 "excludedMetricsForStackedBars": Array [],
                 "fill": "white",
                 "formatter": [Function],
-                "hasOrderedBars": false,
                 "includedMetricsForStackedBars": Array [],
                 "isMainChartStacked": false,
                 "keyIndex": 1,
                 "position": "center",
+                "yColumnSortingType": undefined,
               }
             }
             onClick={[Function]}
@@ -3162,15 +3106,7 @@ Object {
             "COUNT_DISTINCT(group_name)",
           ]
         }
-        colorSchemeBy={
-          Object {
-            "__DEFAULT_COLOR_SCHEME__": undefined,
-            "breakdown": Object {},
-            "metric": Object {},
-          }
-        }
         hasExcludedBars={false}
-        hasOrderedBars={false}
         isTimeSeries={false}
         numbersFormat="SMART_NUMBER"
         resultColors={
@@ -3209,7 +3145,7 @@ Object {
     Object {
       "angle": -0,
       "axisLine": false,
-      "dx": 5,
+      "dx": 0,
       "label": Object {
         "angle": -0,
         "dx": -5,
