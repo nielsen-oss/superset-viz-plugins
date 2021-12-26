@@ -118,8 +118,16 @@ export const getLegendProps = (
   yAxisWidth: number,
   yColumnsMeta: YColumnsMeta,
   resultColors: JsonObject,
+  chartType: keyof typeof CHART_TYPES,
 ): LegendProps => {
-  const resultBreakdowns = breakdowns.filter(breakdown => !yColumnsMeta[getMetricFromBreakdown(breakdown)]?.hideLegend);
+  const resultBreakdowns = breakdowns.filter(breakdown => {
+    const meta = yColumnsMeta[getMetricFromBreakdown(breakdown)];
+    return (
+      !meta?.hideLegend &&
+      ((chartType !== CHART_TYPES.NORM_CHART && meta?.chartType !== CHART_TYPES.NORM_CHART) ||
+        (chartType === CHART_TYPES.NORM_CHART && meta?.chartType && meta?.chartType !== CHART_TYPES.NORM_CHART))
+    );
+  });
   const payload: LegendPayload[] = resultBreakdowns.map(breakdown => ({
     value: getMetricName(
       breakdown,
@@ -419,7 +427,7 @@ type AxisProps = {
   currentData: ResultData[];
   axisHeight: number;
   axisWidth: number;
-  isTimeSeries?: boolean;
+  hasTimeSeries?: boolean;
   xColumns?: string[];
   xAxisClientRect?: ClientRect;
   rootRef?: RefObject<HTMLDivElement>;
@@ -481,7 +489,7 @@ export const getXAxisProps = ({
   axisHeight,
   axisWidth,
   label,
-  isTimeSeries,
+  hasTimeSeries,
   xColumns,
   rootRef,
   interval,
@@ -503,7 +511,7 @@ export const getXAxisProps = ({
   };
 
   const times: JsonObject = {};
-  if (isTimeSeries) {
+  if (hasTimeSeries) {
     const texts = [...(rootRef?.current?.querySelectorAll('.composed-chart-tick-time-text') ?? [])];
     let prevIt = 0;
     [...currentData, {}].forEach((item, index) => {
@@ -547,7 +555,7 @@ export const getXAxisProps = ({
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick
             {...props}
-            isTimeSeries={isTimeSeries}
+            hasTimeSeries={hasTimeSeries}
             times={times}
             textAnchor={textAnchor}
             verticalAnchor={verticalAnchor}

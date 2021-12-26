@@ -37,13 +37,13 @@ export type ComposedChartTickProps = {
   visibleTicksCount: number;
   actualWidth?: number;
   actualHeight: number;
-  isTimeSeries?: boolean;
+  hasTimeSeries?: boolean;
   times?: JsonObject;
 };
 
 const ComposedChartTick: FC<ComposedChartTickProps> = ({
   times,
-  isTimeSeries,
+  hasTimeSeries,
   x,
   y,
   angle,
@@ -60,7 +60,7 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
   visibleTicksCount,
 }) => {
   let text;
-  if (isTimeSeries) {
+  if (hasTimeSeries) {
     const date = new Date(Number(payload.value));
     text = date.getDate();
   } else if (!isNaN(payload.value)) {
@@ -91,7 +91,7 @@ const ComposedChartTick: FC<ComposedChartTickProps> = ({
       >
         {text}
       </Text>
-      {isTimeSeries && times?.[index] && (
+      {hasTimeSeries && times?.[index] && (
         <>
           {index !== 0 && (
             <line

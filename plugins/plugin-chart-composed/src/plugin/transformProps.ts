@@ -236,7 +236,7 @@ export default function transformProps(chartProps: ChartProps) {
     breakdowns,
     width,
     height,
-    isTimeSeries,
+    hasTimeSeries: isTimeSeries,
     xColumns,
     layout: formData.layout,
     chartType: formData.chartType,

@@ -81,7 +81,7 @@ export type ComposedChartProps = {
     disabled?: boolean;
   };
   handleChartClick?: (arg?: JsonObject) => void;
-  isTimeSeries: boolean;
+  hasTimeSeries: boolean;
   /**
    * Height of chart */
   height: number;
@@ -172,7 +172,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     numbersFormat,
     legend,
     yColumnsMeta,
-    isTimeSeries,
+    hasTimeSeries,
     xColumns,
     bubbleChart,
     colorSchemes = {},
@@ -322,7 +322,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
       numbersFormat={numbersFormat}
       yColumns={yColumns}
       yColumnSortingType={yColumnSortingType}
-      isTimeSeries={isTimeSeries}
+      hasTimeSeries={hasTimeSeries}
       zDimension={bubbleChart.zDimension}
       breakdowns={breakdowns}
       resultColors={resultColors}
@@ -392,6 +392,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               yAxisWidth,
               yColumnsMeta,
               resultColors,
+              chartType,
             )}
             iconType="circle"
             iconSize={10}
@@ -410,7 +411,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             axisWidth: xAxisWidth,
             xAxisClientRect,
             label: xAxis.label,
-            isTimeSeries,
+            hasTimeSeries,
             xColumns,
             rootRef,
             chartType,

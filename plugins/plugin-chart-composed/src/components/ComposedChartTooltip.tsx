@@ -42,7 +42,7 @@ type ComposedChartTooltipProps = TooltipProps & {
   numbersFormat: string;
   yColumns: string[];
   yColumnSortingType?: SortingType;
-  isTimeSeries: boolean;
+  hasTimeSeries: boolean;
   zDimension?: string;
   breakdowns: string[];
   hasExcludedBars: boolean;
@@ -57,7 +57,7 @@ const getFormattedDate = (value: string) => {
 };
 
 const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
-  isTimeSeries,
+  hasTimeSeries,
   active,
   numbersFormat,
   yColumns,
@@ -94,7 +94,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
     }
     return (
       <Container>
-        <p>{isTimeSeries ? getFormattedDate(label as string) : label}</p>
+        <p>{hasTimeSeries ? getFormattedDate(label as string) : label}</p>
         {payload
           .filter(item => item.value !== HIDDEN_DATA)
           .map(item => {
