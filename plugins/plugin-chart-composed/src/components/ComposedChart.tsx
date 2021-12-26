@@ -184,7 +184,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   breakdowns.forEach(b => {
     resultColors = {
       ...resultColors,
-      ...getResultColor(b, colorSchemes, resultColors, yColumns, yColumnsMeta, chartType, chartSubType),
+      ...getResultColor(b, colorSchemes, resultColors),
     };
   });
 

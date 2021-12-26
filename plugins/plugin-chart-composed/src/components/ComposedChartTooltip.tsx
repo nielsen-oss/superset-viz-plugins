@@ -82,11 +82,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
               const name = getMetricName(breakdown, yColumns);
               const value = firstPayload[breakdown] as number;
               const resultValue = isNaN(value) ? '-' : formatter(value);
-              return (
-                <>
-                  <Line key={name} color={resultColors[breakdown]}>{`${name}: ${resultValue}`}</Line>
-                </>
-              );
+              return <Line key={name} color={resultColors[breakdown]}>{`${name}: ${resultValue}`}</Line>;
             })}
           {!!total && (
             <Line color="black">{`${t(hasExcludedBars ? 'Total (only for stacked bars)' : 'Total')}: ${
@@ -104,15 +100,14 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
           .map(item => {
             const name = getMetricName(item?.name, yColumns);
             const zValue = item?.payload?.[`${name}${Z_SEPARATOR}`];
-            const zName = `${name}${Z_SEPARATOR}`;
             const value = item?.value as number;
             const resultValue = isNaN(value) ? '-' : formatter(value);
             const color = resultColors[item?.name];
             return (
-              <>
-                <Line key={name} color={color}>{`${name}: ${resultValue}`}</Line>
-                {zValue && <Line key={zName} color={color}>{`${zDimension}: ${formatter(zValue)}`}</Line>}
-              </>
+              <React.Fragment key={name}>
+                <Line color={color}>{`${name}: ${resultValue}`}</Line>
+                {zValue && <Line color={color}>{`${zDimension}: ${formatter(zValue)}`}</Line>}
+              </React.Fragment>
             );
           })}
         {!!total && <Line color="black">{`${t('Total')}: ${isNaN(total) ? '-' : formatter(total)}`}</Line>}

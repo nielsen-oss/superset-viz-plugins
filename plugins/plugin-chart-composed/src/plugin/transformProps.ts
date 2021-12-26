@@ -18,9 +18,9 @@
  */
 import { ChartProps, JsonObject } from '@superset-ui/core';
 import { AxisInterval } from 'recharts';
-import { mergeBy } from '../components/utils';
+import { getMetricFromBreakdown, mergeBy } from '../components/utils';
 import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeByItem, Deepness, Layout } from '../components/types';
-import { ComposedChartProps } from '../components/ComposedChart';
+import { ComposedChartProps, YColumnsMeta } from '../components/ComposedChart';
 import {
   addBreakdownYColumnsAndGetBreakdownValues,
   addRechartsKeyAndGetXColumnValues,
@@ -205,6 +205,33 @@ export default function transformProps(chartProps: ChartProps) {
     formData.numbersFormat,
     formData.numbersFormatDigits,
   );
+
+  const yColumnsMeta = yColumns.reduce((acc, cur, index) => {
+    if (!hasCustomTypeMetrics[index]) {
+      return acc;
+    }
+    return {
+      ...acc,
+      [cur]: {
+        chartType: chartTypeMetrics[index],
+        chartSubType: chartSubTypeMetrics[index],
+        hideLegend: hideLegendByMetric[index],
+      },
+    };
+  }, {} as YColumnsMeta);
+
+  yColumns.sort((a, b) =>
+    `${yColumnsMeta[a]?.chartType}${yColumnsMeta[a]?.chartSubType}` >
+    `${yColumnsMeta[b]?.chartType}${yColumnsMeta[b]?.chartSubType}`
+      ? 1
+      : -1,
+  );
+  breakdowns.sort(
+    (a, b) =>
+      yColumns.findIndex(yColumn => yColumn === getMetricFromBreakdown(a)) -
+      yColumns.findIndex(yColumn => yColumn === getMetricFromBreakdown(b)),
+  );
+
   const result: ComposedChartProps = {
     breakdowns,
     width,
@@ -242,21 +269,10 @@ export default function transformProps(chartProps: ChartProps) {
     },
     data: resultData,
     handleChartClick,
+    // @ts-ignore
     yColumns,
+    yColumnsMeta,
     drillDown: { deepness: ownState?.deepness, disabled: !hasDrillDown },
-    yColumnsMeta: yColumns.reduce((acc, cur, index) => {
-      if (!hasCustomTypeMetrics[index]) {
-        return acc;
-      }
-      return {
-        ...acc,
-        [cur]: {
-          chartType: chartTypeMetrics[index],
-          chartSubType: chartSubTypeMetrics[index],
-          hideLegend: hideLegendByMetric[index],
-        },
-      };
-    }, {}),
   };
 
   if (formData.showLegend) {

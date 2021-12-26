@@ -204,15 +204,7 @@ export const getBreakdownsOnly = (breakdown = '') => {
   return [items[0]];
 };
 
-export const getResultColor = (
-  breakdown = '',
-  colorSchemes: ColorSchemes,
-  resultColors: JsonObject,
-  yColumns: string[],
-  yColumnsMeta: YColumnsMeta,
-  chartType: keyof typeof CHART_TYPES,
-  chartSubType: keyof typeof CHART_SUB_TYPES,
-) => {
+export const getResultColor = (breakdown = '', colorSchemes: ColorSchemes, resultColors: JsonObject) => {
   const currentMetric = getMetricFromBreakdown(breakdown);
   let resultColorScheme = colorSchemes.metric?.[currentMetric];
   if (!resultColorScheme) {
@@ -222,17 +214,11 @@ export const getResultColor = (
     }
   }
 
-  const chartTypeMetric = yColumnsMeta[currentMetric]?.chartType ?? chartType;
-  const chartSubTypeMetric = yColumnsMeta[currentMetric]?.chartSubType ?? chartSubType;
-
   // eslint-disable-next-line no-underscore-dangle
   const calcColorScheme = resultColorScheme ?? colorSchemes.__DEFAULT_COLOR_SCHEME__;
-  const colorFn =
-    resultColors[`${chartTypeMetric}${chartSubTypeMetric}${calcColorScheme}`] ??
-    CategoricalColorNamespace.getScale(calcColorScheme);
-
+  const colorFn = resultColors[`${calcColorScheme}`] ?? CategoricalColorNamespace.getScale(calcColorScheme);
   return {
-    [`${chartTypeMetric}${chartSubTypeMetric}${calcColorScheme}`]: colorFn,
+    [`${calcColorScheme}`]: colorFn,
     [breakdown]: colorFn(`${breakdown}`),
   };
 };
