@@ -83,13 +83,15 @@ const TicksTemplate = args => {
           xAxis={{ ...args.xAxis, tickLabelAngle: 0, label: 'X Axis Label' }}
           yAxis={{
             ...args.yAxis,
-            tickLabelAngle2: -45,
-            labelAngle2: -270,
             labelAngle: -90,
             label: 'Y Axis Label',
-            label2: 'Y2 Axis Label',
           }}
-          hasY2Axis
+          y2Axis={{
+            ...args.y2Axis,
+            tickLabelAngle: -45,
+            labelAngle: -270,
+            label: 'Y2 Axis Label',
+          }}
         />
         <ComposedChart
           chartType={CHART_TYPES.BAR_CHART}
@@ -104,10 +106,10 @@ const TicksTemplate = args => {
             } as unknown) as ChartProps).data
           }
           {...applyCommonLogic(args)}
-          y2Axis
           legend={{ position: LegendPosition.bottom }}
           xAxis={{ ...args.xAxis, tickLabelAngle: -45, label: 'X Axis Label' }}
-          yAxis={{ ...args.yAxis, tickLabelAngle2: 0, labelAngle: 90, label: 'Y Axis Label', label2: 'Y2 Axis Label' }}
+          yAxis={{ ...args.yAxis, labelAngle: 90, label: 'Y Axis Label' }}
+          y2Axis={{ ...args.y2Axis, tickLabelAngle: 0, label: 'Y2 Axis Label' }}
         />
         <ComposedChart
           chartType={CHART_TYPES.BAR_CHART}
@@ -122,16 +124,18 @@ const TicksTemplate = args => {
             } as unknown) as ChartProps).data
           }
           {...applyCommonLogic(args)}
-          y2Axis
           xAxis={{ ...args.xAxis, tickLabelAngle: -90, label: 'X Axis Label' }}
           yAxis={{
             ...args.yAxis,
             tickLabelAngle: -90,
-            tickLabelAngle2: -90,
-            labelAngle2: -90,
             labelAngle: -90,
             label: 'Y Axis Label',
-            label2: 'Y2 Axis Label',
+          }}
+          y2Axis={{
+            ...args.y2Axis,
+            tickLabelAngle: -90,
+            labelAngle: -90,
+            label: 'Y2 Axis Label',
           }}
         />
         <ComposedChart

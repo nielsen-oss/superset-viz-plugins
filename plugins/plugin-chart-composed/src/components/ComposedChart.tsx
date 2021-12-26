@@ -189,7 +189,6 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   });
 
   const { yColumnSortingType, hasTotals = false, minBarWidth, stickyScatters } = barChart;
-  console.log(stickyScatters);
   const [disabledDataKeys, setDisabledDataKeys] = useState<string[]>([]);
   const [updater, setUpdater] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
@@ -424,8 +423,8 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             currentData,
             layout,
             height: newHeight,
-            tickLabelAngle: yAxis.tickLabelAngle,
-            labelAngle: yAxis.labelAngle,
+            tickLabelAngle: yAxis.tickLabelAngle ?? 0,
+            labelAngle: yAxis.labelAngle ?? 0,
             label: yAxis.label,
             axisHeight: yAxisHeight,
             axisWidth: yAxisWidth,
@@ -447,9 +446,9 @@ const ComposedChart: FC<ComposedChartProps> = props => {
               height: newHeight,
               isSecondAxis: true,
               dataKey: yColumns[yColumns.length - 1],
-              tickLabelAngle: y2Axis?.tickLabelAngle,
+              tickLabelAngle: y2Axis?.tickLabelAngle ?? 0,
               label: y2Axis?.label,
-              labelAngle: y2Axis?.labelAngle,
+              labelAngle: y2Axis?.labelAngle ?? 0,
               axisHeight: y2AxisHeight,
               axisWidth: y2AxisWidth,
               chartType,
