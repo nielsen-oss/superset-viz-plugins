@@ -19,9 +19,8 @@
 import React, { FC } from 'react';
 import { getNumberFormatter, JsonObject, styled, t } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
-import { getMetricName, getResultColor } from './utils';
-import { HIDDEN_DATA, Z_SEPARATOR } from '../plugin/utils';
-import { ColorSchemeBy } from './types';
+import { getMetricName } from './utils';
+import { HIDDEN_DATA, SortingType, Z_SEPARATOR } from '../plugin/utils';
 
 const Container = styled.div`
   border: 1px solid #cccccc;
@@ -42,13 +41,12 @@ type Payload = {
 type ComposedChartTooltipProps = TooltipProps & {
   numbersFormat: string;
   yColumns: string[];
-  hasOrderedBars: boolean;
-  isTimeSeries: boolean;
+  yColumnSortingType?: SortingType;
+  hasTimeSeries: boolean;
   zDimension?: string;
   breakdowns: string[];
   hasExcludedBars: boolean;
   resultColors: JsonObject;
-  colorSchemeBy: ColorSchemeBy;
 };
 
 const getFormattedDate = (value: string) => {
@@ -59,24 +57,23 @@ const getFormattedDate = (value: string) => {
 };
 
 const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
-  isTimeSeries,
+  hasTimeSeries,
   active,
   numbersFormat,
   yColumns,
   payload = [],
   label,
-  hasOrderedBars,
+  yColumnSortingType,
   zDimension,
   breakdowns,
   hasExcludedBars,
   resultColors,
-  colorSchemeBy,
 }) => {
   if (active) {
     const firstPayload: Payload = payload[0]?.payload;
     const total = firstPayload?.rechartsTotal;
     const formatter = getNumberFormatter(numbersFormat);
-    if (hasOrderedBars) {
+    if (yColumnSortingType) {
       return (
         <Container>
           {breakdowns
@@ -85,11 +82,7 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
               const name = getMetricName(breakdown, yColumns);
               const value = firstPayload[breakdown] as number;
               const resultValue = isNaN(value) ? '-' : formatter(value);
-              return (
-                <>
-                  <Line key={name} color={resultColors[breakdown]}>{`${name}: ${resultValue}`}</Line>
-                </>
-              );
+              return <Line key={name} color={resultColors[breakdown]}>{`${name}: ${resultValue}`}</Line>;
             })}
           {!!total && (
             <Line color="black">{`${t(hasExcludedBars ? 'Total (only for stacked bars)' : 'Total')}: ${
@@ -101,21 +94,20 @@ const ComposedChartTooltip: FC<ComposedChartTooltipProps> = ({
     }
     return (
       <Container>
-        <p>{isTimeSeries ? getFormattedDate(label as string) : label}</p>
+        <p>{hasTimeSeries ? getFormattedDate(label as string) : label}</p>
         {payload
           .filter(item => item.value !== HIDDEN_DATA)
           .map(item => {
             const name = getMetricName(item?.name, yColumns);
             const zValue = item?.payload?.[`${name}${Z_SEPARATOR}`];
-            const zName = `${name}${Z_SEPARATOR}`;
             const value = item?.value as number;
             const resultValue = isNaN(value) ? '-' : formatter(value);
             const color = resultColors[item?.name];
             return (
-              <>
-                <Line key={name} color={color}>{`${name}: ${resultValue}`}</Line>
-                {zValue && <Line key={zName} color={color}>{`${zDimension}: ${formatter(zValue)}`}</Line>}
-              </>
+              <React.Fragment key={name}>
+                <Line color={color}>{`${name}: ${resultValue}`}</Line>
+                {zValue && <Line color={color}>{`${zDimension}: ${formatter(zValue)}`}</Line>}
+              </React.Fragment>
             );
           })}
         {!!total && <Line color="black">{`${t('Total')}: ${isNaN(total) ? '-' : formatter(total)}`}</Line>}

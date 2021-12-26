@@ -20,7 +20,7 @@ import React, { FC } from 'react';
 import { getNumberFormatter, JsonObject, styled } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
 import { getMetricName, getResultColor } from './utils';
-import { ColorSchemeBy } from './types';
+import { ColorSchemes } from './types';
 
 const Container = styled.div`
   border: 1px solid #cccccc;

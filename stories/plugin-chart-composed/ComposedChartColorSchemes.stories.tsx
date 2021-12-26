@@ -98,7 +98,7 @@ const SortedBarsTemplate = args => {
               queriesData: args.queriesData,
             } as unknown) as ChartProps).data
           }
-          colorSchemeBy={{
+          colorSchemes={{
             metric: {
               'COUNT_DISTINCT(period)': GREY_COLOR_SCHEME,
               'COUNT_DISTINCT(group_name)': BLUE_COLOR_SCHEME,
@@ -122,7 +122,7 @@ const SortedBarsTemplate = args => {
               queriesData: args.queriesData,
             } as unknown) as ChartProps).data
           }
-          colorSchemeBy={{
+          colorSchemes={{
             metric: {},
             breakdown: {
               Standard: GREY_COLOR_SCHEME,
