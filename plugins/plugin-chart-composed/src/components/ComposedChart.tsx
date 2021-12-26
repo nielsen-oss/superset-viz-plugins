@@ -227,10 +227,13 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   const { excludedMetricsForStackedBars, includedMetricsForStackedBars, isMainChartStacked } = useMemo(() => {
     const excludedMetricsForStackedBars = yColumns.filter(
       metric =>
-        !isStackedBar(yColumnsMeta[metric]?.chartType ?? chartType, yColumnsMeta[metric]?.chartSubType ?? chartSubType),
+        yColumnsMeta[metric]?.chartType &&
+        !isStackedBar(yColumnsMeta[metric]?.chartType, yColumnsMeta[metric]?.chartSubType),
     );
-    const includedMetricsForStackedBars = yColumns.filter(metric =>
-      isStackedBar(yColumnsMeta[metric]?.chartType ?? chartType, yColumnsMeta[metric]?.chartSubType ?? chartSubType),
+    const includedMetricsForStackedBars = yColumns.filter(
+      metric =>
+        yColumnsMeta[metric]?.chartType &&
+        isStackedBar(yColumnsMeta[metric]?.chartType, yColumnsMeta[metric]?.chartSubType),
     );
     return {
       excludedMetricsForStackedBars,
