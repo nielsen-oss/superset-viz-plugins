@@ -17,8 +17,24 @@
  * under the License.
  */
 import { useCallback, useMemo } from 'react';
-import { checkIsMetricStacked, processBarChartOrder } from './utils';
-import { ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
+import { JsonObject } from '@superset-ui/core';
+import {
+  checkIsMetricStacked,
+  getMetricByChartType,
+  getMetricFromBreakdown,
+  mergeBy,
+  processBarChartOrder,
+  processNumbers,
+} from './utils';
+import {
+  addRechartsKeyAndGetXColumnValues,
+  HIDDEN_DATA,
+  NORM_SEPARATOR,
+  ResultData,
+  SortingType,
+  Z_SEPARATOR,
+} from '../plugin/utils';
+import { CHART_TYPES, HiddenTickLabels, NormChart, NumbersFormat, YColumnsMeta } from './types';
 
 export const useCurrentData = (
   data: ResultData[],
@@ -121,3 +137,81 @@ export const useZAxisRange = (currentData: ResultData[], bubbleSize = 1000) =>
     },
     [bubbleSize, currentData],
   );
+
+type PreparationData = {
+  breakdowns: string[];
+  yColumns: string[];
+  yColumnsMeta: YColumnsMeta;
+  data: ResultData[];
+  numbersFormat?: NumbersFormat;
+  normChart?: NormChart;
+  xColumns: string[];
+  chartType: keyof typeof CHART_TYPES;
+  hasTimeSeries?: boolean;
+  hiddenTickLabels?: HiddenTickLabels;
+};
+
+export const useDataPreparation = ({
+  breakdowns,
+  yColumns,
+  yColumnsMeta,
+  data,
+  numbersFormat,
+  normChart,
+  xColumns,
+  hasTimeSeries,
+  hiddenTickLabels,
+  chartType,
+}: PreparationData) =>
+  useMemo(() => {
+    let resultData = processNumbers(data, [...breakdowns, ...yColumns], numbersFormat?.type, numbersFormat?.digits);
+
+    if (normChart) {
+      const xColumnValues: string[] = [];
+      const secondQueryData = mergeBy(
+        addRechartsKeyAndGetXColumnValues(normChart?.data, xColumnValues, hasTimeSeries, xColumns, hiddenTickLabels),
+        'rechartsDataKey',
+      );
+      const foundMetric = getMetricByChartType(
+        CHART_TYPES.NORM_CHART as keyof typeof CHART_TYPES,
+        yColumns,
+        yColumnsMeta,
+        chartType,
+      )[0];
+      resultData = resultData.map(item => {
+        const secondQueryFound = secondQueryData.find(sqd => sqd.rechartsDataKey === item.rechartsDataKey);
+        return {
+          ...item,
+          [`${foundMetric}${NORM_SEPARATOR}`]: secondQueryFound?.[foundMetric] ?? '-',
+          [foundMetric]: HIDDEN_DATA,
+        };
+      });
+    }
+
+    return {
+      breakdowns: [...breakdowns].sort(
+        (a, b) =>
+          yColumns.findIndex(yColumn => yColumn === getMetricFromBreakdown(a)) -
+          yColumns.findIndex(yColumn => yColumn === getMetricFromBreakdown(b)),
+      ),
+      yColumns: [...yColumns].sort((a, b) =>
+        `${yColumnsMeta[a]?.chartType}${yColumnsMeta[a]?.chartSubType}` >
+        `${yColumnsMeta[b]?.chartType}${yColumnsMeta[b]?.chartSubType}`
+          ? 1
+          : -1,
+      ),
+      data: resultData,
+    };
+  }, [
+    breakdowns,
+    chartType,
+    data,
+    hasTimeSeries,
+    hiddenTickLabels,
+    normChart,
+    numbersFormat?.digits,
+    numbersFormat?.type,
+    xColumns,
+    yColumns,
+    yColumnsMeta,
+  ]);

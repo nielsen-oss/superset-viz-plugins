@@ -20,7 +20,7 @@ import React, { FC } from 'react';
 import { getNumberFormatter, JsonObject, styled } from '@superset-ui/core';
 import { TooltipProps } from 'recharts';
 import { getMetricName, getResultColor } from './utils';
-import { ColorSchemes } from './types';
+import { ColorSchemes, NumbersFormat } from './types';
 
 const Container = styled.div`
   border: 1px solid #cccccc;
@@ -40,7 +40,7 @@ type Payload = {
 };
 
 type ScatterChartTooltipProps = TooltipProps & {
-  numbersFormat: string;
+  numbersFormat?: NumbersFormat;
   yColumns: string[];
   zDimension?: string;
   breakdowns: string[];
@@ -58,7 +58,7 @@ const ScatterChartTooltip: FC<ScatterChartTooltipProps> = ({
 }) => {
   if (active) {
     const firstPayload: Payload = payload[0]?.payload;
-    const formatter = getNumberFormatter(numbersFormat);
+    const formatter = getNumberFormatter(numbersFormat?.type);
     const data = [...payload];
     data.shift();
 

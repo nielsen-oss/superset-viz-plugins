@@ -18,9 +18,17 @@
  */
 import { ChartProps, JsonObject } from '@superset-ui/core';
 import { AxisInterval } from 'recharts';
-import { getMetricFromBreakdown, mergeBy } from '../components/utils';
-import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeByItem, Deepness, Layout } from '../components/types';
-import { ComposedChartProps, YColumnsMeta } from '../components/ComposedChart';
+import { mergeBy } from '../components/utils';
+import {
+  CHART_SUB_TYPES,
+  CHART_TYPES,
+  ColorSchemeByItem,
+  Deepness,
+  HiddenTickLabels,
+  Layout,
+  YColumnsMeta,
+} from '../components/types';
+import { ComposedChartProps } from '../components/ComposedChart';
 import {
   addBreakdownYColumnsAndGetBreakdownValues,
   addRechartsKeyAndGetXColumnValues,
@@ -29,10 +37,10 @@ import {
   FormData,
   getChartSubType,
   getLabel,
+  getXColumnValues,
   has2Queries,
   HIDDEN_DATA,
   NORM_SEPARATOR,
-  processNumbers,
   QueryMode,
   ResultData,
   SortingType,
@@ -57,16 +65,27 @@ export default function transformProps(chartProps: ChartProps) {
   }
 
   const xColumnValues: string[] = [];
-  const isTimeSeries = checkTimeSeries(xColumns, formData.granularitySqla, formData.layout);
+  const hasTimeSeries = checkTimeSeries(xColumns, formData.granularitySqla, formData.layout);
+
+  const hiddenTickLabels: HiddenTickLabels = {};
+  data.forEach(item => {
+    const dataKey = xColumns.map(field => getXColumnValues(field, item, xColumnValues));
+    dataKey.forEach((value, index) => {
+      if (!hasTimeSeries && !formData[`useCategoryFormattingGroupBy${index}`]) {
+        hiddenTickLabels[value] = true;
+      }
+    });
+  });
+
   let resultData: ResultData[] = addRechartsKeyAndGetXColumnValues(
-    formData,
     data,
     xColumnValues,
-    isTimeSeries,
+    hasTimeSeries,
     xColumns,
+    hiddenTickLabels,
   );
 
-  if (isTimeSeries) {
+  if (hasTimeSeries) {
     resultData.sort(
       ({ __timestamp: __timestamp2 }, { __timestamp: __timestamp1 }) =>
         (__timestamp2 as number) - (__timestamp1 as number),
@@ -80,21 +99,6 @@ export default function transformProps(chartProps: ChartProps) {
   resultData = mergeBy(resultData, 'rechartsDataKey');
 
   const secondQuery = has2Queries(rawFormData);
-  if (secondQuery) {
-    const secondQueryData = mergeBy(
-      addRechartsKeyAndGetXColumnValues(formData, queriesData[1]?.data, xColumnValues, isTimeSeries, xColumns),
-      'rechartsDataKey',
-    );
-    resultData = resultData.map(item => {
-      const secondQueryFound = secondQueryData.find(sqd => sqd.rechartsDataKey === item.rechartsDataKey);
-      return {
-        ...item,
-        [`${yColumns[secondQuery.metricOrder]}${NORM_SEPARATOR}`]:
-          secondQueryFound?.[yColumns[secondQuery.metricOrder]] ?? '-',
-        [yColumns[secondQuery.metricOrder]]: HIDDEN_DATA,
-      };
-    });
-  }
 
   const chartSubType = getChartSubType(
     formData.chartType,
@@ -199,44 +203,27 @@ export default function transformProps(chartProps: ChartProps) {
     });
   };
 
-  resultData = processNumbers(
-    resultData,
-    [...breakdowns, ...yColumns],
-    formData.numbersFormat,
-    formData.numbersFormatDigits,
-  );
-
-  const yColumnsMeta = yColumns.reduce((acc, cur, index) => {
-    if (!hasCustomTypeMetrics[index]) {
-      return acc;
-    }
-    return {
+  const yColumnsMeta = yColumns.reduce(
+    (acc, cur, index) => ({
       ...acc,
       [cur]: {
-        chartType: chartTypeMetrics[index],
-        chartSubType: chartSubTypeMetrics[index],
+        chartType: hasCustomTypeMetrics[index]
+          ? chartTypeMetrics[index]
+          : (formData.chartType as keyof typeof CHART_TYPES),
+        chartSubType: hasCustomTypeMetrics[index]
+          ? chartSubTypeMetrics[index]
+          : (formData.chartSubType as keyof typeof CHART_SUB_TYPES),
         hideLegend: hideLegendByMetric[index],
       },
-    };
-  }, {} as YColumnsMeta);
-
-  yColumns.sort((a, b) =>
-    `${yColumnsMeta[a]?.chartType}${yColumnsMeta[a]?.chartSubType}` >
-    `${yColumnsMeta[b]?.chartType}${yColumnsMeta[b]?.chartSubType}`
-      ? 1
-      : -1,
-  );
-  breakdowns.sort(
-    (a, b) =>
-      yColumns.findIndex(yColumn => yColumn === getMetricFromBreakdown(a)) -
-      yColumns.findIndex(yColumn => yColumn === getMetricFromBreakdown(b)),
+    }),
+    {} as YColumnsMeta,
   );
 
   const result: ComposedChartProps = {
     breakdowns,
     width,
     height,
-    hasTimeSeries: isTimeSeries,
+    hasTimeSeries,
     xColumns,
     layout: formData.layout,
     chartType: formData.chartType,
@@ -246,12 +233,16 @@ export default function transformProps(chartProps: ChartProps) {
       metric: colorSchemeByMetric,
       breakdown: colorSchemeByBreakdown,
     },
-    numbersFormat: formData.numbersFormat,
+    numbersFormat: {
+      type: formData.numbersFormat,
+      digits: formData.numbersFormatDigits !== undefined ? Number(formData.numbersFormatDigits) : undefined,
+    },
     labelsColor: formData.labelsColor,
     xAxis: {
       interval: formData.xAxisInterval as AxisInterval,
       label: getLabel(formData, formData.xAxisLabel),
       tickLabelAngle: -Number(formData.xAxisTickLabelAngle),
+      hiddenTickLabels,
     },
     yAxis: {
       labelAngle: -Number(formData.yAxisLabelAngle ?? 0),
@@ -283,6 +274,12 @@ export default function transformProps(chartProps: ChartProps) {
 
   if (hasOrderedBars) {
     result.barChart!.yColumnSortingType = orderByYColumn as SortingType;
+  }
+
+  if (queriesData[1]?.data) {
+    result.normChart = {
+      data: queriesData[1]?.data,
+    };
   }
 
   if (

@@ -35,7 +35,6 @@ import {
 import { getNumberFormatter, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
-import { LegendType, ResetProps, YAxisProps, YColumnsMeta } from './ComposedChart';
 import {
   BarChartValueMap,
   CHART_SUB_TYPES,
@@ -43,12 +42,17 @@ import {
   Layout,
   LegendAlign,
   LegendPosition,
+  LegendType,
   LegendVerticalAlign,
   MIN_BAR_SIZE_FOR_LABEL,
   MIN_SYMBOL_WIDTH_FOR_LABEL,
+  NumbersFormat,
+  ResetProps,
   STICK_TYPES,
+  YAxisProps,
+  YColumnsMeta,
 } from './types';
-import { checkIsMetricStacked, getBreakdownsOnly, getMetricFromBreakdown } from './utils';
+import { checkIsMetricStacked, getBreakdownsOnly, getMetricByChartType, getMetricFromBreakdown } from './utils';
 import ComposedBar from './ComposedBar';
 import icons from './icons';
 import ComposedNorm from './ComposedNorm';
@@ -121,11 +125,16 @@ export const getLegendProps = (
   chartType: keyof typeof CHART_TYPES,
 ): LegendProps => {
   const resultBreakdowns = breakdowns.filter(breakdown => {
-    const meta = yColumnsMeta[getMetricFromBreakdown(breakdown)];
+    const metric = getMetricFromBreakdown(breakdown);
+    const meta = yColumnsMeta[metric];
     return (
       !meta?.hideLegend &&
-      ((chartType !== CHART_TYPES.NORM_CHART && meta?.chartType !== CHART_TYPES.NORM_CHART) ||
-        (chartType === CHART_TYPES.NORM_CHART && meta?.chartType && meta?.chartType !== CHART_TYPES.NORM_CHART))
+      !getMetricByChartType(
+        CHART_TYPES.NORM_CHART as keyof typeof CHART_TYPES,
+        yColumns,
+        yColumnsMeta,
+        chartType,
+      ).includes(metric)
     );
   });
   const payload: LegendPayload[] = resultBreakdowns.map(breakdown => ({
@@ -318,7 +327,6 @@ export const getChartElement = (
   index: number,
   barsUIPositionsRef: RefObject<JsonObject>,
   layout: Layout,
-  numbersFormat: string,
   yColumns: string[],
   xColumns: string[],
   firstItem: string,
@@ -326,6 +334,7 @@ export const getChartElement = (
   yAxisClientRect?: ClientRect,
   handleChartClick?: (arg: JsonObject) => void,
   stickyScatters?: JsonObject,
+  numbersFormat?: NumbersFormat,
 ): ChartsUIItem => {
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
 
@@ -423,7 +432,7 @@ type AxisProps = {
   resetProps?: ResetProps;
   dataKey?: string;
   height?: number;
-  numbersFormat: string;
+  numbersFormat?: NumbersFormat;
   currentData: ResultData[];
   axisHeight: number;
   axisWidth: number;
@@ -541,7 +550,7 @@ export const getXAxisProps = ({
             {...props}
             textAnchor={textAnchor}
             verticalAnchor={verticalAnchor}
-            tickFormatter={getNumberFormatter(numbersFormat)}
+            tickFormatter={getNumberFormatter(numbersFormat?.type)}
             {...getActualXAxisSize(axisWidth, 5, axisHeight, tickLabelAngle)}
           />
         ),
@@ -646,7 +655,7 @@ export const getYAxisProps = ({
             {...props}
             verticalAnchor={verticalAnchor}
             textAnchor={textAnchor}
-            tickFormatter={getNumberFormatter(numbersFormat)}
+            tickFormatter={getNumberFormatter(numbersFormat?.type)}
             {...getActualYAxisSize(axisWidth, 5, axisHeight, tickLabelAngle)}
           />
         ),
@@ -694,7 +703,7 @@ type ChartElementProps = {
   chartType: keyof typeof CHART_TYPES;
   labelsColor: LabelColors;
   yColumnsMeta: YColumnsMeta;
-  numbersFormat: string;
+  numbersFormat?: NumbersFormat;
   updater: number;
   index: number;
   currentData: ResultData[];
@@ -743,7 +752,8 @@ export const renderChartElement = ({
   yAxisClientRect,
   handleChartClick,
 }: ChartElementProps) => {
-  const yColumnMeta = yColumnsMeta[getMetricFromBreakdown(breakdown)];
+  const metric = getMetricFromBreakdown(breakdown);
+  const yColumnMeta = yColumnsMeta[metric];
   const customChartType = yColumnMeta?.chartType ?? chartType;
   const customChartSubType = yColumnMeta?.chartSubType ?? chartSubType;
 
@@ -752,11 +762,13 @@ export const renderChartElement = ({
     customChartType,
     customChartSubType,
     resultColors[breakdown],
-    customChartType === CHART_TYPES.BAR_CHART && Object.values(yColumnsMeta).some(({ chartType }) => chartType),
+    customChartType === CHART_TYPES.BAR_CHART &&
+      Object.entries(yColumnsMeta).some(
+        ([key, { chartType }]) => chartType !== CHART_TYPES.BAR_CHART && key !== metric,
+      ),
     index,
     barsUIPositionsRef,
     layout,
-    numbersFormat,
     yColumns,
     xColumns,
     firstItem,
@@ -764,13 +776,14 @@ export const renderChartElement = ({
     yAxisClientRect,
     handleChartClick,
     stickyScatters,
+    numbersFormat,
   );
 
   const labelListExtraPropsWithTotal: LabelListProps & { fill: string } = {
     fill: 'black',
     dataKey: 'rechartsTotal',
     position: layout === Layout.horizontal ? 'top' : 'right',
-    formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
+    formatter: getNumberFormatter(numbersFormat?.type) as LabelFormatter,
   };
 
   const lastNotExcludedBarIndex =
@@ -800,7 +813,7 @@ export const renderChartElement = ({
     elementProps.label = {
       fill: labelsColor,
       position: 'center',
-      formatter: getNumberFormatter(numbersFormat) as LabelFormatter,
+      formatter: getNumberFormatter(numbersFormat?.type) as LabelFormatter,
       content: renderLabel,
       keyIndex: index,
       currentData,

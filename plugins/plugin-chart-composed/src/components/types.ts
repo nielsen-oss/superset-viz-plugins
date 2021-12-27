@@ -1,4 +1,6 @@
 import { JsonObject } from '@superset-ui/core';
+import { AxisInterval } from 'recharts';
+import { Data, ResultData } from '../plugin/utils';
 
 export type BarChartValue = { id: string; value: number; name: string; color: string };
 export type BarChartValueMap = { [key: string]: BarChartValue };
@@ -7,6 +9,10 @@ export enum Layout {
   horizontal = 'horizontal',
   vertical = 'vertical',
 }
+
+export type LegendType = {
+  position?: LegendPosition;
+};
 
 export type Deepness = JsonObject &
   {
@@ -117,4 +123,45 @@ export type ColorSchemes = {
   __DEFAULT_COLOR_SCHEME__?: string;
   metric?: ColorSchemeByItem;
   breakdown?: ColorSchemeByItem;
+};
+
+export type NumbersFormat = {
+  type: string;
+  digits?: number;
+};
+
+export type XAxisProps = {
+  label: string;
+  tickLabelAngle: number;
+  interval: AxisInterval;
+  hiddenTickLabels: HiddenTickLabels;
+};
+
+export type YColumnsMeta = {
+  [key: string]: YColumnsMetaData;
+};
+
+export type YColumnsMetaData = {
+  chartType?: keyof typeof CHART_TYPES;
+  chartSubType?: keyof typeof CHART_SUB_TYPES;
+  hideLegend?: boolean;
+};
+
+export type ResetProps = { xAxisTicks?: boolean };
+
+export type HiddenTickLabels = { [key: string]: boolean };
+
+export type YAxisProps = {
+  label?: string;
+  tickLabelAngle?: number;
+  labelAngle?: number;
+};
+
+export type BubbleChart = {
+  size: number;
+  zDimension: string;
+};
+
+export type NormChart = {
+  data: Data[];
 };

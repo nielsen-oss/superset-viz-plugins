@@ -711,6 +711,8 @@ const normRawDataBarsHorizontalLegendTop = {
 };
 const normDataBarsHorizontalLegendTop = {
   ...formDataBarsHorizontalLegendTop,
+  chartType: 'NORM_CHART',
+  normChartSubType: 'default',
   useCustomTypeMetric0: true,
   chartTypeMetric0: 'BAR_CHART',
   barChartSubTypeMetric0: 'default',

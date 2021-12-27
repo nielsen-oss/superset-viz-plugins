@@ -18,7 +18,14 @@
  */
 import { JsonObject, QueryFormColumn, SetAdhocFilter, t } from '@superset-ui/core';
 import { ControlPanelsContainerProps, ControlStateMapping } from '@superset-ui/chart-controls';
-import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, Layout, LegendPosition } from '../components/types';
+import {
+  BarChartValue,
+  CHART_SUB_TYPES,
+  CHART_TYPES,
+  HiddenTickLabels,
+  Layout,
+  LegendPosition,
+} from '../components/types';
 
 export const MAX_FORM_CONTROLS = 5;
 export const BREAKDOWN_SEPARATOR = '_$_';
@@ -124,7 +131,7 @@ export const getChartSubType = (
   }
 };
 
-const getXColumnValues = (field: string, item: Record<string, string | number>, xColumnValues: string[]) => {
+export const getXColumnValues = (field: string, item: Record<string, string | number>, xColumnValues: string[]) => {
   if (!xColumnValues.includes(field)) {
     xColumnValues.push(field); // Small mutation in map, but better then one more iteration
   }
@@ -132,20 +139,18 @@ const getXColumnValues = (field: string, item: Record<string, string | number>, 
 };
 
 export const addRechartsKeyAndGetXColumnValues = (
-  formData: FormData,
   data: Data[],
   xColumnValues: string[],
-  isTimeSeries: boolean,
-  xColumns: string[],
+  hasTimeSeries?: boolean,
+  xColumns: string[] = [],
+  hiddenTickLabels?: HiddenTickLabels,
 ) =>
   data.map(item => {
     const dataKey = xColumns.map(field => getXColumnValues(field, item, xColumnValues));
     return {
       ...item,
       rechartsDataKey: dataKey.join(', '),
-      rechartsDataKeyUI: dataKey
-        .filter((value, index) => isTimeSeries || formData[`useCategoryFormattingGroupBy${index}`])
-        .join(', '),
+      rechartsDataKeyUI: dataKey.filter(value => hasTimeSeries || !hiddenTickLabels?.[value]).join(', '),
     };
   });
 
@@ -179,38 +184,6 @@ export const addBreakdownYColumnsAndGetBreakdownValues = (
       ...item,
     };
   });
-
-export const processNumbers = (
-  resultData: ResultData[],
-  breakdowns: string[],
-  numbersFormat: string,
-  numbersFormatDigits?: string,
-) => {
-  const digits = Number(numbersFormatDigits);
-  if (numbersFormat === 'SMART_NUMBER' && numbersFormatDigits && !Number.isNaN(digits)) {
-    // eslint-disable-next-line no-param-reassign
-    return resultData.map(item => ({
-      ...item,
-      ...breakdowns.reduce((prevBreakdown, nextBreakdown) => {
-        if (item[nextBreakdown] === undefined) {
-          return prevBreakdown;
-        }
-        return {
-          ...prevBreakdown,
-          [nextBreakdown]: Number(
-            Number(item[nextBreakdown])
-              .toLocaleString('en-US', {
-                minimumFractionDigits: digits,
-                maximumFractionDigits: digits,
-              })
-              .replace(/,/g, ''),
-          ),
-        };
-      }, {}),
-    }));
-  }
-  return resultData;
-};
 
 export const checkTimeSeries = (groupBy?: string[], granularitySqla?: string, layout?: Layout) =>
   groupBy?.length === 1 && groupBy?.[0] === granularitySqla && layout === Layout.horizontal;

@@ -16,12 +16,12 @@ Object {
         "breakdowns": Array [
           "COUNT_DISTINCT(period)_$_Standard",
           "COUNT_DISTINCT(period)_$_Custom",
-          "COUNT_DISTINCT(efficiency)_$_Standard",
-          "COUNT_DISTINCT(efficiency)_$_Custom",
           "COUNT_DISTINCT(group_name)_$_Standard",
           "COUNT_DISTINCT(group_name)_$_Custom",
           "COUNT_DISTINCT(due_to_group)_$_Standard",
           "COUNT_DISTINCT(due_to_group)_$_Custom",
+          "COUNT_DISTINCT(efficiency)_$_Standard",
+          "COUNT_DISTINCT(efficiency)_$_Custom",
         ],
         "content": [Function],
         "currentData": Array [
@@ -131,19 +131,19 @@ Object {
         false,
       ],
       "dataKey": "COUNT_DISTINCT(efficiency)_$_Custom",
-      "fill": "#d62728",
+      "fill": "#7f7f7f",
       "isAnimationActive": undefined,
       "label": Object {
         "breakdown": "COUNT_DISTINCT(efficiency)_$_Custom",
         "breakdowns": Array [
           "COUNT_DISTINCT(period)_$_Standard",
           "COUNT_DISTINCT(period)_$_Custom",
-          "COUNT_DISTINCT(efficiency)_$_Standard",
-          "COUNT_DISTINCT(efficiency)_$_Custom",
           "COUNT_DISTINCT(group_name)_$_Standard",
           "COUNT_DISTINCT(group_name)_$_Custom",
           "COUNT_DISTINCT(due_to_group)_$_Standard",
           "COUNT_DISTINCT(due_to_group)_$_Custom",
+          "COUNT_DISTINCT(efficiency)_$_Standard",
+          "COUNT_DISTINCT(efficiency)_$_Custom",
         ],
         "content": [Function],
         "currentData": Array [
@@ -234,7 +234,7 @@ Object {
         "formatter": [Function],
         "includedMetricsForStackedBars": Array [],
         "isMainChartStacked": true,
-        "keyIndex": 3,
+        "keyIndex": 7,
         "position": "center",
         "yColumnSortingType": undefined,
       },
@@ -276,39 +276,39 @@ Object {
               },
               Object {
                 "color": "#2ca02c",
-                "id": "COUNT_DISTINCT(efficiency)_$_Standard",
-                "type": "square",
-                "value": "COUNT_DISTINCT(efficiency), Standard",
-              },
-              Object {
-                "color": "#d62728",
-                "id": "COUNT_DISTINCT(efficiency)_$_Custom",
-                "type": "square",
-                "value": "COUNT_DISTINCT(efficiency), Custom",
-              },
-              Object {
-                "color": "#9467bd",
                 "id": "COUNT_DISTINCT(group_name)_$_Standard",
                 "type": "square",
                 "value": "COUNT_DISTINCT(group_name), Standard",
               },
               Object {
-                "color": "#8c564b",
+                "color": "#d62728",
                 "id": "COUNT_DISTINCT(group_name)_$_Custom",
                 "type": "square",
                 "value": "COUNT_DISTINCT(group_name), Custom",
               },
               Object {
-                "color": "#e377c2",
+                "color": "#9467bd",
                 "id": "COUNT_DISTINCT(due_to_group)_$_Standard",
                 "type": "square",
                 "value": "COUNT_DISTINCT(due_to_group), Standard",
               },
               Object {
-                "color": "#7f7f7f",
+                "color": "#8c564b",
                 "id": "COUNT_DISTINCT(due_to_group)_$_Custom",
                 "type": "square",
                 "value": "COUNT_DISTINCT(due_to_group), Custom",
+              },
+              Object {
+                "color": "#e377c2",
+                "id": "COUNT_DISTINCT(efficiency)_$_Standard",
+                "type": "square",
+                "value": "COUNT_DISTINCT(efficiency), Standard",
+              },
+              Object {
+                "color": "#7f7f7f",
+                "id": "COUNT_DISTINCT(efficiency)_$_Custom",
+                "type": "square",
+                "value": "COUNT_DISTINCT(efficiency), Custom",
               },
             ]
           }
@@ -382,25 +382,30 @@ Object {
                 Array [
                   "COUNT_DISTINCT(period)_$_Standard",
                   "COUNT_DISTINCT(period)_$_Custom",
-                  "COUNT_DISTINCT(efficiency)_$_Standard",
-                  "COUNT_DISTINCT(efficiency)_$_Custom",
                   "COUNT_DISTINCT(group_name)_$_Standard",
                   "COUNT_DISTINCT(group_name)_$_Custom",
                   "COUNT_DISTINCT(due_to_group)_$_Standard",
                   "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
                 ]
               }
               hasExcludedBars={true}
               hasTimeSeries={false}
-              numbersFormat="SMART_NUMBER"
+              numbersFormat={
+                Object {
+                  "digits": undefined,
+                  "type": "SMART_NUMBER",
+                }
+              }
               resultColors={
                 Object {
-                  "COUNT_DISTINCT(due_to_group)_$_Custom": "#7f7f7f",
-                  "COUNT_DISTINCT(due_to_group)_$_Standard": "#e377c2",
-                  "COUNT_DISTINCT(efficiency)_$_Custom": "#d62728",
-                  "COUNT_DISTINCT(efficiency)_$_Standard": "#2ca02c",
-                  "COUNT_DISTINCT(group_name)_$_Custom": "#8c564b",
-                  "COUNT_DISTINCT(group_name)_$_Standard": "#9467bd",
+                  "COUNT_DISTINCT(due_to_group)_$_Custom": "#8c564b",
+                  "COUNT_DISTINCT(due_to_group)_$_Standard": "#9467bd",
+                  "COUNT_DISTINCT(efficiency)_$_Custom": "#7f7f7f",
+                  "COUNT_DISTINCT(efficiency)_$_Standard": "#e377c2",
+                  "COUNT_DISTINCT(group_name)_$_Custom": "#d62728",
+                  "COUNT_DISTINCT(group_name)_$_Standard": "#2ca02c",
                   "COUNT_DISTINCT(period)_$_Custom": "#ff7f0e",
                   "COUNT_DISTINCT(period)_$_Standard": "#1f77b4",
                   "undefined": [Function],
@@ -427,12 +432,12 @@ Object {
                 "breakdowns": Array [
                   "COUNT_DISTINCT(period)_$_Standard",
                   "COUNT_DISTINCT(period)_$_Custom",
-                  "COUNT_DISTINCT(efficiency)_$_Standard",
-                  "COUNT_DISTINCT(efficiency)_$_Custom",
                   "COUNT_DISTINCT(group_name)_$_Standard",
                   "COUNT_DISTINCT(group_name)_$_Custom",
                   "COUNT_DISTINCT(due_to_group)_$_Standard",
                   "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -543,12 +548,12 @@ Object {
                 "breakdowns": Array [
                   "COUNT_DISTINCT(period)_$_Standard",
                   "COUNT_DISTINCT(period)_$_Custom",
-                  "COUNT_DISTINCT(efficiency)_$_Standard",
-                  "COUNT_DISTINCT(efficiency)_$_Custom",
                   "COUNT_DISTINCT(group_name)_$_Standard",
                   "COUNT_DISTINCT(group_name)_$_Custom",
                   "COUNT_DISTINCT(due_to_group)_$_Standard",
                   "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -651,20 +656,20 @@ Object {
             yAxisId="left"
           />,
           <mockConstructor
-            dataKey="COUNT_DISTINCT(efficiency)_$_Standard"
-            fill="#2ca02c"
+            connectNulls={true}
+            dataKey="COUNT_DISTINCT(group_name)_$_Standard"
             label={
               Object {
-                "breakdown": "COUNT_DISTINCT(efficiency)_$_Standard",
+                "breakdown": "COUNT_DISTINCT(group_name)_$_Standard",
                 "breakdowns": Array [
                   "COUNT_DISTINCT(period)_$_Standard",
                   "COUNT_DISTINCT(period)_$_Custom",
-                  "COUNT_DISTINCT(efficiency)_$_Standard",
-                  "COUNT_DISTINCT(efficiency)_$_Custom",
                   "COUNT_DISTINCT(group_name)_$_Standard",
                   "COUNT_DISTINCT(group_name)_$_Custom",
                   "COUNT_DISTINCT(due_to_group)_$_Standard",
                   "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -760,26 +765,27 @@ Object {
                 "yColumnSortingType": undefined,
               }
             }
-            onClick={[Function]}
-            opacity={0.6}
-            stackId="COUNT_DISTINCT(efficiency)_$_Standard"
+            opacity={0.8}
+            stroke="#2ca02c"
+            strokeWidth={2}
+            type="linear"
             yAxisId="left"
           />,
           <mockConstructor
-            dataKey="COUNT_DISTINCT(efficiency)_$_Custom"
-            fill="#d62728"
+            connectNulls={true}
+            dataKey="COUNT_DISTINCT(group_name)_$_Custom"
             label={
               Object {
-                "breakdown": "COUNT_DISTINCT(efficiency)_$_Custom",
+                "breakdown": "COUNT_DISTINCT(group_name)_$_Custom",
                 "breakdowns": Array [
                   "COUNT_DISTINCT(period)_$_Standard",
                   "COUNT_DISTINCT(period)_$_Custom",
-                  "COUNT_DISTINCT(efficiency)_$_Standard",
-                  "COUNT_DISTINCT(efficiency)_$_Custom",
                   "COUNT_DISTINCT(group_name)_$_Standard",
                   "COUNT_DISTINCT(group_name)_$_Custom",
                   "COUNT_DISTINCT(due_to_group)_$_Standard",
                   "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -875,26 +881,27 @@ Object {
                 "yColumnSortingType": undefined,
               }
             }
-            onClick={[Function]}
-            opacity={0.6}
-            stackId="COUNT_DISTINCT(efficiency)_$_Custom"
+            opacity={0.8}
+            stroke="#d62728"
+            strokeWidth={2}
+            type="linear"
             yAxisId="left"
           />,
           <mockConstructor
-            connectNulls={true}
-            dataKey="COUNT_DISTINCT(group_name)_$_Standard"
+            dataKey="COUNT_DISTINCT(due_to_group)_$_Standard"
+            fill="#9467bd"
             label={
               Object {
-                "breakdown": "COUNT_DISTINCT(group_name)_$_Standard",
+                "breakdown": "COUNT_DISTINCT(due_to_group)_$_Standard",
                 "breakdowns": Array [
                   "COUNT_DISTINCT(period)_$_Standard",
                   "COUNT_DISTINCT(period)_$_Custom",
-                  "COUNT_DISTINCT(efficiency)_$_Standard",
-                  "COUNT_DISTINCT(efficiency)_$_Custom",
                   "COUNT_DISTINCT(group_name)_$_Standard",
                   "COUNT_DISTINCT(group_name)_$_Custom",
                   "COUNT_DISTINCT(due_to_group)_$_Standard",
                   "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -990,27 +997,25 @@ Object {
                 "yColumnSortingType": undefined,
               }
             }
-            opacity={0.8}
-            stroke="#9467bd"
-            strokeWidth={2}
-            type="linear"
-            yAxisId="left"
+            opacity={1}
+            shape={[Function]}
+            yAxisId="right"
           />,
           <mockConstructor
-            connectNulls={true}
-            dataKey="COUNT_DISTINCT(group_name)_$_Custom"
+            dataKey="COUNT_DISTINCT(due_to_group)_$_Custom"
+            fill="#8c564b"
             label={
               Object {
-                "breakdown": "COUNT_DISTINCT(group_name)_$_Custom",
+                "breakdown": "COUNT_DISTINCT(due_to_group)_$_Custom",
                 "breakdowns": Array [
                   "COUNT_DISTINCT(period)_$_Standard",
                   "COUNT_DISTINCT(period)_$_Custom",
-                  "COUNT_DISTINCT(efficiency)_$_Standard",
-                  "COUNT_DISTINCT(efficiency)_$_Custom",
                   "COUNT_DISTINCT(group_name)_$_Standard",
                   "COUNT_DISTINCT(group_name)_$_Custom",
                   "COUNT_DISTINCT(due_to_group)_$_Standard",
                   "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -1106,27 +1111,25 @@ Object {
                 "yColumnSortingType": undefined,
               }
             }
-            opacity={0.8}
-            stroke="#8c564b"
-            strokeWidth={2}
-            type="linear"
-            yAxisId="left"
+            opacity={1}
+            shape={[Function]}
+            yAxisId="right"
           />,
           <mockConstructor
-            dataKey="COUNT_DISTINCT(due_to_group)_$_Standard"
+            dataKey="COUNT_DISTINCT(efficiency)_$_Standard"
             fill="#e377c2"
             label={
               Object {
-                "breakdown": "COUNT_DISTINCT(due_to_group)_$_Standard",
+                "breakdown": "COUNT_DISTINCT(efficiency)_$_Standard",
                 "breakdowns": Array [
                   "COUNT_DISTINCT(period)_$_Standard",
                   "COUNT_DISTINCT(period)_$_Custom",
-                  "COUNT_DISTINCT(efficiency)_$_Standard",
-                  "COUNT_DISTINCT(efficiency)_$_Custom",
                   "COUNT_DISTINCT(group_name)_$_Standard",
                   "COUNT_DISTINCT(group_name)_$_Custom",
                   "COUNT_DISTINCT(due_to_group)_$_Standard",
                   "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -1222,25 +1225,26 @@ Object {
                 "yColumnSortingType": undefined,
               }
             }
-            opacity={1}
-            shape={[Function]}
-            yAxisId="right"
+            onClick={[Function]}
+            opacity={0.6}
+            stackId="COUNT_DISTINCT(efficiency)_$_Standard"
+            yAxisId="left"
           />,
           <mockConstructor
-            dataKey="COUNT_DISTINCT(due_to_group)_$_Custom"
+            dataKey="COUNT_DISTINCT(efficiency)_$_Custom"
             fill="#7f7f7f"
             label={
               Object {
-                "breakdown": "COUNT_DISTINCT(due_to_group)_$_Custom",
+                "breakdown": "COUNT_DISTINCT(efficiency)_$_Custom",
                 "breakdowns": Array [
                   "COUNT_DISTINCT(period)_$_Standard",
                   "COUNT_DISTINCT(period)_$_Custom",
-                  "COUNT_DISTINCT(efficiency)_$_Standard",
-                  "COUNT_DISTINCT(efficiency)_$_Custom",
                   "COUNT_DISTINCT(group_name)_$_Standard",
                   "COUNT_DISTINCT(group_name)_$_Custom",
                   "COUNT_DISTINCT(due_to_group)_$_Standard",
                   "COUNT_DISTINCT(due_to_group)_$_Custom",
+                  "COUNT_DISTINCT(efficiency)_$_Standard",
+                  "COUNT_DISTINCT(efficiency)_$_Custom",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -1336,9 +1340,10 @@ Object {
                 "yColumnSortingType": undefined,
               }
             }
-            opacity={1}
-            shape={[Function]}
-            yAxisId="right"
+            onClick={[Function]}
+            opacity={0.6}
+            stackId="COUNT_DISTINCT(efficiency)_$_Custom"
+            yAxisId="left"
           />,
         ],
       ],
@@ -1457,39 +1462,39 @@ Object {
         },
         Object {
           "color": "#2ca02c",
-          "id": "COUNT_DISTINCT(efficiency)_$_Standard",
-          "type": "square",
-          "value": "COUNT_DISTINCT(efficiency), Standard",
-        },
-        Object {
-          "color": "#d62728",
-          "id": "COUNT_DISTINCT(efficiency)_$_Custom",
-          "type": "square",
-          "value": "COUNT_DISTINCT(efficiency), Custom",
-        },
-        Object {
-          "color": "#9467bd",
           "id": "COUNT_DISTINCT(group_name)_$_Standard",
           "type": "square",
           "value": "COUNT_DISTINCT(group_name), Standard",
         },
         Object {
-          "color": "#8c564b",
+          "color": "#d62728",
           "id": "COUNT_DISTINCT(group_name)_$_Custom",
           "type": "square",
           "value": "COUNT_DISTINCT(group_name), Custom",
         },
         Object {
-          "color": "#e377c2",
+          "color": "#9467bd",
           "id": "COUNT_DISTINCT(due_to_group)_$_Standard",
           "type": "square",
           "value": "COUNT_DISTINCT(due_to_group), Standard",
         },
         Object {
-          "color": "#7f7f7f",
+          "color": "#8c564b",
           "id": "COUNT_DISTINCT(due_to_group)_$_Custom",
           "type": "square",
           "value": "COUNT_DISTINCT(due_to_group), Custom",
+        },
+        Object {
+          "color": "#e377c2",
+          "id": "COUNT_DISTINCT(efficiency)_$_Standard",
+          "type": "square",
+          "value": "COUNT_DISTINCT(efficiency), Standard",
+        },
+        Object {
+          "color": "#7f7f7f",
+          "id": "COUNT_DISTINCT(efficiency)_$_Custom",
+          "type": "square",
+          "value": "COUNT_DISTINCT(efficiency), Custom",
         },
       ],
       "verticalAlign": "bottom",
@@ -1515,12 +1520,134 @@ Object {
         "breakdowns": Array [
           "COUNT_DISTINCT(period)_$_Standard",
           "COUNT_DISTINCT(period)_$_Custom",
-          "COUNT_DISTINCT(efficiency)_$_Standard",
-          "COUNT_DISTINCT(efficiency)_$_Custom",
           "COUNT_DISTINCT(group_name)_$_Standard",
           "COUNT_DISTINCT(group_name)_$_Custom",
           "COUNT_DISTINCT(due_to_group)_$_Standard",
           "COUNT_DISTINCT(due_to_group)_$_Custom",
+          "COUNT_DISTINCT(efficiency)_$_Standard",
+          "COUNT_DISTINCT(efficiency)_$_Custom",
+        ],
+        "content": [Function],
+        "currentData": Array [
+          Object {
+            "COUNT_DISTINCT(due_to_group)": 12,
+            "COUNT_DISTINCT(due_to_group)_$_Custom": 12,
+            "COUNT_DISTINCT(due_to_group)_$_Standard": 12,
+            "COUNT_DISTINCT(efficiency)": 3,
+            "COUNT_DISTINCT(efficiency)_$_Custom": 3,
+            "COUNT_DISTINCT(efficiency)_$_Standard": 3,
+            "COUNT_DISTINCT(group_name)": 31,
+            "COUNT_DISTINCT(group_name)_$_Custom": 31,
+            "COUNT_DISTINCT(group_name)_$_Standard": 31,
+            "COUNT_DISTINCT(period)": 5,
+            "COUNT_DISTINCT(period)_$_Custom": 5,
+            "COUNT_DISTINCT(period)_$_Standard": 5,
+            "group_type": "Variable",
+            "period_type": "Custom",
+            "rechartsDataKey": "Variable",
+            "rechartsDataKeyUI": "Variable",
+            "rechartsTotal": undefined,
+          },
+          Object {
+            "COUNT_DISTINCT(due_to_group)": 6,
+            "COUNT_DISTINCT(due_to_group)_$_Custom": 7,
+            "COUNT_DISTINCT(due_to_group)_$_Standard": 6,
+            "COUNT_DISTINCT(efficiency)": 2,
+            "COUNT_DISTINCT(efficiency)_$_Custom": 2,
+            "COUNT_DISTINCT(efficiency)_$_Standard": 2,
+            "COUNT_DISTINCT(group_name)": 6,
+            "COUNT_DISTINCT(group_name)_$_Custom": 7,
+            "COUNT_DISTINCT(group_name)_$_Standard": 6,
+            "COUNT_DISTINCT(period)": 3,
+            "COUNT_DISTINCT(period)_$_Custom": 5,
+            "COUNT_DISTINCT(period)_$_Standard": 3,
+            "group_type": "Direct Due To Group",
+            "period_type": "Standard",
+            "rechartsDataKey": "Direct Due To Group",
+            "rechartsDataKeyUI": "Direct Due To Group",
+            "rechartsTotal": undefined,
+          },
+          Object {
+            "COUNT_DISTINCT(due_to_group)": 6,
+            "COUNT_DISTINCT(due_to_group)_$_Custom": 7,
+            "COUNT_DISTINCT(due_to_group)_$_Standard": 6,
+            "COUNT_DISTINCT(efficiency)": 2,
+            "COUNT_DISTINCT(efficiency)_$_Custom": 2,
+            "COUNT_DISTINCT(efficiency)_$_Standard": 2,
+            "COUNT_DISTINCT(group_name)": 6,
+            "COUNT_DISTINCT(group_name)_$_Custom": 7,
+            "COUNT_DISTINCT(group_name)_$_Standard": 6,
+            "COUNT_DISTINCT(period)": 3,
+            "COUNT_DISTINCT(period)_$_Custom": 5,
+            "COUNT_DISTINCT(period)_$_Standard": 3,
+            "group_type": "Due To Group",
+            "period_type": "Standard",
+            "rechartsDataKey": "Due To Group",
+            "rechartsDataKeyUI": "Due To Group",
+            "rechartsTotal": undefined,
+          },
+          Object {
+            "COUNT_DISTINCT(due_to_group)": 0,
+            "COUNT_DISTINCT(due_to_group)_$_Custom": 0,
+            "COUNT_DISTINCT(due_to_group)_$_Standard": 0,
+            "COUNT_DISTINCT(efficiency)": 6,
+            "COUNT_DISTINCT(efficiency)_$_Custom": 6,
+            "COUNT_DISTINCT(efficiency)_$_Standard": 6,
+            "COUNT_DISTINCT(group_name)": 3,
+            "COUNT_DISTINCT(group_name)_$_Custom": 3,
+            "COUNT_DISTINCT(group_name)_$_Standard": 3,
+            "COUNT_DISTINCT(period)": 5,
+            "COUNT_DISTINCT(period)_$_Custom": 5,
+            "COUNT_DISTINCT(period)_$_Standard": 5,
+            "group_type": "Summary Group",
+            "period_type": "Standard",
+            "rechartsDataKey": "Summary Group",
+            "rechartsDataKeyUI": "Summary Group",
+            "rechartsTotal": undefined,
+          },
+        ],
+        "excludedMetricsForStackedBars": Array [
+          "COUNT_DISTINCT(period)",
+          "COUNT_DISTINCT(efficiency)",
+          "COUNT_DISTINCT(group_name)",
+          "COUNT_DISTINCT(due_to_group)",
+        ],
+        "fill": "black",
+        "formatter": [Function],
+        "includedMetricsForStackedBars": Array [],
+        "isMainChartStacked": true,
+        "keyIndex": 3,
+        "position": "center",
+        "yColumnSortingType": undefined,
+      },
+      "opacity": 0.8,
+      "stroke": "#d62728",
+      "strokeWidth": 2,
+      "type": "linear",
+      "yAxisId": "left",
+    },
+    Object {},
+  ],
+  "ScatterProps": Array [
+    Object {
+      "children": Array [
+        undefined,
+        false,
+      ],
+      "dataKey": "COUNT_DISTINCT(due_to_group)_$_Custom",
+      "fill": "#8c564b",
+      "isAnimationActive": undefined,
+      "label": Object {
+        "breakdown": "COUNT_DISTINCT(due_to_group)_$_Custom",
+        "breakdowns": Array [
+          "COUNT_DISTINCT(period)_$_Standard",
+          "COUNT_DISTINCT(period)_$_Custom",
+          "COUNT_DISTINCT(group_name)_$_Standard",
+          "COUNT_DISTINCT(group_name)_$_Custom",
+          "COUNT_DISTINCT(due_to_group)_$_Standard",
+          "COUNT_DISTINCT(due_to_group)_$_Custom",
+          "COUNT_DISTINCT(efficiency)_$_Standard",
+          "COUNT_DISTINCT(efficiency)_$_Custom",
         ],
         "content": [Function],
         "currentData": Array [
@@ -1615,128 +1742,6 @@ Object {
         "position": "center",
         "yColumnSortingType": undefined,
       },
-      "opacity": 0.8,
-      "stroke": "#8c564b",
-      "strokeWidth": 2,
-      "type": "linear",
-      "yAxisId": "left",
-    },
-    Object {},
-  ],
-  "ScatterProps": Array [
-    Object {
-      "children": Array [
-        undefined,
-        false,
-      ],
-      "dataKey": "COUNT_DISTINCT(due_to_group)_$_Custom",
-      "fill": "#7f7f7f",
-      "isAnimationActive": undefined,
-      "label": Object {
-        "breakdown": "COUNT_DISTINCT(due_to_group)_$_Custom",
-        "breakdowns": Array [
-          "COUNT_DISTINCT(period)_$_Standard",
-          "COUNT_DISTINCT(period)_$_Custom",
-          "COUNT_DISTINCT(efficiency)_$_Standard",
-          "COUNT_DISTINCT(efficiency)_$_Custom",
-          "COUNT_DISTINCT(group_name)_$_Standard",
-          "COUNT_DISTINCT(group_name)_$_Custom",
-          "COUNT_DISTINCT(due_to_group)_$_Standard",
-          "COUNT_DISTINCT(due_to_group)_$_Custom",
-        ],
-        "content": [Function],
-        "currentData": Array [
-          Object {
-            "COUNT_DISTINCT(due_to_group)": 12,
-            "COUNT_DISTINCT(due_to_group)_$_Custom": 12,
-            "COUNT_DISTINCT(due_to_group)_$_Standard": 12,
-            "COUNT_DISTINCT(efficiency)": 3,
-            "COUNT_DISTINCT(efficiency)_$_Custom": 3,
-            "COUNT_DISTINCT(efficiency)_$_Standard": 3,
-            "COUNT_DISTINCT(group_name)": 31,
-            "COUNT_DISTINCT(group_name)_$_Custom": 31,
-            "COUNT_DISTINCT(group_name)_$_Standard": 31,
-            "COUNT_DISTINCT(period)": 5,
-            "COUNT_DISTINCT(period)_$_Custom": 5,
-            "COUNT_DISTINCT(period)_$_Standard": 5,
-            "group_type": "Variable",
-            "period_type": "Custom",
-            "rechartsDataKey": "Variable",
-            "rechartsDataKeyUI": "Variable",
-            "rechartsTotal": undefined,
-          },
-          Object {
-            "COUNT_DISTINCT(due_to_group)": 6,
-            "COUNT_DISTINCT(due_to_group)_$_Custom": 7,
-            "COUNT_DISTINCT(due_to_group)_$_Standard": 6,
-            "COUNT_DISTINCT(efficiency)": 2,
-            "COUNT_DISTINCT(efficiency)_$_Custom": 2,
-            "COUNT_DISTINCT(efficiency)_$_Standard": 2,
-            "COUNT_DISTINCT(group_name)": 6,
-            "COUNT_DISTINCT(group_name)_$_Custom": 7,
-            "COUNT_DISTINCT(group_name)_$_Standard": 6,
-            "COUNT_DISTINCT(period)": 3,
-            "COUNT_DISTINCT(period)_$_Custom": 5,
-            "COUNT_DISTINCT(period)_$_Standard": 3,
-            "group_type": "Direct Due To Group",
-            "period_type": "Standard",
-            "rechartsDataKey": "Direct Due To Group",
-            "rechartsDataKeyUI": "Direct Due To Group",
-            "rechartsTotal": undefined,
-          },
-          Object {
-            "COUNT_DISTINCT(due_to_group)": 6,
-            "COUNT_DISTINCT(due_to_group)_$_Custom": 7,
-            "COUNT_DISTINCT(due_to_group)_$_Standard": 6,
-            "COUNT_DISTINCT(efficiency)": 2,
-            "COUNT_DISTINCT(efficiency)_$_Custom": 2,
-            "COUNT_DISTINCT(efficiency)_$_Standard": 2,
-            "COUNT_DISTINCT(group_name)": 6,
-            "COUNT_DISTINCT(group_name)_$_Custom": 7,
-            "COUNT_DISTINCT(group_name)_$_Standard": 6,
-            "COUNT_DISTINCT(period)": 3,
-            "COUNT_DISTINCT(period)_$_Custom": 5,
-            "COUNT_DISTINCT(period)_$_Standard": 3,
-            "group_type": "Due To Group",
-            "period_type": "Standard",
-            "rechartsDataKey": "Due To Group",
-            "rechartsDataKeyUI": "Due To Group",
-            "rechartsTotal": undefined,
-          },
-          Object {
-            "COUNT_DISTINCT(due_to_group)": 0,
-            "COUNT_DISTINCT(due_to_group)_$_Custom": 0,
-            "COUNT_DISTINCT(due_to_group)_$_Standard": 0,
-            "COUNT_DISTINCT(efficiency)": 6,
-            "COUNT_DISTINCT(efficiency)_$_Custom": 6,
-            "COUNT_DISTINCT(efficiency)_$_Standard": 6,
-            "COUNT_DISTINCT(group_name)": 3,
-            "COUNT_DISTINCT(group_name)_$_Custom": 3,
-            "COUNT_DISTINCT(group_name)_$_Standard": 3,
-            "COUNT_DISTINCT(period)": 5,
-            "COUNT_DISTINCT(period)_$_Custom": 5,
-            "COUNT_DISTINCT(period)_$_Standard": 5,
-            "group_type": "Summary Group",
-            "period_type": "Standard",
-            "rechartsDataKey": "Summary Group",
-            "rechartsDataKeyUI": "Summary Group",
-            "rechartsTotal": undefined,
-          },
-        ],
-        "excludedMetricsForStackedBars": Array [
-          "COUNT_DISTINCT(period)",
-          "COUNT_DISTINCT(efficiency)",
-          "COUNT_DISTINCT(group_name)",
-          "COUNT_DISTINCT(due_to_group)",
-        ],
-        "fill": "black",
-        "formatter": [Function],
-        "includedMetricsForStackedBars": Array [],
-        "isMainChartStacked": true,
-        "keyIndex": 7,
-        "position": "center",
-        "yColumnSortingType": undefined,
-      },
       "opacity": 1,
       "shape": [Function],
       "yAxisId": "right",
@@ -1750,25 +1755,30 @@ Object {
           Array [
             "COUNT_DISTINCT(period)_$_Standard",
             "COUNT_DISTINCT(period)_$_Custom",
-            "COUNT_DISTINCT(efficiency)_$_Standard",
-            "COUNT_DISTINCT(efficiency)_$_Custom",
             "COUNT_DISTINCT(group_name)_$_Standard",
             "COUNT_DISTINCT(group_name)_$_Custom",
             "COUNT_DISTINCT(due_to_group)_$_Standard",
             "COUNT_DISTINCT(due_to_group)_$_Custom",
+            "COUNT_DISTINCT(efficiency)_$_Standard",
+            "COUNT_DISTINCT(efficiency)_$_Custom",
           ]
         }
         hasExcludedBars={true}
         hasTimeSeries={false}
-        numbersFormat="SMART_NUMBER"
+        numbersFormat={
+          Object {
+            "digits": undefined,
+            "type": "SMART_NUMBER",
+          }
+        }
         resultColors={
           Object {
-            "COUNT_DISTINCT(due_to_group)_$_Custom": "#7f7f7f",
-            "COUNT_DISTINCT(due_to_group)_$_Standard": "#e377c2",
-            "COUNT_DISTINCT(efficiency)_$_Custom": "#d62728",
-            "COUNT_DISTINCT(efficiency)_$_Standard": "#2ca02c",
-            "COUNT_DISTINCT(group_name)_$_Custom": "#8c564b",
-            "COUNT_DISTINCT(group_name)_$_Standard": "#9467bd",
+            "COUNT_DISTINCT(due_to_group)_$_Custom": "#8c564b",
+            "COUNT_DISTINCT(due_to_group)_$_Standard": "#9467bd",
+            "COUNT_DISTINCT(efficiency)_$_Custom": "#7f7f7f",
+            "COUNT_DISTINCT(efficiency)_$_Standard": "#e377c2",
+            "COUNT_DISTINCT(group_name)_$_Custom": "#d62728",
+            "COUNT_DISTINCT(group_name)_$_Standard": "#2ca02c",
             "COUNT_DISTINCT(period)_$_Custom": "#ff7f0e",
             "COUNT_DISTINCT(period)_$_Standard": "#1f77b4",
             "undefined": [Function],
@@ -1831,14 +1841,14 @@ Object {
         undefined,
         false,
       ],
-      "dataKey": "COUNT_DISTINCT(period)",
+      "dataKey": "COUNT_DISTINCT(group_name)",
       "fill": "#ff7f0e",
       "isAnimationActive": undefined,
       "label": Object {
-        "breakdown": "COUNT_DISTINCT(period)",
+        "breakdown": "COUNT_DISTINCT(group_name)",
         "breakdowns": Array [
-          "COUNT_DISTINCT(group_name)",
           "COUNT_DISTINCT(period)",
+          "COUNT_DISTINCT(group_name)",
         ],
         "content": [Function],
         "currentData": Array [
@@ -1883,7 +1893,10 @@ Object {
             "rechartsTotal": undefined,
           },
         ],
-        "excludedMetricsForStackedBars": Array [],
+        "excludedMetricsForStackedBars": Array [
+          "COUNT_DISTINCT(group_name)",
+          "COUNT_DISTINCT(period)",
+        ],
         "fill": "white",
         "formatter": [Function],
         "includedMetricsForStackedBars": Array [],
@@ -1894,8 +1907,8 @@ Object {
       },
       "onClick": [Function],
       "opacity": 1,
-      "stackId": "COUNT_DISTINCT(period)",
-      "yAxisId": "right",
+      "stackId": "COUNT_DISTINCT(group_name)",
+      "yAxisId": "left",
     },
     Object {},
   ],
@@ -1923,15 +1936,15 @@ Object {
             Array [
               Object {
                 "color": "#1f77b4",
-                "id": "COUNT_DISTINCT(group_name)",
-                "type": "square",
-                "value": "COUNT_DISTINCT(group_name)",
-              },
-              Object {
-                "color": "#ff7f0e",
                 "id": "COUNT_DISTINCT(period)",
                 "type": "square",
                 "value": "COUNT_DISTINCT(period)",
+              },
+              Object {
+                "color": "#ff7f0e",
+                "id": "COUNT_DISTINCT(group_name)",
+                "type": "square",
+                "value": "COUNT_DISTINCT(group_name)",
               },
             ]
           }
@@ -2001,17 +2014,22 @@ Object {
             <ComposedChartTooltip
               breakdowns={
                 Array [
-                  "COUNT_DISTINCT(group_name)",
                   "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
                 ]
               }
-              hasExcludedBars={false}
+              hasExcludedBars={true}
               hasTimeSeries={false}
-              numbersFormat="SMART_NUMBER"
+              numbersFormat={
+                Object {
+                  "digits": undefined,
+                  "type": "SMART_NUMBER",
+                }
+              }
               resultColors={
                 Object {
-                  "COUNT_DISTINCT(group_name)": "#1f77b4",
-                  "COUNT_DISTINCT(period)": "#ff7f0e",
+                  "COUNT_DISTINCT(group_name)": "#ff7f0e",
+                  "COUNT_DISTINCT(period)": "#1f77b4",
                   "undefined": [Function],
                 }
               }
@@ -2026,14 +2044,14 @@ Object {
         />,
         Array [
           <mockConstructor
-            dataKey="COUNT_DISTINCT(group_name)"
+            dataKey="COUNT_DISTINCT(period)"
             fill="#1f77b4"
             label={
               Object {
-                "breakdown": "COUNT_DISTINCT(group_name)",
+                "breakdown": "COUNT_DISTINCT(period)",
                 "breakdowns": Array [
-                  "COUNT_DISTINCT(group_name)",
                   "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -2078,7 +2096,10 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
-                "excludedMetricsForStackedBars": Array [],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(period)",
+                ],
                 "fill": "white",
                 "formatter": [Function],
                 "includedMetricsForStackedBars": Array [],
@@ -2090,18 +2111,18 @@ Object {
             }
             onClick={[Function]}
             opacity={1}
-            stackId="COUNT_DISTINCT(group_name)"
-            yAxisId="left"
+            stackId="COUNT_DISTINCT(period)"
+            yAxisId="right"
           />,
           <mockConstructor
-            dataKey="COUNT_DISTINCT(period)"
+            dataKey="COUNT_DISTINCT(group_name)"
             fill="#ff7f0e"
             label={
               Object {
-                "breakdown": "COUNT_DISTINCT(period)",
+                "breakdown": "COUNT_DISTINCT(group_name)",
                 "breakdowns": Array [
-                  "COUNT_DISTINCT(group_name)",
                   "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -2146,7 +2167,10 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
-                "excludedMetricsForStackedBars": Array [],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(period)",
+                ],
                 "fill": "white",
                 "formatter": [Function],
                 "includedMetricsForStackedBars": Array [],
@@ -2158,8 +2182,8 @@ Object {
             }
             onClick={[Function]}
             opacity={1}
-            stackId="COUNT_DISTINCT(period)"
-            yAxisId="right"
+            stackId="COUNT_DISTINCT(group_name)"
+            yAxisId="left"
           />,
         ],
       ],
@@ -2233,15 +2257,15 @@ Object {
       "payload": Array [
         Object {
           "color": "#1f77b4",
-          "id": "COUNT_DISTINCT(group_name)",
-          "type": "square",
-          "value": "COUNT_DISTINCT(group_name)",
-        },
-        Object {
-          "color": "#ff7f0e",
           "id": "COUNT_DISTINCT(period)",
           "type": "square",
           "value": "COUNT_DISTINCT(period)",
+        },
+        Object {
+          "color": "#ff7f0e",
+          "id": "COUNT_DISTINCT(group_name)",
+          "type": "square",
+          "value": "COUNT_DISTINCT(group_name)",
         },
       ],
       "verticalAlign": "middle",
@@ -2256,17 +2280,22 @@ Object {
       "content": <ComposedChartTooltip
         breakdowns={
           Array [
-            "COUNT_DISTINCT(group_name)",
             "COUNT_DISTINCT(period)",
+            "COUNT_DISTINCT(group_name)",
           ]
         }
-        hasExcludedBars={false}
+        hasExcludedBars={true}
         hasTimeSeries={false}
-        numbersFormat="SMART_NUMBER"
+        numbersFormat={
+          Object {
+            "digits": undefined,
+            "type": "SMART_NUMBER",
+          }
+        }
         resultColors={
           Object {
-            "COUNT_DISTINCT(group_name)": "#1f77b4",
-            "COUNT_DISTINCT(period)": "#ff7f0e",
+            "COUNT_DISTINCT(group_name)": "#ff7f0e",
+            "COUNT_DISTINCT(period)": "#1f77b4",
             "undefined": [Function],
           }
         }
@@ -2338,15 +2367,15 @@ Object {
             Array [
               Object {
                 "color": "#1f77b4",
-                "id": "COUNT_DISTINCT(group_name)",
-                "type": "square",
-                "value": "COUNT_DISTINCT(group_name)",
-              },
-              Object {
-                "color": "#ff7f0e",
                 "id": "COUNT_DISTINCT(period)",
                 "type": "square",
                 "value": "COUNT_DISTINCT(period)",
+              },
+              Object {
+                "color": "#ff7f0e",
+                "id": "COUNT_DISTINCT(group_name)",
+                "type": "square",
+                "value": "COUNT_DISTINCT(group_name)",
               },
             ]
           }
@@ -2401,17 +2430,22 @@ Object {
             <ComposedChartTooltip
               breakdowns={
                 Array [
-                  "COUNT_DISTINCT(group_name)",
                   "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
                 ]
               }
-              hasExcludedBars={false}
+              hasExcludedBars={true}
               hasTimeSeries={false}
-              numbersFormat="SMART_NUMBER"
+              numbersFormat={
+                Object {
+                  "digits": undefined,
+                  "type": "SMART_NUMBER",
+                }
+              }
               resultColors={
                 Object {
-                  "COUNT_DISTINCT(group_name)": "#1f77b4",
-                  "COUNT_DISTINCT(period)": "#ff7f0e",
+                  "COUNT_DISTINCT(group_name)": "#ff7f0e",
+                  "COUNT_DISTINCT(period)": "#1f77b4",
                   "undefined": [Function],
                 }
               }
@@ -2426,14 +2460,14 @@ Object {
         />,
         Array [
           <mockConstructor
-            dataKey="COUNT_DISTINCT(group_name)"
+            dataKey="COUNT_DISTINCT(period)"
             fill="#1f77b4"
             label={
               Object {
-                "breakdown": "COUNT_DISTINCT(group_name)",
+                "breakdown": "COUNT_DISTINCT(period)",
                 "breakdowns": Array [
-                  "COUNT_DISTINCT(group_name)",
                   "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -2478,7 +2512,10 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
-                "excludedMetricsForStackedBars": Array [],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(period)",
+                ],
                 "fill": "black",
                 "formatter": [Function],
                 "includedMetricsForStackedBars": Array [],
@@ -2494,14 +2531,14 @@ Object {
             yAxisId="left"
           />,
           <mockConstructor
-            dataKey="COUNT_DISTINCT(period)"
+            dataKey="COUNT_DISTINCT(group_name)"
             fill="#ff7f0e"
             label={
               Object {
-                "breakdown": "COUNT_DISTINCT(period)",
+                "breakdown": "COUNT_DISTINCT(group_name)",
                 "breakdowns": Array [
-                  "COUNT_DISTINCT(group_name)",
                   "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -2546,7 +2583,10 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
-                "excludedMetricsForStackedBars": Array [],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(period)",
+                ],
                 "fill": "black",
                 "formatter": [Function],
                 "includedMetricsForStackedBars": Array [],
@@ -2630,15 +2670,15 @@ Object {
       "payload": Array [
         Object {
           "color": "#1f77b4",
-          "id": "COUNT_DISTINCT(group_name)",
-          "type": "square",
-          "value": "COUNT_DISTINCT(group_name)",
-        },
-        Object {
-          "color": "#ff7f0e",
           "id": "COUNT_DISTINCT(period)",
           "type": "square",
           "value": "COUNT_DISTINCT(period)",
+        },
+        Object {
+          "color": "#ff7f0e",
+          "id": "COUNT_DISTINCT(group_name)",
+          "type": "square",
+          "value": "COUNT_DISTINCT(group_name)",
         },
       ],
       "verticalAlign": "middle",
@@ -2654,17 +2694,22 @@ Object {
       "content": <ComposedChartTooltip
         breakdowns={
           Array [
-            "COUNT_DISTINCT(group_name)",
             "COUNT_DISTINCT(period)",
+            "COUNT_DISTINCT(group_name)",
           ]
         }
-        hasExcludedBars={false}
+        hasExcludedBars={true}
         hasTimeSeries={false}
-        numbersFormat="SMART_NUMBER"
+        numbersFormat={
+          Object {
+            "digits": undefined,
+            "type": "SMART_NUMBER",
+          }
+        }
         resultColors={
           Object {
-            "COUNT_DISTINCT(group_name)": "#1f77b4",
-            "COUNT_DISTINCT(period)": "#ff7f0e",
+            "COUNT_DISTINCT(group_name)": "#ff7f0e",
+            "COUNT_DISTINCT(period)": "#1f77b4",
             "undefined": [Function],
           }
         }
@@ -2724,14 +2769,14 @@ Object {
         undefined,
         false,
       ],
-      "dataKey": "COUNT_DISTINCT(period)",
+      "dataKey": "COUNT_DISTINCT(group_name)",
       "fill": "#ff7f0e",
       "isAnimationActive": undefined,
       "label": Object {
-        "breakdown": "COUNT_DISTINCT(period)",
+        "breakdown": "COUNT_DISTINCT(group_name)",
         "breakdowns": Array [
-          "COUNT_DISTINCT(group_name)",
           "COUNT_DISTINCT(period)",
+          "COUNT_DISTINCT(group_name)",
         ],
         "content": [Function],
         "currentData": Array [
@@ -2768,7 +2813,10 @@ Object {
             "rechartsTotal": undefined,
           },
         ],
-        "excludedMetricsForStackedBars": Array [],
+        "excludedMetricsForStackedBars": Array [
+          "COUNT_DISTINCT(group_name)",
+          "COUNT_DISTINCT(period)",
+        ],
         "fill": "white",
         "formatter": [Function],
         "includedMetricsForStackedBars": Array [],
@@ -2779,7 +2827,7 @@ Object {
       },
       "onClick": [Function],
       "opacity": 1,
-      "stackId": "COUNT_DISTINCT(period)",
+      "stackId": "COUNT_DISTINCT(group_name)",
       "yAxisId": "left",
     },
     Object {},
@@ -2803,15 +2851,15 @@ Object {
             Array [
               Object {
                 "color": "#1f77b4",
-                "id": "COUNT_DISTINCT(group_name)",
-                "type": "square",
-                "value": "COUNT_DISTINCT(group_name)",
-              },
-              Object {
-                "color": "#ff7f0e",
                 "id": "COUNT_DISTINCT(period)",
                 "type": "square",
                 "value": "COUNT_DISTINCT(period)",
+              },
+              Object {
+                "color": "#ff7f0e",
+                "id": "COUNT_DISTINCT(group_name)",
+                "type": "square",
+                "value": "COUNT_DISTINCT(group_name)",
               },
             ]
           }
@@ -2866,17 +2914,22 @@ Object {
             <ComposedChartTooltip
               breakdowns={
                 Array [
-                  "COUNT_DISTINCT(group_name)",
                   "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
                 ]
               }
-              hasExcludedBars={false}
+              hasExcludedBars={true}
               hasTimeSeries={false}
-              numbersFormat="SMART_NUMBER"
+              numbersFormat={
+                Object {
+                  "digits": undefined,
+                  "type": "SMART_NUMBER",
+                }
+              }
               resultColors={
                 Object {
-                  "COUNT_DISTINCT(group_name)": "#1f77b4",
-                  "COUNT_DISTINCT(period)": "#ff7f0e",
+                  "COUNT_DISTINCT(group_name)": "#ff7f0e",
+                  "COUNT_DISTINCT(period)": "#1f77b4",
                   "undefined": [Function],
                 }
               }
@@ -2891,14 +2944,14 @@ Object {
         />,
         Array [
           <mockConstructor
-            dataKey="COUNT_DISTINCT(group_name)"
+            dataKey="COUNT_DISTINCT(period)"
             fill="#1f77b4"
             label={
               Object {
-                "breakdown": "COUNT_DISTINCT(group_name)",
+                "breakdown": "COUNT_DISTINCT(period)",
                 "breakdowns": Array [
-                  "COUNT_DISTINCT(group_name)",
                   "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -2935,7 +2988,10 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
-                "excludedMetricsForStackedBars": Array [],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(period)",
+                ],
                 "fill": "white",
                 "formatter": [Function],
                 "includedMetricsForStackedBars": Array [],
@@ -2947,18 +3003,18 @@ Object {
             }
             onClick={[Function]}
             opacity={1}
-            stackId="COUNT_DISTINCT(group_name)"
+            stackId="COUNT_DISTINCT(period)"
             yAxisId="left"
           />,
           <mockConstructor
-            dataKey="COUNT_DISTINCT(period)"
+            dataKey="COUNT_DISTINCT(group_name)"
             fill="#ff7f0e"
             label={
               Object {
-                "breakdown": "COUNT_DISTINCT(period)",
+                "breakdown": "COUNT_DISTINCT(group_name)",
                 "breakdowns": Array [
-                  "COUNT_DISTINCT(group_name)",
                   "COUNT_DISTINCT(period)",
+                  "COUNT_DISTINCT(group_name)",
                 ],
                 "content": [Function],
                 "currentData": Array [
@@ -2995,7 +3051,10 @@ Object {
                     "rechartsTotal": undefined,
                   },
                 ],
-                "excludedMetricsForStackedBars": Array [],
+                "excludedMetricsForStackedBars": Array [
+                  "COUNT_DISTINCT(group_name)",
+                  "COUNT_DISTINCT(period)",
+                ],
                 "fill": "white",
                 "formatter": [Function],
                 "includedMetricsForStackedBars": Array [],
@@ -3007,7 +3066,7 @@ Object {
             }
             onClick={[Function]}
             opacity={1}
-            stackId="COUNT_DISTINCT(period)"
+            stackId="COUNT_DISTINCT(group_name)"
             yAxisId="left"
           />,
         ],
@@ -3071,15 +3130,15 @@ Object {
       "payload": Array [
         Object {
           "color": "#1f77b4",
-          "id": "COUNT_DISTINCT(group_name)",
-          "type": "square",
-          "value": "COUNT_DISTINCT(group_name)",
-        },
-        Object {
-          "color": "#ff7f0e",
           "id": "COUNT_DISTINCT(period)",
           "type": "square",
           "value": "COUNT_DISTINCT(period)",
+        },
+        Object {
+          "color": "#ff7f0e",
+          "id": "COUNT_DISTINCT(group_name)",
+          "type": "square",
+          "value": "COUNT_DISTINCT(group_name)",
         },
       ],
       "verticalAlign": "top",
@@ -3096,17 +3155,22 @@ Object {
       "content": <ComposedChartTooltip
         breakdowns={
           Array [
-            "COUNT_DISTINCT(group_name)",
             "COUNT_DISTINCT(period)",
+            "COUNT_DISTINCT(group_name)",
           ]
         }
-        hasExcludedBars={false}
+        hasExcludedBars={true}
         hasTimeSeries={false}
-        numbersFormat="SMART_NUMBER"
+        numbersFormat={
+          Object {
+            "digits": undefined,
+            "type": "SMART_NUMBER",
+          }
+        }
         resultColors={
           Object {
-            "COUNT_DISTINCT(group_name)": "#1f77b4",
-            "COUNT_DISTINCT(period)": "#ff7f0e",
+            "COUNT_DISTINCT(group_name)": "#ff7f0e",
+            "COUNT_DISTINCT(period)": "#1f77b4",
             "undefined": [Function],
           }
         }

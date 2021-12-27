@@ -18,8 +18,18 @@
  */
 import { CategoricalColorNamespace, JsonObject } from '@superset-ui/core';
 import { BREAKDOWN_SEPARATOR, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
-import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, ColorSchemes } from './types';
-import { YColumnsMeta } from './ComposedChart';
+import { BarChartValue, BubbleChart, CHART_SUB_TYPES, CHART_TYPES, ColorSchemes, YColumnsMeta } from './types';
+
+export const getMetricByChartType = (
+  lookup: keyof typeof CHART_TYPES,
+  yColumns: string[],
+  yColumnsMeta?: YColumnsMeta,
+  chartType?: keyof typeof CHART_TYPES,
+) =>
+  yColumns.filter(
+    yColumn =>
+      yColumnsMeta?.[yColumn]?.chartType === lookup || (chartType === lookup && !yColumnsMeta?.[yColumn]?.chartType),
+  );
 
 export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[] {
   const result: ResultData[] = [];
@@ -217,8 +227,72 @@ export const getResultColor = (breakdown = '', colorSchemes: ColorSchemes, resul
   // eslint-disable-next-line no-underscore-dangle
   const calcColorScheme = resultColorScheme ?? colorSchemes.__DEFAULT_COLOR_SCHEME__;
   const colorFn = resultColors[`${calcColorScheme}`] ?? CategoricalColorNamespace.getScale(calcColorScheme);
+
   return {
     [`${calcColorScheme}`]: colorFn,
     [breakdown]: colorFn(`${breakdown}`),
   };
 };
+
+export const processNumbers = (
+  resultData: ResultData[],
+  breakdowns: string[],
+  numbersFormat?: string,
+  numbersFormatDigits?: number,
+) => {
+  if (numbersFormat === 'SMART_NUMBER' && !Number.isNaN(Number(numbersFormatDigits))) {
+    // eslint-disable-next-line no-param-reassign
+    return resultData.map(item => ({
+      ...item,
+      ...breakdowns.reduce((prevBreakdown, nextBreakdown) => {
+        if (item[nextBreakdown] === undefined) {
+          return prevBreakdown;
+        }
+        return {
+          ...prevBreakdown,
+          [nextBreakdown]: Number(
+            Number(item[nextBreakdown])
+              .toLocaleString('en-US', {
+                minimumFractionDigits: numbersFormatDigits,
+                maximumFractionDigits: numbersFormatDigits,
+              })
+              .replace(/,/g, ''),
+          ),
+        };
+      }, {}),
+    }));
+  }
+  return resultData;
+};
+
+export const addBreakdownYColumnsAndGetBreakdownValues = (
+  resultData: ResultData[],
+  yColumns: string[],
+  breakdowns: string[],
+  chartType: keyof typeof CHART_TYPES,
+  bubbleChart?: BubbleChart,
+) =>
+  resultData.map(item => {
+    yColumns.forEach(metric => {
+      const breakdown = (yColumns || []).reduce(
+        (acc, column) => (item[column] ? `${acc}${BREAKDOWN_SEPARATOR}${item[column]}` : acc),
+        '',
+      );
+      // Build metric name by breakdown
+      const resultBreakdown = `${metric}${breakdown}`;
+      if (chartType === CHART_TYPES.BUBBLE_CHART) {
+        // eslint-disable-next-line no-param-reassign
+        item[`${resultBreakdown}${Z_SEPARATOR}`] = bubbleChart && item[bubbleChart?.zDimension];
+      }
+      // mutation to save unnecessary loops
+      // eslint-disable-next-line no-param-reassign
+      item[resultBreakdown] = item[metric];
+      // build breakdown values array
+      if (!breakdowns.includes(resultBreakdown)) {
+        breakdowns.push(resultBreakdown);
+      }
+    });
+    return {
+      ...item,
+    };
+  });
