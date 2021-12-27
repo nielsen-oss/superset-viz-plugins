@@ -306,14 +306,14 @@ export const addRechartsKeyAndGetXColumnValues = (
 export const addBreakdownYColumnsAndGetBreakdownValues = (
   resultData: ResultData[],
   yColumns: string[],
-  columns: string[],
+  columnNames: string[],
   breakdowns: string[],
   chartType: ChartType,
   zDimension?: string,
 ) =>
   resultData.map(item => {
     yColumns.forEach(metric => {
-      const breakdown = (columns || []).reduce(
+      const breakdown = (columnNames || []).reduce(
         (acc, column) => (item[column] ? `${acc}${BREAKDOWN_SEPARATOR}${item[column]}` : acc),
         '',
       );

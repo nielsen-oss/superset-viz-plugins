@@ -84,7 +84,7 @@ export type ComposedChartProps = {
   data: ResultData[];
   layout: Layout;
   yColumns: string[];
-  columns: string[];
+  columnNames: string[];
   xColumns: string[];
   isAnimationActive?: boolean;
   xAxis: XAxisProps;
@@ -161,12 +161,12 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     handleChartClick,
     drillDown,
     normChart,
-    columns,
+    columnNames,
     barChart = {},
   } = props;
 
   const { breakdowns, yColumns, data } = useDataPreparation({
-    columns,
+    columnNames,
     yColumns: initYColumns,
     yColumnsMeta,
     data: initData,

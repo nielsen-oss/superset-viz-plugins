@@ -213,9 +213,9 @@ export default function transformProps(chartProps: ChartProps) {
     }),
     {} as YColumnsMeta,
   );
-  console.log(stickyScatters);
+
   const result: ComposedChartProps = {
-    columns: formData.columns,
+    columnNames: formData.columns,
     width,
     height,
     hasTimeSeries,

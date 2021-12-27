@@ -135,7 +135,7 @@ export const useZAxisRange = (currentData: ResultData[], bubbleSize = 1000) =>
   );
 
 type PreparationData = {
-  columns: string[];
+  columnNames: string[];
   yColumns: string[];
   yColumnsMeta: YColumnsMeta;
   data: ResultData[];
@@ -149,7 +149,7 @@ type PreparationData = {
 };
 
 export const useDataPreparation = ({
-  columns,
+  columnNames,
   yColumns,
   yColumnsMeta,
   data,
@@ -166,7 +166,7 @@ export const useDataPreparation = ({
     let resultData = addBreakdownYColumnsAndGetBreakdownValues(
       data,
       yColumns,
-      columns,
+      columnNames,
       breakdowns,
       chartType,
       zDimension,
@@ -209,7 +209,7 @@ export const useDataPreparation = ({
     };
   }, [
     chartType,
-    columns,
+    columnNames,
     data,
     hasTimeSeries,
     hiddenTickLabels,
