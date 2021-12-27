@@ -18,8 +18,8 @@
  */
 import { buildQueryContext, JsonObject, QueryFormData } from '@superset-ui/core';
 import { BinaryOperator, SetOperator } from '@superset-ui/core/lib/query/types/Operator';
-import { checkTimeSeries, has2Queries, MAX_FORM_CONTROLS, QueryMode, SortingType } from './utils';
-import { CHART_TYPES } from '../components/types';
+import { CHART_TYPES, checkTimeSeries, has2Queries, MAX_FORM_CONTROLS, QueryMode } from './utils';
+import { SortingType } from '../components/types';
 
 // Not correctly imported form node_modules, so add it here
 export type QueryFormExtraFilter = {

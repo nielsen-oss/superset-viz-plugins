@@ -21,7 +21,7 @@ import { render } from '@testing-library/react';
 import * as recharts from 'recharts';
 import { supersetTheme, ThemeProvider } from '@superset-ui/core';
 import { processNumbers } from '../src/components/utils';
-import { ResultData } from '../src/plugin/utils';
+import { ResultData } from '../src/components/types';
 import ComposedChart from '../src/components/ComposedChart';
 import ComposedChartPlugin from '../src';
 import {

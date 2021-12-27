@@ -19,20 +19,19 @@
 import { JsonObject, QueryFormColumn, SetAdhocFilter, t } from '@superset-ui/core';
 import { ControlPanelsContainerProps, ControlStateMapping } from '@superset-ui/chart-controls';
 import {
-  BarChartValue,
-  CHART_SUB_TYPES,
-  CHART_TYPES,
-  HiddenTickLabels,
+  BarChartSubType,
+  ChartType,
+  LabelColors,
   Layout,
   LegendPosition,
+  LineChartSubType,
+  ResultData,
+  ScatterChartSubType,
+  SortingType,
+  StickyScatters,
 } from '../components/types';
 
 export const MAX_FORM_CONTROLS = 5;
-export const BREAKDOWN_SEPARATOR = '_$_';
-export const Z_SEPARATOR = '_Z$_';
-export const NORM_SEPARATOR = '_NORM$_';
-export const HIDDEN_DATA = '_HIDDEN_DATA_';
-
 export enum QueryMode {
   aggregate = 'aggregate',
   raw = 'raw',
@@ -42,7 +41,29 @@ type Metric = {
   label: string;
 };
 
-export type LabelColors = 'black' | 'white';
+export const CHART_TYPES = {
+  BAR_CHART: 'BAR_CHART',
+  LINE_CHART: 'LINE_CHART',
+  SCATTER_CHART: 'SCATTER_CHART',
+  AREA_CHART: 'AREA_CHART',
+  BUBBLE_CHART: 'BUBBLE_CHART',
+  NORM_CHART: 'NORM_CHART',
+};
+
+export const CHART_TYPE_NAMES = {
+  [CHART_TYPES.BAR_CHART]: 'Bar',
+  [CHART_TYPES.LINE_CHART]: 'Line',
+  [CHART_TYPES.AREA_CHART]: 'Area',
+  [CHART_TYPES.SCATTER_CHART]: 'Scatter',
+  [CHART_TYPES.BUBBLE_CHART]: 'Bubble',
+  [CHART_TYPES.NORM_CHART]: 'Norm',
+};
+
+export enum STICK_TYPES {
+  START = 'START',
+  CENTER = 'CENTER',
+  END = 'END',
+}
 
 export type FormData = {
   [key: string]: string | string[] | Metric[] | Metric | boolean | SetAdhocFilter[];
@@ -83,22 +104,95 @@ export type FormData = {
   granularitySqla: string;
 };
 
-export type Data = { [key: string]: string | number };
-export type ResultData = {
-  orderedBarsDataMap?: JsonObject;
-  rechartsDataKey: string;
-  rechartsDataKeyUI: string;
-  rechartsTotal?: number;
-  color?: string;
-  [key: string]: BarChartValue | string | number | undefined | JsonObject;
-};
-
 export type ColorsMap = { [key: string]: string };
 
-export enum SortingType {
-  ASC = 'ASC',
-  DESC = 'DESC',
-}
+export const CHART_SUB_TYPES = {
+  CIRCLE: 'circle',
+  DIAMOND: 'diamond',
+  SQUARE: 'square',
+  WYE: 'wye',
+  ARROW_UP: 'arrowUp',
+  ARROW_DOWN: 'arrowDown',
+
+  BASIS: 'basis',
+  LINEAR: 'linear',
+  NATURAL: 'natural',
+  MONOTONE: 'monotone',
+  STEP: 'step',
+
+  DEFAULT: 'default',
+  STACKED: 'stacked',
+};
+export const CHART_SUB_TYPE_NAMES = {
+  [CHART_TYPES.BAR_CHART]: {
+    [CHART_SUB_TYPES.DEFAULT]: 'Default Bar Chart',
+    [CHART_SUB_TYPES.STACKED]: 'Stacked Bar Chart',
+  },
+  [CHART_TYPES.NORM_CHART]: {
+    [CHART_SUB_TYPES.DEFAULT]: 'Default Norm Chart',
+  },
+  [CHART_TYPES.SCATTER_CHART]: {
+    [CHART_SUB_TYPES.CIRCLE]: 'Circle Scatter Chart',
+    [CHART_SUB_TYPES.DIAMOND]: 'Diamond Scatter Chart',
+    [CHART_SUB_TYPES.SQUARE]: 'Square Scatter Chart',
+    [CHART_SUB_TYPES.WYE]: 'Wye Scatter Chart',
+    [CHART_SUB_TYPES.ARROW_UP]: 'Arrow Up Scatter Chart',
+    [CHART_SUB_TYPES.ARROW_DOWN]: 'Arrow Down Scatter Chart',
+  },
+  [CHART_TYPES.BUBBLE_CHART]: {
+    [CHART_SUB_TYPES.CIRCLE]: 'Circle Bubble Chart',
+    [CHART_SUB_TYPES.DIAMOND]: 'Diamond Bubble Chart',
+    [CHART_SUB_TYPES.SQUARE]: 'Square Bubble Chart',
+    [CHART_SUB_TYPES.WYE]: 'Wye Bubble Chart',
+    [CHART_SUB_TYPES.ARROW_UP]: 'Arrow Up Bubble Chart',
+    [CHART_SUB_TYPES.ARROW_DOWN]: 'Arrow Down Bubble Chart',
+  },
+  [CHART_TYPES.LINE_CHART]: {
+    [CHART_SUB_TYPES.BASIS]: 'Basis Line Chart',
+    [CHART_SUB_TYPES.LINEAR]: 'Linear Line Chart',
+    [CHART_SUB_TYPES.NATURAL]: 'Natural Line Chart',
+    [CHART_SUB_TYPES.MONOTONE]: 'Monotone Line Chart',
+    [CHART_SUB_TYPES.STEP]: 'Step Line Chart',
+  },
+  [CHART_TYPES.AREA_CHART]: {
+    [CHART_SUB_TYPES.BASIS]: 'Basis Area Chart',
+    [CHART_SUB_TYPES.LINEAR]: 'Linear Area Chart',
+    [CHART_SUB_TYPES.NATURAL]: 'Natural Area Chart',
+    [CHART_SUB_TYPES.MONOTONE]: 'Monotone Area Chart',
+    [CHART_SUB_TYPES.STEP]: 'Step Area Chart',
+  },
+};
+
+export const enumsMapSticky = {
+  [STICK_TYPES.START]: StickyScatters.start,
+  [STICK_TYPES.CENTER]: StickyScatters.center,
+  [STICK_TYPES.END]: StickyScatters.end,
+};
+
+export const enumsMapChartType = {
+  [CHART_TYPES.BAR_CHART]: ChartType.barChart,
+  [CHART_TYPES.AREA_CHART]: ChartType.areaChart,
+  [CHART_TYPES.LINE_CHART]: ChartType.lineChart,
+  [CHART_TYPES.BUBBLE_CHART]: ChartType.bubbleChart,
+  [CHART_TYPES.SCATTER_CHART]: ChartType.scatterChart,
+  [CHART_TYPES.LINE_CHART]: ChartType.lineChart,
+};
+
+export const enumsMapChartSubType = {
+  [CHART_SUB_TYPES.CIRCLE]: ScatterChartSubType.circle,
+  [CHART_SUB_TYPES.DEFAULT]: BarChartSubType.default,
+  [CHART_SUB_TYPES.WYE]: ScatterChartSubType.wye,
+  [CHART_SUB_TYPES.BASIS]: LineChartSubType.basis,
+  [CHART_SUB_TYPES.STEP]: LineChartSubType.step,
+  [CHART_SUB_TYPES.ARROW_DOWN]: ScatterChartSubType.arrowDown,
+  [CHART_SUB_TYPES.ARROW_UP]: ScatterChartSubType.arrowUp,
+  [CHART_SUB_TYPES.DIAMOND]: ScatterChartSubType.diamond,
+  [CHART_SUB_TYPES.LINEAR]: LineChartSubType.linear,
+  [CHART_SUB_TYPES.MONOTONE]: LineChartSubType.monotone,
+  [CHART_SUB_TYPES.NATURAL]: LineChartSubType.natural,
+  [CHART_SUB_TYPES.SQUARE]: ScatterChartSubType.square,
+  [CHART_SUB_TYPES.STACKED]: BarChartSubType.stacked,
+};
 
 export const SortingTypeNames = {
   [SortingType.ASC]: t('Ascending'),
@@ -130,60 +224,6 @@ export const getChartSubType = (
       return barChartSubType;
   }
 };
-
-export const getXColumnValues = (field: string, item: Record<string, string | number>, xColumnValues: string[]) => {
-  if (!xColumnValues.includes(field)) {
-    xColumnValues.push(field); // Small mutation in map, but better then one more iteration
-  }
-  return item[field];
-};
-
-export const addRechartsKeyAndGetXColumnValues = (
-  data: Data[],
-  xColumnValues: string[],
-  hasTimeSeries?: boolean,
-  xColumns: string[] = [],
-  hiddenTickLabels?: HiddenTickLabels,
-) =>
-  data.map(item => {
-    const dataKey = xColumns.map(field => getXColumnValues(field, item, xColumnValues));
-    return {
-      ...item,
-      rechartsDataKey: dataKey.join(', '),
-      rechartsDataKeyUI: dataKey.filter(value => hasTimeSeries || !hiddenTickLabels?.[value]).join(', '),
-    };
-  });
-
-export const addBreakdownYColumnsAndGetBreakdownValues = (
-  resultData: ResultData[],
-  yColumns: string[],
-  formData: FormData,
-  breakdowns: string[],
-) =>
-  resultData.map(item => {
-    yColumns.forEach(metric => {
-      const breakdown = (formData.columns || []).reduce(
-        (acc, column) => (item[column] ? `${acc}${BREAKDOWN_SEPARATOR}${item[column]}` : acc),
-        '',
-      );
-      // Build metric name by breakdown
-      const resultBreakdown = `${metric}${breakdown}`;
-      if (formData.chartType === CHART_TYPES.BUBBLE_CHART) {
-        // eslint-disable-next-line no-param-reassign
-        item[`${resultBreakdown}${Z_SEPARATOR}`] = item[formData.zDimension?.label];
-      }
-      // mutation to save unnecessary loops
-      // eslint-disable-next-line no-param-reassign
-      item[resultBreakdown] = item[metric];
-      // build breakdown values array
-      if (!breakdowns.includes(resultBreakdown)) {
-        breakdowns.push(resultBreakdown);
-      }
-    });
-    return {
-      ...item,
-    };
-  });
 
 export const checkTimeSeries = (groupBy?: string[], granularitySqla?: string, layout?: Layout) =>
   groupBy?.length === 1 && groupBy?.[0] === granularitySqla && layout === Layout.horizontal;

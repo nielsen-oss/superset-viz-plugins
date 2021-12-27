@@ -2,8 +2,7 @@ import React, { FC } from 'react';
 import { ScatterProps, Text } from 'recharts';
 import { getNumberFormatter, JsonObject } from '@superset-ui/core';
 import { NORM_SIZE, NORM_SPACE, Layout, NumbersFormat } from './types';
-import { getMetricFromBreakdown } from './utils';
-import { NORM_SEPARATOR } from '../plugin/utils';
+import { getMetricFromBreakdown, NORM_SEPARATOR } from './utils';
 
 type ComposedNormProp = Partial<ScatterProps> & {
   numbersFormat?: NumbersFormat;

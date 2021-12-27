@@ -17,14 +17,36 @@
  * under the License.
  */
 import { CategoricalColorNamespace, JsonObject } from '@superset-ui/core';
-import { BREAKDOWN_SEPARATOR, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
-import { BarChartValue, BubbleChart, CHART_SUB_TYPES, CHART_TYPES, ColorSchemes, YColumnsMeta } from './types';
+import {
+  BarChartSubType,
+  BarChartValue,
+  ChartType,
+  ColorSchemes,
+  Data,
+  HiddenTickLabels,
+  ResultData,
+  SortingType,
+  YColumnsMeta,
+  YColumnsMetaData,
+} from './types';
+
+export const BREAKDOWN_SEPARATOR = '_$_';
+export const Z_SEPARATOR = '_Z$_';
+export const NORM_SEPARATOR = '_NORM$_';
+export const HIDDEN_DATA = '_HIDDEN_DATA_';
+
+export const getXColumnValues = (field: string, item: Record<string, string | number>, xColumnValues: string[]) => {
+  if (!xColumnValues.includes(field)) {
+    xColumnValues.push(field); // Small mutation in map, but better than one more iteration
+  }
+  return item[field];
+};
 
 export const getMetricByChartType = (
-  lookup: keyof typeof CHART_TYPES,
+  lookup: ChartType,
   yColumns: string[],
   yColumnsMeta?: YColumnsMeta,
-  chartType?: keyof typeof CHART_TYPES,
+  chartType?: ChartType,
 ) =>
   yColumns.filter(
     yColumn =>
@@ -44,8 +66,8 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   return result;
 }
 
-export const isStackedBar = (ct?: keyof typeof CHART_TYPES, cst?: keyof typeof CHART_SUB_TYPES) =>
-  ct === CHART_TYPES.BAR_CHART && cst === CHART_SUB_TYPES.STACKED;
+export const isStackedBar = ({ chartType, chartSubType }: YColumnsMetaData) =>
+  chartType === ChartType.barChart && chartSubType === BarChartSubType.stacked;
 
 export const getMetricFromBreakdown = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR)[0] ?? '';
 
@@ -265,24 +287,41 @@ export const processNumbers = (
   return resultData;
 };
 
+export const addRechartsKeyAndGetXColumnValues = (
+  data: Data[],
+  xColumnValues: string[],
+  hasTimeSeries?: boolean,
+  xColumns: string[] = [],
+  hiddenTickLabels?: HiddenTickLabels,
+) =>
+  data.map(item => {
+    const dataKey = xColumns.map(field => getXColumnValues(field, item, xColumnValues));
+    return {
+      ...item,
+      rechartsDataKey: dataKey.join(', '),
+      rechartsDataKeyUI: dataKey.filter(value => hasTimeSeries || !hiddenTickLabels?.[value]).join(', '),
+    };
+  });
+
 export const addBreakdownYColumnsAndGetBreakdownValues = (
   resultData: ResultData[],
   yColumns: string[],
+  columns: string[],
   breakdowns: string[],
-  chartType: keyof typeof CHART_TYPES,
-  bubbleChart?: BubbleChart,
+  chartType: ChartType,
+  zDimension?: string,
 ) =>
   resultData.map(item => {
     yColumns.forEach(metric => {
-      const breakdown = (yColumns || []).reduce(
+      const breakdown = (columns || []).reduce(
         (acc, column) => (item[column] ? `${acc}${BREAKDOWN_SEPARATOR}${item[column]}` : acc),
         '',
       );
       // Build metric name by breakdown
       const resultBreakdown = `${metric}${breakdown}`;
-      if (chartType === CHART_TYPES.BUBBLE_CHART) {
+      if (chartType === ChartType.bubbleChart) {
         // eslint-disable-next-line no-param-reassign
-        item[`${resultBreakdown}${Z_SEPARATOR}`] = bubbleChart && item[bubbleChart?.zDimension];
+        item[`${resultBreakdown}${Z_SEPARATOR}`] = item[zDimension as string];
       }
       // mutation to save unnecessary loops
       // eslint-disable-next-line no-param-reassign

@@ -18,7 +18,6 @@
  */
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  AxisInterval,
   CartesianGrid,
   ComposedChart as RechartsComposedChart,
   Legend,
@@ -30,17 +29,13 @@ import {
 } from 'recharts';
 import { JsonObject, styled } from '@superset-ui/core';
 import ComposedChartTooltip from './ComposedChartTooltip';
-import { LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
-import { debounce, getResultColor, isStackedBar } from './utils';
-import { getCartesianGridProps, getLegendProps, getXAxisProps, getYAxisProps, renderChartElement } from './chartUtils';
-import { useCurrentData, useDataPreparation, useZAxisRange } from './state';
 import {
+  LabelColors,
+  ResultData,
+  SortingType,
   BubbleChart,
-  CHART_SUB_TYPES,
-  CHART_TYPES,
   ColorSchemes,
   Deepness,
-  HiddenTickLabels,
   Layout,
   LegendPosition,
   LegendType,
@@ -51,7 +46,14 @@ import {
   XAxisProps,
   YAxisProps,
   YColumnsMeta,
+  ChartType,
+  ChartConfig,
+  YColumnsMetaData,
 } from './types';
+import { debounce, getResultColor, isStackedBar, Z_SEPARATOR } from './utils';
+import { getCartesianGridProps, getLegendProps, getXAxisProps, getYAxisProps, renderChartElement } from './chartUtils';
+import { useCurrentData, useDataPreparation, useZAxisRange } from './state';
+
 import ScatterChartTooltip from './ScatterChartTooltip';
 
 type EventData = {
@@ -82,11 +84,9 @@ export type ComposedChartProps = {
   data: ResultData[];
   layout: Layout;
   yColumns: string[];
-  breakdowns: string[];
+  columns: string[];
   xColumns: string[];
-  chartSubType: keyof typeof CHART_SUB_TYPES;
   isAnimationActive?: boolean;
-  chartType: keyof typeof CHART_TYPES;
   xAxis: XAxisProps;
   yAxis: YAxisProps;
   y2Axis?: YAxisProps;
@@ -101,7 +101,7 @@ export type ComposedChartProps = {
     yColumnSortingType?: SortingType;
     hasTotals?: boolean;
   };
-};
+} & ChartConfig;
 
 const Breadcrumb = styled.div`
   display: flex;
@@ -148,7 +148,6 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     xAxis,
     chartSubType,
     yAxis,
-    breakdowns: initBreakdowns,
     isAnimationActive,
     labelsColor,
     y2Axis,
@@ -162,11 +161,12 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     handleChartClick,
     drillDown,
     normChart,
+    columns,
     barChart = {},
   } = props;
 
   const { breakdowns, yColumns, data } = useDataPreparation({
-    breakdowns: initBreakdowns,
+    columns,
     yColumns: initYColumns,
     yColumnsMeta,
     data: initData,
@@ -175,6 +175,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     xColumns,
     normChart,
     hiddenTickLabels: xAxis.hiddenTickLabels,
+    zDimension: bubbleChart.zDimension,
     chartType,
   });
 
@@ -217,19 +218,15 @@ const ComposedChart: FC<ComposedChartProps> = props => {
 
   const { excludedMetricsForStackedBars, includedMetricsForStackedBars, isMainChartStacked } = useMemo(() => {
     const excludedMetricsForStackedBars = yColumns.filter(
-      metric =>
-        yColumnsMeta[metric]?.chartType &&
-        !isStackedBar(yColumnsMeta[metric]?.chartType, yColumnsMeta[metric]?.chartSubType),
+      metric => yColumnsMeta[metric]?.chartType && !isStackedBar(yColumnsMeta[metric]),
     );
     const includedMetricsForStackedBars = yColumns.filter(
-      metric =>
-        yColumnsMeta[metric]?.chartType &&
-        isStackedBar(yColumnsMeta[metric]?.chartType, yColumnsMeta[metric]?.chartSubType),
+      metric => yColumnsMeta[metric]?.chartType && isStackedBar(yColumnsMeta[metric]),
     );
     return {
       excludedMetricsForStackedBars,
       includedMetricsForStackedBars,
-      isMainChartStacked: isStackedBar(chartType, chartSubType),
+      isMainChartStacked: isStackedBar({ chartType, chartSubType } as YColumnsMetaData),
     };
   }, [chartSubType, chartType, yColumnsMeta, yColumns]);
 
@@ -290,7 +287,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
   let yMarginBottom =
     yAxis.tickLabelAngle === -45 && layout === Layout.vertical ? yAxisWidth - xAxisHeight - 10 : xAxisHeight;
   const hasNormChart = [...Object.values(yColumnsMeta).map(({ chartType }) => chartType), chartType].includes(
-    CHART_TYPES.NORM_CHART as keyof typeof CHART_TYPES,
+    ChartType.normChart as ChartType,
   );
 
   if (hasNormChart && layout === Layout.horizontal) {
@@ -320,20 +317,20 @@ const ComposedChart: FC<ComposedChartProps> = props => {
       yColumns={yColumns}
       yColumnSortingType={yColumnSortingType}
       hasTimeSeries={hasTimeSeries}
-      zDimension={bubbleChart.zDimension}
+      zDimension={bubbleChart?.zDimension}
       breakdowns={breakdowns}
       resultColors={resultColors}
       hasExcludedBars={!!excludedMetricsForStackedBars.length}
     />
   );
-  if (chartType === CHART_TYPES.BUBBLE_CHART && !Object.values(yColumnsMeta).some(({ chartType }) => chartType)) {
+  if (chartType === ChartType.bubbleChart && !Object.values(yColumnsMeta).some(({ chartType }) => chartType)) {
     ChartContainer = ScatterChart;
     tooltipContent = (
       <ScatterChartTooltip
         breakdowns={breakdowns}
         numbersFormat={numbersFormat}
         yColumns={yColumns}
-        zDimension={bubbleChart.zDimension}
+        zDimension={bubbleChart?.zDimension}
         resultColors={resultColors}
       />
     );
@@ -429,7 +426,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             chartType,
           })}
         />
-        {chartType === CHART_TYPES.BUBBLE_CHART &&
+        {chartType === ChartType.bubbleChart &&
           breakdowns.map((breakdown, i) => (
             // eslint-disable-next-line no-underscore-dangle
             <ZAxis type="number" zAxisId={i} range={getZAxisRange(breakdown)} dataKey={`${breakdown}${Z_SEPARATOR}`} />
@@ -457,7 +454,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
         {breakdowns.map((breakdown, index) =>
           renderChartElement({
             yColumnSortingType,
-            chartType,
+            ...({ chartType, chartSubType } as ChartConfig),
             layout,
             yColumns,
             hasTotals,
@@ -471,7 +468,6 @@ const ComposedChart: FC<ComposedChartProps> = props => {
             isAnimationActive: isAnimationActive && visible,
             updater,
             index,
-            chartSubType,
             currentData,
             yColumnsMeta,
             breakdowns,

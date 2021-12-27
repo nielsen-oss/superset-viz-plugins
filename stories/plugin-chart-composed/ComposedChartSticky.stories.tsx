@@ -18,8 +18,8 @@
  */
 import React from 'react';
 import { ChartProps, supersetTheme, ThemeProvider } from '@superset-ui/core';
+import { BarChartSubType, ChartType } from '@superset-viz-plugins/plugin-chart-composed/src/components/types';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
-import { CHART_SUB_TYPES, CHART_TYPES } from '../../plugins/plugin-chart-composed/src/components/types';
 import transformProps from '../../plugins/plugin-chart-composed/src/plugin/transformProps';
 import { metricsAndBreakdownStickyBars } from '../../plugins/plugin-chart-composed/test/__mocks__/composedProps';
 import { applyCommonLogic, commonConfig } from './utils';
@@ -55,9 +55,9 @@ const StickyTemplate = args => (
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
         }
-        chartType={CHART_TYPES.BAR_CHART}
-        chartSubType={CHART_SUB_TYPES.DEFAULT}
-        barChart={{ ...args.barChart, stickyScatters: { 'COUNT_DISTINCT(period)': 'START' } }}
+        chartType={ChartType.barChart}
+        chartSubType={BarChartSubType.default}
+        barChart={{ ...args.barChart, stickyScatters: { 'COUNT_DISTINCT(period)': 'start' } }}
       />
       <ComposedChart
         {...applyCommonLogic({
@@ -73,9 +73,9 @@ const StickyTemplate = args => (
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
         }
-        chartType={CHART_TYPES.BAR_CHART}
-        chartSubType={CHART_SUB_TYPES.DEFAULT}
-        barChart={{ ...args.barChart, stickyScatters: { 'COUNT_DISTINCT(period)': 'CENTER' } }}
+        chartType={ChartType.barChart}
+        chartSubType={BarChartSubType.default}
+        barChart={{ ...args.barChart, stickyScatters: { 'COUNT_DISTINCT(period)': 'center' } }}
       />
       <ComposedChart
         {...applyCommonLogic({
@@ -91,9 +91,9 @@ const StickyTemplate = args => (
             queriesData: args.queriesData,
           } as unknown) as ChartProps).data
         }
-        chartType={CHART_TYPES.BAR_CHART}
-        chartSubType={CHART_SUB_TYPES.DEFAULT}
-        barChart={{ ...args.barChart, stickyScatters: { 'COUNT_DISTINCT(period)': 'END' } }}
+        chartType={ChartType.barChart}
+        chartSubType={BarChartSubType.default}
+        barChart={{ ...args.barChart, stickyScatters: { 'COUNT_DISTINCT(period)': 'end' } }}
       />
     </div>
   </ThemeProvider>
@@ -104,5 +104,5 @@ Sticky.args = {
   ...transformProps(({ ...metricsAndBreakdownStickyBars } as unknown) as ChartProps),
   ...commonProps,
   queriesData: metricsAndBreakdownStickyBars.queriesData,
-  chartSubType: CHART_SUB_TYPES.DEFAULT,
+  chartSubType: BarChartSubType.default,
 };

@@ -33,12 +33,9 @@ import {
   XAxisProps,
 } from 'recharts';
 import { getNumberFormatter, JsonObject } from '@superset-ui/core';
-import { BREAKDOWN_SEPARATOR, LabelColors, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
 import ComposedChartTick, { ComposedChartTickProps } from './ComposedChartTick';
 import {
   BarChartValueMap,
-  CHART_SUB_TYPES,
-  CHART_TYPES,
   Layout,
   LegendAlign,
   LegendPosition,
@@ -48,14 +45,31 @@ import {
   MIN_SYMBOL_WIDTH_FOR_LABEL,
   NumbersFormat,
   ResetProps,
-  STICK_TYPES,
   YAxisProps,
   YColumnsMeta,
+  LabelColors,
+  ResultData,
+  SortingType,
+  ChartType,
+  ScatterChartSubType,
+  StickyScatters,
+  LineChartSubType,
+  BarChartSubType,
+  ChartConfig,
+  NormChartSubType,
 } from './types';
-import { checkIsMetricStacked, getBreakdownsOnly, getMetricByChartType, getMetricFromBreakdown } from './utils';
+import {
+  checkIsMetricStacked,
+  getBreakdownsOnly,
+  getMetricByChartType,
+  getMetricFromBreakdown,
+  Z_SEPARATOR,
+  BREAKDOWN_SEPARATOR,
+} from './utils';
 import ComposedBar from './ComposedBar';
 import icons from './icons';
 import ComposedNorm from './ComposedNorm';
+import { CHART_SUB_TYPES } from '../plugin/utils';
 
 const emptyRender = () => null;
 
@@ -122,19 +136,14 @@ export const getLegendProps = (
   yAxisWidth: number,
   yColumnsMeta: YColumnsMeta,
   resultColors: JsonObject,
-  chartType: keyof typeof CHART_TYPES,
+  chartType: ChartType,
 ): LegendProps => {
   const resultBreakdowns = breakdowns.filter(breakdown => {
     const metric = getMetricFromBreakdown(breakdown);
     const meta = yColumnsMeta[metric];
     return (
       !meta?.hideLegend &&
-      !getMetricByChartType(
-        CHART_TYPES.NORM_CHART as keyof typeof CHART_TYPES,
-        yColumns,
-        yColumnsMeta,
-        chartType,
-      ).includes(metric)
+      !getMetricByChartType(ChartType.normChart as ChartType, yColumns, yColumnsMeta, chartType).includes(metric)
     );
   });
   const payload: LegendPayload[] = resultBreakdowns.map(breakdown => ({
@@ -239,21 +248,21 @@ type Shape = {
 
 const ICON_SIZE = 12;
 
-const isCustomIcon = (chartSubType: keyof typeof CHART_SUB_TYPES) =>
-  chartSubType === CHART_SUB_TYPES.ARROW_UP ||
-  chartSubType === CHART_SUB_TYPES.ARROW_DOWN ||
-  chartSubType === CHART_SUB_TYPES.CIRCLE;
+const isCustomIcon = (chartSubType: ScatterChartSubType) =>
+  chartSubType === ScatterChartSubType.arrowUp ||
+  chartSubType === ScatterChartSubType.arrowDown ||
+  chartSubType === ScatterChartSubType.circle;
 
 const ICONS_VERTICAL_MAP = {
-  [CHART_SUB_TYPES.ARROW_UP]: 'arrowRight',
-  [CHART_SUB_TYPES.ARROW_DOWN]: 'arrowLeft',
+  [ScatterChartSubType.arrowUp]: 'arrowRight',
+  [ScatterChartSubType.arrowDown]: 'arrowLeft',
 };
 
 const BARS_SPACE = 2;
 
 const getCustomScatterIcon = (
   breakdown: string,
-  chartSubType: keyof typeof CHART_SUB_TYPES,
+  chartSubType: ScatterChartSubType,
   barsUIPositionsRef: RefObject<JsonObject>,
   layout: Layout,
   stickyScatters?: JsonObject,
@@ -277,15 +286,15 @@ const getCustomScatterIcon = (
     if (layout === Layout.horizontal) {
       params.y = props.cy - ICON_SIZE;
       switch (stickData && stickyScatters?.[getMetricFromBreakdown(breakdown)]) {
-        case STICK_TYPES.CENTER: {
+        case StickyScatters.center: {
           params.x = stickData?.x + stickData.width / 2;
           break;
         }
-        case STICK_TYPES.END: {
+        case StickyScatters.end: {
           params.x = stickData?.x + stickData.width + BARS_SPACE;
           break;
         }
-        case STICK_TYPES.START: {
+        case StickyScatters.start: {
           params.x = stickData?.x - BARS_SPACE;
           break;
         }
@@ -296,15 +305,15 @@ const getCustomScatterIcon = (
     } else {
       params.x = props.cx - ICON_SIZE;
       switch (stickData && stickyScatters?.[getMetricFromBreakdown(breakdown)]) {
-        case STICK_TYPES.CENTER: {
+        case StickyScatters.center: {
           params.y = stickData?.y + stickData.height / 2;
           break;
         }
-        case STICK_TYPES.END: {
+        case StickyScatters.end: {
           params.x = stickData?.y + stickData.height + BARS_SPACE;
           break;
         }
-        case STICK_TYPES.START: {
+        case StickyScatters.start: {
           params.y = stickData?.y - BARS_SPACE;
           break;
         }
@@ -320,65 +329,72 @@ const getCustomScatterIcon = (
 
 export const getChartElement = (
   breakdown: string,
-  chartType: keyof typeof CHART_TYPES,
-  chartSubType: keyof typeof CHART_SUB_TYPES,
+  chartType: ChartType,
+  chartSubType: LineChartSubType | BarChartSubType | ScatterChartSubType | NormChartSubType,
   color: string,
   hasDifferentTypes: boolean,
   index: number,
-  barsUIPositionsRef: RefObject<JsonObject>,
+  barsUIPositionsRef: React.RefObject<JsonObject>,
   layout: Layout,
   yColumns: string[],
   xColumns: string[],
   firstItem: string,
-  xAxisClientRect?: ClientRect,
-  yAxisClientRect?: ClientRect,
-  handleChartClick?: (arg: JsonObject) => void,
+  xAxisClientRect?: ClientRect | undefined,
+  yAxisClientRect?: ClientRect | undefined,
+  handleChartClick?: ((arg?: JsonObject) => void) | undefined,
   stickyScatters?: JsonObject,
-  numbersFormat?: NumbersFormat,
+  numbersFormat?: NumbersFormat | undefined,
 ): ChartsUIItem => {
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
 
   switch (chartType) {
-    case CHART_TYPES.LINE_CHART:
+    case ChartType.lineChart:
       commonProps = {
         Element: Line,
         strokeWidth: 2,
         stroke: color,
         opacity: 0.8,
-        type: chartSubType,
+        type: (chartSubType as unknown) as BarChartSubType,
         connectNulls: true,
       };
       break;
-    case CHART_TYPES.AREA_CHART:
+    case ChartType.areaChart:
       commonProps = {
         Element: Area,
         strokeWidth: 2,
         stroke: color,
         fill: color,
         opacity: 0.8,
-        type: chartSubType,
+        type: (chartSubType as unknown) as LineChartSubType,
       };
       break;
-    case CHART_TYPES.SCATTER_CHART:
+    case ChartType.scatterChart:
       commonProps = {
         Element: Scatter,
         fill: color,
         opacity: 1,
-        shape: isCustomIcon(chartSubType)
-          ? getCustomScatterIcon(breakdown, chartSubType, barsUIPositionsRef, layout, stickyScatters)
+        // @ts-ignore
+        shape: isCustomIcon(chartSubType as ScatterChartSubType)
+          ? getCustomScatterIcon(
+              breakdown,
+              chartSubType as ScatterChartSubType,
+              barsUIPositionsRef,
+              layout,
+              stickyScatters,
+            )
           : chartSubType,
       };
       break;
-    case CHART_TYPES.BUBBLE_CHART:
+    case ChartType.bubbleChart:
       commonProps = {
         Element: Scatter,
         fill: color,
         opacity: 0.8,
         zAxisId: index,
-        shape: chartSubType,
+        shape: chartSubType as ScatterChartSubType,
       };
       break;
-    case CHART_TYPES.NORM_CHART:
+    case ChartType.normChart:
       commonProps = {
         Element: Scatter,
         opacity: 1,
@@ -398,7 +414,7 @@ export const getChartElement = (
         ),
       };
       break;
-    case CHART_TYPES.BAR_CHART:
+    case ChartType.barChart:
     default:
       commonProps = {
         onClick: ({ rechartsDataKey }: JsonObject) => {
@@ -440,7 +456,7 @@ type AxisProps = {
   xColumns?: string[];
   xAxisClientRect?: ClientRect;
   rootRef?: RefObject<HTMLDivElement>;
-  chartType?: keyof typeof CHART_TYPES;
+  chartType?: ChartType;
 };
 
 const getActualXAxisSize = (
@@ -544,7 +560,7 @@ export const getXAxisProps = ({
     case Layout.vertical:
       return {
         ...params,
-        axisLine: chartType === CHART_TYPES.BUBBLE_CHART,
+        axisLine: chartType === ChartType.bubbleChart,
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick
             {...props}
@@ -649,7 +665,7 @@ export const getYAxisProps = ({
     default:
       return {
         ...params,
-        axisLine: chartType === CHART_TYPES.BUBBLE_CHART,
+        axisLine: chartType === ChartType.bubbleChart,
         tick: (props: ComposedChartTickProps) => (
           <ComposedChartTick
             {...props}
@@ -663,14 +679,8 @@ export const getYAxisProps = ({
   }
 };
 
-export const getCartesianGridProps = ({
-  layout,
-  chartType,
-}: {
-  layout: Layout;
-  chartType: keyof typeof CHART_TYPES;
-}) => {
-  if (chartType === CHART_TYPES.BUBBLE_CHART) {
+export const getCartesianGridProps = ({ layout, chartType }: { layout: Layout; chartType: ChartType }) => {
+  if (chartType === ChartType.bubbleChart) {
     return {
       horizontal: false,
       vertical: false,
@@ -698,9 +708,7 @@ type ChartElementProps = {
   breakdowns: string[];
   y2Axis?: YAxisProps;
   hasTotals?: boolean;
-  chartSubType: keyof typeof CHART_SUB_TYPES;
   isAnimationActive?: boolean;
-  chartType: keyof typeof CHART_TYPES;
   labelsColor: LabelColors;
   yColumnsMeta: YColumnsMeta;
   numbersFormat?: NumbersFormat;
@@ -721,7 +729,7 @@ type ChartElementProps = {
   yColumns: string[];
   firstItem: string;
   handleChartClick?: (arg?: JsonObject) => void;
-};
+} & ChartConfig;
 
 export const renderChartElement = ({
   yColumnSortingType,
@@ -762,10 +770,8 @@ export const renderChartElement = ({
     customChartType,
     customChartSubType,
     resultColors[breakdown],
-    customChartType === CHART_TYPES.BAR_CHART &&
-      Object.entries(yColumnsMeta).some(
-        ([key, { chartType }]) => chartType !== CHART_TYPES.BAR_CHART && key !== metric,
-      ),
+    customChartType === ChartType.barChart &&
+      Object.entries(yColumnsMeta).some(([key, { chartType }]) => chartType !== ChartType.barChart && key !== metric),
     index,
     barsUIPositionsRef,
     layout,
@@ -808,7 +814,7 @@ export const renderChartElement = ({
       getValueForBarChart(val, String(val?.orderedBarsDataMap?.[index])) ?? 0; // Not sure why but it works (about 0);
   }
 
-  if (chartType !== CHART_TYPES.BUBBLE_CHART) {
+  if (chartType !== ChartType.bubbleChart) {
     // @ts-ignore
     elementProps.label = {
       fill: labelsColor,

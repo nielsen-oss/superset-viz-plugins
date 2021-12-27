@@ -1,8 +1,7 @@
 import React, { FC, RefObject, useEffect } from 'react';
 import { BarProps } from 'recharts';
 import { JsonObject } from '@superset-ui/core';
-import { BREAKDOWN_SEPARATOR } from '../plugin/utils';
-import { getBreakdownsOnly } from './utils';
+import { getBreakdownsOnly, BREAKDOWN_SEPARATOR } from './utils';
 
 type ComposedBarProp = Partial<BarProps> & {
   rechartsDataKey: string;

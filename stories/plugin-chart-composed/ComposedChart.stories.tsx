@@ -19,7 +19,13 @@
 import React from 'react';
 import { ChartProps, supersetTheme, ThemeProvider } from '@superset-ui/core';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
-import { CHART_SUB_TYPES, CHART_TYPES } from '../../plugins/plugin-chart-composed/src/components/types';
+import {
+  BarChartSubType,
+  ChartType,
+  LineChartSubType,
+  NormChartSubType,
+  ScatterChartSubType,
+} from '../../plugins/plugin-chart-composed/src/components/types';
 import transformProps from '../../plugins/plugin-chart-composed/src/plugin/transformProps';
 import {
   allChatsLegendBottomBreakdowns,
@@ -43,13 +49,13 @@ const commonProps = {
 };
 
 const BarsTemplate = args => {
-  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.DEFAULT;
-  if (chartSubType !== CHART_SUB_TYPES.DEFAULT && chartSubType !== CHART_SUB_TYPES.STACKED) {
+  const chartSubType = args.chartSubType ?? BarChartSubType.default;
+  if (chartSubType !== BarChartSubType.default && chartSubType !== BarChartSubType.stacked) {
     return (
       <>
         {`SubType "${args.chartSubType}" is not applied for Bars Chart, please change "chartSubType" property to:`}
-        <li>{CHART_SUB_TYPES.DEFAULT}</li>
-        <li>{CHART_SUB_TYPES.STACKED}</li>
+        <li>{BarChartSubType.default}</li>
+        <li>{BarChartSubType.stacked}</li>
       </>
     );
   }
@@ -67,20 +73,20 @@ const BarsTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
-        chartType={CHART_TYPES.BAR_CHART}
-        chartSubType={chartSubType}
+        chartType={ChartType.barChart}
+        chartSubType={args.chartSubType}
       />
     </ThemeProvider>
   );
 };
 
 const NormTemplate = args => {
-  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.DEFAULT;
-  if (chartSubType !== CHART_SUB_TYPES.DEFAULT) {
+  const chartSubType = args.chartSubType ?? NormChartSubType.default;
+  if (chartSubType !== NormChartSubType.default) {
     return (
       <>
         {`SubType "${args.chartSubType}" is not applied for Norm Chart, please change "chartSubType" property to:`}
-        <li>{CHART_SUB_TYPES.DEFAULT}</li>
+        <li>{NormChartSubType.default}</li>
       </>
     );
   }
@@ -98,7 +104,7 @@ const NormTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
-        chartType={CHART_TYPES.NORM_CHART}
+        chartType={ChartType.normChart}
         chartSubType={chartSubType}
       />
     </ThemeProvider>
@@ -106,20 +112,20 @@ const NormTemplate = args => {
 };
 
 const TimeSeriesTemplate = args => {
-  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.DEFAULT;
-  if (chartSubType !== CHART_SUB_TYPES.DEFAULT && chartSubType !== CHART_SUB_TYPES.STACKED) {
+  const chartSubType = args.chartSubType ?? BarChartSubType.default;
+  if (chartSubType !== BarChartSubType.default && chartSubType !== BarChartSubType.stacked) {
     return (
       <>
         {`SubType "${args.chartSubType}" is not applied for Bars Chart, please change "chartSubType" property to:`}
-        <li>{CHART_SUB_TYPES.DEFAULT}</li>
-        <li>{CHART_SUB_TYPES.STACKED}</li>
+        <li>{BarChartSubType.default}</li>
+        <li>{BarChartSubType.stacked}</li>
       </>
     );
   }
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        chartType={CHART_TYPES.BAR_CHART}
+        chartType={ChartType.barChart}
         data={
           transformProps(({
             ...timeSeries,
@@ -138,29 +144,29 @@ const TimeSeriesTemplate = args => {
 };
 
 const LinesTemplate = args => {
-  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.BASIS;
+  const chartSubType = args.chartSubType ?? LineChartSubType.basis;
   if (
-    chartSubType !== CHART_SUB_TYPES.BASIS &&
-    chartSubType !== CHART_SUB_TYPES.LINEAR &&
-    chartSubType !== CHART_SUB_TYPES.NATURAL &&
-    chartSubType !== CHART_SUB_TYPES.MONOTONE &&
-    chartSubType !== CHART_SUB_TYPES.STEP
+    chartSubType !== LineChartSubType.basis &&
+    chartSubType !== LineChartSubType.linear &&
+    chartSubType !== LineChartSubType.natural &&
+    chartSubType !== LineChartSubType.monotone &&
+    chartSubType !== LineChartSubType.step
   ) {
     return (
       <>
         {`SubType "${args.chartSubType}" is not applied for Lines Chart, please change "chartSubType" property to:`}
-        <li>{CHART_SUB_TYPES.BASIS}</li>
-        <li>{CHART_SUB_TYPES.LINEAR}</li>
-        <li>{CHART_SUB_TYPES.NATURAL}</li>
-        <li>{CHART_SUB_TYPES.MONOTONE}</li>
-        <li>{CHART_SUB_TYPES.STEP}</li>
+        <li>{LineChartSubType.basis}</li>
+        <li>{LineChartSubType.linear}</li>
+        <li>{LineChartSubType.natural}</li>
+        <li>{LineChartSubType.monotone}</li>
+        <li>{LineChartSubType.step}</li>
       </>
     );
   }
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        chartType={CHART_TYPES.LINE_CHART}
+        chartType={ChartType.lineChart}
         data={
           transformProps(({
             ...barsHorizontalLegendTop,
@@ -179,29 +185,29 @@ const LinesTemplate = args => {
 };
 
 const AreaTemplate = args => {
-  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.BASIS;
+  const chartSubType = args.chartSubType ?? LineChartSubType.basis;
   if (
-    chartSubType !== CHART_SUB_TYPES.BASIS &&
-    chartSubType !== CHART_SUB_TYPES.LINEAR &&
-    chartSubType !== CHART_SUB_TYPES.NATURAL &&
-    chartSubType !== CHART_SUB_TYPES.MONOTONE &&
-    chartSubType !== CHART_SUB_TYPES.STEP
+    chartSubType !== LineChartSubType.basis &&
+    chartSubType !== LineChartSubType.linear &&
+    chartSubType !== LineChartSubType.natural &&
+    chartSubType !== LineChartSubType.monotone &&
+    chartSubType !== LineChartSubType.step
   ) {
     return (
       <>
         {`SubType "${args.chartSubType}" is not applied for Area Chart, please change "chartSubType" property to:`}
-        <li>{CHART_SUB_TYPES.BASIS}</li>
-        <li>{CHART_SUB_TYPES.LINEAR}</li>
-        <li>{CHART_SUB_TYPES.NATURAL}</li>
-        <li>{CHART_SUB_TYPES.MONOTONE}</li>
-        <li>{CHART_SUB_TYPES.STEP}</li>
+        <li>{LineChartSubType.basis}</li>
+        <li>{LineChartSubType.linear}</li>
+        <li>{LineChartSubType.natural}</li>
+        <li>{LineChartSubType.monotone}</li>
+        <li>{LineChartSubType.step}</li>
       </>
     );
   }
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        chartType={CHART_TYPES.AREA_CHART}
+        chartType={ChartType.areaChart}
         data={
           transformProps(({
             ...barsHorizontalLegendTop,
@@ -220,31 +226,31 @@ const AreaTemplate = args => {
 };
 
 const ScatterTemplate = args => {
-  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.CIRCLE;
+  const chartSubType = args.chartSubType ?? ScatterChartSubType.circle;
   if (
-    chartSubType !== CHART_SUB_TYPES.CIRCLE &&
-    chartSubType !== CHART_SUB_TYPES.DIAMOND &&
-    chartSubType !== CHART_SUB_TYPES.SQUARE &&
-    chartSubType !== CHART_SUB_TYPES.ARROW_UP &&
-    chartSubType !== CHART_SUB_TYPES.ARROW_DOWN &&
-    chartSubType !== CHART_SUB_TYPES.WYE
+    chartSubType !== ScatterChartSubType.circle &&
+    chartSubType !== ScatterChartSubType.diamond &&
+    chartSubType !== ScatterChartSubType.square &&
+    chartSubType !== ScatterChartSubType.arrowDown &&
+    chartSubType !== ScatterChartSubType.arrowUp &&
+    chartSubType !== ScatterChartSubType.wye
   ) {
     return (
       <>
         {`SubType "${args.chartSubType}" is not applied for Scatter Chart, please change "chartSubType" property to:`}
-        <li>{CHART_SUB_TYPES.CIRCLE}</li>
-        <li>{CHART_SUB_TYPES.DIAMOND}</li>
-        <li>{CHART_SUB_TYPES.SQUARE}</li>
-        <li>{CHART_SUB_TYPES.WYE}</li>
-        <li>{CHART_SUB_TYPES.ARROW_UP}</li>
-        <li>{CHART_SUB_TYPES.ARROW_DOWN}</li>
+        <li>{ScatterChartSubType.circle}</li>
+        <li>{ScatterChartSubType.diamond}</li>
+        <li>{ScatterChartSubType.square}</li>
+        <li>{ScatterChartSubType.arrowDown}</li>
+        <li>{ScatterChartSubType.arrowUp}</li>
+        <li>{ScatterChartSubType.wye}</li>
       </>
     );
   }
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        chartType={CHART_TYPES.SCATTER_CHART}
+        chartType={ChartType.scatterChart}
         data={
           transformProps(({
             ...barsHorizontalLegendTop,
@@ -263,27 +269,27 @@ const ScatterTemplate = args => {
 };
 
 const BubbleTemplate = args => {
-  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.CIRCLE;
+  const chartSubType = args.chartSubType ?? ScatterChartSubType.circle;
   if (
-    chartSubType !== CHART_SUB_TYPES.CIRCLE &&
-    chartSubType !== CHART_SUB_TYPES.DIAMOND &&
-    chartSubType !== CHART_SUB_TYPES.SQUARE &&
-    chartSubType !== CHART_SUB_TYPES.WYE
+    chartSubType !== ScatterChartSubType.circle &&
+    chartSubType !== ScatterChartSubType.diamond &&
+    chartSubType !== ScatterChartSubType.square &&
+    chartSubType !== ScatterChartSubType.wye
   ) {
     return (
       <>
         {`SubType "${args.chartSubType}" is not applied for Bubble Chart, please change "chartSubType" property to:`}
-        <li>{CHART_SUB_TYPES.CIRCLE}</li>
-        <li>{CHART_SUB_TYPES.DIAMOND}</li>
-        <li>{CHART_SUB_TYPES.SQUARE}</li>
-        <li>{CHART_SUB_TYPES.WYE}</li>
+        <li>{ScatterChartSubType.circle}</li>
+        <li>{ScatterChartSubType.diamond}</li>
+        <li>{ScatterChartSubType.square}</li>
+        <li>{ScatterChartSubType.wye}</li>
       </>
     );
   }
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        chartType={CHART_TYPES.BUBBLE_CHART}
+        chartType={ChartType.bubbleChart}
         data={
           transformProps(({
             ...bubbleHorizontalLegendTop,
@@ -324,7 +330,7 @@ Bars.args = {
   ...commonProps,
   ...transformProps(({ ...barsHorizontalLegendTop } as unknown) as ChartProps),
   queriesData: barsHorizontalLegendTop.queriesData,
-  chartSubType: CHART_SUB_TYPES.DEFAULT,
+  chartSubType: BarChartSubType.default,
 };
 
 export const Norm = NormTemplate.bind({});
@@ -332,7 +338,7 @@ Norm.args = {
   ...commonProps,
   ...transformProps(({ ...normHorizontalLegendTop } as unknown) as ChartProps),
   queriesData: normHorizontalLegendTop.queriesData,
-  chartSubType: CHART_SUB_TYPES.DEFAULT,
+  chartSubType: NormChartSubType.default,
 };
 
 export const TimeSeries = TimeSeriesTemplate.bind({});
@@ -340,7 +346,7 @@ TimeSeries.args = {
   ...commonProps,
   ...transformProps((timeSeries as unknown) as ChartProps),
   queriesData: timeSeries.queriesData,
-  chartSubType: CHART_SUB_TYPES.STACKED,
+  chartSubType: BarChartSubType.stacked,
   xAxisTickLabelAngle: '0',
 };
 
@@ -349,8 +355,8 @@ Lines.args = {
   ...commonProps,
   ...transformProps(({ ...barsHorizontalLegendTop } as unknown) as ChartProps),
   queriesData: barsHorizontalLegendTop.queriesData,
-  chartSubType: CHART_SUB_TYPES.BASIS,
-  chartType: CHART_TYPES.LINE_CHART,
+  chartSubType: LineChartSubType.basis,
+  chartType: ChartType.lineChart,
   xAxisTickLabelAngle: '45',
 };
 
@@ -359,8 +365,8 @@ Area.args = {
   ...commonProps,
   ...transformProps(({ ...barsHorizontalLegendTop } as unknown) as ChartProps),
   queriesData: barsHorizontalLegendTop.queriesData,
-  chartType: CHART_TYPES.AREA_CHART,
-  chartSubType: CHART_SUB_TYPES.BASIS,
+  chartType: ChartType.areaChart,
+  chartSubType: LineChartSubType.basis,
 };
 
 export const Scatter = ScatterTemplate.bind({});
@@ -368,8 +374,8 @@ Scatter.args = {
   ...commonProps,
   ...transformProps(({ ...barsHorizontalLegendTop } as unknown) as ChartProps),
   queriesData: barsHorizontalLegendTop.queriesData,
-  chartType: CHART_TYPES.SCATTER_CHART,
-  chartSubType: CHART_SUB_TYPES.CIRCLE,
+  chartType: ChartType.scatterChart,
+  chartSubType: ScatterChartSubType.circle,
 };
 
 export const Bubble = BubbleTemplate.bind({});
@@ -377,8 +383,8 @@ Bubble.args = {
   ...commonProps,
   ...transformProps(({ ...bubbleHorizontalLegendTop } as unknown) as ChartProps),
   queriesData: bubbleHorizontalLegendTop.queriesData,
-  chartType: CHART_TYPES.BUBBLE_CHART,
-  chartSubType: CHART_SUB_TYPES.CIRCLE,
+  chartType: ChartType.bubbleChart,
+  chartSubType: ScatterChartSubType.circle,
 };
 
 export const AllTypes = AllTypesTemplate.bind({});

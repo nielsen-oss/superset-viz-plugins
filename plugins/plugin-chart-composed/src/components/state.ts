@@ -17,7 +17,6 @@
  * under the License.
  */
 import { useCallback, useMemo } from 'react';
-import { JsonObject } from '@superset-ui/core';
 import {
   checkIsMetricStacked,
   getMetricByChartType,
@@ -25,16 +24,13 @@ import {
   mergeBy,
   processBarChartOrder,
   processNumbers,
-} from './utils';
-import {
+  addBreakdownYColumnsAndGetBreakdownValues,
   addRechartsKeyAndGetXColumnValues,
   HIDDEN_DATA,
   NORM_SEPARATOR,
-  ResultData,
-  SortingType,
   Z_SEPARATOR,
-} from '../plugin/utils';
-import { CHART_TYPES, HiddenTickLabels, NormChart, NumbersFormat, YColumnsMeta } from './types';
+} from './utils';
+import { HiddenTickLabels, NormChart, NumbersFormat, YColumnsMeta, ResultData, SortingType, ChartType } from './types';
 
 export const useCurrentData = (
   data: ResultData[],
@@ -139,20 +135,21 @@ export const useZAxisRange = (currentData: ResultData[], bubbleSize = 1000) =>
   );
 
 type PreparationData = {
-  breakdowns: string[];
+  columns: string[];
   yColumns: string[];
   yColumnsMeta: YColumnsMeta;
   data: ResultData[];
   numbersFormat?: NumbersFormat;
   normChart?: NormChart;
   xColumns: string[];
-  chartType: keyof typeof CHART_TYPES;
+  chartType: ChartType;
+  zDimension?: string;
   hasTimeSeries?: boolean;
   hiddenTickLabels?: HiddenTickLabels;
 };
 
 export const useDataPreparation = ({
-  breakdowns,
+  columns,
   yColumns,
   yColumnsMeta,
   data,
@@ -162,9 +159,22 @@ export const useDataPreparation = ({
   hasTimeSeries,
   hiddenTickLabels,
   chartType,
+  zDimension,
 }: PreparationData) =>
   useMemo(() => {
-    let resultData = processNumbers(data, [...breakdowns, ...yColumns], numbersFormat?.type, numbersFormat?.digits);
+    const breakdowns: string[] = [];
+    let resultData = addBreakdownYColumnsAndGetBreakdownValues(
+      data,
+      yColumns,
+      columns,
+      breakdowns,
+      chartType,
+      zDimension,
+    );
+
+    // Unit data elements by groupBy values
+    resultData = mergeBy(resultData, 'rechartsDataKey');
+    resultData = processNumbers(resultData, [...breakdowns, ...yColumns], numbersFormat?.type, numbersFormat?.digits);
 
     if (normChart) {
       const xColumnValues: string[] = [];
@@ -172,12 +182,7 @@ export const useDataPreparation = ({
         addRechartsKeyAndGetXColumnValues(normChart?.data, xColumnValues, hasTimeSeries, xColumns, hiddenTickLabels),
         'rechartsDataKey',
       );
-      const foundMetric = getMetricByChartType(
-        CHART_TYPES.NORM_CHART as keyof typeof CHART_TYPES,
-        yColumns,
-        yColumnsMeta,
-        chartType,
-      )[0];
+      const foundMetric = getMetricByChartType(ChartType.normChart as ChartType, yColumns, yColumnsMeta, chartType)[0];
       resultData = resultData.map(item => {
         const secondQueryFound = secondQueryData.find(sqd => sqd.rechartsDataKey === item.rechartsDataKey);
         return {
@@ -203,8 +208,8 @@ export const useDataPreparation = ({
       data: resultData,
     };
   }, [
-    breakdowns,
     chartType,
+    columns,
     data,
     hasTimeSeries,
     hiddenTickLabels,
@@ -214,4 +219,5 @@ export const useDataPreparation = ({
     xColumns,
     yColumns,
     yColumnsMeta,
+    zDimension,
   ]);

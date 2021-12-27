@@ -18,33 +18,34 @@
  */
 import { ChartProps, JsonObject } from '@superset-ui/core';
 import { AxisInterval } from 'recharts';
-import { mergeBy } from '../components/utils';
 import {
-  CHART_SUB_TYPES,
-  CHART_TYPES,
+  ChartConfig,
   ColorSchemeByItem,
+  Data,
   Deepness,
   HiddenTickLabels,
   Layout,
+  ResultData,
+  SortingType,
+  StickyScatters,
   YColumnsMeta,
 } from '../components/types';
+import { addRechartsKeyAndGetXColumnValues, getXColumnValues } from '../components/utils';
 import { ComposedChartProps } from '../components/ComposedChart';
 import {
-  addBreakdownYColumnsAndGetBreakdownValues,
-  addRechartsKeyAndGetXColumnValues,
+  CHART_SUB_TYPES,
+  CHART_TYPES,
   checkTimeSeries,
-  Data,
+  enumsMapChartSubType,
+  enumsMapChartType,
+  enumsMapSticky,
   FormData,
   getChartSubType,
   getLabel,
-  getXColumnValues,
   has2Queries,
-  HIDDEN_DATA,
-  NORM_SEPARATOR,
   QueryMode,
-  ResultData,
-  SortingType,
   sortOrderedBars,
+  STICK_TYPES,
 } from './utils';
 
 export default function transformProps(chartProps: ChartProps) {
@@ -77,7 +78,7 @@ export default function transformProps(chartProps: ChartProps) {
     });
   });
 
-  let resultData: ResultData[] = addRechartsKeyAndGetXColumnValues(
+  const resultData: ResultData[] = addRechartsKeyAndGetXColumnValues(
     data,
     xColumnValues,
     hasTimeSeries,
@@ -91,12 +92,6 @@ export default function transformProps(chartProps: ChartProps) {
         (__timestamp2 as number) - (__timestamp1 as number),
     );
   }
-
-  const breakdowns: string[] = [];
-  resultData = addBreakdownYColumnsAndGetBreakdownValues(resultData, yColumns, formData, breakdowns);
-
-  // Unit data elements by groupBy values
-  resultData = mergeBy(resultData, 'rechartsDataKey');
 
   const secondQuery = has2Queries(rawFormData);
 
@@ -116,7 +111,7 @@ export default function transformProps(chartProps: ChartProps) {
   const colorSchemeByMetric: ColorSchemeByItem = {};
   const colorSchemeByBreakdown: ColorSchemeByItem = {};
   const hideLegendByMetric: boolean[] = [];
-  const stickyScatters: JsonObject = {};
+  const stickyScatters: { [key: string]: StickyScatters } = {};
 
   const metrics = formData.metrics.map(({ label }) => label);
   formData.coloredBreakdowns?.forEach((cb, i) => {
@@ -142,7 +137,7 @@ export default function transformProps(chartProps: ChartProps) {
           formData[`scatterChartSubTypeMetric${index}`] === CHART_SUB_TYPES.CIRCLE ||
           formData[`scatterChartSubTypeMetric${index}`] === CHART_SUB_TYPES.ARROW_DOWN)
       ) {
-        stickyScatters[metrics[index]] = formData[`stickToBars${index}`];
+        stickyScatters[metrics[index]] = enumsMapSticky[formData[`stickToBars${index}`] as keyof typeof STICK_TYPES];
       }
       chartTypeMetrics.push(formData[`chartTypeMetric${index}`] as keyof typeof CHART_TYPES);
       chartSubTypeMetrics.push(
@@ -208,25 +203,26 @@ export default function transformProps(chartProps: ChartProps) {
       ...acc,
       [cur]: {
         chartType: hasCustomTypeMetrics[index]
-          ? chartTypeMetrics[index]
-          : (formData.chartType as keyof typeof CHART_TYPES),
+          ? enumsMapChartType[chartTypeMetrics[index]]
+          : enumsMapChartType[formData.chartType],
         chartSubType: hasCustomTypeMetrics[index]
-          ? chartSubTypeMetrics[index]
-          : (formData.chartSubType as keyof typeof CHART_SUB_TYPES),
+          ? enumsMapChartSubType[chartSubTypeMetrics[index]]
+          : enumsMapChartSubType[formData.chartSubType as string],
         hideLegend: hideLegendByMetric[index],
-      },
+      } as ChartConfig,
     }),
     {} as YColumnsMeta,
   );
-
+  console.log(stickyScatters);
   const result: ComposedChartProps = {
-    breakdowns,
+    columns: formData.columns,
     width,
     height,
     hasTimeSeries,
     xColumns,
     layout: formData.layout,
-    chartType: formData.chartType,
+    chartType: enumsMapChartType[formData.chartType],
+    // @ts-ignore
     chartSubType,
     colorSchemes: {
       __DEFAULT_COLOR_SCHEME__: formData.colorScheme,
