@@ -125,7 +125,6 @@ const TimeSeriesTemplate = args => {
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        chartType={ChartType.barChart}
         data={
           transformProps(({
             ...timeSeries,
@@ -137,6 +136,8 @@ const TimeSeriesTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
+        chartType={ChartType.barChart}
+        yColumnsMeta={undefined}
         chartSubType={chartSubType}
       />
     </ThemeProvider>
@@ -166,7 +167,6 @@ const LinesTemplate = args => {
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        chartType={ChartType.lineChart}
         data={
           transformProps(({
             ...barsHorizontalLegendTop,
@@ -178,6 +178,8 @@ const LinesTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
+        chartType={ChartType.lineChart}
+        yColumnsMeta={undefined}
         chartSubType={chartSubType}
       />
     </ThemeProvider>
@@ -207,7 +209,6 @@ const AreaTemplate = args => {
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        chartType={ChartType.areaChart}
         data={
           transformProps(({
             ...barsHorizontalLegendTop,
@@ -219,6 +220,8 @@ const AreaTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
+        chartType={ChartType.areaChart}
+        yColumnsMeta={undefined}
         chartSubType={chartSubType}
       />
     </ThemeProvider>
@@ -250,7 +253,6 @@ const ScatterTemplate = args => {
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        chartType={ChartType.scatterChart}
         data={
           transformProps(({
             ...barsHorizontalLegendTop,
@@ -262,6 +264,8 @@ const ScatterTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
+        chartType={ChartType.scatterChart}
+        yColumnsMeta={undefined}
         chartSubType={chartSubType}
       />
     </ThemeProvider>
@@ -289,7 +293,6 @@ const BubbleTemplate = args => {
   return (
     <ThemeProvider theme={supersetTheme}>
       <ComposedChart
-        chartType={ChartType.bubbleChart}
         data={
           transformProps(({
             ...bubbleHorizontalLegendTop,
@@ -301,6 +304,8 @@ const BubbleTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
+        chartType={ChartType.bubbleChart}
+        yColumnsMeta={undefined}
         chartSubType={chartSubType}
       />
     </ThemeProvider>

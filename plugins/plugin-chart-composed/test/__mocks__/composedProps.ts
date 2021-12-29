@@ -896,8 +896,8 @@ const formDataWithMetricsAndBreakdownBars = {
 const formDataWithMetricsAndBreakdownStickyBars = {
   ...formDataWithAllChartTypes,
   legendPosition: 'top',
-  useCustomTypeMetric1: false,
   useCustomTypeMetric0: true,
+  useCustomTypeMetric1: false,
   chartTypeMetric0: 'SCATTER_CHART',
   scatterChartSubTypeMetric0: 'arrowUp',
   useCustomTypeMetric2: false,

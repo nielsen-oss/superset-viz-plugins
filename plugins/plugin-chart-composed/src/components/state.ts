@@ -200,8 +200,8 @@ export const useDataPreparation = ({
           yColumns.findIndex(yColumn => yColumn === getMetricFromBreakdown(b)),
       ),
       yColumns: [...yColumns].sort((a, b) =>
-        `${yColumnsMeta[a]?.chartType}${yColumnsMeta[a]?.chartSubType}` >
-        `${yColumnsMeta[b]?.chartType}${yColumnsMeta[b]?.chartSubType}`
+        `${yColumnsMeta?.[a]?.chartType}${yColumnsMeta?.[a]?.chartSubType}` >
+        `${yColumnsMeta?.[b]?.chartType}${yColumnsMeta?.[b]?.chartSubType}`
           ? 1
           : -1,
       ),

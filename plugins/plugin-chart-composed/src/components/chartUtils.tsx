@@ -140,7 +140,7 @@ export const getLegendProps = (
 ): LegendProps => {
   const resultBreakdowns = breakdowns.filter(breakdown => {
     const metric = getMetricFromBreakdown(breakdown);
-    const meta = yColumnsMeta[metric];
+    const meta = yColumnsMeta?.[metric];
     return (
       !meta?.hideLegend &&
       !getMetricByChartType(ChartType.normChart as ChartType, yColumns, yColumnsMeta, chartType).includes(metric)
@@ -149,7 +149,7 @@ export const getLegendProps = (
   const payload: LegendPayload[] = resultBreakdowns.map(breakdown => ({
     value: getMetricName(
       breakdown,
-      yColumns.length - Object.values(yColumnsMeta).filter(({ hideLegend }) => hideLegend).length,
+      yColumns.length - Object.values(yColumnsMeta ?? {}).filter(({ hideLegend }) => hideLegend).length,
     ),
     id: breakdown,
     type: disabledDataKeys.includes(breakdown) ? 'line' : 'square',
@@ -271,6 +271,7 @@ const getCustomScatterIcon = (
     // @ts-ignore
     icons[layout === Layout.vertical ? ICONS_VERTICAL_MAP[chartSubType] ?? chartSubType : chartSubType];
   return (props: Shape) => {
+    console.log(props);
     const stickData =
       // @ts-ignore
       barsUIPositionsRef.current[
@@ -346,7 +347,6 @@ export const getChartElement = (
   numbersFormat?: NumbersFormat | undefined,
 ): ChartsUIItem => {
   let commonProps: Partial<ChartsUIItem> & Pick<ChartsUIItem, 'Element'>;
-
   switch (chartType) {
     case ChartType.lineChart:
       commonProps = {
@@ -727,6 +727,7 @@ type ChartElementProps = {
   yAxisClientRect?: ClientRect;
   xColumns: string[];
   yColumns: string[];
+  initYColumns: string[];
   firstItem: string;
   handleChartClick?: (arg?: JsonObject) => void;
 } & ChartConfig;
@@ -759,19 +760,21 @@ export const renderChartElement = ({
   xAxisClientRect,
   yAxisClientRect,
   handleChartClick,
+  initYColumns,
 }: ChartElementProps) => {
   const metric = getMetricFromBreakdown(breakdown);
-  const yColumnMeta = yColumnsMeta[metric];
+  const yColumnMeta = yColumnsMeta?.[metric];
   const customChartType = yColumnMeta?.chartType ?? chartType;
   const customChartSubType = yColumnMeta?.chartSubType ?? chartSubType;
-
   const { Element, ...elementProps } = getChartElement(
     breakdown,
     customChartType,
     customChartSubType,
     resultColors[breakdown],
     customChartType === ChartType.barChart &&
-      Object.entries(yColumnsMeta).some(([key, { chartType }]) => chartType !== ChartType.barChart && key !== metric),
+      Object.entries(yColumnsMeta ?? {}).some(
+        ([key, { chartType }]) => chartType !== ChartType.barChart && key !== metric,
+      ),
     index,
     barsUIPositionsRef,
     layout,
@@ -836,7 +839,7 @@ export const renderChartElement = ({
     <Element
       key={`${breakdown}${updater}`}
       isAnimationActive={isAnimationActive}
-      yAxisId={y2Axis && getMetricFromBreakdown(breakdown) === yColumns[yColumns.length - 1] ? 'right' : 'left'}
+      yAxisId={y2Axis && getMetricFromBreakdown(breakdown) === initYColumns[initYColumns.length - 1] ? 'right' : 'left'}
       dataKey={dataKey}
       {...elementProps}
     >

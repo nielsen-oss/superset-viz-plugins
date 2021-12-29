@@ -69,7 +69,7 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
 export const isStackedBar = ({ chartType, chartSubType }: YColumnsMetaData) =>
   chartType === ChartType.barChart && chartSubType === BarChartSubType.stacked;
 
-export const getMetricFromBreakdown = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR)[0] ?? '';
+export const getMetricFromBreakdown = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR)[0];
 
 export const checkIsBreakdownInMetricsList = (breakdown: string, excludedMetricsForStackedBars: string[] = []) =>
   excludedMetricsForStackedBars.includes(getMetricFromBreakdown(breakdown));
@@ -82,6 +82,7 @@ export const checkIsMetricStacked = (
 ) =>
   (isMainChartStacked && !checkIsBreakdownInMetricsList(breakdown, excludedMetricsForStackedBars)) ||
   (!isMainChartStacked && checkIsBreakdownInMetricsList(breakdown, includedMetricsForStackedBars));
+
 export const getMetricName = (name: string, yColumns: string[], zDimension?: string) => {
   if (name?.startsWith(Z_SEPARATOR)) {
     return zDimension;
