@@ -48,6 +48,7 @@ const SortedBarsTemplate = args => {
       </>
     );
   }
+
   return (
     <ThemeProvider theme={supersetTheme}>
       <div>
