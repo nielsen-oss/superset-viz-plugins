@@ -21,8 +21,9 @@ import { ChartProps, supersetTheme, ThemeProvider } from '@superset-ui/core';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
 import { BarChartSubType, ChartType } from '../../plugins/plugin-chart-composed/src/components/types';
 import transformProps from '../../plugins/plugin-chart-composed/src/plugin/transformProps';
+import { Sorting } from '../../plugins/plugin-chart-composed/src/plugin/utils';
 import { barsHorizontalSorted } from '../../plugins/plugin-chart-composed/test/__mocks__/composedProps';
-import { applyCommonLogic, commonConfig, Sorting } from './utils';
+import { applyCommonLogic, commonConfig } from './utils';
 
 const commonProps = {
   xAxisTickLabelAngle: '45',
