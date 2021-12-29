@@ -18,8 +18,7 @@
  */
 import { QueryFormData, t } from '@superset-ui/core';
 import { ControlConfig, SelectControlConfig } from '@superset-ui/chart-controls/lib/types';
-import { MAX_FORM_CONTROLS, QueryMode, SortingTypeNames } from '../utils';
-import { SortingType } from '../../components/types';
+import { MAX_FORM_CONTROLS, QueryMode, SortingTypeNames, Sorting as SortingType } from '../utils';
 
 type Sorting = [
   { name: string; config: ControlConfig<'CheckboxControl'> },
