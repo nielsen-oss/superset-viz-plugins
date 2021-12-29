@@ -241,7 +241,7 @@ Object {
       "onClick": [Function],
       "opacity": 0.6,
       "stackId": "COUNT_DISTINCT(efficiency)_$_Custom",
-      "yAxisId": "left",
+      "yAxisId": "right",
     },
     Object {},
   ],
@@ -999,7 +999,7 @@ Object {
             }
             opacity={1}
             shape={[Function]}
-            yAxisId="right"
+            yAxisId="left"
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(due_to_group)_$_Custom"
@@ -1113,7 +1113,7 @@ Object {
             }
             opacity={1}
             shape={[Function]}
-            yAxisId="right"
+            yAxisId="left"
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(efficiency)_$_Standard"
@@ -1228,7 +1228,7 @@ Object {
             onClick={[Function]}
             opacity={0.6}
             stackId="COUNT_DISTINCT(efficiency)_$_Standard"
-            yAxisId="left"
+            yAxisId="right"
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(efficiency)_$_Custom"
@@ -1343,7 +1343,7 @@ Object {
             onClick={[Function]}
             opacity={0.6}
             stackId="COUNT_DISTINCT(efficiency)_$_Custom"
-            yAxisId="left"
+            yAxisId="right"
           />,
         ],
       ],
@@ -1744,7 +1744,7 @@ Object {
       },
       "opacity": 1,
       "shape": [Function],
-      "yAxisId": "right",
+      "yAxisId": "left",
     },
     Object {},
   ],
@@ -1908,7 +1908,7 @@ Object {
       "onClick": [Function],
       "opacity": 1,
       "stackId": "COUNT_DISTINCT(group_name)",
-      "yAxisId": "left",
+      "yAxisId": "right",
     },
     Object {},
   ],
@@ -2112,7 +2112,7 @@ Object {
             onClick={[Function]}
             opacity={1}
             stackId="COUNT_DISTINCT(period)"
-            yAxisId="right"
+            yAxisId="left"
           />,
           <mockConstructor
             dataKey="COUNT_DISTINCT(group_name)"
@@ -2183,7 +2183,7 @@ Object {
             onClick={[Function]}
             opacity={1}
             stackId="COUNT_DISTINCT(group_name)"
-            yAxisId="left"
+            yAxisId="right"
           />,
         ],
       ],
