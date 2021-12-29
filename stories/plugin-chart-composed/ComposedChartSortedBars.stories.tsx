@@ -19,10 +19,10 @@
 import React from 'react';
 import { ChartProps, supersetTheme, ThemeProvider } from '@superset-ui/core';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
-import { BarChartSubType, ChartType, SortingType } from '../../plugins/plugin-chart-composed/src/components/types';
+import { BarChartSubType, ChartType } from '../../plugins/plugin-chart-composed/src/components/types';
 import transformProps from '../../plugins/plugin-chart-composed/src/plugin/transformProps';
 import { barsHorizontalSorted } from '../../plugins/plugin-chart-composed/test/__mocks__/composedProps';
-import { applyCommonLogic, commonConfig } from './utils';
+import { applyCommonLogic, commonConfig, Sorting } from './utils';
 
 const commonProps = {
   xAxisTickLabelAngle: '45',
@@ -54,7 +54,7 @@ const SortedBarsTemplate = args => {
         <ComposedChart
           {...applyCommonLogic(args)}
           barChart={{
-            yColumnSortingType: SortingType.ASC,
+            yColumnSortingType: Sorting.ASC,
           }}
           chartType={ChartType.barChart}
           chartSubType={BarChartSubType.stacked}
@@ -63,7 +63,7 @@ const SortedBarsTemplate = args => {
               ...barsHorizontalSorted,
               formData: {
                 ...barsHorizontalSorted.formData,
-                orderByTypeMetric0: SortingType.ASC,
+                orderByTypeMetric0: Sorting.ASC,
               },
               queriesData: args.queriesData,
             } as unknown) as ChartProps).data
@@ -75,14 +75,14 @@ const SortedBarsTemplate = args => {
           chartType={ChartType.barChart}
           chartSubType={BarChartSubType.stacked}
           barChart={{
-            yColumnSortingType: SortingType.DESC,
+            yColumnSortingType: Sorting.DESC,
           }}
           data={
             transformProps(({
               ...barsHorizontalSorted,
               formData: {
                 ...barsHorizontalSorted.formData,
-                orderByTypeMetric0: SortingType.DESC,
+                orderByTypeMetric0: Sorting.DESC,
               },
               queriesData: args.queriesData,
             } as unknown) as ChartProps).data
