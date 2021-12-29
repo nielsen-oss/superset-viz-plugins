@@ -41,11 +41,11 @@ Object {
         },
         "label": "SUM(spend)",
       },
-      false,
+      true,
     ],
     Array [
       "timeperiod",
-      false,
+      true,
     ],
   ],
   "row_limit": undefined,
@@ -92,7 +92,7 @@ Object {
     ],
     Array [
       "timeperiod",
-      false,
+      true,
     ],
   ],
   "row_limit": undefined,
