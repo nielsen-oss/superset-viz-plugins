@@ -271,7 +271,6 @@ const getCustomScatterIcon = (
     // @ts-ignore
     icons[layout === Layout.vertical ? ICONS_VERTICAL_MAP[chartSubType] ?? chartSubType : chartSubType];
   return (props: Shape) => {
-    console.log(props);
     const stickData =
       // @ts-ignore
       barsUIPositionsRef.current[

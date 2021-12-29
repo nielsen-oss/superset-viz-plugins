@@ -164,7 +164,7 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     columnNames,
     barChart = {},
   } = props;
-  console.log(initData);
+
   const { breakdowns, yColumns, data } = useDataPreparation({
     columnNames,
     yColumns: initYColumns,
@@ -178,7 +178,6 @@ const ComposedChart: FC<ComposedChartProps> = props => {
     zDimension: bubbleChart.zDimension,
     chartType,
   });
-  console.log(data);
 
   let resultColors: JsonObject = {};
   breakdowns.forEach(b => {
