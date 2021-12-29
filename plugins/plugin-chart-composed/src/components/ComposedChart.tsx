@@ -32,7 +32,6 @@ import ComposedChartTooltip from './ComposedChartTooltip';
 import {
   LabelColors,
   ResultData,
-  SortingType,
   BubbleChart,
   ColorSchemes,
   Deepness,
@@ -49,6 +48,7 @@ import {
   ChartType,
   ChartConfig,
   YColumnsMetaData,
+  SortingType,
 } from './types';
 import { debounce, getResultColor, isStackedBar, Z_SEPARATOR } from './utils';
 import { getCartesianGridProps, getLegendProps, getXAxisProps, getYAxisProps, renderChartElement } from './chartUtils';

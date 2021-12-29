@@ -41,6 +41,11 @@ type Metric = {
   label: string;
 };
 
+export enum Sorting {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
 export const CHART_TYPES = {
   BAR_CHART: 'BAR_CHART',
   LINE_CHART: 'LINE_CHART',
@@ -175,7 +180,7 @@ export const enumsMapChartType = {
   [CHART_TYPES.LINE_CHART]: ChartType.lineChart,
   [CHART_TYPES.BUBBLE_CHART]: ChartType.bubbleChart,
   [CHART_TYPES.SCATTER_CHART]: ChartType.scatterChart,
-  [CHART_TYPES.LINE_CHART]: ChartType.lineChart,
+  [CHART_TYPES.NORM_CHART]: ChartType.normChart,
 };
 
 export const enumsMapChartSubType = {
@@ -194,9 +199,14 @@ export const enumsMapChartSubType = {
   [CHART_SUB_TYPES.STACKED]: BarChartSubType.stacked,
 };
 
+export const enumSorting = {
+  [Sorting.ASC]: SortingType.asc,
+  [Sorting.DESC]: SortingType.desc,
+};
+
 export const SortingTypeNames = {
-  [SortingType.ASC]: t('Ascending'),
-  [SortingType.DESC]: t('Descending'),
+  [Sorting.ASC]: t('Ascending'),
+  [Sorting.DESC]: t('Descending'),
 };
 
 export const getChartSubType = (
@@ -242,8 +252,8 @@ export const sortOrderedBars = (
           continue;
         }
         const sign = formData[`orderByType${prefix}${i}`];
-        return ((a[yColumnValues[i]] ?? '') > (b[yColumnValues[i]] ?? '') && sign === SortingType.ASC) ||
-          ((a[yColumnValues[i]] ?? '') < (b[yColumnValues[i]] ?? '') && sign === SortingType.DESC)
+        return ((a[yColumnValues[i]] ?? '') > (b[yColumnValues[i]] ?? '') && sign === Sorting.ASC) ||
+          ((a[yColumnValues[i]] ?? '') < (b[yColumnValues[i]] ?? '') && sign === Sorting.DESC)
           ? 1
           : -1;
       }

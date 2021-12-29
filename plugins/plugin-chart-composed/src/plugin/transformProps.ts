@@ -39,6 +39,7 @@ import {
   enumsMapChartSubType,
   enumsMapChartType,
   enumsMapSticky,
+  enumSorting,
   FormData,
   getChartSubType,
   getLabel,
@@ -237,13 +238,13 @@ export default function transformProps(chartProps: ChartProps) {
     xAxis: {
       interval: formData.xAxisInterval as AxisInterval,
       label: getLabel(formData, formData.xAxisLabel),
-      tickLabelAngle: -Number(formData.xAxisTickLabelAngle),
+      tickLabelAngle: -Number(formData.xAxisTickLabelAngle ?? 0),
       hiddenTickLabels,
     },
     yAxis: {
       labelAngle: -Number(formData.yAxisLabelAngle ?? 0),
       label: getLabel(formData, formData.yAxisLabel),
-      tickLabelAngle: -Number(formData.yAxisTickLabelAngle),
+      tickLabelAngle: -Number(formData.yAxisTickLabelAngle ?? 0),
     },
     bubbleChart: {
       size: Number(formData.bubbleSize ?? 1000),
@@ -251,7 +252,7 @@ export default function transformProps(chartProps: ChartProps) {
     },
     barChart: {
       stickyScatters,
-      minBarWidth: Number(formData.minBarWidth),
+      minBarWidth: typeof formData.minBarWidth === undefined ? undefined : Number(formData.minBarWidth),
       hasTotals: formData.showTotals,
     },
     data: resultData,
@@ -269,7 +270,8 @@ export default function transformProps(chartProps: ChartProps) {
   }
 
   if (hasOrderedBars) {
-    result.barChart!.yColumnSortingType = orderByYColumn as SortingType;
+    // @ts-ignore
+    result.barChart!.yColumnSortingType = enumSorting[orderByYColumn] as SortingType;
   }
 
   if (queriesData[1]?.data) {

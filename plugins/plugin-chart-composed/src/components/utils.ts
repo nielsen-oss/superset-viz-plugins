@@ -202,7 +202,7 @@ export const processBarChartOrder = (
         includedMetricsForStackedBars,
       );
       // Sorting bars according order
-      const sortSign = yColumnSortingType === SortingType.ASC ? 1 : -1;
+      const sortSign = yColumnSortingType === SortingType.asc ? 1 : -1;
       tempSortedArray.sort((a, b) => sortSign * (a?.value - b?.value));
       return fillBarsDataByOrder(
         breakdowns,

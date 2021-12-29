@@ -133,8 +133,8 @@ export type YColumnsMetaData = {
 } & ChartConfig;
 
 export enum SortingType {
-  ASC = 'ASC',
-  DESC = 'DESC',
+  asc = 'asc',
+  desc = 'desc',
 }
 
 export type ResultData = {
