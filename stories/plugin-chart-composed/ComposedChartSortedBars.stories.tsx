@@ -19,9 +19,8 @@
 import React from 'react';
 import { ChartProps, supersetTheme, ThemeProvider } from '@superset-ui/core';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
-import { BarChartSubType, ChartType } from '../../plugins/plugin-chart-composed/src/components/types';
+import { BarChartSubType, ChartType, SortingType } from '../../plugins/plugin-chart-composed/src/components/types';
 import transformProps from '../../plugins/plugin-chart-composed/src/plugin/transformProps';
-import { Sorting } from '../../plugins/plugin-chart-composed/src/plugin/utils';
 import { barsHorizontalSorted } from '../../plugins/plugin-chart-composed/test/__mocks__/composedProps';
 import { applyCommonLogic, commonConfig } from './utils';
 
@@ -49,14 +48,13 @@ const SortedBarsTemplate = args => {
       </>
     );
   }
-
   return (
     <ThemeProvider theme={supersetTheme}>
       <div>
         <ComposedChart
           {...applyCommonLogic(args)}
           barChart={{
-            yColumnSortingType: Sorting.ASC,
+            yColumnSortingType: SortingType.ASC,
           }}
           chartType={ChartType.barChart}
           chartSubType={BarChartSubType.stacked}
@@ -65,7 +63,7 @@ const SortedBarsTemplate = args => {
               ...barsHorizontalSorted,
               formData: {
                 ...barsHorizontalSorted.formData,
-                orderByTypeMetric0: Sorting.ASC,
+                orderByTypeMetric0: SortingType.asc,
               },
               queriesData: args.queriesData,
             } as unknown) as ChartProps).data
@@ -77,14 +75,14 @@ const SortedBarsTemplate = args => {
           chartType={ChartType.barChart}
           chartSubType={BarChartSubType.stacked}
           barChart={{
-            yColumnSortingType: Sorting.DESC,
+            yColumnSortingType: SortingType.desc,
           }}
           data={
             transformProps(({
               ...barsHorizontalSorted,
               formData: {
                 ...barsHorizontalSorted.formData,
-                orderByTypeMetric0: Sorting.DESC,
+                orderByTypeMetric0: SortingType.desc,
               },
               queriesData: args.queriesData,
             } as unknown) as ChartProps).data
