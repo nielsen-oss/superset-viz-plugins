@@ -18,9 +18,8 @@
  */
 import React from 'react';
 import { ChartProps, supersetTheme, ThemeProvider } from '@superset-ui/core';
-import { SortingType } from '../../plugins/plugin-chart-composed/src/plugin/utils';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
-import { CHART_SUB_TYPES, CHART_TYPES } from '../../plugins/plugin-chart-composed/src/components/types';
+import { BarChartSubType, ChartType, SortingType } from '../../plugins/plugin-chart-composed/src/components/types';
 import transformProps from '../../plugins/plugin-chart-composed/src/plugin/transformProps';
 import { barsHorizontalSorted } from '../../plugins/plugin-chart-composed/test/__mocks__/composedProps';
 import { applyCommonLogic, commonConfig } from './utils';
@@ -40,12 +39,12 @@ export default {
 };
 
 const SortedBarsTemplate = args => {
-  if (args.chartSubType !== CHART_SUB_TYPES.DEFAULT && args.chartSubType !== CHART_SUB_TYPES.STACKED) {
+  if (args.chartSubType !== BarChartSubType.default && args.chartSubType !== BarChartSubType.stacked) {
     return (
       <>
         {`SubType "${args.chartSubType}" is not applied for Bars Chart, please change "chartSubType" property to:`}
-        <li>{CHART_SUB_TYPES.DEFAULT}</li>
-        <li>{CHART_SUB_TYPES.STACKED}</li>
+        <li>{BarChartSubType.default}</li>
+        <li>{BarChartSubType.stacked}</li>
       </>
     );
   }
@@ -54,37 +53,41 @@ const SortedBarsTemplate = args => {
       <div>
         <ComposedChart
           {...applyCommonLogic(args)}
-          barChart={{
-            yColumnSortingType: SortingType.ASC,
-          }}
-          chartType={CHART_TYPES.BAR_CHART}
           data={
             transformProps(({
               ...barsHorizontalSorted,
               formData: {
                 ...barsHorizontalSorted.formData,
-                orderByTypeMetric0: SortingType.ASC,
+                orderByTypeMetric0: SortingType.asc,
               },
               queriesData: args.queriesData,
             } as unknown) as ChartProps).data
           }
+          yColumnsMeta={undefined}
+          barChart={{
+            yColumnSortingType: SortingType.asc,
+          }}
+          chartType={ChartType.barChart}
+          chartSubType={BarChartSubType.stacked}
         />
         <ComposedChart
           {...applyCommonLogic(args)}
-          chartType={CHART_TYPES.BAR_CHART}
-          barChart={{
-            yColumnSortingType: SortingType.DESC,
-          }}
           data={
             transformProps(({
               ...barsHorizontalSorted,
               formData: {
                 ...barsHorizontalSorted.formData,
-                orderByTypeMetric0: SortingType.DESC,
+                orderByTypeMetric0: SortingType.desc,
               },
               queriesData: args.queriesData,
             } as unknown) as ChartProps).data
           }
+          chartType={ChartType.barChart}
+          chartSubType={BarChartSubType.stacked}
+          barChart={{
+            yColumnSortingType: SortingType.desc,
+          }}
+          yColumnsMeta={undefined}
         />
       </div>
     </ThemeProvider>
@@ -96,5 +99,5 @@ SortedBars.args = {
   ...transformProps(({ ...barsHorizontalSorted } as unknown) as ChartProps),
   ...commonProps,
   queriesData: barsHorizontalSorted.queriesData,
-  chartSubType: CHART_SUB_TYPES.STACKED,
+  chartSubType: BarChartSubType.stacked,
 };

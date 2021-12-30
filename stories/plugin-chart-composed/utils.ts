@@ -17,7 +17,12 @@
  * under the License.
  */
 import { D3_FORMAT_OPTIONS } from '@superset-ui/chart-controls';
-import { CHART_SUB_TYPES, Layout } from '../../plugins/plugin-chart-composed/src/components/types';
+import {
+  BarChartSubType,
+  Layout,
+  LineChartSubType,
+  ScatterChartSubType,
+} from '../../plugins/plugin-chart-composed/src/components/types';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
 
 export const applyCommonLogic = initArgs => {
@@ -119,7 +124,11 @@ export const commonConfig = {
     chartSubType: {
       control: {
         type: 'select',
-        options: Object.values(CHART_SUB_TYPES),
+        options: [
+          ...Object.values(BarChartSubType),
+          ...Object.values(ScatterChartSubType),
+          ...Object.values(LineChartSubType),
+        ],
       },
     },
     hasY2Axis: {

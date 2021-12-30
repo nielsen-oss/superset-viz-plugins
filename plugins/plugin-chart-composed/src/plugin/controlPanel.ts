@@ -27,7 +27,7 @@ import {
   sections,
   sharedControls,
 } from '@superset-ui/chart-controls';
-import { CHART_TYPES, CHART_TYPE_NAMES, CHART_SUB_TYPES } from '../components/types';
+import { CHART_TYPES, CHART_TYPE_NAMES, CHART_SUB_TYPES, getQueryMode, isAggMode, isRawMode, QueryMode } from './utils';
 import {
   useSecondYAxis,
   xAxisInterval,
@@ -51,7 +51,7 @@ import {
 import { chartTypeMetrics } from './configs/chartTypeMetrics';
 import { orderByColumns, orderByGroupBy, orderByMetric } from './configs/orderBy';
 import { categoryFormatting } from './configs/categoryFormatting';
-import { getQueryMode, isAggMode, isRawMode, QueryMode } from './utils';
+
 import { hideLegendByMetric, legendPosition, showLegend } from './configs/legend';
 import { colorSchemeByBreakdown, colorSchemeByMetric } from './configs/colorScheme';
 

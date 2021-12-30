@@ -17,9 +17,41 @@
  * under the License.
  */
 import { CategoricalColorNamespace, JsonObject } from '@superset-ui/core';
-import { BREAKDOWN_SEPARATOR, ResultData, SortingType, Z_SEPARATOR } from '../plugin/utils';
-import { BarChartValue, CHART_SUB_TYPES, CHART_TYPES, ColorSchemes } from './types';
-import { YColumnsMeta } from './ComposedChart';
+import {
+  BarChartSubType,
+  BarChartValue,
+  ChartType,
+  ColorSchemes,
+  Data,
+  HiddenTickLabels,
+  ResultData,
+  SortingType,
+  YColumnsMeta,
+  YColumnsMetaData,
+} from './types';
+
+export const BREAKDOWN_SEPARATOR = '_$_';
+export const Z_SEPARATOR = '_Z$_';
+export const NORM_SEPARATOR = '_NORM$_';
+export const HIDDEN_DATA = '_HIDDEN_DATA_';
+
+export const getXColumnValues = (field: string, item: Record<string, string | number>, xColumnValues: string[]) => {
+  if (!xColumnValues.includes(field)) {
+    xColumnValues.push(field); // Small mutation in map, but better than one more iteration
+  }
+  return item[field];
+};
+
+export const getMetricByChartType = (
+  lookup: ChartType,
+  yColumns: string[],
+  yColumnsMeta?: YColumnsMeta,
+  chartType?: ChartType,
+) =>
+  yColumns.filter(
+    yColumn =>
+      yColumnsMeta?.[yColumn]?.chartType === lookup || (chartType === lookup && !yColumnsMeta?.[yColumn]?.chartType),
+  );
 
 export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[] {
   const result: ResultData[] = [];
@@ -34,10 +66,10 @@ export function mergeBy(arrayOfObjects: ResultData[], key: string): ResultData[]
   return result;
 }
 
-export const isStackedBar = (ct?: keyof typeof CHART_TYPES, cst?: keyof typeof CHART_SUB_TYPES) =>
-  ct === CHART_TYPES.BAR_CHART && cst === CHART_SUB_TYPES.STACKED;
+export const isStackedBar = ({ chartType, chartSubType }: YColumnsMetaData) =>
+  chartType === ChartType.barChart && chartSubType === BarChartSubType.stacked;
 
-export const getMetricFromBreakdown = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR)[0] ?? '';
+export const getMetricFromBreakdown = (breakdown = '') => breakdown?.split(BREAKDOWN_SEPARATOR)[0];
 
 export const checkIsBreakdownInMetricsList = (breakdown: string, excludedMetricsForStackedBars: string[] = []) =>
   excludedMetricsForStackedBars.includes(getMetricFromBreakdown(breakdown));
@@ -50,6 +82,7 @@ export const checkIsMetricStacked = (
 ) =>
   (isMainChartStacked && !checkIsBreakdownInMetricsList(breakdown, excludedMetricsForStackedBars)) ||
   (!isMainChartStacked && checkIsBreakdownInMetricsList(breakdown, includedMetricsForStackedBars));
+
 export const getMetricName = (name: string, yColumns: string[], zDimension?: string) => {
   if (name?.startsWith(Z_SEPARATOR)) {
     return zDimension;
@@ -169,7 +202,7 @@ export const processBarChartOrder = (
         includedMetricsForStackedBars,
       );
       // Sorting bars according order
-      const sortSign = yColumnSortingType === SortingType.ASC ? 1 : -1;
+      const sortSign = yColumnSortingType === SortingType.asc ? 1 : -1;
       tempSortedArray.sort((a, b) => sortSign * (a?.value - b?.value));
       return fillBarsDataByOrder(
         breakdowns,
@@ -217,8 +250,89 @@ export const getResultColor = (breakdown = '', colorSchemes: ColorSchemes, resul
   // eslint-disable-next-line no-underscore-dangle
   const calcColorScheme = resultColorScheme ?? colorSchemes.__DEFAULT_COLOR_SCHEME__;
   const colorFn = resultColors[`${calcColorScheme}`] ?? CategoricalColorNamespace.getScale(calcColorScheme);
+
   return {
     [`${calcColorScheme}`]: colorFn,
     [breakdown]: colorFn(`${breakdown}`),
   };
 };
+
+export const processNumbers = (
+  resultData: ResultData[],
+  breakdowns: string[],
+  numbersFormat?: string,
+  numbersFormatDigits?: number,
+) => {
+  if (numbersFormat === 'SMART_NUMBER' && !Number.isNaN(Number(numbersFormatDigits))) {
+    // eslint-disable-next-line no-param-reassign
+    return resultData.map(item => ({
+      ...item,
+      ...breakdowns.reduce((prevBreakdown, nextBreakdown) => {
+        if (item[nextBreakdown] === undefined) {
+          return prevBreakdown;
+        }
+        return {
+          ...prevBreakdown,
+          [nextBreakdown]: Number(
+            Number(item[nextBreakdown])
+              .toLocaleString('en-US', {
+                minimumFractionDigits: numbersFormatDigits,
+                maximumFractionDigits: numbersFormatDigits,
+              })
+              .replace(/,/g, ''),
+          ),
+        };
+      }, {}),
+    }));
+  }
+  return resultData;
+};
+
+export const addRechartsKeyAndGetXColumnValues = (
+  data: Data[],
+  xColumnValues: string[],
+  hasTimeSeries?: boolean,
+  xColumns: string[] = [],
+  hiddenTickLabels?: HiddenTickLabels,
+) =>
+  data.map(item => {
+    const dataKey = xColumns.map(field => getXColumnValues(field, item, xColumnValues));
+    return {
+      ...item,
+      rechartsDataKey: dataKey.join(', '),
+      rechartsDataKeyUI: dataKey.filter(value => hasTimeSeries || !hiddenTickLabels?.[value]).join(', '),
+    };
+  });
+
+export const addBreakdownYColumnsAndGetBreakdownValues = (
+  resultData: ResultData[],
+  yColumns: string[],
+  columnNames: string[],
+  breakdowns: string[],
+  chartType: ChartType,
+  zDimension?: string,
+) =>
+  resultData.map(item => {
+    yColumns.forEach(metric => {
+      const breakdown = (columnNames || []).reduce(
+        (acc, column) => (item[column] ? `${acc}${BREAKDOWN_SEPARATOR}${item[column]}` : acc),
+        '',
+      );
+      // Build metric name by breakdown
+      const resultBreakdown = `${metric}${breakdown}`;
+      if (chartType === ChartType.bubbleChart) {
+        // eslint-disable-next-line no-param-reassign
+        item[`${resultBreakdown}${Z_SEPARATOR}`] = item[zDimension as string];
+      }
+      // mutation to save unnecessary loops
+      // eslint-disable-next-line no-param-reassign
+      item[resultBreakdown] = item[metric];
+      // build breakdown values array
+      if (!breakdowns.includes(resultBreakdown)) {
+        breakdowns.push(resultBreakdown);
+      }
+    });
+    return {
+      ...item,
+    };
+  });

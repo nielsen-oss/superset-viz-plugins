@@ -20,8 +20,8 @@ import React from 'react';
 import { ChartProps, styled, supersetTheme, ThemeProvider } from '@superset-ui/core';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
 import {
-  CHART_SUB_TYPES,
-  CHART_TYPES,
+  BarChartSubType,
+  ChartType,
   Layout,
   LegendPosition,
 } from '../../plugins/plugin-chart-composed/src/components/types';
@@ -55,12 +55,12 @@ const Container = styled.div`
 `;
 
 const TicksTemplate = args => {
-  if (args.chartSubType !== CHART_SUB_TYPES.DEFAULT && args.chartSubType !== CHART_SUB_TYPES.STACKED) {
+  if (args.chartSubType !== BarChartSubType.default && args.chartSubType !== BarChartSubType.stacked) {
     return (
       <>
         {`SubType "${args.chartSubType}" is not applied for Bars Chart, please change "chartSubType" property to:`}
-        <li>{CHART_SUB_TYPES.DEFAULT}</li>
-        <li>{CHART_SUB_TYPES.STACKED}</li>
+        <li>{BarChartSubType.default}</li>
+        <li>{BarChartSubType.stacked}</li>
       </>
     );
   }
@@ -68,7 +68,7 @@ const TicksTemplate = args => {
     <ThemeProvider theme={supersetTheme}>
       <Container>
         <ComposedChart
-          chartType={CHART_TYPES.BAR_CHART}
+          chartType={ChartType.barChart}
           data={
             transformProps(({
               ...barsHorizontalLegendTop,
@@ -94,7 +94,7 @@ const TicksTemplate = args => {
           }}
         />
         <ComposedChart
-          chartType={CHART_TYPES.BAR_CHART}
+          chartType={ChartType.barChart}
           data={
             transformProps(({
               ...barsHorizontalLegendTop,
@@ -112,7 +112,7 @@ const TicksTemplate = args => {
           y2Axis={{ ...args.y2Axis, tickLabelAngle: 0, label: 'Y2 Axis Label' }}
         />
         <ComposedChart
-          chartType={CHART_TYPES.BAR_CHART}
+          chartType={ChartType.barChart}
           data={
             transformProps(({
               ...barsHorizontalLegendTop,
@@ -139,7 +139,7 @@ const TicksTemplate = args => {
           }}
         />
         <ComposedChart
-          chartType={CHART_TYPES.BAR_CHART}
+          chartType={ChartType.barChart}
           data={
             transformProps(({
               ...barsHorizontalLegendTop,
@@ -156,7 +156,7 @@ const TicksTemplate = args => {
           yAxis={{ ...args.yAxis, tickLabelAngle: 0, label: 'Y Axis Label' }}
         />
         <ComposedChart
-          chartType={CHART_TYPES.BAR_CHART}
+          chartType={ChartType.barChart}
           data={
             transformProps(({
               ...barsHorizontalLegendTop,
@@ -173,7 +173,7 @@ const TicksTemplate = args => {
           yAxis={{ ...args.yAxis, tickLabelAngle: -45, label: 'Y Axis Label', labelAngle: -270 }}
         />
         <ComposedChart
-          chartType={CHART_TYPES.BAR_CHART}
+          chartType={ChartType.barChart}
           data={
             transformProps(({
               ...barsHorizontalLegendTop,
@@ -200,5 +200,5 @@ Ticks.args = {
   ...transformProps(({ ...barsHorizontalLegendTop } as unknown) as ChartProps),
   ...commonProps,
   queriesData: barsHorizontalLegendTop.queriesData,
-  chartSubType: CHART_SUB_TYPES.DEFAULT,
+  chartSubType: BarChartSubType.default,
 };

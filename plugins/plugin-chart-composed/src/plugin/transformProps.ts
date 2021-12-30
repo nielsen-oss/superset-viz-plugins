@@ -18,25 +18,35 @@
  */
 import { ChartProps, JsonObject } from '@superset-ui/core';
 import { AxisInterval } from 'recharts';
-import { getMetricFromBreakdown, mergeBy } from '../components/utils';
-import { CHART_SUB_TYPES, CHART_TYPES, ColorSchemeByItem, Deepness, Layout } from '../components/types';
-import { ComposedChartProps, YColumnsMeta } from '../components/ComposedChart';
 import {
-  addBreakdownYColumnsAndGetBreakdownValues,
-  addRechartsKeyAndGetXColumnValues,
-  checkTimeSeries,
+  ChartConfig,
+  ColorSchemeByItem,
   Data,
+  Deepness,
+  HiddenTickLabels,
+  Layout,
+  ResultData,
+  SortingType,
+  StickyScatters,
+  YColumnsMeta,
+} from '../components/types';
+import { addRechartsKeyAndGetXColumnValues, getXColumnValues } from '../components/utils';
+import { ComposedChartProps } from '../components/ComposedChart';
+import {
+  CHART_SUB_TYPES,
+  CHART_TYPES,
+  checkTimeSeries,
+  enumsMapChartSubType,
+  enumsMapChartType,
+  enumsMapSticky,
+  enumSorting,
   FormData,
   getChartSubType,
   getLabel,
   has2Queries,
-  HIDDEN_DATA,
-  NORM_SEPARATOR,
-  processNumbers,
   QueryMode,
-  ResultData,
-  SortingType,
   sortOrderedBars,
+  STICK_TYPES,
 } from './utils';
 
 export default function transformProps(chartProps: ChartProps) {
@@ -57,44 +67,34 @@ export default function transformProps(chartProps: ChartProps) {
   }
 
   const xColumnValues: string[] = [];
-  const isTimeSeries = checkTimeSeries(xColumns, formData.granularitySqla, formData.layout);
-  let resultData: ResultData[] = addRechartsKeyAndGetXColumnValues(
-    formData,
+  const hasTimeSeries = checkTimeSeries(xColumns, formData.granularitySqla, formData.layout);
+
+  const hiddenTickLabels: HiddenTickLabels = {};
+  data.forEach(item => {
+    const dataKey = xColumns.map(field => getXColumnValues(field, item, xColumnValues));
+    dataKey.forEach((value, index) => {
+      if (!hasTimeSeries && !formData[`useCategoryFormattingGroupBy${index}`]) {
+        hiddenTickLabels[value] = true;
+      }
+    });
+  });
+
+  const resultData: ResultData[] = addRechartsKeyAndGetXColumnValues(
     data,
     xColumnValues,
-    isTimeSeries,
+    hasTimeSeries,
     xColumns,
+    hiddenTickLabels,
   );
 
-  if (isTimeSeries) {
+  if (hasTimeSeries) {
     resultData.sort(
       ({ __timestamp: __timestamp2 }, { __timestamp: __timestamp1 }) =>
         (__timestamp2 as number) - (__timestamp1 as number),
     );
   }
 
-  const breakdowns: string[] = [];
-  resultData = addBreakdownYColumnsAndGetBreakdownValues(resultData, yColumns, formData, breakdowns);
-
-  // Unit data elements by groupBy values
-  resultData = mergeBy(resultData, 'rechartsDataKey');
-
   const secondQuery = has2Queries(rawFormData);
-  if (secondQuery) {
-    const secondQueryData = mergeBy(
-      addRechartsKeyAndGetXColumnValues(formData, queriesData[1]?.data, xColumnValues, isTimeSeries, xColumns),
-      'rechartsDataKey',
-    );
-    resultData = resultData.map(item => {
-      const secondQueryFound = secondQueryData.find(sqd => sqd.rechartsDataKey === item.rechartsDataKey);
-      return {
-        ...item,
-        [`${yColumns[secondQuery.metricOrder]}${NORM_SEPARATOR}`]:
-          secondQueryFound?.[yColumns[secondQuery.metricOrder]] ?? '-',
-        [yColumns[secondQuery.metricOrder]]: HIDDEN_DATA,
-      };
-    });
-  }
 
   const chartSubType = getChartSubType(
     formData.chartType,
@@ -112,7 +112,7 @@ export default function transformProps(chartProps: ChartProps) {
   const colorSchemeByMetric: ColorSchemeByItem = {};
   const colorSchemeByBreakdown: ColorSchemeByItem = {};
   const hideLegendByMetric: boolean[] = [];
-  const stickyScatters: JsonObject = {};
+  const stickyScatters: { [key: string]: StickyScatters } = {};
 
   const metrics = formData.metrics.map(({ label }) => label);
   formData.coloredBreakdowns?.forEach((cb, i) => {
@@ -138,7 +138,7 @@ export default function transformProps(chartProps: ChartProps) {
           formData[`scatterChartSubTypeMetric${index}`] === CHART_SUB_TYPES.CIRCLE ||
           formData[`scatterChartSubTypeMetric${index}`] === CHART_SUB_TYPES.ARROW_DOWN)
       ) {
-        stickyScatters[metrics[index]] = formData[`stickToBars${index}`];
+        stickyScatters[metrics[index]] = enumsMapSticky[formData[`stickToBars${index}`] as keyof typeof STICK_TYPES];
       }
       chartTypeMetrics.push(formData[`chartTypeMetric${index}`] as keyof typeof CHART_TYPES);
       chartSubTypeMetrics.push(
@@ -199,64 +199,52 @@ export default function transformProps(chartProps: ChartProps) {
     });
   };
 
-  resultData = processNumbers(
-    resultData,
-    [...breakdowns, ...yColumns],
-    formData.numbersFormat,
-    formData.numbersFormatDigits,
-  );
-
-  const yColumnsMeta = yColumns.reduce((acc, cur, index) => {
-    if (!hasCustomTypeMetrics[index]) {
-      return acc;
-    }
-    return {
+  const yColumnsMeta = yColumns.reduce(
+    (acc, cur, index) => ({
       ...acc,
       [cur]: {
-        chartType: chartTypeMetrics[index],
-        chartSubType: chartSubTypeMetrics[index],
+        chartType: hasCustomTypeMetrics[index]
+          ? enumsMapChartType[chartTypeMetrics[index]]
+          : enumsMapChartType[formData.chartType],
+        chartSubType: hasCustomTypeMetrics[index]
+          ? enumsMapChartSubType[chartSubTypeMetrics[index]]
+          : enumsMapChartSubType[formData.chartSubType as string],
         hideLegend: hideLegendByMetric[index],
-      },
-    };
-  }, {} as YColumnsMeta);
-
-  yColumns.sort((a, b) =>
-    `${yColumnsMeta[a]?.chartType}${yColumnsMeta[a]?.chartSubType}` >
-    `${yColumnsMeta[b]?.chartType}${yColumnsMeta[b]?.chartSubType}`
-      ? 1
-      : -1,
-  );
-  breakdowns.sort(
-    (a, b) =>
-      yColumns.findIndex(yColumn => yColumn === getMetricFromBreakdown(a)) -
-      yColumns.findIndex(yColumn => yColumn === getMetricFromBreakdown(b)),
+      } as ChartConfig,
+    }),
+    {} as YColumnsMeta,
   );
 
   const result: ComposedChartProps = {
-    breakdowns,
+    columnNames: formData.columns,
     width,
     height,
-    hasTimeSeries: isTimeSeries,
+    hasTimeSeries,
     xColumns,
     layout: formData.layout,
-    chartType: formData.chartType,
+    chartType: enumsMapChartType[formData.chartType],
+    // @ts-ignore
     chartSubType,
     colorSchemes: {
       __DEFAULT_COLOR_SCHEME__: formData.colorScheme,
       metric: colorSchemeByMetric,
       breakdown: colorSchemeByBreakdown,
     },
-    numbersFormat: formData.numbersFormat,
+    numbersFormat: {
+      type: formData.numbersFormat,
+      digits: formData.numbersFormatDigits !== undefined ? Number(formData.numbersFormatDigits) : undefined,
+    },
     labelsColor: formData.labelsColor,
     xAxis: {
       interval: formData.xAxisInterval as AxisInterval,
       label: getLabel(formData, formData.xAxisLabel),
-      tickLabelAngle: -Number(formData.xAxisTickLabelAngle),
+      tickLabelAngle: -Number(formData.xAxisTickLabelAngle ?? 0),
+      hiddenTickLabels,
     },
     yAxis: {
       labelAngle: -Number(formData.yAxisLabelAngle ?? 0),
       label: getLabel(formData, formData.yAxisLabel),
-      tickLabelAngle: -Number(formData.yAxisTickLabelAngle),
+      tickLabelAngle: -Number(formData.yAxisTickLabelAngle ?? 0),
     },
     bubbleChart: {
       size: Number(formData.bubbleSize ?? 1000),
@@ -264,7 +252,7 @@ export default function transformProps(chartProps: ChartProps) {
     },
     barChart: {
       stickyScatters,
-      minBarWidth: Number(formData.minBarWidth),
+      minBarWidth: typeof formData.minBarWidth === undefined ? undefined : Number(formData.minBarWidth),
       hasTotals: formData.showTotals,
     },
     data: resultData,
@@ -282,7 +270,14 @@ export default function transformProps(chartProps: ChartProps) {
   }
 
   if (hasOrderedBars) {
-    result.barChart!.yColumnSortingType = orderByYColumn as SortingType;
+    // @ts-ignore
+    result.barChart!.yColumnSortingType = enumSorting[orderByYColumn] as SortingType;
+  }
+
+  if (queriesData[1]?.data) {
+    result.normChart = {
+      data: queriesData[1]?.data,
+    };
   }
 
   if (

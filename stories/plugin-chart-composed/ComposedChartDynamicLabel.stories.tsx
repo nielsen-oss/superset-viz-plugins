@@ -18,8 +18,8 @@
  */
 import React from 'react';
 import { ChartProps, supersetTheme, ThemeProvider } from '@superset-ui/core';
+import { BarChartSubType, ChartType } from '@superset-viz-plugins/plugin-chart-composed/src/components/types';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
-import { CHART_SUB_TYPES, CHART_TYPES } from '../../plugins/plugin-chart-composed/src/components/types';
 import transformProps from '../../plugins/plugin-chart-composed/src/plugin/transformProps';
 import { barsHorizontalLegendTop } from '../../plugins/plugin-chart-composed/test/__mocks__/composedProps';
 import { applyCommonLogic, commonConfig } from './utils';
@@ -37,13 +37,13 @@ export default {
 };
 
 const DynamicLabelTemplate = args => {
-  const chartSubType = args.chartSubType ?? CHART_SUB_TYPES.DEFAULT;
-  if (chartSubType !== CHART_SUB_TYPES.DEFAULT && chartSubType !== CHART_SUB_TYPES.STACKED) {
+  const chartSubType = args.chartSubType ?? BarChartSubType.default;
+  if (chartSubType !== BarChartSubType.default && chartSubType !== BarChartSubType.stacked) {
     return (
       <>
         {`SubType "${args.chartSubType}" is not applied for Bars Chart, please change "chartSubType" property to:`}
-        <li>{CHART_SUB_TYPES.DEFAULT}</li>
-        <li>{CHART_SUB_TYPES.STACKED}</li>
+        <li>{BarChartSubType.default}</li>
+        <li>{BarChartSubType.stacked}</li>
       </>
     );
   }
@@ -61,7 +61,7 @@ const DynamicLabelTemplate = args => {
           } as unknown) as ChartProps).data
         }
         {...applyCommonLogic(args)}
-        chartType={CHART_TYPES.BAR_CHART}
+        chartType={ChartType.barChart}
         chartSubType={chartSubType}
       />
     </ThemeProvider>
@@ -74,7 +74,7 @@ DynamicLabels.args = {
   ...commonProps,
   ...tProp,
   queriesData: barsHorizontalLegendTop.queriesData,
-  chartSubType: CHART_SUB_TYPES.DEFAULT,
+  chartSubType: BarChartSubType.default,
   xAxisLabel: tProp.xAxis.label,
   yAxisLabel: tProp.yAxis.label,
 };

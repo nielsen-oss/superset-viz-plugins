@@ -18,8 +18,7 @@
  */
 import { buildQueryContext, JsonObject, QueryFormData } from '@superset-ui/core';
 import { BinaryOperator, SetOperator } from '@superset-ui/core/lib/query/types/Operator';
-import { checkTimeSeries, has2Queries, MAX_FORM_CONTROLS, QueryMode, SortingType } from './utils';
-import { CHART_TYPES } from '../components/types';
+import { CHART_TYPES, checkTimeSeries, has2Queries, MAX_FORM_CONTROLS, QueryMode, Sorting } from './utils';
 
 // Not correctly imported form node_modules, so add it here
 export type QueryFormExtraFilter = {
@@ -45,12 +44,12 @@ export default function buildQuery(formData: QueryFormData, options?: JsonObject
     for (let i = 0; i < MAX_FORM_CONTROLS; i++) {
       const yColumn = formData.query_mode === QueryMode.raw ? formData.y_column : (formData.metrics?.[i] as string);
       if (formData[`use_order_by_${prefixYColumn}_${i}`] && yColumn) {
-        orderby.push([yColumn, formData[`order_by_type_${prefixYColumn}_${i}`] === SortingType.ASC]);
+        orderby.push([yColumn, formData[`order_by_type_${prefixYColumn}_${i}`] === Sorting.ASC]);
       }
 
       const xColumn = formData.query_mode === QueryMode.raw ? formData.x_column : (formData.groupby?.[i] as string);
       if (formData[`use_order_by_${prefixXColumn}_${i}`] && xColumn) {
-        orderby.push([xColumn, formData[`order_by_type_${prefixXColumn}_${i}`] === SortingType.ASC]);
+        orderby.push([xColumn, formData[`order_by_type_${prefixXColumn}_${i}`] === Sorting.ASC]);
       }
     }
 

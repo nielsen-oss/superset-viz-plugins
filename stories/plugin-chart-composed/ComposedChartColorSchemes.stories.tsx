@@ -19,7 +19,7 @@
 import React from 'react';
 import { ChartProps, getCategoricalSchemeRegistry, supersetTheme, ThemeProvider } from '@superset-ui/core';
 import ComposedChart from '../../plugins/plugin-chart-composed/src/components/ComposedChart';
-import { CHART_SUB_TYPES, CHART_TYPES } from '../../plugins/plugin-chart-composed/src/components/types';
+import { BarChartSubType, ChartType } from '../../plugins/plugin-chart-composed/src/components/types';
 import transformProps from '../../plugins/plugin-chart-composed/src/plugin/transformProps';
 import { metricsAndBreakdownBars } from '../../plugins/plugin-chart-composed/test/__mocks__/composedProps';
 import { applyCommonLogic, commonConfig } from './utils';
@@ -55,12 +55,12 @@ export default {
 };
 
 const SortedBarsTemplate = args => {
-  if (args.chartSubType !== CHART_SUB_TYPES.DEFAULT && args.chartSubType !== CHART_SUB_TYPES.STACKED) {
+  if (args.chartSubType !== BarChartSubType.default && args.chartSubType !== BarChartSubType.stacked) {
     return (
       <>
         {`SubType "${args.chartSubType}" is not applied for Bars Chart, please change "chartSubType" property to:`}
-        <li>{CHART_SUB_TYPES.DEFAULT}</li>
-        <li>{CHART_SUB_TYPES.STACKED}</li>
+        <li>{BarChartSubType.default}</li>
+        <li>{BarChartSubType.stacked}</li>
       </>
     );
   }
@@ -72,7 +72,7 @@ const SortedBarsTemplate = args => {
             ...args,
             xAxisLabel: 'Original color scheme',
           })}
-          chartType={CHART_TYPES.BAR_CHART}
+          chartType={ChartType.barChart}
           data={
             transformProps(({
               ...metricsAndBreakdownBars,
@@ -88,7 +88,7 @@ const SortedBarsTemplate = args => {
             ...args,
             xAxisLabel: 'COUNT_DISTINCT(period) as Grey scheme and COUNT_DISTINCT(group_name) as Blue scheme',
           })}
-          chartType={CHART_TYPES.BAR_CHART}
+          chartType={ChartType.barChart}
           data={
             transformProps(({
               ...metricsAndBreakdownBars,
@@ -112,7 +112,7 @@ const SortedBarsTemplate = args => {
             ...args,
             xAxisLabel: 'Standard breakdown as Grey scheme',
           })}
-          chartType={CHART_TYPES.BAR_CHART}
+          chartType={ChartType.barChart}
           data={
             transformProps(({
               ...metricsAndBreakdownBars,
@@ -140,5 +140,5 @@ ColorSchemes.args = {
   ...transformProps(({ ...metricsAndBreakdownBars } as unknown) as ChartProps),
   ...commonProps,
   queriesData: metricsAndBreakdownBars.queriesData,
-  chartSubType: CHART_SUB_TYPES.DEFAULT,
+  chartSubType: BarChartSubType.default,
 };

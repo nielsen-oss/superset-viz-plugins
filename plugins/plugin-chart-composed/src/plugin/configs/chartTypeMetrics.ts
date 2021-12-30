@@ -24,8 +24,10 @@ import {
   CHART_TYPE_NAMES,
   CHART_TYPES,
   STICK_TYPES,
-} from '../../components/types';
-import { isQueryMode, MAX_FORM_CONTROLS, QueryMode } from '../utils';
+  isQueryMode,
+  MAX_FORM_CONTROLS,
+  QueryMode,
+} from '../utils';
 
 const chartTypeMetricsInit = [];
 for (let i = 0; i < MAX_FORM_CONTROLS; i++) {

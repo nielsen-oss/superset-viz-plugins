@@ -711,6 +711,8 @@ const normRawDataBarsHorizontalLegendTop = {
 };
 const normDataBarsHorizontalLegendTop = {
   ...formDataBarsHorizontalLegendTop,
+  chartType: 'NORM_CHART',
+  normChartSubType: 'default',
   useCustomTypeMetric0: true,
   chartTypeMetric0: 'BAR_CHART',
   barChartSubTypeMetric0: 'default',
@@ -894,8 +896,8 @@ const formDataWithMetricsAndBreakdownBars = {
 const formDataWithMetricsAndBreakdownStickyBars = {
   ...formDataWithAllChartTypes,
   legendPosition: 'top',
-  useCustomTypeMetric1: false,
   useCustomTypeMetric0: true,
+  useCustomTypeMetric1: false,
   chartTypeMetric0: 'SCATTER_CHART',
   scatterChartSubTypeMetric0: 'arrowUp',
   useCustomTypeMetric2: false,

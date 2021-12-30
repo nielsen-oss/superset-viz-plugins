@@ -17,7 +17,7 @@
  * under the License.
  */
 import { QueryFormData, t } from '@superset-ui/core';
-import { CHART_SUB_TYPE_NAMES, CHART_SUB_TYPES, CHART_TYPE_NAMES, CHART_TYPES } from '../../components/types';
+import { CHART_SUB_TYPE_NAMES, CHART_SUB_TYPES, CHART_TYPE_NAMES, CHART_TYPES } from '../utils';
 
 export const chartType = {
   name: 'chart_type',

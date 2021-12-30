@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 import { ScatterProps, Text } from 'recharts';
 import { getNumberFormatter, JsonObject } from '@superset-ui/core';
-import { NORM_SIZE, NORM_SPACE, Layout } from './types';
-import { getMetricFromBreakdown } from './utils';
-import { NORM_SEPARATOR } from '../plugin/utils';
+import { NORM_SIZE, NORM_SPACE, Layout, NumbersFormat } from './types';
+import { getMetricFromBreakdown, NORM_SEPARATOR } from './utils';
 
 type ComposedNormProp = Partial<ScatterProps> & {
-  numbersFormat: string;
+  numbersFormat?: NumbersFormat;
   breakdown: string;
   firstItem: string;
   xColumns: string[];
@@ -41,7 +40,7 @@ const ComposedNorm: FC<ComposedNormProp> = props => {
   const metric = `${getMetricFromBreakdown(breakdown)}${NORM_SEPARATOR}`;
   const metricName = metric.split(NORM_SEPARATOR)[0];
 
-  const formatter = getNumberFormatter(numbersFormat);
+  const formatter = getNumberFormatter(numbersFormat?.type);
   let sign = '';
   let fill = COLORS.zero;
   if ((props[metric] as number) > 0) {
