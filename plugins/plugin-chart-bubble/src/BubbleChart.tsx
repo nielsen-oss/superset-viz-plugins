@@ -242,7 +242,7 @@ const BubbleChart: FC<BubbleChartProps> = props => {
               xAxis={xAxis}
               yAxis={yAxis}
               zAxis={zAxis}
-              colorScheme={colorScheme}
+              colorFn={colorFn}
             />
           }
         />

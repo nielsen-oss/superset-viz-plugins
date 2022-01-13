@@ -42,7 +42,7 @@ type BubbleChartTooltipProps = TooltipProps & {
   xAxis: string;
   yAxis: string;
   zAxis: string;
-  colorScheme: string;
+  colorFn: Function;
 };
 
 const BubbleTooltip: FC<BubbleChartTooltipProps> = ({
@@ -54,13 +54,13 @@ const BubbleTooltip: FC<BubbleChartTooltipProps> = ({
   yAxis,
   zAxis,
   series,
-  colorScheme,
+  colorFn,
 }) => {
   if (active) {
     const firstPayload: Payload = payload?.[0]?.payload;
     const formatter = getNumberFormatter(numbersFormat);
     let name = firstPayload[entity];
-    const color = CategoricalColorNamespace.getScale(colorScheme)(firstPayload[series] as string);
+    const color = colorFn(firstPayload[series] as string);
 
     if (series) {
       name = `${name} (${firstPayload[series]})`;
