@@ -1,6 +1,6 @@
 {
   "name": "@superset-viz-plugins/plugin-chart-bubble",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Superset Chart - Bubble",
   "pluginName": "BubbleChartPlugin",
   "sideEffects": false,
