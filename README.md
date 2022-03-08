@@ -1,6 +1,10 @@
 # superset-viz-plugins
 ![release-workflow](https://github.com/nielsen-oss/superset-viz-plugins/workflows/release-workflow/badge.svg)
 
+## Deprecation notice - this repository and its plugins will no longer be maintained and will officially support the current version **1.4**
+Due to internal org requirements, we have moved this repository to our internal git provider.
+Thanks to everyone who supported this, we hope to share more superset work in the future.
+
 ### Guides
 If you're looking for the fastest way to develop your Apache Superset custom plugin you have found it, here are the guides that will help you achieve that :
 #### In short 
